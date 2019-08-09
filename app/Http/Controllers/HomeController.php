@@ -18,10 +18,10 @@ class HomeController extends Controller
 	*/ 
 	protected $news;
 
-	public function __construct(Article $article, News $news)
+	public function __construct()
 	{
-		$this->article = $article;
-		$this->news = $news;
+		$this->article = new Article();
+		$this->news = new News();
 	}
 
     /**
@@ -29,13 +29,15 @@ class HomeController extends Controller
     */
     public function showPage()
     {
-    	$news = $this->news->getFiveNews();
+    	//$news = $this->news->getThreeNews();
     	$articles = $this->article->getSixArticles();
+        $lastNews = $this->news->getLatestNews();
 
     	if (view()->exists('templates.home')) {
     		return view('templates.home')->with([
     			'articles' => $articles,
-    			'news' => $news
+                'lastNews' => $lastNews,
+                //'news' => $news
     		]);
     	}
 

@@ -21,10 +21,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav left-side-items">
-        <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
-        <li class="nav-item"><a href="/news.php" class="nav-link">Новости</a></li>
-        <li class="nav-item"><a href="/blog.php" class="nav-link">Блог</a></li>
-        <li class="nav-item"><a href="/discussions.php" class="nav-link">Обсуждения</a></li>
+        <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Главная</a></li>
+        <li class="nav-item"><a href="{{ route('news') }}" class="nav-link">Новости</a></li>
+        <li class="nav-item"><a href="{{ route('articles') }}" class="nav-link">Блог</a></li>
+        <li class="nav-item"><a href="{{ route('discussions') }}" class="nav-link">Обсуждения</a></li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item p-2">

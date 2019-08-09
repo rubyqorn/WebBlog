@@ -6,7 +6,7 @@
 
 @section('content')
 	
-<!-- Ask question button -->
+  <!-- Ask question button -->
   <div class="col-lg-12 col-md-12 col-12">
     <button class="btn btn-sm btn-outline-primary text-uppercase ml-4" data-toggle="modal" data-target="#ask">
       Задать вопрос

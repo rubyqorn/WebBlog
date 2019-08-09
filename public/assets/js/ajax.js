@@ -15,7 +15,8 @@ $(document).ready(function() {
         }, 1500);  
     });
 
-    // Pagination for news, discussions and blog pages with ajax
+/*
+    Pagination for news, discussions and blog pages with ajax
     $('#news #pagination .page-item').click(function(event) {
         event.preventDefault();
         let check = $('#news .records').load('news.php #news .records');
@@ -30,5 +31,6 @@ $(document).ready(function() {
         event.preventDefault();
         let check = $('#discussions .records').load('discussions.php #discussions .records');
     });
+*/
 
 });
