@@ -3,10 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\News;
 
 class NewsCategory extends Model
 {
+	protected $table = 'news_categories';
+
+	/**
+	* @return inverse relationships with App\News
+	*/ 
+	public function news()
+	{
+		return $this->belongsTo(News::class);
+	}
+
     /**
     * Get all categories from database
     *

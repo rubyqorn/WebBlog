@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
+	protected $table = 'news';
+
+	/**
+	* @return Relationships with App\NewsCategory
+	*/ 
+	public function categories()
+	{
+		return $this->hasMany(NewsCategory::class, 'category_id');
+	}
+
 	/**
 	* Select news with categories
 	*

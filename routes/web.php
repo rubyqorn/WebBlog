@@ -15,3 +15,4 @@ Route::get('/', 'HomeController@showPage')->name('home');
 Route::get('/news', 'NewsController@showPage')->name('news');
 Route::get('/articles', 'ArticlesController@showPage')->name('articles');
 Route::get('/discussions', 'DiscussionsController@showPage')->name('discussions');
+Route::get('/test', 'TestController@test');

@@ -8,6 +8,14 @@ class ArticleCategory extends Model
 {
     protected $table = 'articles_categories';
 
+    /**
+    * @return inverse relationships with App\Article
+    */ 
+    public function article()
+    {
+    	return $this->belongsTo(Article::class);
+    }
+
     public function getCategories()
     {
     	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();

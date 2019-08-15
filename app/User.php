@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+    * @return inverse relationships App\Role
+    */ 
+    public function roles()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }

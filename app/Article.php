@@ -7,6 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
 	/**
+	* @return Relationships with App\ArticleCategory
+	*/ 
+	public function categories()
+	{
+		return $this->hasMany(ArticleCategory::class, 'category_id');
+	}
+
+	/**
+	* @return Relationships with App\Comment
+	*/ 
+	public function comments()
+	{
+		return $this->hasMany(Comment::class);
+	}
+
+	/**
 	* @return six records with categories
 	*/ 
 	public function getSixArticles()
