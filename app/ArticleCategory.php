@@ -16,6 +16,11 @@ class ArticleCategory extends Model
     	return $this->belongsTo(Article::class);
     }
 
+    /**
+    * Select categories names from db table
+    *
+    * @return categories
+    */ 
     public function getCategories()
     {
     	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();

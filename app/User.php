@@ -44,4 +44,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+    * Set inverse relationship for App\Comment
+    *
+    * @return inverse relationship for comment model
+    */ 
+    public function comment()
+    {
+        return $this->belongsTo(Comment::class);
+    }
 }

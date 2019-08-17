@@ -15,4 +15,9 @@ class DiscussionCategory extends Model
     {
     	return $this->belongsTo(Discussion::class);
     } 
+
+    public function getCategories()
+    {
+    	return DiscussionCategory::all();
+    }
 }

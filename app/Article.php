@@ -43,4 +43,26 @@ class Article extends Model
 		return Article::join('articles_categories', 'articles.category_id', 'articles_categories.category_id')
 						->paginate(5);
 	}
+
+	/**
+	* Return record by id 
+	*
+	* @param id int|string
+	*
+	* @return record
+	*/ 
+	public function selectArticleById($id)
+	{
+		return Article::find($id);
+	}
+
+	/**
+	* Get five last articles for sidebar section
+	*
+	* @return five latest articles
+	*/ 
+	public function getLatestArticles()
+	{
+		return Article::orderBy('created_at', 'desc')->take(5)->get();
+	}
 }

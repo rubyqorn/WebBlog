@@ -64,6 +64,10 @@ body {
     width: 70%;
 }
 
+#article a.text-primary {
+    cursor: pointer;
+}
+
 #discussion #answer img {
     width: 45%;
 }

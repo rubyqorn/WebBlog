@@ -41,4 +41,28 @@ class NewsController extends Controller
         
         abort(404);
     }
+
+    /**
+    * Get single record by id from query string
+    *
+    * @param $id int|string
+    *
+    * @return single news 
+    */ 
+    public function newsById($id)
+    {
+        $newsContent = $this->news->selectNewsById($id);
+        $latestNews = $this->news->getLastNews();
+        $categories = $this->categories->getCategories();
+
+        if (view()->exists('templates.article')) {
+            return view('templates.article')->with([
+                'news' => $newsContent,
+                'categories' => $categories,
+                'latestNews' => $latestNews
+            ]);
+        }
+
+        abort(404);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\ArticleCategory;
+use App\Comment;
 
 class ArticlesController extends Controller
 {
@@ -18,10 +19,16 @@ class ArticlesController extends Controller
 	*/
 	private $categories;
 
+    /**
+    * @var object App\Comment
+    */ 
+    private $comment;
+
 	public function __construct()
 	{
 		$this->article = new Article();
 		$this->categories = new ArticleCategory();
+        $this->comment = new Comment();
 	}
 
     /**
@@ -41,4 +48,32 @@ class ArticlesController extends Controller
         
         abort(404);
     }
+
+    /**
+    * Return page with single article where contains
+    * main block with article content and 2 sidebars
+    * with latest articles and categories names
+    *
+    * @param $id int|string
+    * 
+    * @return page with single article
+    */ 
+    public function showSingleArticle($id)
+    {
+        $article = $this->article->selectArticleById($id);
+        $latestArticles = $this->article->getLatestArticles();
+        $comments = $this->comment->getComments($id);
+        $articlesCategories = $this->categories->getCategories();
+
+        if (view()->exists('templates.article')) {
+            return view('templates.article')->with([
+                'article' => $article,
+                'latestArticles' => $latestArticles,
+                'comments' => $comments,
+                'categories' => $articlesCategories,      
+            ]);
+        }
+
+        abort(404);
+    } 
 }

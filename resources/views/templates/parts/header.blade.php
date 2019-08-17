@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Montserrat|Nunito|Raleway&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-  <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
+  <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
   <title>@yield('title')</title>
 </head>
 <body class="bg-light-grey">

@@ -29,10 +29,16 @@ class DiscussionsController extends Controller
     */
     public function showPage()
     {
+    	$discussions = $this->discussion->getDiscussions();
+    	$categories = $this->categories->getCategories();
+
         if (view()->exists('templates.discussions')) {
-        	return view('templates.discussions');
+        	return view('templates.discussions')->with([
+        		'discussions' => $discussions,
+        		'categories' => $categories
+        	]);
         }
 
-        abort(404);
+        abort(404); 
     }
 }

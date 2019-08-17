@@ -17,12 +17,11 @@
 		              <img src="{{ $news->image }}" alt="" class="card-img-top">
 		              <div class="card-body bg-dark p-5">
 		                <div class="d-flex">
-		                  <i class="fas fa-tags text-white"></i>
-		                  <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $news->name }}</p>
-		                  <p class="text-light-green ml-3 miriam-font-family text-uppercase">{{ date('M d, Y', time()) }}</p>
+		                  <i class="far fa-clock text-white mt-1"></i>
+		                  <p class="text-light-green ml-2 miriam-font-family text-uppercase">{{ date('M d, Y', strtotime($news->created_at)) }}</p>
 		                </div>
 		                <h4 class="card-title font-weight-bold">
-		                  <a href="/" class="text-white miriam-font-family">{{ $news->title }}</a>
+		                  <a href="{{ route('singleNews', $news->id) }}" class="text-white miriam-font-family">{{ $news->title }}</a>
 		                </h4>
 		                
 		              </div>
@@ -34,18 +33,21 @@
 
 	        <div class="col-lg-5 col-sm-12 col-md-5 float-right mt-2 mb-4">
 
-				@foreach($news as $news)
+				@foreach($newsItems as $news)
 				
 		          <div class="col-lg-12 mt-2">
 		            <div class="shadow p-3 bg-light">
 		              <h4 class="miriam-font-family">
-		                <a href="/" class="text-light-green"></a>
+		                <a href="{{ route('singleNews', $news->id) }}" class="text-light-green">{{ $news->title }}</a>
 		              </h4>
 		              <p class="text-black-50">
-              			
+              			{{ $news->preview_text }}
 		              </p>
 		              <div class="d-flex">
-		                <span class="badge badge-pill badge-purple"></span>
+		              	<i class="fas fa-clock text-black-50 mt-1"></i>
+		              	<p class="miriam-font-family text-black-50 text-uppercase ml-2">
+		              		{{ date('M d, Y', strtotime($news->created_at)) }}
+		              	</p>
 		              </div>
 		            </div>
 		          </div>
@@ -73,7 +75,7 @@
 		            <img src="{{ $article->image }}" alt="" class="card-img-top">
 		            <div class="card-body bg-dark">
 		              <h5 class="card-title">
-		                <a href="/" class="miriam-font-family text-white">{{ $article->title }}</a>
+		                <a href="{{ route('article', $article->id) }}" class="miriam-font-family text-white">{{ $article->title }}</a>
 		              </h5>
 		              <div class="d-flex">
 		                <i class="fas fa-tags text-white"></i>

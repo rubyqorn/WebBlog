@@ -17,15 +17,13 @@ class News extends Model
 	}
 
 	/**
-	* Select news with categories
+	* Select three random news
 	*
-	* @return news with categories
+	* @return three random records
 	*/ 
-	public function getThreeNews()
+	public function getThreeRandomNews()
 	{
-		return $this->join('news_categories', 'news.category_id', 'news_categories.category_id')
-					->limit(3)
-					->get();
+		return News::inRandomOrder()->limit(3)->get();
 	}
 
 	/**
@@ -46,4 +44,27 @@ class News extends Model
 	{
 		return $this->latest()->limit(1)->get();
 	}
+
+	/**
+	* Get five latest news for sidebar section
+	*
+	* @return five latest records
+	*/ 
+	public function getLastNews()
+	{
+		return News::orderBy('created_at', 'desc')->take(5)->get();
+	}
+
+	/**
+	* Select from database news by id
+	*
+	* @param $id int|string
+	*
+	* @return record by id property
+	*/ 
+	public function selectNewsById($id)
+	{
+		return News::find($id);
+	}
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\News;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -29,15 +30,16 @@ class HomeController extends Controller
     */
     public function showPage()
     {
-    	//$news = $this->news->getThreeNews();
     	$articles = $this->article->getSixArticles();
         $lastNews = $this->news->getLatestNews();
+        $news = $this->news->getThreeRandomNews();
+
 
     	if (view()->exists('templates.home')) {
     		return view('templates.home')->with([
     			'articles' => $articles,
                 'lastNews' => $lastNews,
-                //'news' => $news
+                'newsItems' => $news
     		]);
     	}
 

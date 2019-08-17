@@ -6,12 +6,14 @@
 
 @section('content')
 	
-  <!-- Ask question button -->
-  <div class="col-lg-12 col-md-12 col-12">
-    <button class="btn btn-sm btn-outline-primary text-uppercase ml-4" data-toggle="modal" data-target="#ask">
-      Задать вопрос
-    </button>
-  </div>
+  @if(Auth::check())
+      <!-- Ask question button -->
+      <div class="col-lg-12 col-md-12 col-12">
+        <button class="btn btn-sm btn-outline-primary text-uppercase ml-4" data-toggle="modal" data-target="#ask">
+          Задать вопрос
+        </button>
+      </div>
+  @endif
 
   <!-- Modal window for ask question button -->
   <div class="modal fade" role="dialog" tabindex="-1" id="ask">
@@ -74,41 +76,21 @@
 
               <div class="records">
                 <tbody>
+
+                  @foreach($discussions as $discussion)
+
                   <tr>
                     <td>
-                      <a href="/discussion.php" class="nav-link text-light-green miriam-font-family">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsam ipsum repellendus nam ex est?</a>
-                      <span class="badge badge-pill badge-purple ml-3">HTML/CSS</span>
+                      <a href="/discussion.php" class="nav-link text-light-green miriam-font-family">
+                        {{ $discussion->title }}
+                      </a>
+                      <span class="badge badge-pill badge-purple ml-3">{{ $discussion->name }}</span>
                     </td>
                     <td>10</td>
                   </tr>
-                  <tr>
-                    <td>
-                      <a href="/" class="nav-link text-light-green miriam-font-family">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsam ipsum repellendus nam ex est?</a>
-                      <span class="badge badge-pill badge-purple ml-3">Bootstrap</span>
-                    </td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="/" class="nav-link text-light-green miriam-font-family">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsam ipsum repellendus nam ex est?</a>
-                      <span class="badge badge-pill badge-purple ml-3">JavaScript</span>
-                    </td>
-                    <td>4</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="/" class="nav-link text-light-green miriam-font-family">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsam ipsum repellendus nam ex est?</a>
-                      <span class="badge badge-pill badge-purple ml-3">PHP</span>
-                    </td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="/" class="nav-link text-light-green miriam-font-family">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic ipsam ipsum repellendus nam ex est?</a>
-                      <span class="badge badge-pill badge-purple ml-3">Git</span>
-                    </td>
-                    <td>3</td>
-                  </tr>
+
+                  @endforeach
+
                 </tbody>
               </div>
             
@@ -116,18 +98,22 @@
 
         </div>
 		
-		<!-- Discussions categories -->
+		    <!-- Discussions categories -->
         <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
           <div class="card">
             <div class="card-header">
               <h4 class="text-black-50">Категории вопросов</h4>
             </div>
             <div class="card-body">
-              <a href="/" class="nav-link text-light-green">Git</a>
-              <a href="/" class="nav-link text-light-green">PHP</a>
-              <a href="/" class="nav-link text-light-green">JavaScript</a>
-              <a href="/" class="nav-link text-light-green">PHP</a>
-              <a href="/" class="nav-link text-light-green">Patterns</a>
+
+              @foreach($categories as $category)
+
+                <a href="/" class="nav-link text-light-green">
+                    {{ $category->name }}
+                </a>
+
+              @endforeach
+
             </div>
           </div>
         </div>
@@ -135,10 +121,7 @@
 		<!-- Pagination for discussions -->
         <div class="col-lg-12 col-md-12 col-sm-12 mt-4" id="pagination">
           <ul class="pagination">
-            <li class="page-item active"><a href="/" class="page-link">1</a></li>
-            <li class="page-item"><a href="/" class="page-link">2</a></li>
-            <li class="page-item"><a href="/" class="page-link">3</a></li>
-            <li class="page-item"><a href="/" class="page-link">4</a></li>
+            {{ $discussions->links() }}
           </ul>
         </div>
 
