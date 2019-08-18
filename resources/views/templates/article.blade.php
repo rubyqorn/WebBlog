@@ -124,7 +124,7 @@
                             <!-- Comments -->
                             <div class="comments mt-4">
                                 
-                                @foreach($comments as $comment)
+                                @forelse($comments as $comment)
 
                                     <div class="d-flex comment mt-3">
                                         <div class="user-info col-lg-4">
@@ -138,7 +138,15 @@
                                         </div>
                                     </div>
 
-                                @endforeach
+                                @empty
+                                
+                                    <div class="mt-3">
+                                        <h4 class="montserrat-font-family font-weight-bold text-black-50 text-center">
+                                            Нет комментариев
+                                        </h4>
+                                    </div>
+
+                                @endforelse
 
                                 
                             </div>
@@ -189,7 +197,7 @@
 
                             @foreach($latestNews as $news)
 
-                                <a href="/" class="nav-link text-light-green">
+                                <a href="{{ route('singleNews', $news->id) }}" class="nav-link text-light-green">
                                     {{ $news->title }}
                                 </a>
                                 <hr>

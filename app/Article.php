@@ -53,7 +53,7 @@ class Article extends Model
 	*/ 
 	public function selectArticleById($id)
 	{
-		return Article::find($id);
+		return Article::findOrFail($id);
 	}
 
 	/**

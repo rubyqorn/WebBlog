@@ -47,10 +47,12 @@
                           <div class="d-flex">
                               <i class="fas fa-tags text-white"></i>
                               <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $article->name }}</p>
-                              <p class="text-light-green ml-3 miriam-font-family">{{ $article->created_at }}</p>
+                              <p class="text-light-green ml-3 miriam-font-family text-uppercase">
+                                {{ date('M d, Y', strtotime($article->created_at)) }}
+                              </p>
                           </div>
                           <h4 class="card-title font-weight-bold">
-                              <a href="/article.php" class="text-white miriam-font-family">{{ $article->title }}</a>
+                              <a href="{{ route('article', $article->id) }}" class="text-white miriam-font-family">{{ $article->title }}</a>
                           </h4>
                       
                       </div>

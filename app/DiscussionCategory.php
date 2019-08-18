@@ -16,6 +16,11 @@ class DiscussionCategory extends Model
     	return $this->belongsTo(Discussion::class);
     } 
 
+    /**
+    * Get categories for sidebar section in discussions page
+    *
+    * @return categories
+    */ 
     public function getCategories()
     {
     	return DiscussionCategory::all();

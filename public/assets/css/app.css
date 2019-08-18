@@ -71,3 +71,7 @@ body {
 #discussion #answer img {
     width: 45%;
 }
+
+#discussion a.text-primary {
+    cursor: pointer;
+}

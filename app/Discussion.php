@@ -23,12 +23,34 @@ class Discussion extends Model
     }
 
     /**
-    * Select discussions with pagination 
+    * Select discussions with counted answers and pagination
     *
-    * @return discussions
+    * @return discussions with pagination
     */ 
     public function getDiscussions()
     {
-        return Discussion::join('discussions_categories', 'discussions.category_id', 'discussions.category_id')->paginate(5);
+       return Discussion::withCount('answers')->paginate(5);
+    }
+
+    /**
+    * Find discussion by id property
+    *
+    * @param $id int|string
+    * 
+    * @return single discussion
+    */ 
+    public function getDiscussionById($id)
+    {
+        return Discussion::findOrFail($id);
+    }
+
+    /**
+    * Select five latest discussions from db
+    *
+    * @return five latest records
+    */ 
+    public function getLatestDiscussions()
+    {
+        return $this->latest()->take(5)->get();
     }
 }

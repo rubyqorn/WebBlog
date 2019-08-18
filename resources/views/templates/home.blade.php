@@ -89,7 +89,7 @@
 	        @endforeach
 
 	        <div class="col-lg-12 text-center mt-4">
-	         <a href="/" class="btn btn-outline-primary montserrat-font-family">Посмотреть больше</a> 
+	         <a href="{{ route('articles') }}" class="btn btn-outline-primary montserrat-font-family">Посмотреть больше</a> 
 	        </div>
 
 	      </div>

@@ -81,12 +81,11 @@
 
                   <tr>
                     <td>
-                      <a href="/discussion.php" class="nav-link text-light-green miriam-font-family">
+                      <a href="{{ route('discussion', $discussion->id) }}" class="nav-link text-light-green miriam-font-family">
                         {{ $discussion->title }}
                       </a>
-                      <span class="badge badge-pill badge-purple ml-3">{{ $discussion->name }}</span>
                     </td>
-                    <td>10</td>
+                    <td>{{ $discussion->answers_count }}</td>
                   </tr>
 
                   @endforeach
