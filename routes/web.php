@@ -14,7 +14,9 @@
 Route::get('/', 'HomeController@showPage')->name('home');
 Route::get('/news', 'NewsController@showPage')->name('news');
 Route::get('/news/{id}', 'NewsController@newsById')->name('singleNews');
+Route::get('/news-content', 'AjaxRequestController@getData');
 Route::get('/articles', 'ArticlesController@showPage')->name('articles');
 Route::get('/article/{id}', 'ArticlesController@showSingleArticle')->name('article');
+Route::get('/articles-content', 'AjaxRequestController@getData');
 Route::get('/discussions', 'DiscussionsController@showPage')->name('discussions');
 Route::get('/discussion/{id}', 'DiscussionsController@showSingleDiscussion')->name('discussion');
