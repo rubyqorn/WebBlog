@@ -51,6 +51,23 @@
 
     @break
 
+  @case('discussions-content')
+
+    @foreach($discussions as $discussion)
+
+      <tr>
+        <td>
+          <a href="{{ route('discussion', $discussion->id) }}" class="nav-link text-light-green miriam-font-family">
+            {{ $discussion->title }}
+          </a>
+        </td>
+        <td>{{ $discussion->answers_count }}</td>
+      </tr>
+
+    @endforeach
+
+    @break
+
   @default
     {{ abort(404) }}
     

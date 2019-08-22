@@ -20,3 +20,4 @@ Route::get('/article/{id}', 'ArticlesController@showSingleArticle')->name('artic
 Route::get('/articles-content', 'AjaxRequestController@getData');
 Route::get('/discussions', 'DiscussionsController@showPage')->name('discussions');
 Route::get('/discussion/{id}', 'DiscussionsController@showSingleDiscussion')->name('discussion');
+Route::get('/discussions-content', 'AjaxRequestController@getData');
