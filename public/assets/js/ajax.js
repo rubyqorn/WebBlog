@@ -82,6 +82,33 @@ $(document).ready(function() {
     });
 
     /**
+    * Get news by category id when we click at category in sidebar
+    */ 
+    $('#news #categories .nav-link').click(function(event) {
+        event.preventDefault();
+        const url = $(this).attr('href').split('/news-categories/')['1'];
+
+        // Generate category title for comfortable understanding what category we are watching 
+        generateCategoryTitle($(this).text(), '#news #categories-title');
+
+        // AJAX request processing 
+        ajaxRequestHandler('/news-categories/' + url, '#news .records');
+
+    });
+
+    $('#blog #categories .nav-link').click(function(event) {
+
+        event.preventDefault();
+
+        const url = $(this).attr('href').split('/articles-categories')['1'];
+
+        generateCategoryTitle($(this).text(), '#blog #categories-title');
+
+        ajaxRequestHandler('/articles-categories/' + url, '#articles .records');
+
+    });
+
+    /**
     * Show spinner before content was loaded completely
     *
     * @param section - Section where we have to load our spinner 
@@ -93,9 +120,21 @@ $(document).ready(function() {
                         +'<div class="spinner-border" role="status">'
                         +'<span class="sr-only"></span></div></div>');
         })
+    }
 
-        
-        
+    /**
+    * Generate category title for comfortable understanding
+    *
+    * @param categoryName - Text which we get from hyperlink
+    * @param section - Where we have to display our category name
+    */
+    function generateCategoryTitle(categoryName, section)
+    {
+        const title = '<h3 class="text-left text-black-50 mt-3 mb-3">'
+                        +'Категория: ' + categoryName +'</h3>'
+                        +'<hr>';
+
+        $(section).html(title);
     }
 
     /**

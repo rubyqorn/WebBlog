@@ -38,6 +38,9 @@
 		
 		<!-- All records -->
         <div class="col-lg-7 col-md-7 col-sm-12">
+
+            <div class="col-lg-12" id="categories-title"></div>
+
             <div class="records">
 
             @foreach($articles as $article)
@@ -79,7 +82,7 @@
                 </div>
                 <div class="card-body">
                     @foreach($categories as $category)
-                        <a href="/" class="nav-link text-light-green montserrat-font-family">
+                        <a href="{{ route('articlesCategories', $category->category_id) }}" class="nav-link text-light-green montserrat-font-family">
                             {{ $category->name }}
                         </a>
                     @endforeach

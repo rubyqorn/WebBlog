@@ -13,7 +13,7 @@
       <div class="col-lg-12 d-flex text-center">
         <i class="fas fa-search fa-2x"></i>
         <div class="search-form col-lg-12">
-          <form action="/" class="form-group" method="get">
+          <form action="/" class="form-group">
             <div class="form-group">
               <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
             </div>
@@ -37,6 +37,9 @@
       <div class="container">
           <div class="row">
           <div class="col-lg-7 col-md-7 col-sm-12">
+
+              <div class="col-lg-12" id="categories-title"></div>
+
               <div class="records">
 
                 @foreach($news as $item)
@@ -79,7 +82,7 @@
                   </div>
                   <div class="card-body">
                     @foreach($categories as $category)
-                      <a href="/" class="nav-link text-light-green montserrat-font-family">{{ $category->name }}</a>
+                      <a href="{{ route('newsCategories', $category->category_id) }}" class="nav-link text-light-green montserrat-font-family">{{ $category->name }}</a>
                     @endforeach
                   </div>
               </div>

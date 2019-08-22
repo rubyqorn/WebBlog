@@ -67,4 +67,9 @@ class News extends Model
 		return News::find($id);
 	}
 
+	public function newsByCategory($id)
+	{
+		return News::where('category_id', $id)->paginate(5);
+	}
+
 }

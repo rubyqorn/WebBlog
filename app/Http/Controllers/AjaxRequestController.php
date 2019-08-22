@@ -32,4 +32,14 @@ class AjaxRequestController extends Controller
     		'news', 'articles', 'discussions'
     	));
     }
+
+    public function categories($id)
+    {
+    	$news = $this->news->newsByCategory($id);
+        $articles = $this->article->articlesById($id);
+
+    	return view('templates.content.categories-content')->with([
+            'news' => $news, 'articles' => $articles
+        ]);
+    }
 }

@@ -65,4 +65,9 @@ class Article extends Model
 	{
 		return Article::orderBy('created_at', 'desc')->take(5)->get();
 	}
+
+	public function articlesById($id)
+	{
+		return Article::where('category_id', $id)->paginate(5);
+	}
 }
