@@ -97,14 +97,28 @@ $(document).ready(function() {
     });
 
     $('#blog #categories .nav-link').click(function(event) {
-
         event.preventDefault();
 
-        const url = $(this).attr('href').split('/articles-categories')['1'];
+        const url = $(this).attr('href').split('/articles-categories/')['1'];
 
+        // Generate category title for comfortable understanding what category we are watching 
         generateCategoryTitle($(this).text(), '#blog #categories-title');
 
-        ajaxRequestHandler('/articles-categories/' + url, '#articles .records');
+        // AJAX request processing 
+        ajaxRequestHandler('/articles-categories/' + url, '#blog .records');
+
+    });
+
+    $('#discussions #categories .nav-link').click(function(event) {
+
+        event.preventDefault();
+        const url = $(this).attr('href').split('/discussions-categories/')['1'];
+
+        // Generate category title for comfortable understanding what category we are watching 
+        generateCategoryTitle($(this).text(), '#discussions #categories-title');
+
+        // AJAX request processing 
+        ajaxRequestHandler('/discussions-categories/' + url, '#discussions .table tbody');
 
     });
 

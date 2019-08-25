@@ -9,10 +9,19 @@ use App\Discussion;
 
 class AjaxRequestController extends Controller
 {
+    /**
+    * @var object App\News
+    */ 
 	private $news;
 
+    /**
+    * @var object App\Article
+    */ 
 	private $article;
 
+    /**
+    * @var object App\Discussion
+    */ 
 	private $discussion;
 
 	public function __construct()
@@ -22,6 +31,9 @@ class AjaxRequestController extends Controller
 		$this->discussion = new Discussion();
 	}
 
+    /**
+    * Get page with data which wewill use for ajax requests
+    */ 
     public function getData()
     {
     	$news = $this->news->newsWithPagination();
@@ -33,13 +45,23 @@ class AjaxRequestController extends Controller
     	));
     }
 
-    public function categories($id)
+    /**
+    * Page with posts by category id
+    *
+    * @param $id int contains category id which 
+    * will give us a records by it
+    *
+    * @return page with records by category id
+    */ 
+    public function recordsByCategory($id)
     {
     	$news = $this->news->newsByCategory($id);
         $articles = $this->article->articlesById($id);
+        $discussions = $this->discussion->getDiscussionsById($id);
 
     	return view('templates.content.categories-content')->with([
-            'news' => $news, 'articles' => $articles
+            'news' => $news, 'articles' => $articles,
+            'discussions' => $discussions
         ]);
     }
 }

@@ -67,8 +67,11 @@
     @endforeach
 
     @break
-
+    
   @default
+    
     {{ abort(404) }}
+
+    @break
     
 @endswitch

@@ -18,17 +18,21 @@ Route::get('/news', 'NewsController@showPage')
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 Route::get('/news-content', 'AjaxRequestController@getData');
-Route::get('/news-categories/{id}', 'AjaxRequestController@categories')
+Route::get('/news-categories/{id}', 'AjaxRequestController@recordsByCategory')
 	->name('newsCategories');
 Route::get('/articles', 'ArticlesController@showPage')
 	->name('articles');
 Route::get('/article/{id}', 'ArticlesController@showSingleArticle')
 	->name('article');
 Route::get('/articles-content', 'AjaxRequestController@getData');
-Route::get('/articles-categories/{id}', 'AjaxRequestController@categories')
+Route::get('/articles-categories/{id}', 'AjaxRequestController@recordsByCategory')
 	->name('articlesCategories');
 Route::get('/discussions', 'DiscussionsController@showPage')
 	->name('discussions');
 Route::get('/discussion/{id}', 'DiscussionsController@showSingleDiscussion')
 	->name('discussion');
 Route::get('/discussions-content', 'AjaxRequestController@getData');
+Route::get('/discussions-categories/{id}', 'AjaxRequestController@recordsByCategory')
+	->name('discussionsCategories');
+
+Auth::routes();

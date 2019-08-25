@@ -53,4 +53,17 @@ class Discussion extends Model
     {
         return $this->latest()->take(5)->get();
     }
+
+    /**
+    * Get discussions by category id
+    *
+    * @param $id int Give articles by category_id field
+    * 
+    * @return discussions by category_id field in table
+    */ 
+    public function getDiscussionsById($id)
+    {
+        return Discussion::withCount('answers')->where('category_id', $id)
+                        ->paginate(5);
+    }
 }

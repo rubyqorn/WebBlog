@@ -63,6 +63,10 @@
   <section class="mt-4 mb-4" id="discussions">
     <div class="container">
       <div class="row">
+  
+        <!-- Category title -->
+        <div class="col-lg-12" id="categories-title"></div>
+
         <div class="col-lg-8 col-md-8 col-sm-12 shadow p-4 bg-light">
 
           <table class="table table-hover">
@@ -98,7 +102,7 @@
         </div>
 		
 		    <!-- Discussions categories -->
-        <div class="col-lg-4 col-md-4 col-sm-12 mt-2">
+        <div class="col-lg-4 col-md-4 col-sm-12 mt-2" id="categories">
           <div class="card">
             <div class="card-header">
               <h4 class="text-black-50">Категории вопросов</h4>
@@ -107,7 +111,7 @@
 
               @foreach($categories as $category)
 
-                <a href="/" class="nav-link text-light-green">
+                <a href="{{ route('discussionsCategories', $category->category_id) }}" class="nav-link text-light-green">
                     {{ $category->name }}
                 </a>
 
@@ -117,7 +121,7 @@
           </div>
         </div>
 
-		<!-- Pagination for discussions -->
+		    <!-- Pagination for discussions -->
         <div class="col-lg-12 col-md-12 col-sm-12 mt-4" id="pagination">
           <ul class="pagination">
             {{ $discussions->links() }}

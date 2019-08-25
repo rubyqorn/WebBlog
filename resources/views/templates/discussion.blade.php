@@ -49,7 +49,7 @@
             <div class="col-lg-12 col-md-12 col-12 text-center">
                 <p class="text-center miriam-font-family text-black-50">
                     <small>
-                        Чтобы оставить свой комментарий к статье, вы должны 
+                        Чтобы оставить свой ответ к вопросу, вы должны 
                          <a class="text-primary" data-toggle="modal" data-target="#login">войти </a> в свой аккаунт или 
                          <a data-toggle="modal" data-target="#register" class="text-primary">зарегистрироваться</a> 
                     </small>

@@ -26,14 +26,31 @@
         <li class="nav-item"><a href="{{ route('articles') }}" class="nav-link">Блог</a></li>
         <li class="nav-item"><a href="{{ route('discussions') }}" class="nav-link">Обсуждения</a></li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item p-2">
-          <a href="/" class="btn btn-outline-primary" data-toggle="modal" data-target="#login">Войти</a>
-        </li>
-        <li class="nav-item p-2">
-          <a href="/" class="btn btn-outline-primary" data-toggle="modal" data-target="#register">Регистрация</a>
-        </li>
-      </ul>
+
+      @if(!Auth::check())
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item p-2">
+            <a href="/" class="btn btn-outline-primary" data-toggle="modal" data-target="#login">Войти</a>
+          </li>
+          <li class="nav-item p-2">
+            <a href="/" class="btn btn-outline-primary" data-toggle="modal" data-target="#register">Регистрация</a>
+          </li>
+        </ul>
+
+      @else
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item p-2">
+            <form action="{{ route('logout') }}" method="post">
+              <button type="submit" class="btn btn-outline-info">Выйти</button>
+              @csrf
+            </form>
+          </li>
+        </ul>
+         
+      @endif
+       
     </div>
   </nav>
 
@@ -50,14 +67,31 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/" class="form-group" method="post">
+          <form action="{{ route('login') }}" class="form-group" method="post">
+
+            @csrf
+
             <div class="form-group d-flex">
               <i class="fas fa-envelope float-left fa-lg text-black-50 mt-2 mr-2"></i>
-              <input type="email" name="email" class="form-control" id="email" placeholder="Почта">
+              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Почта">
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
             </div>
             <div class="form-group d-flex">
               <i class="fas fa-lock fa-lg mt-2 mr-2 float-left text-black-50"></i>
-              <input type="password" name="password" class="form-control" placeholder="Пароль">
+              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Пароль">
+
+              @error('password')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+
             </div>
         </div>
         <div class="modal-footer">
@@ -77,20 +111,77 @@
             <span>&times;</span>
           </button>
         </div>
-        <form action="/" class="form-group" method="post">
+        <form action="/register" class="form-group" method="post">
+
+          @csrf
+
           <div class="modal-body">
-            <div class="form-group d-flex">
-              <i class="fas fa-user float-left text-black-50 mt-2 mr-2 fa-lg"></i>
-              <input type="text" name="name" class="form-control" id="name" placeholder="Имя">
+            <div class="form-group">
+
+              <label for="name" class="control-label col-xs-2 nunito-font-family">
+                Имя
+              </label>
+
+              <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" autocomplete="name" required value="{{ old('name') }}">
+
+              @error('name')
+
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+
+              @enderror
+
             </div> 
-            <div class="form-group d-flex">
-              <i class="fas fa-envelope float-left text-black-50 mt-2 mr-2 fa-lg"></i>
-              <input type="email" class="form-control" name="email" placeholder="Почта">
+
+            <div class="form-group">
+
+              <label for="email" class="control-label col-xs-2 nunito-font-family">
+                Почта
+              </label>
+
+              <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="email" required>
+
+              @error('email')
+
+                <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+                </span>
+
+              @enderror
+
             </div>
-            <div class="form-group d-flex">
-              <i class="fas fa-lock float-left text-black-50 mr-2 mt-2 fa-lg"></i>
-              <input type="password" name="password" class="form-control" placeholder="Пароль">
+
+            <div class="form-group">
+
+              <label for="password" class="control-label col-xs-2 nunito-font-family">
+                Пароль
+              </label>
+
+              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+              @error('password')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
+
             </div>
+
+            <div class="form-group">
+
+              <label for="confirm" class="control-label col-xs-2 nunito-font-family">
+                Повторите пароль
+              </label>
+
+             
+              <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            
+
+            </div>
+
+              
+
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-outline-info">Зарегистрироваться</button>
