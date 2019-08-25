@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Discussion;
 use App\DiscussionCategory;
+use App\Discussion;
 use App\Answer;
 
 class DiscussionsController extends Controller
@@ -48,6 +48,14 @@ class DiscussionsController extends Controller
         abort(404); 
     }
 
+    /**
+    * Show single discussion page where contains 
+    * answers discussion content and latest discussions
+    * 
+    * @param $id int Get discussion id which we wanna to look
+    *
+    * @return single discussion page
+    */ 
     public function showSingleDiscussion($id)
     {
 
@@ -64,5 +72,12 @@ class DiscussionsController extends Controller
     	}
 
     	abort(404);
+    }
+
+    public function storeAnswers(Request $request)
+    {
+        $validation = $this->answer->store($request);
+
+        return redirect()->back();
     }
 }

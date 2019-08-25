@@ -35,4 +35,15 @@ Route::get('/discussions-content', 'AjaxRequestController@getData');
 Route::get('/discussions-categories/{id}', 'AjaxRequestController@recordsByCategory')
 	->name('discussionsCategories');
 
+Route::group(['middleware' => 'auth'], function() {
+
+	Route::post('/store-comment', 'ArticlesController@storeComment')
+		->name('storeComment');
+	Route::post('/store-answers', 'DiscussionsController@storeAnswers')
+		->name('storeAnswers');
+
+});
+
+Route::get('/test', 'HomeController@test');
+
 Auth::routes();

@@ -34,6 +34,10 @@ body {
     background-color: #dad8d8;    
 }
 
+.bg-dark-red {
+    background-color: #df626d;
+}
+
 .dark-theme {
     background-color: #333;
 }

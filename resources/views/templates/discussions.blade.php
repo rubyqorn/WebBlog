@@ -44,10 +44,13 @@
             <div class="form-group">
               <label for="categories" class="control-label col-xs-2 font-weight-bold text-black-50">Категория *</label>
               <select name="categories" class="custom-select" required>
-                <option selected value="1">Git</option>
-                <option value="2">PHP</option>
-                <option value="3">JavaScript</option>
-                <option value="4">Laravel</option>
+
+                @foreach($categories as $category)
+
+                  <option value="1">{{ $category->name }}</option>
+
+                @endforeach
+
               </select>
             </div>
           </div>

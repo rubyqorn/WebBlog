@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Answer extends Model
 {
+    protected $fillable = [
+        'user_id', 'answer', 'discussion_id'
+    ];
+
 	/**
 	* @return inverse relationships with App\Discussion
 	*/ 
@@ -27,5 +32,34 @@ class Answer extends Model
     				->join('users', 'answers.user_id', 'users.id')
     				->where('discussion_id', $id)
     				->paginate(2);
+    }
+
+
+    /**
+    * Validate forms fields and create new record in
+    * database
+    *
+    * @param $request object Illuminate\Http\Request 
+    *
+    * @return created record in database or error messages
+    * if passed fields was not validated
+    */ 
+    public function store(object $request)
+    {
+        $messages = [
+            'required' => ':attribute должно быть обязательно заполнено',
+            'min' => ':attribute должно иметь не меньше :min символов', 
+            'max' => ':attribute должно иметь не больше :max символов' 
+        ];
+
+        $validation = $request->validate([
+            'response' => 'required|min:120|max:255'
+        ], $messages);
+
+        return Answer::create([
+            'user_id' => Auth::user()->id,
+            'discussion_id' => $request->id,
+            'answer' => $request->response
+        ]);
     }
 }

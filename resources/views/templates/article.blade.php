@@ -97,15 +97,43 @@
                         <hr class="text-black-50 mt-4">    
 
                         <div class="comments-section p-4">
+
+                            <div class="col-lg-12">
+                                @if($errors->any())
+
+                                    <div class="alert bg-dark-red alert-dismissable fade show text-center" role="alert">
+                                        <button class="close" data-dismiss="alert">
+                                            <span>&times;</span>
+                                        </button>
+                                        @foreach($errors->all() as $error)
+                                            <p class="text-lowercase text-white montserrat-font-family">
+                                                <small>
+                                                    <strong>{{ $error }}</strong>
+                                                </small>
+                                            </p>
+                                        @endforeach
+                                    </div>
+
+                                @endif
+                            </div>
                             
                             <!-- Comments form -->
                             @if(Auth::check())
-                                <form action="/" class="form-group" method="post">
+                                <form action="{{ route('storeComment') }}" class="form-group" method="post">
+
+                                    @csrf
+
                                     <div class="form-group">
-                                        <textarea name="comment" cols="30" rows="10" class="form-control text-black-50 nunito-font-family" placeholder="Ваш комментарий"></textarea>
+
+                                        <label for="response" class="control-label col-xs-2 text-black-50 nunito-font-family">Написать ответ</label>
+
+                                        <textarea id="response" name="response" cols="30" rows="10" class="form-control text-black-50 nunito-font-family" placeholder="Ваш комментарий"></textarea>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-outline-primary montserrat-font-family">Отправить</button>
+                                        <input type="hidden" name="id" value="{{ $article->id }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-primary montserrat-font-family" id="answer">Отправить</button>
                                     </div>
                                 </form>
                             @else
