@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Discussion extends Model
 {
+    use Http\Traits\CheckFile;
+
+    protected $fillable = [
+        'description','title', 'image', 'category_id'
+    ];
+
 	/**
 	* @return Relationships with App\DiscussionCategory
 	*/ 
@@ -65,5 +71,43 @@ class Discussion extends Model
     {
         return Discussion::withCount('answers')->where('category_id', $id)
                         ->paginate(5);
+    }
+
+    /**
+    * Get fields for validation and create new record
+    * in database
+    *
+    * @param $request object Illuminate\Http\Request
+    *
+    * @return created record in database
+    */ 
+    public function storeQuestions(object $request)
+    {
+        // Fields validation
+        $messages = [
+            'required' => ':attribute поле должно быть обязательно заполнено',
+            'min' => ':attribute поле должно содержать не меньше :min символов',
+            'max' => ':attribute поле должно содержать не юольше :max символов',
+            'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp',
+        ];
+
+        $validation = $request->validate([
+            'title' => 'required|min:15|max:30',
+            'description' => 'min:120|max:400',
+            'image' => 'image',
+            'categories' => 'required',
+        ], $messages);
+
+        // Check file containing
+        $filename = Http\Traits\CheckFile::checkForFileContains($request, 'image');
+
+        // Create record in database
+        return Discussion::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->categories,
+            'image' => $filename
+        ]);
+        
     }
 }

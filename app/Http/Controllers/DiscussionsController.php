@@ -74,10 +74,44 @@ class DiscussionsController extends Controller
     	abort(404);
     }
 
+    /**
+    * The method where we get fields for validation
+    * and get redirect if validation and adding
+    * new record was successfully
+    *
+    * @param $request object Illuninate\Http\Request
+    * 
+    * @return new added record in database
+    */ 
     public function storeAnswers(Request $request)
     {
-        $validation = $this->answer->store($request);
+        if ($request->isMethod('POST')) {
+            $validation = $this->answer->store($request);
 
-        return redirect()->back();
+            return redirect()->back();
+        }
+
+        return abort(404);
+        
+    }
+
+    /**
+    * The method where we get fields for validation
+    * and get redirect if validation and adding
+    * new record was successfully
+    *
+    * @param $request object Illuninate\Http\Request
+    * 
+    * @return new added record in database
+    */
+    public function askQuestions(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $validation = $this->discussion->storeQuestions($request);
+            return redirect()->back();
+        }
+
+        return abort(404);
+        
     }
 }

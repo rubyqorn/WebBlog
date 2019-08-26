@@ -25,33 +25,93 @@
             <span aria-label="Close">&times;</span>
           </button>
         </div>
-        <form action="/" class="form-group" method="post" enctype="multipart/form-data">
+        <form action="{{ route('askQuestions') }}" class="form-group" method="post" enctype="multipart/form-data">
+
+          @csrf
+
           <div class="modal-body">
+
             <div class="form-group">
+
               <label for="title" class="control-label col-xs-2 text-black-50 font-weight-bold">Заголовок *</label>
-              <input type="text" class="form-control" name="title" required>
+
+              <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" required value="{{ old('title') }}">
+
+              @error('title')
+
+                <div class="invalid-feedback" role="alert">
+                  <small>
+                    <strong>{{ $message }}</strong>
+                  </small>
+                </div>
+
+              @enderror
+
             </div>
+
             <div class="form-group">
+
               <label for="description" class="control-label col-xs-2 text-black-50 font-weight-bold">Подробное описание</label>
-              <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
+
+              <textarea name="description" class="form-control @error('descriiption') is-invalid @enderror" cols="30" rows="10" value="{{ old('description') }}"></textarea>
+
+              @error('description')
+
+                <div class="invalid-feedback" role="alert">
+                  <small>
+                    <strong>{{ $message }}</strong>
+                  </small>
+                </div>
+
+              @enderror
+
             </div>
+
             <div class="form-group">
               <div class="custom-file">
+
                 <label for="image" class="custom-file-label">Изображение</label>
-                <input type="file" name="image" id="image" class="custom-file-input">
+
+                <input type="file" name="image" id="image" class="custom-file-input @error('image') is-invalid @enderror" value="{{ old('image') }}">
+
+                @error('image')
+                  
+                  <div class="invalid-feedback" role="alert">
+                    <small>
+                      <strong>{{ $message }}</strong>
+                    </small>
+                  </div>
+
+                @enderror
+
               </div>
             </div>
+
             <div class="form-group">
-              <label for="categories" class="control-label col-xs-2 font-weight-bold text-black-50">Категория *</label>
-              <select name="categories" class="custom-select" required>
+
+              <label for="categories" class="control-label col-xs-2 font-weight-bold text-black-50">
+              Категория *</label>
+
+              <select name="categories" class="custom-select @error('categories') is-invalid @enderror" required>
 
                 @foreach($categories as $category)
 
-                  <option value="1">{{ $category->name }}</option>
+                  <option value="{{ $category->category_id }}">{{ $category->name }}</option>
 
                 @endforeach
 
               </select>
+
+              @error('categories')
+
+                <div class="invalid-feedback" role="alert">
+                  <small>
+                    <strong>{{ $message }}</strong>
+                  </small>
+                </div>
+              
+              @enderror
+
             </div>
           </div>
           <div class="modal-footer">

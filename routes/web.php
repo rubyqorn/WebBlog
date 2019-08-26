@@ -41,9 +41,9 @@ Route::group(['middleware' => 'auth'], function() {
 		->name('storeComment');
 	Route::post('/store-answers', 'DiscussionsController@storeAnswers')
 		->name('storeAnswers');
+	Route::post('/ask-questions', 'DiscussionsController@askQuestions')
+		->name('askQuestions');
 
 });
-
-Route::get('/test', 'HomeController@test');
 
 Auth::routes();

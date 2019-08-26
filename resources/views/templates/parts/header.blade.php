@@ -192,9 +192,7 @@
   </div>
 
   <div class="col-lg-3 col-md-3 col-6 mt-4 ml-4">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-      </ol>
-    </nav>
+    <a href="{{ Request::path() }}">
+      {{ Breadcrumbs::render(Request::path()) }}
+    </a>
   </div>
