@@ -46,4 +46,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 });
 
+// Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function() {
+
+	Route::get('dashboard', 'Admin\DashboardController@showPage')->name('dashboard');
+
+// });
+
 Auth::routes();

@@ -13,6 +13,13 @@ Breadcrumbs::for('news', function($trail) {
 	$trail->push('Новости', route('news'));
 });
 
+// Breadcrumbs::for('/news/{id}', function($trail, $id) {
+// 	$news = News::findOrFail($id);
+
+// 	$trail->parent('news');
+// 	$trail->push($news->id, route('singleNews', $news));
+// });
+
 Breadcrumbs::for('articles', function($trail) {
 	$trail->push('Блог', route('articles'));
 });

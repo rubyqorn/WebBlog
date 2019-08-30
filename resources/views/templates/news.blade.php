@@ -6,6 +6,12 @@
 
 @section('content')
 
+  <div class="col-lg-3 col-md-3 col-6 mt-4 ml-4">
+    <a href="{{ Request::path() }}">
+      {{ Breadcrumbs::render(Request::path()) }}
+    </a>
+  </div>
+
 <!-- Search form where we can find news -->
 <div class="container mt-4" id="search-form">
     <div class="row justify-content-center">

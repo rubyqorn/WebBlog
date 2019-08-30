@@ -1,0 +1,77 @@
+body {
+	height: 100%;
+	width: 100%;
+}
+
+.miriam-font {
+	font-family: 'Miriam Libre', sans-serif;
+}
+
+.raleway-font {
+	font-family: 'Raleway', sans-serif;
+}
+
+.montserrat-font {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.nunito-font {
+	font-family: 'Nunito', sans-serif;
+}
+
+.bg-dark-theme {
+	background-color: #1a1e34;
+	color: #606469;
+}
+
+.dark-theme-item {
+	background-color: #27293d;
+	color: #676a6f !important;
+}
+
+.text-light-green {
+	color: #29e661;
+}
+
+.sidebar {
+	position: fixed;
+	width: 30%;
+	padding: 4%;
+	display: none;
+	background-color: darkslateblue;
+}
+
+.sidebar .h5 {
+	letter-spacing: 2px;
+}
+
+.sidebar .navbar-content {
+	list-style: none;
+}
+
+.sidebar .navbar-link {
+	color: #857BC1 !important;
+	text-decoration: none;
+}
+
+.collapsible-content {
+	padding-left: 30%;
+}
+
+.active-link {
+	transition: all 0.5s;
+	background-color: #fff;
+}
+
+.collapsible-nav {
+	display: block;
+}
+
+.content #title {
+	margin-top: 15px;
+}
+
+.content #latest-comments-section img {
+	width: 12%;
+	height: 12%;
+}
