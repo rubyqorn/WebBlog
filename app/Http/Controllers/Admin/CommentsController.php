@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class DashboardController extends Controller
+class CommentsController extends Controller
 {
 	/**
-	* Show dashboard page
+	* Get page with comments table
 	*
-	* @return dashboard page
+	* @return comments table
 	*/ 
     public function showPage()
     {
-    	if (view()->exists('templates.admin.dashboard')) {
-    		return view('templates.admin.dashboard');
+    	if (view()->exists('templates.admin.comments')) {
+    		return view('templates.admin.comments');
     	}
 
     	abort(404);

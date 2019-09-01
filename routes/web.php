@@ -46,10 +46,20 @@ Route::group(['middleware' => 'auth'], function() {
 
 });
 
-// Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin'], function() {
+Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace' => 'Admin'], function() {
 
-	Route::get('dashboard', 'Admin\DashboardController@showPage')->name('dashboard');
+	Route::get('dashboard', 'DashboardController@showPage')
+		->name('dashboard');
+	Route::get('comments', 'CommentsController@showPage')
+		->name('admin.comments');
+	Route::get('answers', 'AnswersController@showPage')
+		->name('admin.answers');
+	Route::get('categories', 'CategoriesController@showPage')
+		->name('admin.categories');
+	Route::resource('news', 'NewsController');
+	Route::resource('articles', 'ArticlesController');
+	Route::resource('discussions', 'DiscussionsController');
 
-// });
+});
 
 Auth::routes();

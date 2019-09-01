@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRoleUser
 {
@@ -15,6 +16,11 @@ class CheckRoleUser
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if (!$request->user()->hasAdminRole()) {
+            return redirect('/');
+        }
+
+       return $next($request);
+
     }
 }

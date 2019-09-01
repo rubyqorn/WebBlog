@@ -95,7 +95,7 @@
 							<div class="list-group">
 								<div class="list-group-item  dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
@@ -116,7 +116,7 @@
 								</div>
 								<div class="list-group-item dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
@@ -137,7 +137,7 @@
 								</div>
 								<div class="list-group-item dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
@@ -173,7 +173,7 @@
 							<div class="list-group">
 								<div class="list-group-item dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
@@ -194,7 +194,7 @@
 								</div>
 								<div class="list-group-item dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
@@ -215,7 +215,7 @@
 								</div>
 								<div class="list-group-item dark-theme-item flex-column">
 									<div class="d-flex w-100 justify-content-between">
-										<img src="img/default.png" alt="">
+										<img src="{{ asset('assets/img/default.png') }}" alt="">
 										<p class="pl-3 pr-2">
 											<small>
 												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
