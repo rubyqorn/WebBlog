@@ -13,8 +13,8 @@
 		<div class="row justify-content-center">
 
 			<!-- Stats about news -->
-			<div class="col-lg-8 col-md-12 col-12 mt-4 chart dark-theme-item">
-				<!-- Container which have chart -->	
+			<div class="col-lg-8 col-md-12 col-12 mt-4 dark-theme-item">
+				{!! $chart->container() !!}
 			</div>
 
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">

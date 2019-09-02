@@ -4,9 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\CountRecordsForCharts;
+use App\News;
 
 class NewsController extends Controller
 {
+    /**
+    * @var object App\News
+    */ 
+    private $news;
+
+    public function __construct()
+    {
+        $this->news = new News();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,11 @@ class NewsController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.news')) {
-            return view('templates.admin.news');
+            $chart = CountRecordsForCharts::chart($this->news);
+
+            return view('templates.admin.news')->with([
+                'chart' => $chart
+            ]);
         }
 
         abort(404);

@@ -62,4 +62,12 @@ class Answer extends Model
             'answer' => $request->response
         ]);
     }
+
+    /**
+    * Return quantity of answers
+    */ 
+    public function countedAnswers()
+    {
+        return Answer::count();
+    }
 }

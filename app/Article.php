@@ -66,8 +66,27 @@ class Article extends Model
 		return Article::orderBy('created_at', 'desc')->take(5)->get();
 	}
 
+	/**
+	* Get record by id property
+	*
+	* @param $id int
+	*
+	* @return single record by id
+	*/ 
 	public function articlesById($id)
 	{
 		return Article::where('category_id', $id)->paginate(5);
+	}
+
+	/**
+	* Get and count records by month
+	*
+	* @param $month int|string Have to be like 01, 02...
+	*
+	* @return counted records by month
+	*/ 
+	public function getRecordsByMonth($month)
+	{
+		return Article::whereMonth('created_at', $month)->count();
 	}
 }

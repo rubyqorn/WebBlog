@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\CountRecordsForCharts;
+use App\Discussion;
 
 class DiscussionsController extends Controller
 {
+    private $discussion;
+
+    public function __construct()
+    {
+        $this->discussion = new Discussion();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,10 @@ class DiscussionsController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.discussions')) {
-            return view('templates.admin.discussions');
+            $chart = CountRecordsForCharts::chart($this->discussion);
+            return view('templates.admin.discussions')->with([
+                'chart' => $chart
+            ]);
         }
 
         abort(404);

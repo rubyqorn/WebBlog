@@ -71,4 +71,12 @@ class User extends Authenticatable
         return false;
         
     }
+
+    /**
+    * @return counted users
+    */ 
+    public function countedUsers()
+    {
+        return User::count();
+    }
 }

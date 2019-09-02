@@ -4,9 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\CountRecordsForCharts;
+use App\Article;
 
 class ArticlesController extends Controller
 {
+    /**
+    * @var object App\Article
+    */ 
+    private $article;
+
+    public function __construct()
+    {
+        $this->article = new Article();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,11 @@ class ArticlesController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.articles')) {
-            return view('templates.admin.articles');
+            $chart = CountRecordsForCharts::chart($this->article);
+
+            return view('templates.admin.articles')->with([
+                'chart' => $chart
+            ]);
         }
 
         abort(404);

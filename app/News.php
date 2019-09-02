@@ -67,9 +67,28 @@ class News extends Model
 		return News::find($id);
 	}
 
+	/**
+	* Select news by category with pagination
+	*
+	* @param $id int
+	*
+	* @return records with pagination
+	*/ 
 	public function newsByCategory($id)
 	{
 		return News::where('category_id', $id)->paginate(5);
+	}
+
+	/**
+	* Get and count records by month
+	*
+	* @param $month int|string Have to be like 01, 02...
+	*
+	* @return counted records by month
+	*/ 
+	public function getRecordsByMonth($month) 
+	{
+		return News::whereMonth('created_at', $month)->count();
 	}
 
 }

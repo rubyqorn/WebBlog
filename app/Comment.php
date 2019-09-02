@@ -72,4 +72,23 @@ class Comment extends Model
 			'comment' => $request->response,
 		]);
 	}
+
+	/**
+	* Return quantity of comments
+	*/ 
+	public function countedComments()
+	{
+		return Comment::count();
+	}
+
+	/**
+	* Get five last added comments
+	*
+	* @return last five records
+	*/ 
+	public function getLastComments()
+	{
+		return Comment::latest()->take(5)->get();
+	}
+
 }
