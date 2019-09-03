@@ -70,4 +70,9 @@ class Answer extends Model
     {
         return Answer::count();
     }
+
+    public function getLastAnswers()
+    {
+        return Answer::orderBy('created_at', 'desc')->limit(3)->get();
+    }
 }

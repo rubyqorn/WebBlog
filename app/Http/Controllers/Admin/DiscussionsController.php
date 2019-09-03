@@ -5,15 +5,20 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\DiscussionCategory;
 use App\Discussion;
 
 class DiscussionsController extends Controller
 {
+    /**
+    * @var object App\Discussion
+    */ 
     private $discussion;
 
     public function __construct()
     {
         $this->discussion = new Discussion();
+        $this->category = new DiscussionCategory();
     }
 
     /**
@@ -25,8 +30,15 @@ class DiscussionsController extends Controller
     {
         if (view()->exists('templates.admin.discussions')) {
             $chart = CountRecordsForCharts::chart($this->discussion);
+            $discussions = $this->discussion->getDiscussionsForTable();
+            $categories = $this->category->getCategories();
+
+            // dd($discussions);
+
             return view('templates.admin.discussions')->with([
-                'chart' => $chart
+                'chart' => $chart,
+                'discussions' => $discussions,
+                'categories' => $categories,
             ]);
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\NewsCategory;
 use App\News;
 
 class NewsController extends Controller
@@ -14,9 +15,15 @@ class NewsController extends Controller
     */ 
     private $news;
 
+    /**
+    * @var object App\NewsCategory
+    */ 
+    private $category;
+
     public function __construct()
     {
         $this->news = new News();
+        $this->category = new NewsCategory();
     }
 
     /**
@@ -28,9 +35,13 @@ class NewsController extends Controller
     {
         if (view()->exists('templates.admin.news')) {
             $chart = CountRecordsForCharts::chart($this->news);
+            $news = $this->news->newsWithPagination();
+            $categories = $this->category->getCategories();
 
             return view('templates.admin.news')->with([
-                'chart' => $chart
+                'chart' => $chart,
+                'news' => $news,
+                'categories' => $categories
             ]);
         }
 

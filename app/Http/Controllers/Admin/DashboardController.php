@@ -54,11 +54,12 @@ class DashboardController extends Controller
         $countedUsers = $this->user->countedUsers();
         $lastNews = $this->news->getLastNews();
         $lastComments = $this->comment->getLastComments();
+        $lastAnswers = $this->answer->getLastAnswers();
 
     	if (view()->exists('templates.admin.dashboard')) {
     		return view('templates.admin.dashboard', compact(
                 'countedAnswers', 'countedComments', 'countedUsers',
-                'lastNews', 'lastComments', 'chart'
+                'lastNews', 'lastComments', 'lastAnswers', 'chart'
             ));
     	}
 

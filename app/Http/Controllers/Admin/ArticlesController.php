@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\ArticleCategory;
 use App\Article;
 
 class ArticlesController extends Controller
@@ -14,9 +15,14 @@ class ArticlesController extends Controller
     */ 
     private $article;
 
+    /**
+    * @var object App\ArticleCategory
+    */ 
+
     public function __construct()
     {
         $this->article = new Article();
+        $this->category = new ArticleCategory();
     }
 
     /**
@@ -28,9 +34,15 @@ class ArticlesController extends Controller
     {
         if (view()->exists('templates.admin.articles')) {
             $chart = CountRecordsForCharts::chart($this->article);
+            $articles = $this->article->articlesWithPagination();
+            $categories = $this->category->getCategories();
+
+            // dd($articles);
 
             return view('templates.admin.articles')->with([
-                'chart' => $chart
+                'chart' => $chart,
+                'articles' => $articles,
+                'categories' => $categories
             ]);
         }
 

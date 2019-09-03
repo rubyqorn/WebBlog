@@ -29,134 +29,80 @@
 					</thead>
 
 					<tbody>
-						<tr>
-							<td>
-								<a href="/" class="text-light-green">
-									<small>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, fugiat.
-									</small>
-								</a>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#edit" class="btn btn-outline-info">Редактировать</button>
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete">Удалить</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="/" class="text-light-green">
-									<small>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, fugiat.
-									</small>
-								</a>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#edit" class="btn btn-outline-info">Редактировать</button>
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#delete" class="btn btn-outline-danger">Удалить</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="/" class="text-light-green">
-									<small>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, fugiat.
-									</small>
-								</a>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#edit" class="btn btn-outline-info">Редактировать</button>
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#delete" class="btn btn-outline-danger">Удалить</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="/" class="text-light-green">
-									<small>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, fugiat.
-									</small>
-								</a>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#edit" class="btn btn-outline-info">Редактировать</button>
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#delete" class="btn btn-outline-danger">Удалить</button>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<a href="/" class="text-light-green">
-									<small>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, fugiat.
-									</small>
-								</a>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#edit" class="btn btn-outline-info">Редактировать</button>
-								</div>
-							</td>
-							<td>
-								<div class="form-group">
-									<button data-toggle="modal" data-target="#delete" class="btn btn-outline-danger">Удалить</button>
-								</div>
-							</td>
-						</tr>			
+
+						@forelse($articles as $article)
+
+							<tr>
+								<td>
+									<a href="{{ route('article', $article->id) }}" class="text-light-green">
+										<small>
+											{{ $article->title }}
+										</small>
+									</a>
+								</td>
+								<td>
+									<div class="form-group">
+										<button data-toggle="modal" data-target="#edit-{{ $article->id }}" class="btn btn-outline-info">Редактировать</button>
+									</div>
+								</td>
+								<td>
+									<div class="form-group">
+										<button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $article->id }}">Удалить</button>
+									</div>
+								</td>
+							</tr>
+
+						@empty
+
+							<h4 class="text-center">
+								Нет статей
+							</h4>
+
+						@endforelse
+		
 					</tbody>
 
 
 					<!-- Modal windows -->
 					<!-- Delete -->
-					<div class="modal fade" id="delete" role="dialog" tabindex="-1">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="text-black-50">
-										Процесс удаления
-									</h4>
-									<button class="close" data-dismiss="modal">
-										<span>&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<h5 class="text-center text-danger">
-										Вы действительно хотите удалить эту запись?
-									</h5>
-								</div>
-								<div class="modal-footer">
-									<form action="/" method="post">
-										<button type="submit" class="btn btn-outline-success montserrat-font">
-											Да
+					@foreach($articles as $article)
+
+						<div class="modal fade" id="delete-{{ $article->id }}" role="dialog" tabindex="-1">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="text-black-50">
+											Процесс удаления
+										</h4>
+										<button class="close" data-dismiss="modal">
+											<span>&times;</span>
 										</button>
-									</form>
+									</div>
+									<div class="modal-body">
+										<h5 class="text-center text-danger">
+											Вы действительно хотите удалить эту запись?
+										</h5>
+									</div>
+									<div class="modal-footer">
+
+										@csrf
+
+										<form action="{{ route('articles.destroy', $article->id) }}" method="post">
+											<button type="submit" class="btn btn-outline-success montserrat-font">
+												Да
+											</button>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="modal fade" role="dialog" tabindex="-1" id="edit">
+					@endforeach
+
+					<!-- Edit -->
+					@foreach($articles as $article)
+
+					<div class="modal fade" role="dialog" tabindex="-1" id="edit-{{ $article->id }}">
 						<div class="modal-dialog modal-lg" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -167,18 +113,25 @@
 										<span>&times;</span>
 									</button>
 								</div>
-								<form action="/" method="post" enctype="multipart/form-data">
+								<form action="{{ route('articles.update', $article->id) }}" method="post" enctype="multipart/form-data">
+
+									@csrf
+
 									<div class="modal-body">
 
 										<div class="form-group">
 
 											<label for="title" class="control-label col-xs-2 font-weight-bold montserrat-font">Заголовок</label>
 										
-											<input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="">
+											<input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $article->title }}">
 
-											<div class="invalid-feedback" role="alert">
-												<span></span>
-											</div>
+											@error('title')
+
+												<div class="invalid-feedback" role="alert">
+													<span>{{ $message }}</span>
+												</div>
+
+											@enderror
 
 										</div>
 
@@ -186,11 +139,15 @@
 											
 											<label for="preview-text" class="control-label col-xs-2 montserrat-font font-weight-bold">Пролог</label>
 
-											<textarea name="preview-text" class="form-control @error('preview-text') is-invalid @enderror" cols="10" rows="5"></textarea>
+											<textarea name="preview-text" class="form-control @error('preview-text') is-invalid @enderror" cols="10" rows="5">{{ $article->preview_text }}</textarea>
 
-											<div class="invalid-feedback" role="alert">
-												<span></span>
-											</div>
+											@error('preview_text')
+
+												<div class="invalid-feedback" role="alert">
+													<span>{{ $message }}</span>
+												</div>
+
+											@enderror
 
 										</div>
 
@@ -198,11 +155,15 @@
 											
 											<label for="description" class="control-label font-weight-bold col-xs-2 montserrat-font">Подробное описание</label>
 
-											<textarea name="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10"></textarea>
+											<textarea name="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">{{ $article->description }}</textarea>
 
-											<div class="invalid-feedback" role="alert">
-												<span></span>
-											</div>
+											@error('description')
+
+												<div class="invalid-feedback" role="alert">
+													<span>{{ $message }}</span>
+												</div>
+
+											@enderror
 
 										</div>
 
@@ -213,24 +174,53 @@
 
 												<label for="image" class="custom-file-label">Выберите изображение</label>
 
-												<div class="invalid-feedback" role="alert">
-													<span></span>
+												<div class="col-lg-12 bg-dark mt-1 mb-3 p-3 text-white">
+													{{ $article->image }}
 												</div>
+
+												@error('description')
+
+													<div class="invalid-feedback" role="alert">
+														<span>{{ $message }}</span>
+													</div>
+
+												@enderror
 
 											</div>
 
 										</div>
 
-										<div class="form-group">
+										<div class="form-group pt-3">
 											
 											<label for="category" class="control-label col-xs-2 font-weight-bold montserrat-font">Категория</label>
 
 											<select name="category" class="custom-select @error('category') is-invalid @enderror">
-												<option value="1">Lorem ipsum dolor.</option>
-												<option value="2">Lorem ipsum dolor.</option>
-												<option value="3">Lorem ipsum dolor.</option>
-												<option value="4">Lorem ipsum dolor.</option>
+
+												@foreach($categories as $category)
+
+													<option value="{{ $category->id }}">{{ $category->name }}</option>
+
+												@endforeach
+
 											</select>
+
+											
+
+												<div class="col-lg-12 bg-dark mt-1 p-3 text-white">
+													@foreach($article->categories as $category)
+														{{ $category->name }}
+													@endforeach
+												</div>
+
+											
+
+											@error('category')
+
+												<div class="invalid-feedback" role="alert">
+													<span>{{ $message }}</span>
+												</div>
+
+											@enderror
 
 										</div>
 
@@ -247,6 +237,8 @@
 						</div>
 					</div>
 
+					@endforeach
+
 				</table>
 
 			</div>
@@ -254,10 +246,7 @@
 			<!-- Pagination for table -->
 			<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4">
 				<ul class="pagination">
-					<li class="page-item active"><a href="/" class="page-link">1</a></li>
-					<li class="page-item"><a href="/" class="page-link">2</a></li>
-					<li class="page-item"><a href="/" class="page-link">3</a></li>
-					<li class="page-item"><a href="/" class="page-link">4</a></li>
+					{{ $articles->links() }}
 				</ul>
 			</div>
 

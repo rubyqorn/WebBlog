@@ -84,16 +84,10 @@
 						<div class="col-lg-12 col-md-12 col-12 mt-4" id="latest-comments-section">
 							<div class="list-group">
 								
-								@foreach($lastComments as $comment)
+								@forelse($lastComments as $comment)
 
 									<div class="list-group-item  dark-theme-item flex-column">
 										<div class="d-flex w-100 justify-content-between">
-
-											@foreach($comment->users as $user)
-
-												<img src="{{ asset('assets/img/' . $user->image) }}" alt="">
-											
-											@endforeach
 
 											<p class="pl-3 pr-2">
 												<small>
@@ -103,17 +97,16 @@
 											<small class="text-light-green">
 												MAY 20, 2019
 											</small>
-											<small class="pl-3 raleway-font">
-												@foreach($comment->users as $user)
-
-													<strong>Author:</strong> $user->name
-
-												@endforeach
-											</small>
 										</div>
 									</div>
+								
+								@empty
 
-								@endforeach
+									<p class="h4 text-center text-light-green">
+										Нет комментариев
+									</p>
+
+								@endforelse
 
 							</div>
 						</div>
@@ -130,69 +123,30 @@
 					<div class="card-body">
 						<div class="col-lg-12 col-md-12 col-12 mt-4" id="latest-comments-section">
 							<div class="list-group">
-								<div class="list-group-item dark-theme-item flex-column">
-									<div class="d-flex w-100 justify-content-between">
-										<img src="{{ asset('assets/img/default.png') }}" alt="">
-										<p class="pl-3 pr-2">
-											<small>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
+
+								@forelse($lastAnswers as $answer)
+
+									<div class="list-group-item dark-theme-item flex-column">
+										<div class="d-flex w-100 justify-content-between">
+											<p class="pl-3 pr-2">
+												<small>
+													{{ $answer->answer }}
+												</small>
+											</p>
+											<small class="text-light-green text-uppercase">
+												{{ date('M d, Y', strtotime($answer->created_at)) }}
 											</small>
-										</p>
-										<small class="text-light-green">
-											MAY 20, 2019
-										</small>
-										<small class="pl-3 raleway-font">
-											<strong>Author:</strong> Anton Hideger
-										</small>
+										</div>
 									</div>
-								</div>
-								<div class="list-group-item dark-theme-item flex-column">
-									<div class="d-flex w-100 justify-content-between">
-										<img src="{{ asset('assets/img/default.png') }}" alt="">
-										<p class="pl-3 pr-2">
-											<small>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-											</small>
-										</p>
-										<small class="text-light-green">
-											MAY 20, 2019
-										</small>
-										<small class="pl-3 raleway-font">
-											<strong>Author:</strong> Anton Hideger
-										</small>
-									</div>
-								</div>
-								<div class="list-group-item dark-theme-item flex-column">
-									<div class="d-flex w-100 justify-content-between">
-										<img src="{{ asset('assets/img/default.png') }}" alt="">
-										<p class="pl-3 pr-2">
-											<small>
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, culpa.
-											</small>
-										</p>
-										<small class="text-light-green">
-											MAY 20, 2019
-										</small>
-										<small class="pl-3 raleway-font">
-											<strong>Author:</strong> Anton Hideger
-										</small>
-									</div>
-								</div>
+
+								@empty
+
+									<p class="h4 text-center text-light-green">
+										Нет ответов
+									</p>
+
+								@endforelse
+
 							</div>
 						</div>
 					</div>

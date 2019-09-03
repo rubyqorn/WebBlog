@@ -122,4 +122,15 @@ class Discussion extends Model
     {
         return Discussion::whereMonth('created_at', $month)->count();
     }
+
+    /**
+    * Get discussions with pagination for admin 
+    * part of app
+    *
+    * @return paginated discussions
+    */ 
+    public function getDiscussionsForTable()
+    {
+        return Discussion::paginate(5);
+    }
 }
