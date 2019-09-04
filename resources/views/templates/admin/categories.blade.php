@@ -17,10 +17,6 @@
 		</div>
 
 		<div class="row justify-content-center">
-			
-			<div class="col-lg-12 col-md-12 col-12 chart dark-theme-item">
-				<!-- Chart -->
-			</div>
 
 			<!-- Table with records -->
 			<div class="col-lg-12 col-md-12 col-12 shadow mt-4 p-4">

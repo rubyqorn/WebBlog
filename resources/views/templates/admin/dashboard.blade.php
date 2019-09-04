@@ -156,4 +156,6 @@
 		</div>
 	</div>
 
+	{!! $chart->script() !!}
+
 @endsection

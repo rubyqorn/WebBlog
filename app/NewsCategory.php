@@ -25,4 +25,9 @@ class NewsCategory extends Model
     {
     	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();
     }
+
+    public function getCategoriesForTable()
+    {
+        return NewsCategory::paginate(5);
+    }
 }

@@ -71,8 +71,24 @@ class Answer extends Model
         return Answer::count();
     }
 
+    /**
+    * @return three last answers
+    */ 
     public function getLastAnswers()
     {
         return Answer::orderBy('created_at', 'desc')->limit(3)->get();
+    }
+
+    /**
+    * @return records for chart
+    */ 
+    public function getRecordsByMonth($month)
+    {
+        return Answer::whereMonth('created_at', $month)->count();
+    }
+
+    public function getAnswersForTable()
+    {
+        return Answer::paginate(5);
     }
 }

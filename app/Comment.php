@@ -91,4 +91,27 @@ class Comment extends Model
 		return Comment::latest()->take(5)->get();
 	}
 
+	/**
+	* Get records for chart
+	*
+	* @param $month int|string
+	*
+	* @return records for chart
+	*/ 
+	public function getRecordsByMonth($month)
+	{
+		return Comment::whereMonth('created_at', $month)->count();
+	}
+
+	/**
+	* Get records for comments table
+	*
+	* @return records for table
+	*
+	*/ 
+	public function getCommentsForTable()
+	{
+		return Comment::paginate(5);
+	}
+
 }
