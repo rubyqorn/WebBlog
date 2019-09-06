@@ -33,8 +33,6 @@ class DiscussionsController extends Controller
             $discussions = $this->discussion->getDiscussionsForTable();
             $categories = $this->category->getCategories();
 
-            // dd($discussions);
-
             return view('templates.admin.discussions')->with([
                 'chart' => $chart,
                 'discussions' => $discussions,
@@ -64,7 +62,11 @@ class DiscussionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->isMethod('post')) {
+            $this->discussion->storeQuestions($request);
+
+            return redirect()->back()->withStatus('Your discussion was created successfully');
+        }
     }
 
     /**

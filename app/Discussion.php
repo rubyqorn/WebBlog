@@ -3,11 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\CheckFile;
 
 class Discussion extends Model
 {
-    use Http\Traits\CheckFile;
-
     protected $fillable = [
         'description','title', 'image', 'category_id'
     ];
@@ -85,9 +84,9 @@ class Discussion extends Model
     {
         // Fields validation
         $messages = [
-            'required' => ':attribute поле должно быть обязательно заполнено',
-            'min' => ':attribute поле должно содержать не меньше :min символов',
-            'max' => ':attribute поле должно содержать не юольше :max символов',
+            'required' => 'поле должно быть обязательно заполнено',
+            'min' => 'поле должно содержать не меньше :min символов',
+            'max' => 'поле должно содержать не юольше :max символов',
             'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp',
         ];
 
@@ -99,7 +98,7 @@ class Discussion extends Model
         ], $messages);
 
         // Check file containing
-        $filename = Http\Traits\CheckFile::checkForFileContains($request, 'image');
+        $filename = CheckFile::checkForFileContains($request, 'image');
 
         // Create record in database
         return Discussion::create([

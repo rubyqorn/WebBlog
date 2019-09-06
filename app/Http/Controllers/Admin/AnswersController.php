@@ -30,8 +30,6 @@ class AnswersController extends Controller
             $chart = CountRecordsForCharts::chart($this->answer);
             $answers = $this->answer->getAnswersForTable();
 
-            //dd($chart);
-
     		return view('templates.admin.answers')->with([
                 'chart' => $chart,
                 'answers' => $answers

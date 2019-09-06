@@ -17,6 +17,114 @@
 				{!! $chart->container() !!}
 			</div>
 
+			@include('templates.admin.parts.success-message')
+
+			<!-- Add new record button -->
+			<div class="col-lg-12 mt-4">
+				<button class="btn btn-outline-primary text-uppercase btn-sm float-right" data-toggle="modal" data-target="#create">
+					Создать новую запись
+				</button>
+			</div>
+
+			<!-- Add new records modal window -->
+			<div class="modal fade" id="create" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title text-black-50">
+								Создать новую запись
+							</h4>
+							<button class="close" data-dismiss="modal">
+								<span>&times;</span>
+							</button>
+						</div>
+						<form action="{{ route('discussions.store') }}" method="post" enctype="multipart/form-data">
+
+							@csrf
+
+							<div class="modal-body">
+
+								<div class="form-group">
+
+									<label for="discussion" class="control-label col-xs-2 font-weight-bold text-black-50 montserrat-font">Вопрос</label>
+
+									<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+
+									@error('title')
+
+										<div class="invalid-feedback" role="alert">
+											<span>{{ $message }}</span>
+										</div>
+
+									@enderror
+
+								</div>
+
+								<div class="form-group">
+									
+									<label for="description" class="control-label col-xs-2 font-weight-bold text-black-50 montserrat-font">Подробное описание</label>
+
+									<textarea name="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">
+										{{ old('description') }}
+									</textarea>
+
+									@error('descripition')
+
+										<div class="invalid-feedback" role="alert">
+											<span>{{ $message }}</span>
+										</div>
+
+									@enderror
+
+								</div>
+
+								<div class="form-group">
+									
+									<div class="custom-file">
+
+										<input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" value="{{ old('image') }}">
+
+										<label for="image" class="custom-file-label">Выберите изображение</label>
+
+										@error('image')
+
+											<div class="invalid-feedback" role="alert">
+												<span>{{ $message }}</span>
+											</div>
+
+										@enderror
+									
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									
+									<lable class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
+
+									<select name="categories" class="custom-select">
+										
+										@foreach($categories as $category)
+
+											<option value="{{ $category->category_id }}">{{ $category->name }}</option>
+
+										@endforeach
+
+									</select>
+
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-outline-info btn-sm text-uppercase">
+									Добавить
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">
 				<table class="table table-hover dark-theme-item">
 							

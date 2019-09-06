@@ -122,6 +122,11 @@ $(document).ready(function() {
 
     });
 
+    $('#category-table .badge').click(function(event) {
+        event.preventDefault();
+        console.log(this);
+    });
+
     /**
     * Show spinner before content was loaded completely
     *

@@ -3,9 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\CheckFile;
 
 class News extends Model
 {
+	protected $fillable = [
+		'title', 'preview_text', 'description', 'image',
+		'category_id'
+	];
+
 	protected $table = 'news';
 
 	/**
@@ -89,6 +95,35 @@ class News extends Model
 	public function getRecordsByMonth($month) 
 	{
 		return News::whereMonth('created_at', $month)->count();
+	}
+
+	public function store($request)
+	{
+		
+		$messages = [
+			'required' => 'поле должно быть обязательно заполнено',
+			'min' => 'поле должно содержать не меньше :min символов',
+			'max' => 'поле должно содержать не больше :max символов',
+			'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp',
+		];
+
+		$validation = $request->validate([
+			'title' => 'required|min:15|max:30',
+			'preview_text' => 'required|min:30|max:60',
+			'description' => 'required|min:120|max:450',
+			'image' => 'image|required',
+			'category' => 'required'
+		], $messages);
+
+		$filename = CheckFile::checkForFileContains($request, 'image');
+
+		return News::create([
+			'title' => $request->title,
+			'preview_text' => $request->preview_text,
+			'description' => $request->description,
+			'image' => $filename,
+			'category_id' => $request->category
+		]);
 	}
 
 }

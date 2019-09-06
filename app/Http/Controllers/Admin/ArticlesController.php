@@ -18,6 +18,7 @@ class ArticlesController extends Controller
     /**
     * @var object App\ArticleCategory
     */ 
+    private $category;
 
     public function __construct()
     {
@@ -51,16 +52,6 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -68,7 +59,11 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->isMethod('post')) {
+            $this->article->store($request);
+
+            return redirect()->back()->withStatus('Record was added successfully');
+        }
     }
 
     /**
