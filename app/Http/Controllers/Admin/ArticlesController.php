@@ -86,11 +86,16 @@ class ArticlesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->isMethod('delete')) {
+            $this->article->deleteArticles($id);
+
+            return redirect()->back()->withStatus('Article was deleted successfully');
+        }
     }
 }

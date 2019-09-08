@@ -123,7 +123,12 @@ class Discussion extends Model
     }
 
     /**
+    * Update discussion by id property
+    *
+    * @param \App\Http\Requests\StoreRecords $request
+    * @param $id int
     * 
+    * @return updated record
     */ 
     public function updateDiscussions($request, $id)
     {
@@ -144,5 +149,17 @@ class Discussion extends Model
                 'image' => $filename
             ]);
         }
+    }
+
+    /**
+    * Delete discussions by id property
+    *
+    * @param $id int
+    *
+    * @return bool
+    */ 
+    public function deleteDiscussions($id)
+    {
+        return Discussion::where('id', $id)->delete();
     }
 }

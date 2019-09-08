@@ -82,8 +82,12 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->isMethod('delete')) {
+            $this->discussion->deleteDiscussions($id);
+
+            return redirect()->back()->withStatus('Discussion was deleted successfully');
+        }
     }
 }

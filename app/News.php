@@ -122,7 +122,12 @@ class News extends Model
 	} 
 
 	/**
+	* Update news by id property
 	*
+	* @param \App\Http\Requests\StoreNews $request
+	* @param $id int
+	*
+	* @return updated record
 	*/ 
 	public function updateRecords($request, $id)
 	{
@@ -141,6 +146,18 @@ class News extends Model
 			]);
 
 		}
+	}
+
+	/**
+	* Delete news by id property
+	*
+	* @param $id int
+	*
+	* @return bool
+	*/ 
+	public function deleteNews($id)
+	{
+		return News::where('id', $id)->delete();
 	}
 
 }

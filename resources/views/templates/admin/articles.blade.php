@@ -193,9 +193,13 @@
 									</div>
 									<div class="modal-footer">
 
-										@csrf
 
 										<form action="{{ route('articles.destroy', $article->id) }}" method="post">
+
+											@csrf
+
+											@method('DELETE')
+
 											<button type="submit" class="btn btn-outline-success montserrat-font">
 												Да
 											</button>

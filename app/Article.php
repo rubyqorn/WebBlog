@@ -121,7 +121,12 @@ class Article extends Model
 	}
 
 	/**
+	* Update articles by id property 
 	*
+	* @param \App\Http\Requests\StoreRecords $request
+	* @param $id int
+	*
+	* @return updated article
 	*/ 
 	public function updateArticles($request, $id)
 	{
@@ -138,5 +143,17 @@ class Article extends Model
 				'category_id' => $request->category, 
 			]);
 		}
+	}
+
+	/**
+	* Delete articles by id property
+	*
+	* @param $id int
+	*
+	* @return bool
+	*/ 
+	public function deleteArticles($id)
+	{
+		return Article::where('id', $id)->delete();
 	}
 }

@@ -212,6 +212,8 @@
 
 											@csrf
 
+											@method('DELETE')
+
 											<button type="submit" class="btn btn-outline-success montserrat-font">
 												Да
 											</button>

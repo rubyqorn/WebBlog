@@ -32,7 +32,7 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (view()->exists('templates.admin.news')) {
             $chart = CountRecordsForCharts::chart($this->news);
@@ -85,11 +85,16 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->isMethod('delete')) {
+            $this->news->deleteNews($id);
+
+            return redirect()->back()->withStatus('Record was deleted successfully');
+        }
     }
 }
