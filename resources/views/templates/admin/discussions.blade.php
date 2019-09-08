@@ -102,7 +102,7 @@
 									
 									<lable class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
 
-									<select name="categories" class="custom-select">
+									<select name="category" class="custom-select">
 										
 										@foreach($categories as $category)
 
@@ -207,7 +207,12 @@
 											<span>&times;</span>
 										</button>
 									</div>
-									<form action="{{ route('discussions.update', $discussion->id) }}" method="post" enctype="multipat/form-data">
+									<form action="{{ route('discussions.update', $discussion->id) }}" method="post" enctype="multipart/form-data">
+
+										@csrf
+
+										@method('PATCH')
+
 										<div class="modal-body">
 
 											<div class="form-group">
@@ -245,26 +250,24 @@
 											<div class="form-group">
 												
 												<div class="custom-file">
-													
-													<input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror">
 
-													<label for="image" class="custom-file-label">
-														Выберите изображение
-													</label>
+													<input type="file" name="image" class="custom-file-input @error('image') is-invalid @enderror" value="{{ old('image') }}">
 
-												</div>
+													<label for="image" class="custom-file-label">Выберите изображение</label>
 
-												<div class="text-white bg-dark p-3 mt-1 col-lg-12">
-													{{ $discussion->image }}
-												</div>
-
-												@error('image')
-
-													<div class="invalid-feedback" role="alert">
-														<span>{{ $message }}</span>
+													<div class="text-white bg-dark p-3 mt-1 col-lg-12">
+														{{ $discussion->image }}
 													</div>
 
-												@enderror
+													@error('image')
+
+														<div class="invalid-feedback" role="alert">
+															<span>{{ $message }}</span>
+														</div>
+
+													@enderror
+												
+												</div>
 
 											</div>
 
@@ -276,7 +279,7 @@
 													
 													@foreach($categories as $category)
 
-														<option value="{{ $category->id }}">{{ $category->name }}</option>
+														<option value="{{ $category->category_id }}">{{ $category->name }}</option>
 
 													@endforeach
 												

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\Http\Requests\StoreNews;
 use App\NewsCategory;
 use App\News;
 
@@ -52,50 +53,33 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreNews $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreNews $request)
     {
         if ($request->isMethod('post')) {
              $this->news->store($request);
 
-             return redirect()->back()->withStatus('Your record was created successfully');
-         } 
-    }
+            return redirect()->back()->withStatus('Your record was created successfully');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreNews  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreNews $request, $id)
     {
-        //
+        if ($request->isMethod('patch')) {
+            $this->news->updateRecords($request, $id); 
+
+            return redirect()->back()->withStatus('Record was updated successfully'); 
+        }
     }
 
     /**

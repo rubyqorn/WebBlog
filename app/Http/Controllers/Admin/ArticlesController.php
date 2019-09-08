@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\Http\Requests\StoreRecords;
 use App\ArticleCategory;
 use App\Article;
 
@@ -54,10 +55,10 @@ class ArticlesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreRecords  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRecords $request)
     {
         if ($request->isMethod('post')) {
             $this->article->store($request);
@@ -67,38 +68,20 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreRecords  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRecords $request, $id)
     {
-        //
-    }
+        if ($request->isMethod('patch')) {
+            $this->article->updateArticles($request, $id);
+
+            return redirect()->back()->withStatus('Record was updated successfully');
+        }
+    } 
 
     /**
      * Remove the specified resource from storage.

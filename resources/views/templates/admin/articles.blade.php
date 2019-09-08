@@ -225,6 +225,8 @@
 
 									@csrf
 
+									@method('PATCH')
+
 									<div class="modal-body">
 
 										<div class="form-group">
@@ -234,22 +236,6 @@
 											<input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $article->title }}">
 
 											@error('title')
-
-												<div class="invalid-feedback" role="alert">
-													<span>{{ $message }}</span>
-												</div>
-
-											@enderror
-
-										</div>
-
-										<div class="form-group">
-											
-											<label for="preview-text" class="control-label col-xs-2 montserrat-font font-weight-bold">Пролог</label>
-
-											<textarea name="preview-text" class="form-control @error('preview-text') is-invalid @enderror" cols="10" rows="5">{{ $article->preview_text }}</textarea>
-
-											@error('preview_text')
 
 												<div class="invalid-feedback" role="alert">
 													<span>{{ $message }}</span>
@@ -306,21 +292,19 @@
 
 												@foreach($categories as $category)
 
-													<option value="{{ $category->id }}">{{ $category->name }}</option>
+													<option value="{{ $category->category_id }}">{{ $category->name }}</option>
 
 												@endforeach
 
 											</select>
 
-											
+											<div class="col-lg-12 mt-1 text-white bg-dark p-3">
+												@foreach($categories as $category)
 
-												<div class="col-lg-12 bg-dark mt-1 p-3 text-white">
-													@foreach($article->categories as $category)
-														{{ $category->name }}
-													@endforeach
-												</div>
+													{{ $category->name }}
 
-											
+												@endforeach
+											</div>
 
 											@error('category')
 

@@ -95,10 +95,10 @@
 
             <div class="form-group">
 
-              <label for="categories" class="control-label col-xs-2 font-weight-bold text-black-50">
+              <label for="category" class="control-label col-xs-2 font-weight-bold text-black-50">
               Категория *</label>
 
-              <select name="categories" class="custom-select @error('categories') is-invalid @enderror" required>
+              <select name="category" class="custom-select @error('categories') is-invalid @enderror" required>
 
                 @foreach($categories as $category)
 

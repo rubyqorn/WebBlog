@@ -97,33 +97,50 @@ class News extends Model
 		return News::whereMonth('created_at', $month)->count();
 	}
 
+	/**
+	* Store new records in database
+	*
+	* @param $request object App\Http\Requests\StoreNews
+	*
+	* @return bool
+	*/ 
 	public function store($request)
+	{	
+		if (is_object($request)) {
+			$validation = $request->validated();
+
+			$filename = CheckFile::checkForFileContains($request, 'image');
+
+			return News::create([
+				'title' => $request->title,
+				'preview_text' => $request->preview_text,
+				'description' => $request->description,
+				'image' => $filename,
+				'category_id' => $request->category
+			]);
+		}
+	} 
+
+	/**
+	*
+	*/ 
+	public function updateRecords($request, $id)
 	{
-		
-		$messages = [
-			'required' => 'поле должно быть обязательно заполнено',
-			'min' => 'поле должно содержать не меньше :min символов',
-			'max' => 'поле должно содержать не больше :max символов',
-			'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp',
-		];
+		if (is_object($request)) {
+			
+			$validation = $request->validated();
 
-		$validation = $request->validate([
-			'title' => 'required|min:15|max:30',
-			'preview_text' => 'required|min:30|max:60',
-			'description' => 'required|min:120|max:450',
-			'image' => 'image|required',
-			'category' => 'required'
-		], $messages);
+			$filename = CheckFile::checkForFileContains($request, 'image');
 
-		$filename = CheckFile::checkForFileContains($request, 'image');
+			return News::where('id', $id)->update([
+				'title' => $request->title,
+				'preview_text' => $request->preview_text,
+				'description' => $request->description,
+				'image' => $filename,
+				'category_id' => $request->category
+			]);
 
-		return News::create([
-			'title' => $request->title,
-			'preview_text' => $request->preview_text,
-			'description' => $request->description,
-			'image' => $filename,
-			'category_id' => $request->category
-		]);
+		}
 	}
 
 }

@@ -95,23 +95,18 @@ class Article extends Model
 		return Article::whereMonth('created_at', $month)->count();
 	}
 
+	/**
+	* Store articles in database
+	*
+	* @param $request object App\Http\Requests\StoreRecords
+	*
+	* @return bool
+	*/ 
 	public function store($request)
 	{
 		if (is_object($request)) {
 			
-			$messages = [
-				'required' => 'должно быть обязательно заполнено',
-				'min' => 'поле должно содержать не меньше :min символов',
-				'max' => 'поле должно содержать не меньше :max символов',
-				'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp'
-			];
-
-			$validation = $request->validate([
-				'title' => 'required|min:15|max:35',
-				'description' => 'required|min:120|max:450',
-				'image' => 'required|image',
-				'category' => 'required'
-			]);
+			$validation = $request->validated();
 
 			$filename = CheckFile::checkForFileContains($request, 'image');
 
@@ -122,7 +117,26 @@ class Article extends Model
 				'category_id' => $request->category
 			]);
 
-			}
+		}
+	}
 
+	/**
+	*
+	*/ 
+	public function updateArticles($request, $id)
+	{
+		if (is_object($request)) {
+
+			$validation = $request->validated();
+
+			$filename = CheckFile::checkForFileContains($request, 'image');
+
+			return Article::where('id', $id)->update([
+				'title' => $request->title,
+				'description' => $request->description,
+				'image' => $filename,
+				'category_id' => $request->category, 
+			]);
+		}
 	}
 }

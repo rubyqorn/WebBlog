@@ -73,44 +73,6 @@ class Discussion extends Model
     }
 
     /**
-    * Get fields for validation and create new record
-    * in database
-    *
-    * @param $request object Illuminate\Http\Request
-    *
-    * @return created record in database
-    */ 
-    public function storeQuestions(object $request)
-    {
-        // Fields validation
-        $messages = [
-            'required' => 'поле должно быть обязательно заполнено',
-            'min' => 'поле должно содержать не меньше :min символов',
-            'max' => 'поле должно содержать не юольше :max символов',
-            'image' => 'переданный файл должен быть в формате jpeg, png, bmp, gif, svg, или webp',
-        ];
-
-        $validation = $request->validate([
-            'title' => 'required|min:15|max:30',
-            'description' => 'min:120|max:400',
-            'image' => 'image',
-            'categories' => 'required',
-        ], $messages);
-
-        // Check file containing
-        $filename = CheckFile::checkForFileContains($request, 'image');
-
-        // Create record in database
-        return Discussion::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'category_id' => $request->categories,
-            'image' => $filename
-        ]);
-        
-    }
-
-    /**
     * Get and count records by month
     *
     * @param $month int|string Have to be like 01, 02...
@@ -131,5 +93,56 @@ class Discussion extends Model
     public function getDiscussionsForTable()
     {
         return Discussion::paginate(5);
+    }
+
+    /**
+    * Get fields for validation and create new record
+    * in database
+    *
+    * @param $request object App\Http\Requests\StoreRecords
+    *
+    * @return created record in database
+    */ 
+    public function storeQuestions($request)
+    {
+        if (is_object($request)) {
+            // Fields validation
+            $validation = $request->validated();
+
+            // Check file containing
+            $filename = CheckFile::checkForFileContains($request, 'image');
+
+            // Create record in database
+            return Discussion::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'category_id' => $request->category,
+                'image' => $filename
+            ]);
+        }
+    }
+
+    /**
+    * 
+    */ 
+    public function updateDiscussions($request, $id)
+    {
+        if (is_object($request)) {
+
+            // dd($request->image);
+
+            $validation = $request->validated();
+
+            // Check file containing
+            $filename = CheckFile::checkForFileContains($request, 'image');
+
+            // Create record in database
+            return Discussion::where('id', $id)->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'category_id' => $request->category,
+                'image' => $filename
+            ]);
+        }
     }
 }

@@ -239,6 +239,8 @@
 
 										@csrf
 
+										@method('PATCH')
+
 										<div class="modal-body">
 
 											<div class="form-group">
@@ -261,7 +263,7 @@
 												
 												<label for="preview-text" class="control-label montserrat-font col-xs-2 font-weight-bold">Пролог</label>
 
-												<textarea name="preview-text" class="form-control @error('preview-text') is-invalid @enderror" cols="10" rows="5">{{ $item->preview_text }}</textarea>
+												<textarea name="preview_text" class="form-control @error('preview-text') is-invalid @enderror" cols="10" rows="5">{{ $item->preview_text }}</textarea>
 
 												@error('preview-text')
 
@@ -297,8 +299,8 @@
 													<label for="image" class="custom-file-label">Выберите изображение</label>
 												</div>
 
-												<div class="col-lg-12 mb-2 mt-1 text-white bg-dark p-3">
-													{{ $item->image  }}
+												<div class="col-lg-12 bg-dark mt-1 p-4 text-white">
+													{{ $item->image }}
 												</div>
 
 												@error('image')
@@ -321,7 +323,7 @@
 
 													@foreach($categories as $category)
 
-														<option value="{{ $category->id }}">{{ $category->name }}</option>
+														<option value="{{ $category->category_id }}">{{ $category->name }}</option>
 
 													@endforeach
 
