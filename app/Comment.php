@@ -44,35 +44,6 @@ class Comment extends Model
 					->paginate(3);
 	}
 
-
-	/**
-	* Validate forms fields and create new record in
-	* database
-	*
-	* @param $request object Illuminate\Http\Request 
-	*
-	* @return created record in database or error messages
-	* if passed fields was not validated
-	*/ 
-	public function store(object $request)
-	{
-		$messages = [
-			'required' => ':attribute должно быть обязательно заполнено',
-			'min' => ':attribute должно содержать не меньше :min символов',
-			'max' => ':attribute должно содержать не больше :max символов'
-		];
-
-		$validation = $request->validate([
-			'response' => 'required|min:120|max:255'
-		], $messages);
-
-		return Comment::create([
-			'user_id' => Auth::user()->id,
-			'article_id' => $request->id,
-			'comment' => $request->response,
-		]);
-	}
-
 	/**
 	* Return quantity of comments
 	*/ 
@@ -112,6 +83,60 @@ class Comment extends Model
 	public function getCommentsForTable()
 	{
 		return Comment::paginate(5);
+	}
+
+	/**
+	* Validate forms fields and create new record in
+	* database
+	*
+	* @param $request object Illuminate\Http\Request 
+	*
+	* @return created record in database or error messages
+	* if passed fields was not validated
+	*/ 
+	public function store($request)
+	{
+		if (is_object($request)) {
+
+			$validation = $request->validated();
+
+			return Comment::create([
+				'user_id' => Auth::user()->id,
+				'article_id' => $request->id,
+				'comment' => $request->response,
+			]);
+		}
+	}
+
+	/**
+	* Update comments by id property
+	*
+	* @param \App\Http\Requests\StoreResponses $request
+	* @param $id int
+	*
+	* @return \Illuminate\Http\Response
+	*/ 
+	public function updateComment($request, $id)
+	{
+		if (is_object($request)) {
+			$validation = $request->validated();
+
+			return Comment::where('id', $id)->update([
+				'comment' => $request->response
+			]);
+		}
+	}
+
+	/**
+	* Delete comments by id property
+	*
+	* @param $id int
+	*
+	* @return \Illuminate\Http\Response
+	*/ 
+	public function deleteComment($id)
+	{
+		return Comment::where('id', $id)->delete();
 	}
 
 }

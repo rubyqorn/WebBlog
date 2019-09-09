@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\Http\Requests\StoreResponses;
 use App\Answer;
 
 class AnswersController extends Controller
@@ -37,6 +38,39 @@ class AnswersController extends Controller
     	}
 
     	abort(404);
+    }
 
+    /**
+    * Update answers by id property
+    *
+    * @param \App\Http\Requests\StoreResponses
+    * @param $id int
+    *
+    * @return \Illuminate\Http\Response
+    */ 
+    public function update(StoreResponses $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $this->answer->updateAnswer($request, $id);
+
+            return redirect()->back()->withStatus('Answer was updated successfully');
+        }
+    }
+
+    /**
+    * Delete answer by id property
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param $id int
+    * 
+    * @return \Illuminate\Http\Response
+    */ 
+    public function destroy(Request $request, $id)
+    {
+        if ($request->isMethod('delete')) {
+            $this->answer->deleteAnswer($id);
+
+            return redirect()->back()->withStatus('Answer was deleted successfully');
+        }
     }
 }

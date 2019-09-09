@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreResponses;
 use App\ArticleCategory;
 use App\Article;
 use App\Comment;
@@ -77,7 +78,7 @@ class ArticlesController extends Controller
         abort(404);
     } 
 
-    public function storeComment(Request $request)
+    public function storeComment(StoreResponses $request)
     {
         $validation = $this->comment->store($request);
 

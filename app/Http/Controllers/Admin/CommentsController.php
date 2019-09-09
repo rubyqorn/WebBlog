@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
+use App\Http\Requests\StoreResponses;
 use App\Comment;
 
 class CommentsController extends Controller
@@ -30,8 +31,6 @@ class CommentsController extends Controller
             $chart = CountRecordsForCharts::chart($this->comment);
             $comments = $this->comment->getCommentsForTable();
 
-            // dd($comments);
-
     		return view('templates.admin.comments')->with([
                 'chart' => $chart,
                 'comments' => $comments,
@@ -40,5 +39,39 @@ class CommentsController extends Controller
 
     	abort(404);
     	
+    }
+
+    /**
+    * Update comments by id property
+    *
+    * @param \App\Http\Requests\StoreResponses $request
+    * @param $id int
+    *
+    * @return \Illuminate\Http\Response
+    */ 
+    public function update(StoreResponses $request, $id)
+    {
+        if ($request->isMethod('put')) {
+            $this->comment->updateComment($request, $id);
+
+            return redirect()->back()->withStatus('Comment was updated successfully');
+        }
+    }
+
+    /**
+    * Delete comment by id property
+    *
+    * @param \Illuminate\Http\Request $request
+    * @param $id int
+    *
+    * @return \Illuminate\Http\Response
+    */ 
+    public function destroy(Request $request, $id)
+    {
+        if ($request->isMethod('delete')) {
+            $this->comment->deleteComment($id);
+
+            return redirect()->back()->withStatus('Comment was deleted successfully');
+        }
     }
 }

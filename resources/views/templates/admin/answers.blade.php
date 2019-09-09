@@ -17,6 +17,8 @@
 				{!! $chart->container() !!}
 			</div>
 
+			@include('templates.admin.parts.success-message')
+
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">
 				<table class="table table-hover dark-theme-item">
 							
@@ -84,7 +86,12 @@
 									</h5>
 								</div>
 								<div class="modal-footer">
-									<form action="/" method="post">
+									<form action="{{ route('answers.destroy', $answer->id) }}" method="post">
+
+										@csrf
+
+										@method('DELETE')
+
 										<button type="submit" class="btn btn-outline-success montserrat-font">
 											Да
 										</button>
@@ -106,16 +113,21 @@
 											<span>&times;</span>
 										</button>
 									</div>
-									<form action="/" method="post" enctype="multipart/form-data">
+									<form action="{{ route('answers.update', $answer->id) }}" method="post" enctype="multipart/form-data">
+
+										@csrf
+
+										@method('PUT')
+
 										<div class="modal-body">
 
 											<div class="form-group">
 												
 												<label for="answer" class="control-label col-xs-2 font-weight-bold montserrat-font">Вопрос</label>
 
-												<textarea name="answer" class="form-control @error('answer') is-invalid @enderror" cols="10" rows="5">{{ $answer->answer }}</textarea>
+												<textarea name="response" class="form-control @error('response') is-invalid @enderror" cols="10" rows="5">{{ $answer->answer }}</textarea>
 
-												@error('answer')
+												@error('response')
 
 													<div class="invalid-feedback" roe="alert">
 														<span>{{ $message }}</span>

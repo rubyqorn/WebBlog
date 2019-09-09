@@ -17,6 +17,8 @@
 				{!! $chart->container() !!}
 			</div>
 
+			@include('templates.admin.parts.success-message')
+
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">
 				<table class="table table-hover dark-theme-item">
 							
@@ -83,7 +85,12 @@
 										</h5>
 									</div>
 									<div class="modal-footer">
-										 <form action="/" method="post"> 
+										 <form action="{{ route('comments.destroy', $comment->id) }}" method="post"> 
+
+											@csrf
+
+											@method('DELETE')
+
 											<button type="submit" class="btn btn-outline-success montserrat-font">
 												Да
 											</button>
@@ -105,17 +112,19 @@
 											<span>&times;</span>
 										</button>
 									</div>
-									<form action="/" method="post" enctype="multipat/form-data">
+									<form action="{{ route('comments.update', $comment->id) }}" method="post" enctype="multipart/form-data">
 										
 										@csrf
+
+										@method('PUT')
 
 										<div class="modal-body">
 
 											<div class="form-group">
 												
-												<label for="comment" class="control-label col-xs-2 font-weight-bold montserrat-font">Комментарий</label>
+												<label for="response" class="control-label col-xs-2 font-weight-bold montserrat-font">Комментарий</label>
 
-												<textarea name="comment" class="form-control @error('title') is-invalid @enderror" rows="10" cols="5">{{ $comment->comment }}</textarea>
+												<textarea name="response" class="form-control @error('title') is-invalid @enderror" rows="10" cols="5">{{ $comment->comment }}</textarea>
 
 												@error('comment')
 
