@@ -10,7 +10,7 @@ class ArticleCategory extends Model
 
     /**
     * @return inverse relationships with App\Article
-    */ 
+    */
     public function article()
     {
     	return $this->belongsTo(Article::class);
@@ -20,12 +20,18 @@ class ArticleCategory extends Model
     * Select categories names from db table
     *
     * @return categories
-    */ 
+    */
     public function getCategories()
     {
     	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();
     }
 
+
+    /**
+     * Get categories for articles table
+     *
+     * @return articles with pagination
+     */
     public function getCategoriesForTable()
     {
         return ArticleCategory::paginate(5);

@@ -11,37 +11,12 @@
       {{ Breadcrumbs::render(Request::path()) }}
     </a>
   </div>
-	
-<!-- Search form where we can find articles -->
-<div class="container mt-4" id="search-form">
-    <div class="row justify-content-center">
 
-      <div class="col-lg-12 d-flex text-center">
-        <i class="fas fa-search fa-2x"></i>
-        <div class="search-form col-lg-12">
-          <form action="/" class="form-group" method="get">
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div id="result">
-        <div class="col-lg-12 d-flex">
-          <div class="content">
-            <a href="/" class="text-black-50 font-weight-bold"><!-- content from search field --></a> 
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
 <section class="mt-3 mb-4" id="blog">
   <div class="container">
       <div class="row">
-		
+
 		<!-- All records -->
         <div class="col-lg-7 col-md-7 col-sm-12">
 
@@ -63,14 +38,14 @@
                           <h4 class="card-title font-weight-bold">
                               <a href="{{ route('article', $article->id) }}" class="text-white miriam-font-family">{{ $article->title }}</a>
                           </h4>
-                      
+
                       </div>
                   </div>
               </div>
             @endforeach
 
             </div>
-        	
+
         	<!-- Pagination for articles -->
             <div class="row justify-content-center mt-4" id="pagination">
                 <ul class="pagination">

@@ -12,32 +12,6 @@
     </a>
   </div>
 
-<!-- Search form where we can find news -->
-<div class="container mt-4" id="search-form">
-    <div class="row justify-content-center">
-
-      <div class="col-lg-12 d-flex text-center">
-        <i class="fas fa-search fa-2x"></i>
-        <div class="search-form col-lg-12">
-          <form action="/" class="form-group">
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div id="result">
-        <div class="col-lg-12 d-flex">
-          <div class="content">
-            <a href="/" class="text-black-50 font-weight-bold"><!-- content from search field --></a> 
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
   <!-- All news -->
   <section class="mt-3 mb-4" id="news">
       <div class="container">
@@ -63,14 +37,14 @@
                                   <a href="{{ route('singleNews', $item->id) }}" class="text-white miriam-font-family">{{ $item->title }}</a>
                               </h4>
 
-                          
+
                           </div>
                       </div>
                   </div>
                 @endforeach
 
               </div>
-          		
+
           	<!-- Pagination for news -->
               <div class="row justify-content-center mt-4" id="pagination">
                   <ul class="pagination">
@@ -79,7 +53,7 @@
               </div>
 
           </div>
-		
+
 		  <!-- Right sidebar where we contain all news categories -->
           <div class="col-lg-5 col-md-5 col-sm-12 mt-3" id="categories">
               <div class="card">

@@ -25,4 +25,14 @@ class DiscussionCategory extends Model
     {
     	return DiscussionCategory::all();
     }
+
+    /**
+    * Get categories for AJAX request
+    *
+    * @return mixed
+    */ 
+    public function getCategoriesForTable()
+    {
+        return DiscussionCategory::paginate(5);
+    }
 }
