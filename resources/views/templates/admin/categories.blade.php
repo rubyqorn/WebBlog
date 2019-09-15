@@ -16,6 +16,11 @@
                     Выберите категорию
                 </h3>
             </div>
+
+            <div class="col-lg-12 col-md-12 col-12">
+                @include('templates.admin.parts.success-message')
+            </div>
+
             <div class="col-lg-3 col-md-4 col-sm-12 mt-4 jumbotron p-0 ml-1" id="categories-item">
                 <div class="card-img-top ">
                     <img src="{{ asset('assets/img/logo.png') }}" class="w-100" alt="">

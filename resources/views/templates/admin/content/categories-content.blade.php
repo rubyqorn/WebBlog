@@ -1,7 +1,7 @@
 @if(Request::is('admin/articles-categories'))
 
         <!-- Back to the categories selection -->
-        <div class="col-lg-12 col-md-12 col-12" id="back-to-selection">
+        <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="back-to-selection">
            <a href="{{ route('admin.categories') }}">
                <i class="fas fa-chevron-left fa-2x"></i>
            </a>
@@ -83,7 +83,7 @@
                             <span>&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('admin.categories.store') }}" method="post">
+                    <form action="{{ route('admin.articles.categories.store') }}" method="post">
 
                         @csrf
 
@@ -118,7 +118,7 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.update', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.articles.categories.update', $category->category_id) }}" method="post">
 
                             @csrf
 
@@ -155,7 +155,12 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.delete', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.articles.categories.delete', $category->category_id) }}" method="post">
+                            
+                            @csrf
+
+                            @method('DELETE')
+                            
                             <div class="modal-body">
                                 <h4 class="text-center text-danger">
                                     Вы действительно хотите удалить эту запись???
@@ -259,7 +264,7 @@
                             <span>&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('admin.categories.store') }}" method="post">
+                    <form action="{{ route('admin.news.categories.store') }}" method="post">
 
                         @csrf
 
@@ -294,7 +299,7 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.update', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.news.categories.update', $category->category_id) }}" method="post">
 
                             @csrf
 
@@ -331,7 +336,12 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.delete', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.news.categories.delete', $category->category_id) }}" method="post">
+
+                            @csrf
+
+                            @method('DELETE')    
+                            
                             <div class="modal-body">
                                 <h4 class="text-center text-danger">
                                     Вы действительно хотите удалить эту запись???
@@ -435,7 +445,7 @@
                             <span>&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('admin.categories.store') }}" method="post">
+                    <form action="{{ route('admin.discussions.categories.store') }}" method="post">
 
                         @csrf
 
@@ -470,7 +480,7 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.update', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.discussions.categories.update', $category->category_id) }}" method="post">
 
                             @csrf
 
@@ -507,7 +517,12 @@
                                 <span>&times;</span>
                             </button>
                         </div>
-                        <form action="{{ route('admin.categories.delete', $category->category_id) }}" method="post">
+                        <form action="{{ route('admin.discussions.categories.delete', $category->category_id) }}" method="post">
+                           
+                           @csrf
+
+                           @method('DELETE')
+                           
                             <div class="modal-body">
                                 <h4 class="text-center text-danger">
                                     Вы действительно хотите удалить эту запись???

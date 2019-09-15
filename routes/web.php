@@ -95,14 +95,32 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
     Route::get('/discussions-categories', 'DiscussionsCategoriesController@showPage')
     	->name('admin.discussions.categories');
 
-    Route::post('/categories/create', 'CategoriesController@store')
-    	->name('admin.categories.store');
+	Route::post('/articles-categories/create', 'ArticlesCategoriesController@storeCategories')
+		->name('admin.articles.categories.store');
 
-	Route::put('/categories/update/{id}', 'CategoriesController@update')
-        ->name('admin.categories.update');
+	Route::put('/articles-categories/edit/{id}', 'ArticlesCategoriesController@updateCategories')
+		->name('admin.articles.categories.update');
 
-	Route::delete('/categories/delete/{id}', 'CategoriesController@destroy')
-        ->name('admin.categories.delete');
+	Route::delete('/articles-categories/delete/{id}', 'ArticlesCategoriesController@destroyCategories')
+		->name('admin.articles.categories.delete');
+
+	Route::post('/news-categories/create', 'NewsCategoriesController@storeCategories')
+		->name('admin.news.categories.store');
+
+	Route::put('/news-categories/edit/{id}', 'NewsCategoriesController@updateCategories')
+		->name('admin.news.categories.update');
+
+	Route::delete('/news-categories/delete/{id}', 'NewsCategoriesController@destroyCategories')
+		->name('admin.news.categories.delete');
+
+	Route::post('/discussions-categories/create', 'DiscussionsCategoriesController@storeCategories')
+		->name('admin.discussions.categories.store');
+
+	Route::put('/discussions-categories/edit/{id}', 'DiscussionsCategoriesController@updateCategories')
+		->name('admin.discussions.categories.update');
+	
+	Route::delete('/discussions-categories/delete/{id}', 'DiscussionsCategoriesController@destroyCategories')
+		->name('admin.discussions.categories.delete');
 
 	Route::resource('news', 'NewsController');
 	Route::resource('articles', 'ArticlesController');

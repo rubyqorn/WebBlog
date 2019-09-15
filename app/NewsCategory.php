@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsCategory extends Model
 {
-	protected $table = 'news_categories';
+    protected $table = 'news_categories';
+    protected $fillable = ['name'];
 
 	/**
 	* @return inverse relationships with App\News
@@ -30,7 +31,7 @@ class NewsCategory extends Model
     /**
      *  Get categories for table
      *
-     * @return mixed
+     * @return \App\NewsCategory
      */
     public function getCategoriesForTable()
     {
@@ -38,11 +39,29 @@ class NewsCategory extends Model
     }
 
     /**
-     * Update categories by id property
+     * Store news categories
+     * 
+     * @param \App\Http\Requests\StoreCategories
+     * 
+     * @return \App\NewsCategory 
+    */ 
+    public function storeCategories($request)
+    {
+        if (is_object($request)) {
+            $validation = $request->validated();
+
+            return NewsCategory::create([
+                'name' => $request->category
+            ]);
+        }
+    }
+
+    /**
+     * Update news categories by id property
      *
      * @param \App\Http\Requests\StoreCategories $request
      * @param $id int
-     * @return mixed
+     * @return \App\NewsCategory
      */
     public function updateCategories($request, $id)
     {
@@ -57,12 +76,12 @@ class NewsCategory extends Model
         }
     }
 
-
     /**
-     * Delete categories by id property
+     * Delete news categories by id property
      *
      * @param $id int
-     * @return mixed
+     * 
+     * @return \App\NewsCategory
      */
     public function deleteCategories($id)
     {

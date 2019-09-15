@@ -53,8 +53,6 @@ class CategoriesController extends Controller
     {   
         if ($request->isMethod('post')) {
            $model->storeCategories($request);
-
-            return redirect()->back()->withStatus('Category was added successfully');
         }
 
     }
@@ -71,8 +69,6 @@ class CategoriesController extends Controller
     {
         if ($request->isMethod('put')) {
             $model->updateCategories($request, $id);
-
-            return redirect()->back()->withStatus('Category was updated successfully');
         }
 
     }
@@ -87,10 +83,8 @@ class CategoriesController extends Controller
      */
     public function destroy($request, $model, $id)
     {
-        if ($request->isMethod('put')) {
-            $model->deleteCategories($id);
-
-            return redirect()->back()->withStatus('Category was deleted successfully');
+        if ($request->isMethod('delete')) {
+            $model->deleteCategories($id, $request);
         }
     }
 
