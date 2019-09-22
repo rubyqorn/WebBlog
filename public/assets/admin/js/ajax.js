@@ -21,10 +21,14 @@ $(document).ready(function() {
         ajaxHandler('/admin/discussions-categories', 'GET', '#categories-table .row');
     });
 
+    const content = $('.content');
+
+    console.log($('#news-table'));
+    
     // Show spinner before content will display
     function before()
     {
-        $('#category-table').html('<div class="spinner-grow" role="status"> <span></span> </div>');
+        $('#categories-table').html('<div class="spinner-grow" role="status"> <span></span> </div>');
     }
 
     // AJAX processing
@@ -40,8 +44,4 @@ $(document).ready(function() {
     }
 
 });
-
-function newFunction() {
-    console.log(this);
-}
 

@@ -9,7 +9,7 @@
 @section('content')
 
 	<!-- Main content -->
-	<div class="content container mt-4">
+	<div class="content container mt-4" id="news-table">
 		<div class="row justify-content-center">
 
 			<!-- Stats about news -->
@@ -118,7 +118,7 @@
 
 								<div class="form-group">
 									
-									<lable class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
+									<label class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
 
 									<select name="category" class="custom-select">
 										
