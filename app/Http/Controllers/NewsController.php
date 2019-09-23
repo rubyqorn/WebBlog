@@ -65,4 +65,18 @@ class NewsController extends Controller
 
         abort(404);
     }
+
+    /**
+    * Search news by request property 
+    * 
+    * @param \Illuminate\Http\Request
+    *
+    * @return \Illuminate\Http\Response
+    */ 
+    public function search(Request $request)
+    {
+        $news = $this->news->searchNews($request);
+
+        return view('templates.search', compact('news'));
+    }
 }

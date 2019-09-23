@@ -51,6 +51,20 @@ class ArticlesController extends Controller
     }
 
     /**
+    * Search articles by request content
+    *
+    * @param \Illuminate\Http\Request $request
+    *
+    * @return \Illuminate\Http\Response
+    */ 
+    public function search(Request $request)
+    {
+        $articles = $this->article->searchArticles($request);
+
+        return view('templates.search-content', compact('articles'));
+;    }
+
+    /**
     * Return page with single article where contains
     * main block with article content and 2 sidebars
     * with latest articles and categories names

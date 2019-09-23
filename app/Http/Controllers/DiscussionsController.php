@@ -114,4 +114,18 @@ class DiscussionsController extends Controller
         return abort(404);
         
     }
+
+    /**
+     * Search discussions by search content
+     * 
+     * @param \Illuminate\Http\Request
+     *  
+     * @return \Illuminate\Http\Response
+     */ 
+    public function search(Request $request)
+    {
+        $discussions = $this->disucussion->searchDiscussions($request);
+    
+        return view('templates.search', compact('discussions'));
+    }
 }

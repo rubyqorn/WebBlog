@@ -98,6 +98,22 @@ class News extends Model
 	}
 
 	/**
+	 * Search news
+	 * 
+	 * @param \Illuminate\Http\Request
+	 *  
+	 * @return \App\News
+	*/ 
+	public function searchNews($request)
+	{
+		if (is_object($request)) {
+			return News::where('title', $request->search)
+						->orWhere('title', 'like', '%' . $request->search . '%')
+						->get();
+		}
+	}
+
+	/**
 	* Store new records in database
 	*
 	* @param $request object App\Http\Requests\StoreNews

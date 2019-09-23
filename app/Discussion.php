@@ -96,6 +96,22 @@ class Discussion extends Model
     }
 
     /**
+    * Search discussions
+    * 
+    * @param \Illuminate\Http\Request $request 
+    * 
+    * @return \App\Discussion
+    */ 
+    public function searchDiscussions($request)
+    {
+        if (is_object($request)) {
+            return Discussion::where('title', $request->search)
+                            ->orWhere('title', 'like', '%'. $request->search .'%')
+                            ->get();
+        }
+    }
+
+    /**
     * Get fields for validation and create new record
     * in database
     *

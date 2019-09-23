@@ -21,10 +21,6 @@ $(document).ready(function() {
         ajaxHandler('/admin/discussions-categories', 'GET', '#categories-table .row');
     });
 
-    const content = $('.content');
-
-    console.log($('#news-table'));
-    
     // Show spinner before content will display
     function before()
     {
@@ -32,11 +28,11 @@ $(document).ready(function() {
     }
 
     // AJAX processing
-    function ajaxHandler(url, method, section) 
+    function ajaxHandler(url, type, section) 
     {
         $.ajax({
-            url: url,
-            method: method,
+            url,
+            type,
             beforeSend: before(),
         }).done(function(data) {
             $(section).html(data);

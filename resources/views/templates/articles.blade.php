@@ -12,6 +12,20 @@
     </a>
   </div>
 
+  <div class="container mt-4" id="search-form">
+    <div class="row justify-content-center">
+
+      <div class="col-lg-12 d-flex text-center">
+        <i class="fas fa-search fa-2x"></i>
+        <div class="search-form col-lg-12">
+          <form action="{{ route('articles.search') }}">
+            <div class="form-group">
+              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
+            </div>
+          </form>
+        </div>
+      </div>
+
 
 <section class="mt-3 mb-4" id="blog">
   <div class="container">

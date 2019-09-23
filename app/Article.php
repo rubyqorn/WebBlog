@@ -96,6 +96,22 @@ class Article extends Model
 	}
 
 	/**
+	 * Search articles
+	 * 
+	 * @param \Illuminate\Http\Request  
+	 * 
+	 * @return \App\Article
+	*/ 
+	public function searchArticles($request)
+	{
+		if (is_object($request)) {
+			return Article::where('title', $request->search)
+							->orWhere('title', 'like', '%' . $request->search . '%')
+							->paginate(5);
+		}
+	}
+
+	/**
 	* Store articles in database
 	*
 	* @param $request object App\Http\Requests\StoreRecords
