@@ -131,6 +131,15 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
 	Route::delete('/discussions-categories/delete/{id}', 'DiscussionsCategoriesController@destroyCategories')
 		->name('admin.discussions.categories.delete');
 
+	Route::get('articles/search', 'ArticlesController@search')
+		->name('admin.articles.search');
+
+	Route::get('news/search', 'NewsController@search')
+		->name('admin.news.search');
+
+	Route::get('discussions/search', 'DiscussionsController@search')
+		->name('admin.discussions.search');
+
 	Route::resource('news', 'NewsController');
 	Route::resource('articles', 'ArticlesController');
 	Route::resource('discussions', 'DiscussionsController');

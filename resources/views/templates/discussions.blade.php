@@ -21,6 +21,26 @@
       </div>
   @endif
 
+  <!-- Search form -->
+  <div class="container mt-4 mb-4" id="search-form">
+    <div class="row justify-content-center">
+
+      <div class="col-lg-12 d-flex text-center">
+        <i class="fas fa-search fa-2x"></i>
+        <div class="search-form col-lg-12">
+          <form action="{{ route('discussions.search') }}">
+            <div class="form-group">
+              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
+            </div>
+            <button type="submit" class="btn btn-outline-success float-right">
+              <small>
+                Click
+              </small>
+            </button>
+          </form>
+        </div>
+      </div>
+
   <!-- Modal window for ask question button -->
   <div class="modal fade" role="dialog" tabindex="-1" id="ask">
     <div class="modal-dialog modal-lg" role="document">

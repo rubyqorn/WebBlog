@@ -53,6 +53,20 @@ class ArticlesController extends Controller
     }
 
     /**
+     * Search articles by request content
+     * 
+     * @param \Illuminate\Http\Request
+     *  
+     * @return \Illuminate\Http\Response
+    */ 
+    public function search(Request $request)
+    {
+        $articles = $this->article->searchArticles($request);
+        $categories = $this->category->getCategories();
+        return view('templates.admin.search-content', compact('articles', 'categories'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreRecords  $request

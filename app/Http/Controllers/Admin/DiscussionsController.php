@@ -46,6 +46,21 @@ class DiscussionsController extends Controller
     }
 
     /**
+     * Search discussions by request content
+     * 
+     * @param \Illuminate\Http\Request
+     *  
+     * @return \Illuminate\Http\Response
+    */ 
+    public function search(Request $request)
+    {
+        $discussions = $this->discussion->searchDiscussions($request);
+        $categories = $this->category->getCategories();
+
+        return view('templates.admin.search-content', compact('discussions', 'categories'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreRecords  $request

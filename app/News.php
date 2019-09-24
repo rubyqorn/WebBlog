@@ -109,7 +109,7 @@ class News extends Model
 		if (is_object($request)) {
 			return News::where('title', $request->search)
 						->orWhere('title', 'like', '%' . $request->search . '%')
-						->get();
+						->paginate(5);
 		}
 	}
 

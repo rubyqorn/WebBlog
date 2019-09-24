@@ -124,8 +124,8 @@ class DiscussionsController extends Controller
      */ 
     public function search(Request $request)
     {
-        $discussions = $this->disucussion->searchDiscussions($request);
+        $discussions = $this->discussion->searchDiscussions($request);
     
-        return view('templates.search', compact('discussions'));
+        return view('templates.search-content', compact('discussions'));
     }
 }

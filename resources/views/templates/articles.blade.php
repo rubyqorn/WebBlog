@@ -12,6 +12,7 @@
     </a>
   </div>
 
+  <!-- Search form -->
   <div class="container mt-4" id="search-form">
     <div class="row justify-content-center">
 
@@ -22,6 +23,11 @@
             <div class="form-group">
               <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
             </div>
+            <button type="submit" class="btn btn-outline-success float-right">
+              <small>
+                Click
+              </small>
+            </button>
           </form>
         </div>
       </div>

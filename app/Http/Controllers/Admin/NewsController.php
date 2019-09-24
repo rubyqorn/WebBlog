@@ -51,6 +51,21 @@ class NewsController extends Controller
     }
 
     /**
+     * Search news by request content
+     * 
+     * @param \Illuminate\Http\Request
+     *  
+     * @return \Illuminate\Http\Response
+    */ 
+    public function search(Request $request)
+    {
+        $news = $this->news->searchNews($request);
+        $categories = $this->category->getCategories();
+
+        return view('templates.admin.search-content', compact('categories', 'news'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  App\Http\Requests\StoreNews $request

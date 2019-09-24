@@ -26,6 +26,22 @@
 				</button>
 			</div>
 
+			<div class="col-lg-7 col-md-7 col-12 mt-4 mb-4 d-flex text-black-50" id="search-form">
+				<i class="fas fa-search fa-2x text-secondary"></i>
+				<div class="col-lg-12">
+					<form action="{{ route('admin.discussions.search') }}">
+						<div class="form-group">
+							<input type="search" class="form-control" name="search" placeholder="Ваш запрос">
+						</div>
+						<button type="submit" class="btn btn-outline-success text-uppercase float-right">
+							<small>
+								Click
+							</small>
+						</button>
+					</form>
+				</div>
+			</div>
+
 			<!-- Add new records modal window -->
 			<div class="modal fade" id="create" tabindex="-1" role="dialog">
 				<div class="modal-dialog modal-lg" role="document">

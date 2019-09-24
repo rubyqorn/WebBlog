@@ -8,7 +8,7 @@
 
 @section('content')
 
-    @if(Request::path('articles/search'))
+    @if(Request::is('articles/search'))
 
         <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4 p-4">
             <h4 class="text-black-50 montsserat-font">
@@ -62,7 +62,7 @@
         </div>
         
 
-    @elseif(Request::path('news/search'))
+    @elseif(Request::is('news/search'))
 
     <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4 p-4">
             <h4 class="text-black-50 montsserat-font">
@@ -111,7 +111,7 @@
             </div>
         </div>
 
-    @elseif(Request::path('discussions/search'))
+    @elseif(Request::is('discussions/search'))
 
     <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4 p-4">
         <h4 class="text-black-50 montsserat-font">

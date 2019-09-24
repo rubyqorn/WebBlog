@@ -107,7 +107,7 @@ class Discussion extends Model
         if (is_object($request)) {
             return Discussion::where('title', $request->search)
                             ->orWhere('title', 'like', '%'. $request->search .'%')
-                            ->get();
+                            ->paginate(5);
         }
     }
 
