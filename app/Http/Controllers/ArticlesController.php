@@ -10,35 +10,13 @@ use App\Comment;
 
 class ArticlesController extends Controller
 {
-	/**
-	* @var object App\Article
-	*/ 
-	private $article;
-
-	/**
-	* @var object App\ArticleCategory
-	*/
-	private $categories;
-
     /**
-    * @var object App\Comment
-    */ 
-    private $comment;
-
-	public function __construct()
-	{
-		$this->article = new Article();
-		$this->categories = new ArticleCategory();
-        $this->comment = new Comment();
-	}
-
-    /**
-     * @return articles page
+     * @return \Illuminate\Http\Response
     */
     public function showPage()
     {
-    	$articles = $this->article->articlesWithPagination();
-    	$categories = $this->categories->getCategories();
+    	$articles = Article::paginate(5);
+    	$categories = ArticleCategory::all();
 
         if (view()->exists('templates.articles')) {
         	return view('templates.articles')->with([
@@ -62,7 +40,7 @@ class ArticlesController extends Controller
         $articles = $this->article->searchArticles($request);
 
         return view('templates.search-content', compact('articles'));
-;    }
+    }
 
     /**
     * Return page with single article where contains
@@ -75,10 +53,10 @@ class ArticlesController extends Controller
     */ 
     public function showSingleArticle($id)
     {
-        $article = $this->article->selectArticleById($id);
-        $latestArticles = $this->article->getLatestArticles();
-        $comments = $this->comment->getComments($id);
-        $articlesCategories = $this->categories->getCategories();
+        $article = Article::findOrFail($id);
+        $latestArticles = Article::orderBy('created_at', 'desc')->limit(5)->get();
+        $comments = Comment::where('article_id', $article->id)->paginate(3);
+        $articlesCategories = ArticleCategory::all();
 
         if (view()->exists('templates.article')) {
             return view('templates.article')->with([
@@ -92,9 +70,17 @@ class ArticlesController extends Controller
         abort(404);
     } 
 
-    public function storeComment(StoreResponses $request)
+    public function storeComment(Request $request)
     {
-        $validation = $this->comment->store($request);
+        if (!$request->isMethod('POST')) {
+            return abort(404);
+        }
+
+        $storeComment = $this->comment->store($request);
+
+        if ($storeComment) {
+            return redirect()->back()->with('status', 'Commented');
+        }
 
         return redirect()->back();
     }

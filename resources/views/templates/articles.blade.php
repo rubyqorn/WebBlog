@@ -13,24 +13,25 @@
   </div>
 
   <!-- Search form -->
-  <div class="container mt-4" id="search-form">
-    <div class="row justify-content-center">
-
-      <div class="col-lg-12 d-flex text-center">
-        <i class="fas fa-search fa-2x"></i>
-        <div class="search-form col-lg-12">
-          <form action="{{ route('articles.search') }}">
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
-            </div>
-            <button type="submit" class="btn btn-outline-success float-right">
-              <small>
-                Click
-              </small>
-            </button>
-          </form>
+  <div class="container mt-4 p-0" id="search-form">
+    <div class="d-flex justify-content-end col-lg-12">
+        <div class="col-lg-5">
+            <form action="{{ route('articles.search') }}" class="form-group">
+                <div class="form-group search-button d-flex">
+                    <i class="fas fa-search fa-lg mt-2 ml-1 text-muted"></i>
+                </div>
+                <div class="form-group search-form d-none">
+                    <input type="search" class="form-control text-muted montserrat-font-family" name="search">
+                    <button type="submit" class="btn btn-outline-success text-uppercase mt-1">
+                        <small>
+                            Search
+                        </small>
+                    </button>
+                </div>
+            </form>
         </div>
-      </div>
+    </div>
+</div>
 
 
 <section class="mt-3 mb-4" id="blog">
@@ -50,7 +51,7 @@
                       <div class="card-body bg-dark p-5">
                           <div class="d-flex">
                               <i class="fas fa-tags text-white"></i>
-                              <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $article->name }}</p>
+                              <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $article->category->name }}</p>
                               <p class="text-light-green ml-3 miriam-font-family text-uppercase">
                                 {{ date('M d, Y', strtotime($article->created_at)) }}
                               </p>

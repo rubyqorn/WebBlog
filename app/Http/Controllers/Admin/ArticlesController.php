@@ -39,8 +39,6 @@ class ArticlesController extends Controller
             $articles = $this->article->articlesWithPagination();
             $categories = $this->category->getCategories();
 
-            // dd($articles);
-
             return view('templates.admin.articles')->with([
                 'chart' => $chart,
                 'articles' => $articles,
@@ -72,7 +70,7 @@ class ArticlesController extends Controller
      * @param  \App\Http\Requests\StoreRecords  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecords $request)
+    public function store(Request $request)
     {
         if ($request->isMethod('post')) {
             $this->article->store($request);

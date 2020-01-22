@@ -75,3 +75,9 @@ body {
 #discussion a.text-primary {
     cursor: pointer;
 }
+
+#success-message, #error-message {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+}

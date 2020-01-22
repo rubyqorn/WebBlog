@@ -36,9 +36,9 @@ class AjaxRequestController extends Controller
     */ 
     public function getData()
     {
-    	$news = $this->news->newsWithPagination();
-    	$articles = $this->article->articlesWithPagination();
-    	$discussions = $this->discussion->getDiscussions();
+    	$news = News::paginate(5);
+    	$articles = Article::paginate(5);
+    	$discussions = Discussion::paginate(5);
 
     	return view('templates.content.ajax-data', compact(
     		'news', 'articles', 'discussions'
@@ -55,9 +55,10 @@ class AjaxRequestController extends Controller
     */ 
     public function recordsByCategory($id)
     {
-    	$news = $this->news->newsByCategory($id);
-        $articles = $this->article->articlesById($id);
-        $discussions = $this->discussion->getDiscussionsById($id);
+    	$news = News::where('category_id', $id)->get();
+        $articles = Article::where('category_id', $id)->get();
+        $discussions = Discussion::withCount('answers')->where('category_id', $id)
+                                ->paginate(5);
 
     	return view('templates.content.categories-content')->with([
             'news' => $news, 'articles' => $articles,

@@ -6,20 +6,6 @@
 
 @section('content')
 
-<div class="container mt-4" id="search-form">
-    <div class="row justify-content-center">
-
-      <div class="col-lg-12 d-flex text-center">
-        <i class="fas fa-search fa-2x"></i>
-        <div class="search-form col-lg-12">
-          <form action="{{ route('discussions.search') }}">
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
-            </div>
-          </form>
-        </div>
-      </div>
-
 <!-- Discussion content -->
 <section id="discussion" class="mt-3 mb-4">
     <div class="container">
@@ -78,6 +64,10 @@
                     <label for="response" class="control-label col-xs-2 text-black-50 nunito-font-family">Написать ответ</label>
 
                     <textarea name="response" class="form-control text-black-50 montserrat-font-family" cols="30" rows="10" placeholder="Ответ"></textarea>
+                  
+                      <script>
+                              CKEDITOR.replace( 'editor1' );
+                      </script>
                   </div>
 
                   <div class="form-group">

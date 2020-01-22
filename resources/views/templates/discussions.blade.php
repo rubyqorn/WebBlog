@@ -21,25 +21,26 @@
       </div>
   @endif
 
-  <!-- Search form -->
-  <div class="container mt-4 mb-4" id="search-form">
-    <div class="row justify-content-center">
-
-      <div class="col-lg-12 d-flex text-center">
-        <i class="fas fa-search fa-2x"></i>
-        <div class="search-form col-lg-12">
-          <form action="{{ route('discussions.search') }}">
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="Поиск" id="search">
-            </div>
-            <button type="submit" class="btn btn-outline-success float-right">
-              <small>
-                Click
-              </small>
-            </button>
-          </form>
-        </div>
+   <!-- Search form -->
+   <div class="container mt-4 p-0" id="search-form">
+      <div class="d-flex justify-content-end col-lg-12">
+          <div class="col-lg-5">
+              <form action="{{ route('discussions.search') }}" class="form-group">
+                  <div class="form-group search-button d-flex">
+                      <i class="fas fa-search fa-lg mt-2 ml-1 text-muted"></i>
+                  </div>
+                  <div class="form-group search-form d-none">
+                      <input type="search" class="form-control text-muted montserrat-font-family" name="search">
+                      <button type="submit" class="btn btn-outline-success text-uppercase mt-1">
+                          <small>
+                              Search
+                          </small>
+                      </button>
+                  </div>
+              </form>
+          </div>
       </div>
+  </div>
 
   <!-- Modal window for ask question button -->
   <div class="modal fade" role="dialog" tabindex="-1" id="ask">

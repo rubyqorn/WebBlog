@@ -11,6 +11,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Montserrat|Nunito|Raleway&display=swap" rel="stylesheet"> 
 	<!-- Custom CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+	<!-- CKEditor 4 -->
+	<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 </head>
 <body class="bg-dark-theme">
 

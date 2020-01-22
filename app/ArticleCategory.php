@@ -9,14 +9,7 @@ class ArticleCategory extends Model
     protected $table = 'articles_categories';
     protected $fillable = ['name'];
 
-    /**
-    * @return inverse relationships with App\Article
-    */
-    public function article()
-    {
-    	return $this->belongsTo(Article::class);
-    }
-
+    
     /**
     * Select categories names from db table
     *

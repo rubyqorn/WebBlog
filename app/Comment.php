@@ -16,7 +16,7 @@ class Comment extends Model
 	*/ 
 	public function article()
 	{
-		return $this->belongsTo(Article::class);
+		return $this->belongsTo(Article::class, 'article_id');
 	}
 
 	/**
@@ -96,10 +96,15 @@ class Comment extends Model
 	*/ 
 	public function store($request)
 	{
-		if (is_object($request)) {
+		if (!is_object($request)) {
+			return abort(404);
+		}
 
-			$validation = $request->validated();
+		$validation = $request->validate([
+			'response' => 'required|min:5|max:120'
+		]);
 
+		if ($validation) {
 			return Comment::create([
 				'user_id' => Auth::user()->id,
 				'article_id' => $request->id,
@@ -107,6 +112,8 @@ class Comment extends Model
 			]);
 		}
 	}
+
+		
 
 	/**
 	* Update comments by id property

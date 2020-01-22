@@ -19,8 +19,9 @@ $(document).ready(function() {
     });
 
     // Show search form by clicking
-    $('#search-form .fas').click(function() {
-        $('#search-form .search-form').toggle('slow');
+    $('#search-form .form-group .fas').click(function() {
+        $('#search-form .search-button').addClass('justify-content-end');
+        $('#search-form .search-form').toggleClass('d-none');
     });
 
 })

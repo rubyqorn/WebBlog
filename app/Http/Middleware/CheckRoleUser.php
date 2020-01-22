@@ -4,9 +4,20 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class CheckRoleUser
 {
+    /**
+     * @var \App\User
+     */ 
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new User();
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -16,11 +27,10 @@ class CheckRoleUser
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->user()->hasAdminRole()) {
-            return redirect('/');
+        if ($this->user->hasAdminRole()) {
+            return $next($request);
         }
-
-       return $next($request);
-
+        
+        return redirect()->route('home');
     }
 }

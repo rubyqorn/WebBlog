@@ -9,28 +9,12 @@ use App\NewsCategory;
 class NewsController extends Controller
 {
     /**
-    * @var object App\News
-    */ 
-    private $news;
-
-    /**
-    * @var object App\NewsCategory
-    */ 
-    private $categories;
-
-    public function __construct()
-    {
-        $this->news = new News();
-        $this->categories = new NewsCategory();
-    }
-
-    /**
-     * @return news page 
+     * @return \Illuminate\Http\Response
     */
     public function showPage()
     {
-       $news = $this->news->newsWithPagination();
-       $categories = $this->categories->getCategories();
+       $news = News::paginate(5);
+       $categories = Newscategory::orderBy('created_at', 'desc')->get();
 
         if (view()->exists('templates.news')) {
         	return view('templates.news')->with([

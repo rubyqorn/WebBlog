@@ -85,7 +85,7 @@
 		              </h5>
 		              <div class="d-flex">
 		                <i class="fas fa-tags text-white"></i>
-		                <p class="text-light-green ml-2 miriam-font-family">{{ $article->name }}</p>
+		                <p class="text-light-green ml-2 miriam-font-family">{{ $article->category->name }}</p>
 		                <p class="text-light-green miriam-font-family ml-3 text-uppercase">{{ $article->created_at }}</p>
 		              </div>
 		            </div>

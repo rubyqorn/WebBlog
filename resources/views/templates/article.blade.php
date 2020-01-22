@@ -77,15 +77,13 @@
                         <div class="d-flex justify-content-center">
                             <p class="text-black-50 miriam-font-family text-uppercase"><small> {{ date('M d, Y', strtotime($article->created_at)) }} /</small></p>
                             <i class="fas fa-tags fa-sm text-black-50 ml-2 mr-1 mt-1"></i>
-
-                            @foreach($article->categories as $category)
+                            
                                 <p class="text-light-green miriam-font-family text-uppercase">
                                     <small>
-                                        {{ $category->name }}    
+                                        {{ $article->category->name }}    
                                     </small>
                                 </p>
-                            @endforeach
-                        
+                           
                         </div>
                     </div>
 
@@ -128,6 +126,9 @@
                                         <label for="response" class="control-label col-xs-2 text-black-50 nunito-font-family">Написать ответ</label>
 
                                         <textarea id="response" name="response" cols="30" rows="10" class="form-control text-black-50 nunito-font-family" placeholder="Ваш комментарий"></textarea>
+                                        <script>
+                                                CKEDITOR.replace( 'editor1' );
+                                        </script>
                                     </div>
                                     <div class="form-group">
                                         <input type="hidden" name="id" value="{{ $article->id }}">
@@ -190,6 +191,8 @@
                     </div>
 
                 </div>
+
+                @include('templates.parts.alert')                
 
             @else 
 

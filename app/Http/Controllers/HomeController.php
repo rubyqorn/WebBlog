@@ -9,27 +9,14 @@ use App\User;
 
 class HomeController extends Controller
 {
-    	/**
-	* @var object App\Article 
-	*/ 
-	protected $article;
-	/**
-	* @var object App\News
-	*/ 
-	protected $news;
-	public function __construct()
-	{
-		$this->article = new Article();
-		$this->news = new News();
-	}
     /**
-     * @return home page 
+     * @return \Illuminate\Http\Response
     */
     public function showPage()
     {
-    	$articles = $this->article->getSixArticles();
-        $lastNews = $this->news->getLatestNews();
-        $news = $this->news->getThreeRandomNews();
+		$articles =  Article::orderBy('created_at', 'desc')->limit(6)->get(); 
+        $lastNews = News::latest()->take(1)->get();
+        $news = News::inRandomOrder()->limit(3)->get();
     	if (view()->exists('templates.home')) {
     		return view('templates.home')->with([
     			'articles' => $articles,

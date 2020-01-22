@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Montserrat|Nunito|Raleway&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
   <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
+  <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
   <title>@yield('title')</title>
 </head>
 <body class="bg-light-grey">
@@ -71,19 +72,19 @@
 
             @csrf
 
-            <div class="form-group d-flex">
-              <i class="fas fa-envelope float-left fa-lg text-black-50 mt-2 mr-2"></i>
+            <div class="form-group">
+
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Почта">
 
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+              @error('email')
+                  <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                  </span>
+              @enderror
 
             </div>
             <div class="form-group d-flex">
-              <i class="fas fa-lock fa-lg mt-2 mr-2 float-left text-black-50"></i>
+              
               <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Пароль">
 
               @error('password')
