@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\CheckFile;
+use Illuminate\Http\Request;
 
 class Discussion extends Model
 {
@@ -59,7 +60,7 @@ class Discussion extends Model
     * 
     * @return \App\Discussion
     */ 
-    public static function searchDiscussions($request)
+    public static function searchDiscussions(Request $request)
     {
         if (is_object($request)) {
             return Discussion::where('title', $request->search)
@@ -72,11 +73,11 @@ class Discussion extends Model
     * Get fields for validation and create new record
     * in database
     *
-    * @param $request object App\Http\Requests\StoreRecords
+    * @param \Illuminate\Http\Request $request 
     *
     * @return created record in database
     */ 
-    public static function storeQuestions($request)
+    public static function storeQuestions(Request $request)
     {
         if (is_object($request)) {
             
@@ -103,23 +104,23 @@ class Discussion extends Model
     /**
     * Update discussion by id property
     *
-    * @param \App\Http\Requests\StoreRecords $request
+    * @param \Illuminate\Http\Request $request
     * @param $id int
     * 
     * @return updated record
     */ 
-    public static function updateDiscussions($request, $id)
+    public static function updateDiscussions(Request $request, $id)
     {
         if (is_object($request)) {
 
-            // dd($request->image);
+            $validation = $request->validate([
+                'title' => 'required|min:15|max:40',
+                'description' => 'max:300',
+                'image' => 'image',
+            ]);
 
-            $validation = $request->validated();
-
-            // Check file containing
             $filename = CheckFile::checkForFileContains($request, 'image');
 
-            // Create record in database
             return Discussion::where('id', $id)->update([
                 'title' => $request->title,
                 'description' => $request->description,

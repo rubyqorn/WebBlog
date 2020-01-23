@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class Comment extends Model
 {
@@ -26,40 +27,7 @@ class Comment extends Model
 	*/ 
 	public function users()
 	{
-		return $this->hasMany(User::class, 'id');
-	}
-
-	/**
-	* Get comments with pagination for single article page
-	*
-	* @param $id int|string
-	*
-	* @return comments with pagination
-	*/ 
-	public function getComments($id)
-	{
-		return $this->join('articles', 'comments.article_id', 'articles.id')
-					->join('users', 'comments.user_id', 'users.id')
-					->where('article_id', $id)
-					->paginate(3);
-	}
-
-	/**
-	* Return quantity of comments
-	*/ 
-	public function countedComments()
-	{
-		return Comment::count();
-	}
-
-	/**
-	* Get five last added comments
-	*
-	* @return last five records
-	*/ 
-	public function getLastComments()
-	{
-		return Comment::latest()->take(5)->get();
+		return $this->belongsTo(User::class, 'id');
 	}
 
 	/**
@@ -75,17 +43,6 @@ class Comment extends Model
 	}
 
 	/**
-	* Get records for comments table
-	*
-	* @return records for table
-	*
-	*/ 
-	public function getCommentsForTable()
-	{
-		return Comment::paginate(5);
-	}
-
-	/**
 	* Validate forms fields and create new record in
 	* database
 	*
@@ -94,14 +51,14 @@ class Comment extends Model
 	* @return created record in database or error messages
 	* if passed fields was not validated
 	*/ 
-	public static function store($request)
+	public static function store(Request $request)
 	{
 		if (!is_object($request)) {
 			return abort(404);
 		}
 
 		$validation = $request->validate([
-			'response' => 'required|min:5|max:120'
+			'response' => 'required|min:5|max:1000'
 		]);
 
 		if ($validation) {
@@ -118,15 +75,17 @@ class Comment extends Model
 	/**
 	* Update comments by id property
 	*
-	* @param \App\Http\Requests\StoreResponses $request
+	* @param \Illuminate\Http\Request $request
 	* @param $id int
 	*
 	* @return \Illuminate\Http\Response
 	*/ 
-	public static function updateComment($request, $id)
+	public static function updateComment(Request $request, $id)
 	{
 		if (is_object($request)) {
-			$validation = $request->validated();
+			$validation = $request->validate([
+				'comment' => 'required|min:5|max:1000'
+			]);
 
 			return Comment::where('id', $id)->update([
 				'comment' => $request->response

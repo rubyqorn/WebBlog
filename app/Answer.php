@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreResponses;
+use Illuminate\Http\Request;
 
 class Answer extends Model
 {
@@ -25,7 +25,7 @@ class Answer extends Model
      */ 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return Answer::belongsTo(User::class);
     }
 
     /**
@@ -41,17 +41,17 @@ class Answer extends Model
     * Validate forms fields and create new record in
     * database
     *
-    * @param $request object App\Http\StoreResponses 
+    * @param \Illuminate\Http\Request $request
     *
     * @return created record in database or error messages
     * if passed fields was not validated
     */ 
-    public static function store($request)
+    public static function store(Request $request)
     {
         if (is_object($request)) {
 
             $validation = $request->validate([
-                'response' => 'required|min:5|max:300'
+                'response' => 'required|min:5|max:1000'
             ]);
 
             return Answer::create([
@@ -65,16 +65,18 @@ class Answer extends Model
     /**
     * Update answer by id property
     *
-    * @param \App\Http\Requests\StoreResponses $request
+    * @param \Illuminate\Http\Request $request
     * @param $id int
     * 
     * @return \Illuminate\Http\Response
     */ 
-    public static function updateAnswer($request, $id)
+    public static function updateAnswer(Request $request, $id)
     {
         if (is_object($request)) {
             
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'response' => 'required|min:5|max:1000'
+            ]);
 
             return Answer::where('id', $id)->update([
                 'answer' => $request->response

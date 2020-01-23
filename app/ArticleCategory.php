@@ -3,45 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class ArticleCategory extends Model
 {
     protected $table = 'articles_categories';
     protected $fillable = ['name'];
 
-    
-    /**
-    * Select categories names from db table
-    *
-    * @return categories
-    */
-    public function getCategories()
-    {
-    	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();
-    }
-
-
-    /**
-     * Get categories for articles table
-     *
-     * @return articles with pagination
-     */
-    public function getCategoriesForTable()
-    {
-        return ArticleCategory::paginate(5);
-    }
-
     /**
      * Store categories 
      * 
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \App\ArticleCategory
     */ 
-    public function storeCategories($request)
+    public function storeCategories(Request $request)
     {
         if(is_object($request)) {
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'name' => 'required|min:5|max:20'
+            ]);
 
             return ArticleCategory::create([
                 'name' => $request->category
@@ -52,15 +33,17 @@ class ArticleCategory extends Model
     /**
      * Update categories 
      * 
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * @param $id int
      * 
      * @return \App\ArticleCategory
     */ 
-    public function updateCategories($request, $id)
+    public function updateCategories(Request $request, $id)
     {
         if (is_object($request)) {
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'name' => 'required|min:5|max:20'
+            ]);
 
             return ArticleCategory::where('category_id', $id)->update([
                 'name' => $request->category

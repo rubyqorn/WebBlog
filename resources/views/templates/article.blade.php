@@ -93,25 +93,6 @@
                         <hr class="text-black-50 mt-4">    
 
                         <div class="comments-section p-4">
-
-                            <div class="col-lg-12">
-                                @if($errors->any())
-
-                                    <div class="alert bg-dark-red alert-dismissable fade show text-center" role="alert">
-                                        <button class="close" data-dismiss="alert">
-                                            <span>&times;</span>
-                                        </button>
-                                        @foreach($errors->all() as $error)
-                                            <p class="text-lowercase text-white montserrat-font-family">
-                                                <small>
-                                                    <strong>{{ $error }}</strong>
-                                                </small>
-                                            </p>
-                                        @endforeach
-                                    </div>
-
-                                @endif
-                            </div>
                             
                             <!-- Comments form -->
                             @if(Auth::check())
@@ -160,7 +141,7 @@
                                         </div>
                                         <div class="comment">
                                             <p class="text-black-50">
-                                                {{ $comment->comment }}
+                                                {!! $comment->comment !!}
                                             </p>
                                         </div>
                                     </div>

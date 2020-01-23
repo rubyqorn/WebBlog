@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class NewsCategory extends Model
 {
@@ -18,37 +19,18 @@ class NewsCategory extends Model
 	}
 
     /**
-    * Get all categories from database
-    *
-    * @return records from database by created_at column
-    */
-    public function getCategories()
-    {
-    	return $this->select('category_id', 'name')->orderBy('created_at', 'desc')->get();
-    }
-
-
-    /**
-     *  Get categories for table
-     *
-     * @return \App\NewsCategory
-     */
-    public function getCategoriesForTable()
-    {
-        return NewsCategory::paginate(5);
-    }
-
-    /**
      * Store news categories
      * 
-     * @param \App\Http\Requests\StoreCategories
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \App\NewsCategory 
     */ 
-    public function storeCategories($request)
+    public function storeCategories(Request $request)
     {
         if (is_object($request)) {
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'name' => 'required|min:5|max:20'
+            ]);
 
             return NewsCategory::create([
                 'name' => $request->category
@@ -59,15 +41,17 @@ class NewsCategory extends Model
     /**
      * Update news categories by id property
      *
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * @param $id int
      * @return \App\NewsCategory
      */
-    public function updateCategories($request, $id)
+    public function updateCategories(Request $request, $id)
     {
         if (is_object($request)) {
 
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'name' => 'required|min:5|max:20'
+            ]);
 
             return NewsCategory::where('category_id', $id)->update([
                 'name' => $request->category

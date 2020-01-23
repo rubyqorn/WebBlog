@@ -42,6 +42,8 @@ class DiscussionsController extends Controller
     	$answers = Answer::where('discussion_id', $id)->paginate(3);
         $latestDiscussions = Discussion::latest()->limit(5)->get();
 
+        dd($answers->discussion->id);
+
     	if (view()->exists('templates.discussion')) {
     		return view('templates.discussion')->with([
     			'discussion' => $discussion,

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\CheckFile;
+use Illuminate\Http\Request;
 
 class Article extends Model
 {
@@ -50,15 +51,19 @@ class Article extends Model
 	/**
 	* Store articles in database
 	*
-	* @param $request object App\Http\Requests\StoreRecords
+	* @param \Illuminate\Http\Request $request 
 	*
 	* @return bool
 	*/ 
-	public static function store($request)
+	public static function store(Request $request)
 	{
 		if (is_object($request)) {
 			
-			$validation = $request->validated();
+			$validation = $request->validate([
+				'title' => 'required|min:15|max:120',
+				'description' => 'required|min:120|max:1000',
+				'image' => 'image',
+			]);
 
 			$filename = CheckFile::checkForFileContains($request, 'image');
 
@@ -75,16 +80,20 @@ class Article extends Model
 	/**
 	* Update articles by id property 
 	*
-	* @param \App\Http\Requests\StoreRecords $request
+	* @param \Illuminate\Http\Request $request
 	* @param $id int
 	*
 	* @return updated article
 	*/ 
-	public static function updateArticles($request, $id)
+	public static function updateArticles(Request $request, $id)
 	{
 		if (is_object($request)) {
 
-			$validation = $request->validated();
+			$validation = $request->validate([
+				'title' => 'required|min:15|max:120',
+				'description' => 'required|min:120|max:1000',
+				'image' => 'image',
+			]);
 
 			$filename = CheckFile::checkForFileContains($request, 'image');
 

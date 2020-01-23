@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Traits\CheckFile;
+use Illuminate\Http\Request;
 
 class News extends Model
 {
@@ -37,11 +38,11 @@ class News extends Model
 	/**
 	 * Search news
 	 * 
-	 * @param \Illuminate\Http\Request
+	 * @param \Illuminate\Http\Request $request
 	 *  
 	 * @return \App\News
 	*/ 
-	public static function searchNews($request)
+	public static function searchNews(Request $request)
 	{
 		if (is_object($request)) {
 			return News::where('title', $request->search)
@@ -53,14 +54,19 @@ class News extends Model
 	/**
 	* Store new records in database
 	*
-	* @param $request object App\Http\Requests\StoreNews
+	* @param \Illuminate\Http\Request $request
 	*
 	* @return bool
 	*/ 
-	public function store($request)
+	public function store(Request $request)
 	{	
 		if (is_object($request)) {
-			$validation = $request->validated();
+			$validation = $request->validate([
+				'title' => 'required|min:15|max:120',
+				'description' => 'required|min:120|max:1000',
+				'image' => 'image',
+				'category' => 'required',
+			]);
 
 			$filename = CheckFile::checkForFileContains($request, 'image');
 
@@ -77,16 +83,21 @@ class News extends Model
 	/**
 	* Update news by id property
 	*
-	* @param \App\Http\Requests\StoreNews $request
+	* @param \Illuminate\Http\Request $request
 	* @param $id int
 	*
 	* @return updated record
 	*/ 
-	public function updateRecords($request, $id)
+	public function updateRecords(Request $request, $id)
 	{
 		if (is_object($request)) {
 			
-			$validation = $request->validated();
+			$validation = $request->validate([
+				'title' => 'required|min:15|max:120',
+				'description' => 'required|min:120|max:1000',
+				'image' => 'image',
+				'category' => 'required',
+			]);
 
 			$filename = CheckFile::checkForFileContains($request, 'image');
 

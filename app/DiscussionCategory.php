@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class DiscussionCategory extends Model
 {
@@ -18,36 +19,18 @@ class DiscussionCategory extends Model
     } 
 
     /**
-    * Get categories for sidebar section in discussions page
-    *
-    * @return categories
-    */ 
-    public function getCategories()
-    {
-    	return DiscussionCategory::all();
-    }
-
-    /**
-    * Get categories for AJAX request
-    *
-    * @return mixed
-    */ 
-    public function getCategoriesForTable()
-    {
-        return DiscussionCategory::paginate(5);
-    }
-
-    /**
      * Store discussions categories
      * 
-     * @param \App\Http\Requests\StoreCategories
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \App\DiscussionCategory 
     */ 
-   public function storeCategories($request)
+   public function storeCategories(Request $request)
    {
        if (is_object($request)) {
-           $validation = $request->validated();
+           $validation = $request->validate([
+               'name' => 'required|min:5|max:20'
+           ]);
 
            return DiscussionCategory::create([
                'name' => $request->category
@@ -58,15 +41,17 @@ class DiscussionCategory extends Model
    /**
     * Update discussions categories by id property
     *
-    * @param \App\Http\Requests\StoreCategories $request
+    * @param \Illuminate\Http\Request $request
     * @param $id int
     * @return \App\DiscussionCategory
     */
-   public function updateCategories($request, $id)
+   public function updateCategories(Request $request, $id)
    {
        if (is_object($request)) {
 
-           $validation = $request->validated();
+           $validation = $request->validate([
+               'name' => 'required|min:5|max:20'
+           ]);
 
            return DiscussionCategory::where('category_id', $id)->update([
                'name' => $request->category
