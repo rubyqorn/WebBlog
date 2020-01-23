@@ -24,8 +24,11 @@
    <!-- Search form -->
    <div class="container mt-4 p-0" id="search-form">
       <div class="d-flex justify-content-end col-lg-12">
-          <div class="col-lg-5">
-              <form action="{{ route('discussions.search') }}" class="form-group">
+          <div class="col-lg-4">
+              <form action="{{ route('discussions.search') }}" class="form-group" method="post">
+                  
+                  @csrf
+                  
                   <div class="form-group search-button d-flex">
                       <i class="fas fa-search fa-lg mt-2 ml-1 text-muted"></i>
                   </div>
@@ -62,7 +65,7 @@
 
               <label for="title" class="control-label col-xs-2 text-black-50 font-weight-bold">Заголовок *</label>
 
-              <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" required value="{{ old('title') }}">
+              <textarea name="title" class="form-control @error('title') is-invalid @enderror" required cols="2" rows="2">{{ old('title') }}</textarea>
 
               @error('title')
 
@@ -81,6 +84,10 @@
               <label for="description" class="control-label col-xs-2 text-black-50 font-weight-bold">Подробное описание</label>
 
               <textarea name="description" class="form-control @error('descriiption') is-invalid @enderror" cols="30" rows="10" value="{{ old('description') }}"></textarea>
+
+              <script>
+                CKEDITOR.replace('description')
+              </script>
 
               @error('description')
 
@@ -178,6 +185,9 @@
                       <a href="{{ route('discussion', $discussion->id) }}" class="nav-link text-light-green miriam-font-family">
                         {{ $discussion->title }}
                       </a>
+                      <p class="badge badge-pill badge-purple ml-3">
+                        {{ $discussion->category->name }}
+                      </p>
                     </td>
                     <td>{{ $discussion->answers_count }}</td>
                   </tr>
@@ -223,5 +233,7 @@
       </div>
     </div>
 </section>
+
+@include('templates.parts.alert')
 
 @endsection

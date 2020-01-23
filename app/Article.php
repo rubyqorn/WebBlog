@@ -38,7 +38,7 @@ class Article extends Model
 	 * 
 	 * @return \App\Article
 	*/ 
-	public function searchArticles($request)
+	public static function searchArticles($request)
 	{
 		if (is_object($request)) {
 			return Article::where('title', $request->search)
@@ -54,7 +54,7 @@ class Article extends Model
 	*
 	* @return bool
 	*/ 
-	public function store($request)
+	public static function store($request)
 	{
 		if (is_object($request)) {
 			
@@ -80,7 +80,7 @@ class Article extends Model
 	*
 	* @return updated article
 	*/ 
-	public function updateArticles($request, $id)
+	public static function updateArticles($request, $id)
 	{
 		if (is_object($request)) {
 
@@ -104,7 +104,7 @@ class Article extends Model
 	*
 	* @return bool
 	*/ 
-	public function deleteArticles($id)
+	public static function deleteArticles($id)
 	{
 		return Article::where('id', $id)->delete();
 	}

@@ -24,6 +24,9 @@
                     <div class="card">
                         <div class="card-body bg-dark p-5">
                             <div class="d-flex">
+                                <i class="fas fa-tags text-white"></i>
+                                <p class="text-light-green font-weight-bold text-uppercase ml-2 mr-2">{{ $article->category->name }}</p>
+                                <i class="fas fa-clock text-white mt-1 mr-2"></i>
                                 <p class="text-light-green miriam-font-family text-uppercase">
                                     {{ date('M d, Y', strtotime($article->created_at)) }}
                                 </p>
@@ -78,6 +81,9 @@
                     <div class="card">
                         <div class="card-body bg-dark p-5">
                             <div class="d-flex">
+                                <i class="fas fa-tags text-white"></i>
+                                <p class="text-light-green font-weight-bold text-uppercase ml-2 mr-2">{{ $item->category->name }}</p>
+                                <i class="fas fa-clock text-white mt-1 mr-2"></i>
                                 <p class="text-light-green miriam-font-family text-uppercase">
                                     {{ date('M d, Y', strtotime($item->created_at)) }}
                                 </p>
@@ -127,6 +133,9 @@
                     <div class="card">
                         <div class="card-body bg-dark p-5">
                             <div class="d-flex">
+                                <i class="fas fa-tags text-white"></i>
+                                <p class="text-light-green font-weight-bold text-uppercase ml-2 mr-2">{{ $discussion->category->name }}</p>
+                                <i class="fas fa-clock text-white mt-1 mr-2"></i>
                                 <p class="text-light-green miriam-font-family text-uppercase">
                                     {{ date('M d, Y', strtotime($discussion->created_at)) }}
                                 </p>

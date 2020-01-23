@@ -14,9 +14,9 @@ class Discussion extends Model
 	/**
 	* @return Relationships with App\DiscussionCategory
 	*/ 
-    public function categories()
+    public function category()
     {
-    	return $this->hasMany(DiscussionCategory::class, 'category_id');
+    	return $this->belongsTo(DiscussionCategory::class, 'category_id', 'category_id');
     }
 
     /**
@@ -24,39 +24,7 @@ class Discussion extends Model
     */ 
     public function answers()
     {
-    	return $this->hasMany(Answer::class);
-    }
-
-    /**
-    * Select discussions with counted answers and pagination
-    *
-    * @return discussions with pagination
-    */ 
-    public function getDiscussions()
-    {
-       return Discussion::withCount('answers')->paginate(5);
-    }
-
-    /**
-    * Find discussion by id property
-    *
-    * @param $id int|string
-    * 
-    * @return single discussion
-    */ 
-    public function getDiscussionById($id)
-    {
-        return Discussion::findOrFail($id);
-    }
-
-    /**
-    * Select five latest discussions from db
-    *
-    * @return five latest records
-    */ 
-    public function getLatestDiscussions()
-    {
-        return $this->latest()->take(5)->get();
+    	return $this->belongsTo(Answer::class, 'id', 'discussion_id');
     }
 
     /**
@@ -85,24 +53,13 @@ class Discussion extends Model
     }
 
     /**
-    * Get discussions with pagination for admin 
-    * part of app
-    *
-    * @return paginated discussions
-    */ 
-    public function getDiscussionsForTable()
-    {
-        return Discussion::paginate(5);
-    }
-
-    /**
     * Search discussions
     * 
     * @param \Illuminate\Http\Request $request 
     * 
     * @return \App\Discussion
     */ 
-    public function searchDiscussions($request)
+    public static function searchDiscussions($request)
     {
         if (is_object($request)) {
             return Discussion::where('title', $request->search)
@@ -119,11 +76,15 @@ class Discussion extends Model
     *
     * @return created record in database
     */ 
-    public function storeQuestions($request)
+    public static function storeQuestions($request)
     {
         if (is_object($request)) {
-            // Fields validation
-            $validation = $request->validated();
+            
+            $validation = $request->validate([
+                'title' => 'required|min:15|max:40',
+                'description' => 'max:300',
+                'image' => 'image',
+            ]);
 
             // Check file containing
             $filename = CheckFile::checkForFileContains($request, 'image');
@@ -135,6 +96,7 @@ class Discussion extends Model
                 'category_id' => $request->category,
                 'image' => $filename
             ]);
+
         }
     }
 
@@ -146,7 +108,7 @@ class Discussion extends Model
     * 
     * @return updated record
     */ 
-    public function updateDiscussions($request, $id)
+    public static function updateDiscussions($request, $id)
     {
         if (is_object($request)) {
 
@@ -174,7 +136,7 @@ class Discussion extends Model
     *
     * @return bool
     */ 
-    public function deleteDiscussions($id)
+    public static function deleteDiscussions($id)
     {
         return Discussion::where('id', $id)->delete();
     }

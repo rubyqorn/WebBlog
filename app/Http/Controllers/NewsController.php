@@ -35,14 +35,12 @@ class NewsController extends Controller
     */ 
     public function newsById($id)
     {
-        $newsContent = $this->news->selectNewsById($id);
-        $latestNews = $this->news->getLastNews();
-        $categories = $this->categories->getCategories();
+        $newsContent = News::findOrFail($id);
+        $latestNews = News::orderBy('created_at', 'desc')->limit(5)->get();
 
         if (view()->exists('templates.article')) {
             return view('templates.article')->with([
                 'news' => $newsContent,
-                'categories' => $categories,
                 'latestNews' => $latestNews
             ]);
         }
@@ -59,8 +57,8 @@ class NewsController extends Controller
     */ 
     public function search(Request $request)
     {
-        $news = $this->news->searchNews($request);
+        $news = News::searchNews($request);
 
-        return view('templates.search', compact('news'));
+        return view('templates.search-content', compact('news'));
     }
 }

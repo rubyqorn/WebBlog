@@ -10,35 +10,14 @@ use App\Discussion;
 class AjaxRequestController extends Controller
 {
     /**
-    * @var object App\News
-    */ 
-	private $news;
-
-    /**
-    * @var object App\Article
-    */ 
-	private $article;
-
-    /**
-    * @var object App\Discussion
-    */ 
-	private $discussion;
-
-	public function __construct()
-	{
-		$this->news = new News();
-		$this->article = new Article();
-		$this->discussion = new Discussion();
-	}
-
-    /**
     * Get page with data which wewill use for ajax requests
     */ 
     public function getData()
     {
     	$news = News::paginate(5);
     	$articles = Article::paginate(5);
-    	$discussions = Discussion::paginate(5);
+        $discussions = Discussion::withCount('answers')->paginate(5);
+    
 
     	return view('templates.content.ajax-data', compact(
     		'news', 'articles', 'discussions'

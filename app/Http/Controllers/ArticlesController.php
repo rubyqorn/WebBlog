@@ -37,7 +37,7 @@ class ArticlesController extends Controller
     */ 
     public function search(Request $request)
     {
-        $articles = $this->article->searchArticles($request);
+        $articles = Article::searchArticles($request);
 
         return view('templates.search-content', compact('articles'));
     }
@@ -56,14 +56,12 @@ class ArticlesController extends Controller
         $article = Article::findOrFail($id);
         $latestArticles = Article::orderBy('created_at', 'desc')->limit(5)->get();
         $comments = Comment::where('article_id', $article->id)->paginate(3);
-        $articlesCategories = ArticleCategory::all();
 
         if (view()->exists('templates.article')) {
             return view('templates.article')->with([
                 'article' => $article,
                 'latestArticles' => $latestArticles,
-                'comments' => $comments,
-                'categories' => $articlesCategories,      
+                'comments' => $comments,    
             ]);
         }
 
@@ -76,7 +74,7 @@ class ArticlesController extends Controller
             return abort(404);
         }
 
-        $storeComment = $this->comment->store($request);
+        $storeComment = Comment::store($request);
 
         if ($storeComment) {
             return redirect()->back()->with('status', 'Commented');

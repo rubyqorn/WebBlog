@@ -8,8 +8,8 @@
 			          <div class="d-flex">
                     <i class="fas fa-tags text-white"></i>
                     <p class="text-light-green font-weight-bold text-uppercase ml-2 mr-2">{{ $item->category->name }}</p>
-                    <i class="fas fa-clock text-white mt-1"></i>
-			              <p class="text-light-green ml-3 miriam-font-family text-uppercase">
+                    <i class="fas fa-clock text-white mr-1 mt-1 ml-3"></i>
+			              <p class="text-light-green ml-1 miriam-font-family text-uppercase">
 			                {{ date('M d, Y', strtotime($item->created_at) )}}
 			              </p>
 			          </div>
@@ -56,7 +56,7 @@
           <a href="{{ route('discussion', $discussion->id) }}" class="nav-link text-light-green miriam-font-family">
             {{ $discussion->title }}
           </a>
-          <p class="badge badge-dark badge-pill">{{ $discussion->category->name }}</p>
+          <p class="badge badge-purple badge-pill ml-3">{{ $discussion->category->name }}</p>
         </td>
         <td>{{ $discussion->answers_count }}</td>
       </tr>

@@ -94,7 +94,7 @@ class Comment extends Model
 	* @return created record in database or error messages
 	* if passed fields was not validated
 	*/ 
-	public function store($request)
+	public static function store($request)
 	{
 		if (!is_object($request)) {
 			return abort(404);
@@ -123,7 +123,7 @@ class Comment extends Model
 	*
 	* @return \Illuminate\Http\Response
 	*/ 
-	public function updateComment($request, $id)
+	public static function updateComment($request, $id)
 	{
 		if (is_object($request)) {
 			$validation = $request->validated();
@@ -141,7 +141,7 @@ class Comment extends Model
 	*
 	* @return \Illuminate\Http\Response
 	*/ 
-	public function deleteComment($id)
+	public static function deleteComment($id)
 	{
 		return Comment::where('id', $id)->delete();
 	}

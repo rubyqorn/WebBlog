@@ -9,7 +9,7 @@
                 <div class="card-body bg-dark p-5">
                     <div class="d-flex">
                         <i class="fas fa-tags text-white"></i>
-                        <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $item->name }}</p>
+                        <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $item->category->name }}</p>
                         <p class="text-light-green ml-3 miriam-font-family text-uppercase">
                           {{ date('M d, Y', strtotime($item->created_at) )}}
                         </p>
@@ -35,7 +35,7 @@
               <div class="card-body bg-dark p-5">
                   <div class="d-flex">
                       <i class="fas fa-tags text-white"></i>
-                      <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $article->name }}</p>
+                      <p class="text-light-green font-weight-bold text-uppercase ml-2">{{ $article->category->name }}</p>
                       <p class="text-light-green ml-3 miriam-font-family text-uppercase">
                         {{ date('M d, Y', strtotime($article->created_at)) }}
                       </p>
@@ -60,6 +60,9 @@
           <a href="{{ route('discussion', $discussion->id) }}" class="nav-link text-light-green miriam-font-family">
             {{ $discussion->title }}
           </a>
+          <p class="badge badge-pill badge-purple ml-3">
+            {{ $discussion->category->name }}
+          </p>
         </td>
         <td>{{ $discussion->answers_count }}</td>
       </tr>

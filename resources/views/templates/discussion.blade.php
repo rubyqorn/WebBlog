@@ -15,15 +15,12 @@
           <h3 class="text-left text-light-green miriam-font-family">
             {{ $discussion->title }}
           </h3>
-
-          @foreach($discussion->categories as $category)
-            <span class="badge badge-pill badge-purple">{{ $category->name }}</span>
-          @endforeach
+            <span class="badge badge-pill badge-purple">{{ $discussion->category->name }}</span>
           
           <hr>
 
           <div class="more-info mt-4 mb-4 mt-4 col-lg-12 col-md-12 col-12">
-
+            
             @if($discussion->image)
                 <img src="{{ $discussion->image }}" alt="{{ $discussion->title }}">
             @endif
@@ -66,7 +63,7 @@
                     <textarea name="response" class="form-control text-black-50 montserrat-font-family" cols="30" rows="10" placeholder="Ответ"></textarea>
                   
                       <script>
-                              CKEDITOR.replace( 'editor1' );
+                              CKEDITOR.replace( 'response' );
                       </script>
                   </div>
 
@@ -128,14 +125,12 @@
               <div class="user-info col-lg-4">
                 <img src="{{ asset('assets/img/default.png') }}" alt="sample">
                 <p class="text-black-50 nunito-font-family mt-2">
-                    <small>
-                        {{ $answer->name }}
-                    </small>
+                    <small>{{ $answer->name }}</small>
                 </p>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-12">
                 <p class="text-black-50 nunito-font-family">
-                  {{ $answer->answer }}
+                  {!! $answer->answer !!}
                 </p>
               </div>
             </div>

@@ -16,7 +16,10 @@
   <div class="container mt-4 p-0" id="search-form">
     <div class="d-flex justify-content-end col-lg-12">
         <div class="col-lg-5">
-            <form action="{{ route('news.search') }}" class="form-group">
+            <form action="{{ route('news.search') }}" class="form-group" method="post">
+
+                @csrf
+
                 <div class="form-group search-button d-flex">
                     <i class="fas fa-search fa-lg mt-2 ml-1 text-muted"></i>
                 </div>

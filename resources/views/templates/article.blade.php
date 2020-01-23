@@ -39,16 +39,14 @@
                         </p>
                         <i class="fas fa-tags fa-sm text-black-50 ml-2 mr-1 mt-1"></i>
                         
-                        @foreach($news->categories as $category)
+                       
 
                             <p class="text-light-green miriam-font-family text-uppercase">
                                 <small>
-                                    {{$category->name}}
+                                    {{ $news->category->name}}
                                 </small>
                             </p>
 
-                        @endforeach
-                    
                     </div>
                 </div>
 
@@ -127,7 +125,7 @@
 
                                         <textarea id="response" name="response" cols="30" rows="10" class="form-control text-black-50 nunito-font-family" placeholder="Ваш комментарий"></textarea>
                                         <script>
-                                                CKEDITOR.replace( 'editor1' );
+                                                CKEDITOR.replace( 'response' );
                                         </script>
                                     </div>
                                     <div class="form-group">
@@ -238,49 +236,6 @@
 
                         @endif
                     </div> 
-                </div>
-
-                <!-- Categories -->
-                <div class="col-lg-12 col-md-12 col-12 mt-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="text-black-50">
-                                Категории {{ Request::is('article/*') ? 'статей' : 'новостей' }}
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            
-                            @if(Request::is('article/*'))
-
-                                @foreach($categories as $category)
-                                
-                                    <a href="/" class="nav-link text-light-green nunito-font-family">
-                                        {{ $category->name }}
-                                    </a>
-                                    <hr>
-
-                                @endforeach
-
-                            @elseif(Request::is('news/*'))
-
-                                @foreach($categories as $category)
-                                    <a href="/" class="nav-link text-light-green nunito-font-family">
-                                        {{$category->name}}
-                                    </a>
-                                    <hr>
-                                @endforeach
-
-                            @else
-
-                                <p class="text-light-green">
-                                    <small>
-                                        Категории не найдены
-                                    </small>
-                                </p>
-
-                            @endif
-                        </div>
-                    </div>
                 </div>
 
             </div>

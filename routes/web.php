@@ -47,13 +47,13 @@ Route::get('/discussions-content', 'AjaxRequestController@getData');
 Route::get('/discussions-categories/{id}', 'AjaxRequestController@recordsByCategory')
 	->name('discussionsCategories');
 
-Route::get('/articles/search', 'ArticlesController@search')
+Route::post('/articles/search', 'ArticlesController@search')
 		->name('articles.search');
 
-Route::get('/news/search', 'NewsController@search')
+Route::post('/news/search', 'NewsController@search')
 	->name('news.search');
 
-Route::get('/discussions/search', 'DiscussionsController@search')
+Route::post('/discussions/search', 'DiscussionsController@search')
 	->name('discussions.search');
 
 Route::group(['middleware' => 'auth'], function() {

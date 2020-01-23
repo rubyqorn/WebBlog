@@ -81,3 +81,7 @@ body {
     bottom: 10px;
     left: 15px;
 }
+
+.violet-badge {
+    background-color: rgb(208, 52, 240) !important;
+}

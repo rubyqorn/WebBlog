@@ -21,34 +21,11 @@ class Answer extends Model
     }
 
     /**
-    * Select answers for discussion with pagination
-    *
-    * @param $id int|string
-    *
-    * @return paginated discussion 
-    */ 
-    public function getAnswers($id)
+     * Get relationships with App\User model
+     */ 
+    public function user()
     {
-    	return Answer::join('discussions', 'answers.discussion_id', 'discussions.id')
-    				->join('users', 'answers.user_id', 'users.id')
-    				->where('discussion_id', $id)
-    				->paginate(2);
-    }
-
-    /**
-    * Return quantity of answers
-    */ 
-    public function countedAnswers()
-    {
-        return Answer::count();
-    }
-
-    /**
-    * @return three last answers
-    */ 
-    public function getLastAnswers()
-    {
-        return Answer::orderBy('created_at', 'desc')->limit(3)->get();
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -59,15 +36,6 @@ class Answer extends Model
         return Answer::whereMonth('created_at', $month)->count();
     }
 
-    /**
-    * Get answers for table in admin table
-    *
-    * @return paginated records 
-    */ 
-    public function getAnswersForTable()
-    {
-        return Answer::paginate(5);
-    }
 
      /**
     * Validate forms fields and create new record in
@@ -78,11 +46,13 @@ class Answer extends Model
     * @return created record in database or error messages
     * if passed fields was not validated
     */ 
-    public function store($request)
+    public static function store($request)
     {
         if (is_object($request)) {
 
-            $validation = $request->validated();
+            $validation = $request->validate([
+                'response' => 'required|min:5|max:300'
+            ]);
 
             return Answer::create([
                 'user_id' => Auth::user()->id,
@@ -100,7 +70,7 @@ class Answer extends Model
     * 
     * @return \Illuminate\Http\Response
     */ 
-    public function updateAnswer($request, $id)
+    public static function updateAnswer($request, $id)
     {
         if (is_object($request)) {
             
@@ -120,7 +90,7 @@ class Answer extends Model
     *
     * @return \Illuminate\Http\Response
     */ 
-    public function deleteAnswer($id)
+    public static function deleteAnswer($id)
     {
         return Answer::where('id', $id)->delete();
     }

@@ -9,34 +9,13 @@ use App\Answer;
 
 class DiscussionsController extends Controller
 {
-	/**
-	* @var object App\Discussion
-	*/ 
-	private $discussion;
-
-	/**
-	* @var object App\Answer
-	*/ 
-
-	/**
-	* @var object App\DiscussionCategory
-	*/ 
-	private $categories;
-
-	public function __construct()
-	{
-		$this->discussion = new Discussion();
-		$this->categories = new DiscussionCategory();
-		$this->answer = new Answer();
-	}
-
     /**
-     * @return discussions page 
+     * @return \Illuminate\Http\Response
     */
     public function showPage()
     {
-    	$discussions = $this->discussion->getDiscussions();
-    	$categories = $this->categories->getCategories();
+    	$discussions = Discussion::withCount('answers')->paginate(5);
+    	$categories = DiscussionCategory::all();
 
         if (view()->exists('templates.discussions')) {
         	return view('templates.discussions')->with([
@@ -59,9 +38,9 @@ class DiscussionsController extends Controller
     public function showSingleDiscussion($id)
     {
 
-    	$discussion = $this->discussion->getDiscussionById($id);
-    	$answers = $this->answer->getAnswers($id);
-    	$latestDiscussions = $this->discussion->getLatestDiscussions();
+    	$discussion = Discussion::findOrFail($id);
+    	$answers = Answer::where('discussion_id', $id)->paginate(3);
+        $latestDiscussions = Discussion::latest()->limit(5)->get();
 
     	if (view()->exists('templates.discussion')) {
     		return view('templates.discussion')->with([
@@ -86,7 +65,7 @@ class DiscussionsController extends Controller
     public function storeAnswers(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $validation = $this->answer->store($request);
+            $validation = Answer::store($request);
 
             return redirect()->back();
         }
@@ -107,8 +86,8 @@ class DiscussionsController extends Controller
     public function askQuestions(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $validation = $this->discussion->storeQuestions($request);
-            return redirect()->back();
+            $validation = Discussion::storeQuestions($request);
+            return redirect()->back()->with('status', 'Asked');
         }
 
         return abort(404);
@@ -124,7 +103,7 @@ class DiscussionsController extends Controller
      */ 
     public function search(Request $request)
     {
-        $discussions = $this->discussion->searchDiscussions($request);
+        $discussions = Discussion::searchDiscussions($request);
     
         return view('templates.search-content', compact('discussions'));
     }
