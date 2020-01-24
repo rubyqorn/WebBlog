@@ -73,10 +73,14 @@ class User extends Authenticatable
     }
 
     /**
-    * @return counted users
-    */ 
-    public function countedUsers()
-    {
-        return User::count();
-    }
+	* Get and count records by month
+	*
+	* @param $month int|string Have to be like 01, 02...
+	*
+	* @return counted records by month
+	*/ 
+	public function getRecordsByMonth($month) 
+	{
+		return News::whereMonth('created_at', $month)->count();
+	}
 }

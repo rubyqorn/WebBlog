@@ -7,7 +7,6 @@ use App\Charts\CountRecordsPerMonth;
 trait CountRecordsForCharts
 {
 	/**
-	/**
 	* Get counted records per month, also
 	* create App\Charts\CountRecordsPerMonth object
 	* set labels type and pass data for feature chart
@@ -16,7 +15,7 @@ trait CountRecordsForCharts
 	*
 	* @return object App\Charts\CountRecordsPerMonth
 	*/ 
-	public static function chart(object $model)
+	public static function chart(object $model, string $type, $options = [])
 	{
 		if (is_object($model)) {
 			
@@ -40,7 +39,8 @@ trait CountRecordsForCharts
 				'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
                 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
 			]);
-			$chart->dataset('Статистика по добавленным записям помесячно', 'line', $countedRecords);
+			$chart->dataset('Статистика по добавленным записям помесячно', $type, $countedRecords)
+				->options($options);
 
 			return $chart;
 		}

@@ -19,59 +19,93 @@ body {
 	font-family: 'Nunito', sans-serif;
 }
 
-.bg-dark-theme {
-	background-color: #1a1e34;
-	color: #606469;
+.bg-grey {
+	background-color: rgb(226, 224, 224);
 }
 
-.dark-theme-item {
-	background-color: #27293d;
-	color: #676a6f !important;
+.wrapper {
+	display:flex;
+	width: 100%;
+	align-items: stretch;
 }
 
-.text-light-green {
-	color: #29e661;
+#sidebar {
+	min-width: 250px;
+	max-width: 250px;
+	min-height: 100vh;
 }
 
-.sidebar {
-	position: fixed;
-	width: 30%;
-	padding: 4%;
-	display: none;
-	background-color: darkslateblue;
+#sidebar.active {
+	margin-left: -250px;
 }
 
-.sidebar .h5 {
-	letter-spacing: 2px;
+#sidebar {
+	color: #fff;
+	font-family: 'Raleway', sans-serif;
 }
 
-.sidebar .navbar-content {
-	list-style: none;
+#sidebar p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
 }
 
-.sidebar .navbar-link {
-	color: #857BC1 !important;
-	text-decoration: none;
+#sidebar  a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
-.collapsible-content {
-	padding-left: 30%;
+#sidebar {
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
 }
 
-.active-link {
-	transition: all 0.5s;
-	background-color: #fff;
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
 }
 
-.collapsible-nav {
-	display: block;
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
 }
 
-.content #title {
-	margin-top: 15px;
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
 }
 
-.content #latest-comments-section img {
-	width: 12%;
-	height: 12%;
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
 }

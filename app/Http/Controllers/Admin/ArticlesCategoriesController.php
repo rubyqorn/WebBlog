@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Requests\StoreCategories;
 
 class ArticlesCategoriesController extends CategoriesController
 {
@@ -16,7 +15,7 @@ class ArticlesCategoriesController extends CategoriesController
     public function showPage()
     {
         if (view()->exists('templates.admin.content.categories-content')) {
-            $articles = $this->articleCategory->getCategoriesForTable();
+            $articles = Article::paginate(5);
             return view('templates.admin.content.categories-content', compact('articles'));
         }  
     }
@@ -24,13 +23,13 @@ class ArticlesCategoriesController extends CategoriesController
     /**
      * Store articles categories in database 
      * 
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \Illuminate\Http\Response
     */ 
-    public function storeCategories(StoreCategories $request)
+    public function storeCategories(Request $request)
     {
-        parent::store($request, $this->articleCategory);
+        parent::store($request, new ArticleCategory());
         return redirect('admin/categories')->withStatus('Category was added successfully');
     }
 
@@ -42,24 +41,23 @@ class ArticlesCategoriesController extends CategoriesController
      *
      * @return \Illuminate\Http\Response
     */ 
-    public function updateCategories(StoreCategories $request, $id)
+    public function updateCategories(Request $request, $id)
     {
-        parent::update($request, $this->articleCategory, $id);
+        parent::update($request, new ArticleCategory(), $id);
         return redirect('admin/categories')->withStatus('Category was updated successfully');
     }
 
     /**
      * Delete articles categories by id property 
      * 
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * @param $id int
      *
      * @return \Illuminate\Http\Response
     */ 
     public function destroyCategories(Request $request, $id)
     {
-        parent::destroy($request, $this->articleCategory, $id);
-    
-        // return redirect('admin/categories')->withStatus('Category was deleted successfully');
+        parent::destroy($request, new ArticleCategory(), $id);
+        return redirect('admin/categories')->withStatus('Category was deleted successfully');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\CategoriesController;
-use App\Http\Requests\StoreCategories;
+use App\DiscussionCategory;
 
 class DiscussionsCategoriesController extends CategoriesController
 {
@@ -16,7 +16,7 @@ class DiscussionsCategoriesController extends CategoriesController
     public function showPage()
     {
         if (view()->exists('templates.admin.content.categories-content')) {
-            $discussions = $this->discussionCategory->getCategoriesForTable();
+            $discussions = DiscussionCategory::paginate(5);
             return view('templates.admin.content.categories-content', compact('discussions'));
         }
     }
@@ -24,13 +24,13 @@ class DiscussionsCategoriesController extends CategoriesController
     /**
      * Store articles categories in database
      * 
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * 
      * @return \Illuminate\Http\Response
     */ 
-    public function storeCategories(StoreCategories $request)
+    public function storeCategories(Request $request)
     {
-        parent::store($request, $this->discussionCategory);
+        parent::store($request, new DiscussionCategory());
         return redirect('admin/categories')->withStatus('Category was aded successfully');
     }
 
@@ -42,9 +42,9 @@ class DiscussionsCategoriesController extends CategoriesController
      * 
      * @return \Illuminate\Http\Response
     */ 
-    public function updateCategories(StoreCategories $request, $id)
+    public function updateCategories(Request $request, $id)
     {
-        parent::update($request, $this->discussionCategory, $id);
+        parent::update($request, new DiscussionCategory(), $id);
         return redirect('admin/categories')->withStatus('Category was updated successfully');
     }
 
@@ -58,7 +58,7 @@ class DiscussionsCategoriesController extends CategoriesController
     */ 
     public function destroyCategories(Request $request, $id)
     {
-        parent::destroy($request, $this->discussionCategory, $id);
+        parent::destroy($request, new DiscussionCategory(), $id);
         return redirect('admin/categories')->withStatus('Category was deleted successfully');
     }
 }

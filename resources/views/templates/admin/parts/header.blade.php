@@ -14,68 +14,66 @@
 	<!-- CKEditor 4 -->
 	<script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 </head>
-<body class="bg-dark-theme">
+<body class="bg-light">
 
+	<div class="wrapper">
+        
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <p class="h3 text-black-50">
+                    WebBlog Dashboard
+                </p>
+            </div>
 
-	<nav class="navbar sticky-top navbar-dark dark-theme-item w-100">
-		<a href="{{ route('dashboard') }}" class="navbar-brand">WebBlog Dashboard</a>
-		<button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-	</nav>
+            <ul class="list-unstyled components">
+                <p class="h5 text-black-50">
+                    Pages
+                </p>
 
-		<div class="col-lg-12 mt-2 pl-3">
-			<!-- Logout button -->
-			<form action="{{ route('logout') }}" method="post" class="float-right">
-					
-				@csrf
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Dashboard</a>
+                </li>
 
-				<div class="form-group">
-					<button type="submit" class="btn">
-						<i class="fas fa-power-off text-white fa-lg"></i>
-					</button>
-				</div>
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Answers</a>
+                </li>
 
-			</form>
-		</div>
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Articles</a>
+                </li>
 
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Discussions</a>
+                </li>
 
-	<div class="sidebar h-100 collapse navbar-collapse" id="navbar">
-		<ul class="navbar-content text-right">
-			<li class="navbar-content-item mt-4">
-				<i class="fas fa-home mr-2 text-white float-left"></i>
-				<a href="{{ route('dashboard') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Dashboard</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="fas fa-newspaper mr-2 text-white float-left"></i>
-				<a href="{{ route('news.index') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">News</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="far fa-newspaper mr-2 text-white float-left"></i>
-				<a href="{{ route('articles.index') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Articles</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="fas fa-question-circle mr-2 text-white float-left"></i>
-				<a href="{{ route('discussions.index') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Discussions</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="fas fa-comments mr-2 text-white float-left"></i>
-				<a href="{{ route('admin.comments') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Comments</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="far fa-comment-dots mr-2 text-white float-left"></i>
-				<a href="{{ route('admin.answers') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Answers</a>
-				<hr>
-			</li>
-			<li class="navbar-content-item mt-4">
-				<i class="fas fa-archive mr-2 text-white float-left"></i>
-				<a href="{{ route('admin.categories') }}" class="navbar-link h5 text-uppercase raleway-font pt-4">Categories</a>
-				<hr>
-			</li>
-		</ul>
-	</div>
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">News</a>
+                </li>
+
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Comments</a>
+                </li>
+
+                <li class="sidebar-item active">
+                    <a href="/" class="sidebar-link">Categories</a>
+                </li>
+            </ul>
+
+        </div>
+
+        <!-- Content -->
+        <div class="col-lg-9 col-sm-12 col-md-12 p-0" id="content">
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+                <button id="sidebarCollapse" class="btn m-0 btn-light">
+                    <i class="fas fa-align-left text-info"></i>
+                </button>
+                <ul class="navbar-nav ml-auto" id="navbar">
+                    <li class="nav-item">
+                        <a href="/" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>

@@ -5,29 +5,12 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
-use App\Http\Requests\StoreNews;
 use App\NewsCategory;
 use App\News;
 
 class NewsController extends Controller
 {
-    /**
-    * @var object App\News
-    */ 
-    private $news;
-
-    /**
-    * @var object App\NewsCategory
-    */ 
-    private $category;
-
-    public function __construct()
-    {
-        $this->news = new News();
-        $this->category = new NewsCategory();
-    }
-
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -35,9 +18,9 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         if (view()->exists('templates.admin.news')) {
-            $chart = CountRecordsForCharts::chart($this->news);
-            $news = $this->news->newsWithPagination();
-            $categories = $this->category->getCategories();
+            $chart = CountRecordsForCharts::chart(new News());
+            $news = News::paginate(5);
+            $categories = NewsCategory::all();
 
             return view('templates.admin.news')->with([
                 'chart' => $chart,
@@ -59,8 +42,8 @@ class NewsController extends Controller
     */ 
     public function search(Request $request)
     {
-        $news = $this->news->searchNews($request);
-        $categories = $this->category->getCategories();
+        $news = News::searchNews($request);
+        $categories = NewsCategory::all();
 
         return view('templates.admin.search-content', compact('categories', 'news'));
     }
@@ -68,15 +51,18 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreNews $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNews $request)
+    public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-             $this->news->store($request);
+             $storing = News::store($request);
 
-            return redirect()->back()->withStatus('Your record was created successfully');
+             if($storing) {
+                return redirect()->back()->withStatus('Your record was created successfully');
+             }
+            
         }
 
     }
@@ -84,16 +70,18 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StoreNews  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreNews $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->isMethod('patch')) {
-            $this->news->updateRecords($request, $id); 
+            $updating = News::updateRecords($request, $id); 
 
-            return redirect()->back()->withStatus('Record was updated successfully'); 
+            if ($updating) {
+                return redirect()->back()->withStatus('Record was updated successfully'); 
+            }
         }
     }
 
@@ -107,9 +95,12 @@ class NewsController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $this->news->deleteNews($id);
+            $deletion = News::deleteNews($id);
 
-            return redirect()->back()->withStatus('Record was deleted successfully');
+            if($deletion) {
+                return redirect()->back()->withStatus('Record was deleted successfully');
+            }
+
         }
     }
 }

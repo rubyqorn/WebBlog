@@ -4,34 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\ArticleCategory;
-use App\NewsCategory;
-use App\DiscussionCategory;
 
 class CategoriesController extends Controller
 {
-    /**
-     * @var \App\ArticleCategory  
-    */ 
-    protected $articleCategory;
-
-    /**
-     * @var \App\NewsCategory
-    */ 
-    protected $newsCategory;
-
-    /**
-     * @var \App\DiscussionCategory 
-    */ 
-    protected $discussionCategory;
-
-    public function __construct()
-    {
-        $this->articleCategory = new ArticleCategory();
-        $this->newsCategory = new NewsCategory();
-        $this->discussionCategory = new DiscussionCategory();
-    }
-
 	/**
 	* Get page with categories table
 	*
@@ -45,11 +20,11 @@ class CategoriesController extends Controller
     /**
     * Store categories
     *
-    * @param \App\Http\Requests\StoreCategories
+    * @param \Illuminate\Http\Request $request 
     *
     * @return \Illuminate\Http\Response
     */ 
-    public function store($request, $model)
+    public function store(Request $request, $model)
     {   
         if ($request->isMethod('post')) {
            $model->storeCategories($request);
@@ -60,12 +35,12 @@ class CategoriesController extends Controller
     /**
      * Update categories by id property
      *
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * @param $id int
      *
      * @return \Illuminate\Http\Response
      */
-    public function update($request, $model, $id)
+    public function update(Request $request, $model, $id)
     {
         if ($request->isMethod('put')) {
             $model->updateCategories($request, $id);
@@ -76,12 +51,12 @@ class CategoriesController extends Controller
     /**
      * Delete categories by id property
      *
-     * @param \App\Http\Requests\StoreCategories $request
+     * @param \Illuminate\Http\Request $request
      * @param $id int
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($request, $model, $id)
+    public function destroy(Request $request, $model, $id)
     {
         if ($request->isMethod('delete')) {
             $model->deleteCategories($id, $request);

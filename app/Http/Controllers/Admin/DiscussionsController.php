@@ -5,23 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
-use App\Http\Requests\StoreRecords;
 use App\DiscussionCategory;
 use App\Discussion;
 
 class DiscussionsController extends Controller
 {
-    /**
-    * @var object App\Discussion
-    */ 
-    private $discussion;
-
-    public function __construct()
-    {
-        $this->discussion = new Discussion();
-        $this->category = new DiscussionCategory();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -30,9 +18,9 @@ class DiscussionsController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.discussions')) {
-            $chart = CountRecordsForCharts::chart($this->discussion);
-            $discussions = $this->discussion->getDiscussionsForTable();
-            $categories = $this->category->getCategories();
+            $chart = CountRecordsForCharts::chart(new Discussion());
+            $discussions = Discussion::paginate(5);
+            $categories = DiscussionCategories::all();
 
             return view('templates.admin.discussions')->with([
                 'chart' => $chart,
@@ -54,8 +42,8 @@ class DiscussionsController extends Controller
     */ 
     public function search(Request $request)
     {
-        $discussions = $this->discussion->searchDiscussions($request);
-        $categories = $this->category->getCategories();
+        $discussions = Discussion::searchDiscussions($request);
+        $categories = DiscussionCategory::all();
 
         return view('templates.admin.search-content', compact('discussions', 'categories'));
     }
@@ -63,44 +51,49 @@ class DiscussionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreRecords  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreRecords $request)
+    public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $this->discussion->storeQuestions($request);
+            $storing = Discussion::storeQuestions($request);
 
-            return redirect()->back()->withStatus('Your discussion was created successfully');
+            if ($storing) {
+                return redirect()->back()->withStatus('Your discussion was created successfully');
+            }
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StoreRecords  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRecords $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->isMethod('patch')) {
-            $this->discussion->updateDiscussions($request, $id);
+            $updating = Discussion::updateDiscussions($request, $id);
 
-            return redirect()->back()->withStatus('Record was updated successfully');
+            if($updating) {
+                return redirect()->back()->withStatus('Record was updated successfully');
+            }
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param \Illuminate\Http\Request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $this->discussion->deleteDiscussions($id);
+            $deletion = Discussion::deleteDiscussions($id);
 
             return redirect()->back()->withStatus('Discussion was deleted successfully');
         }

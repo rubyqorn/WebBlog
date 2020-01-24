@@ -10,5 +10,11 @@ $(document).ready(function() {
 	}, function() {
 		$(this).find('hr').removeClass('active-link');
 	});
-	
+
+	// Collapsing sidebar 
+	$('#sidebarCollapse').on('click', function () {
+		$('#sidebar').toggleClass('active');
+	});
+
 });
+

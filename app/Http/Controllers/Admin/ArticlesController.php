@@ -5,28 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
-use App\Http\Requests\StoreRecords;
 use App\ArticleCategory;
 use App\Article;
 
 class ArticlesController extends Controller
 {
-    /**
-    * @var object App\Article
-    */ 
-    private $article;
-
-    /**
-    * @var object App\ArticleCategory
-    */ 
-    private $category;
-
-    public function __construct()
-    {
-        $this->article = new Article();
-        $this->category = new ArticleCategory();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -35,9 +18,9 @@ class ArticlesController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.articles')) {
-            $chart = CountRecordsForCharts::chart($this->article);
-            $articles = $this->article->articlesWithPagination();
-            $categories = $this->category->getCategories();
+            $chart = CountRecordsForCharts::chart(new Article());
+            $articles = Article::paginate(5);
+            $categories = ArticleCategory::all();
 
             return view('templates.admin.articles')->with([
                 'chart' => $chart,
@@ -59,39 +42,44 @@ class ArticlesController extends Controller
     */ 
     public function search(Request $request)
     {
-        $articles = $this->article->searchArticles($request);
-        $categories = $this->category->getCategories();
+        $articles = Article::searchArticles($request);
+        $categories = ArticleCategory::all();
         return view('templates.admin.search-content', compact('articles', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreRecords  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         if ($request->isMethod('post')) {
-            $this->article->store($request);
+            $storing = Article::store($request);
 
-            return redirect()->back()->withStatus('Record was added successfully');
+            if ($storing) {
+                return redirect()->back()->withStatus('Record was added successfully');
+            }
+            
         }
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StoreRecords  $request
+     * @param  \Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreRecords $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->isMethod('patch')) {
-            $this->article->updateArticles($request, $id);
+            $updating = Article::updateArticles($request, $id);
 
-            return redirect()->back()->withStatus('Record was updated successfully');
+            if ($updating) {
+                return redirect()->back()->withStatus('Record was updated successfully');
+            } 
         }
     } 
 
@@ -105,9 +93,11 @@ class ArticlesController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $this->article->deleteArticles($id);
+            $deletinon = Article::deleteArticles($id);
 
-            return redirect()->back()->withStatus('Article was deleted successfully');
+            if ($deletion) {
+                return redirect()->back()->withStatus('Article was deleted successfully');
+            }
         }
     }
 }

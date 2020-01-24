@@ -5,20 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
-use App\Http\Requests\StoreResponses;
 use App\Comment;
 
 class CommentsController extends Controller
 {
-    /**
-    * @var object App\Comment
-    */ 
-    private $comment;
-
-    public function __construct()
-    {
-        $this->comment = new Comment();
-    }
 
 	/**
 	* Get page with comments table
@@ -29,7 +19,7 @@ class CommentsController extends Controller
     {
     	if (view()->exists('templates.admin.comments')) {
             $chart = CountRecordsForCharts::chart($this->comment);
-            $comments = $this->comment->getCommentsForTable();
+            $comments = Comment::paginate(5);
 
     		return view('templates.admin.comments')->with([
                 'chart' => $chart,
@@ -44,17 +34,19 @@ class CommentsController extends Controller
     /**
     * Update comments by id property
     *
-    * @param \App\Http\Requests\StoreResponses $request
+    * @param \Illuminate\Http\Request $request
     * @param $id int
     *
     * @return \Illuminate\Http\Response
     */ 
-    public function update(StoreResponses $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->isMethod('put')) {
-            $this->comment->updateComment($request, $id);
+            $updating = Comment::updateComment($request, $id);
 
-            return redirect()->back()->withStatus('Comment was updated successfully');
+            if ($updating) {
+                return redirect()->back()->withStatus('Comment was updated successfully');
+            }   
         }
     }
 
@@ -69,9 +61,11 @@ class CommentsController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $this->comment->deleteComment($id);
+            $deletion = Comment::deleteComment($id);
 
-            return redirect()->back()->withStatus('Comment was deleted successfully');
+            if ($deletion) {
+                return redirect()->back()->withStatus('Comment was deleted successfully');
+            }
         }
     }
 }

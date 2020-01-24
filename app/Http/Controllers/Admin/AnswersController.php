@@ -5,31 +5,20 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
-use App\Http\Requests\StoreResponses;
 use App\Answer;
 
 class AnswersController extends Controller
 {
-    /**
-    * @var object App\Answer
-    */ 
-    private $answer;
-
-    public function __construct()
-    {
-        $this->answer = new Answer();
-    }
-
 	/**
 	* Get page with answers table
 	*
-	* @return answers table 
+	* @return \Illuminate\Http\Response
 	*/ 
     public function showPage()
     {
     	if (view()->exists('templates.admin.answers')) {
-            $chart = CountRecordsForCharts::chart($this->answer);
-            $answers = $this->answer->getAnswersForTable();
+            $chart = CountRecordsForCharts::chart(new Answer());
+            $answers = Answer::paginate(5);
 
     		return view('templates.admin.answers')->with([
                 'chart' => $chart,
@@ -43,17 +32,19 @@ class AnswersController extends Controller
     /**
     * Update answers by id property
     *
-    * @param \App\Http\Requests\StoreResponses
+    * @param \AIlluminate\Http\Request
     * @param $id int
     *
     * @return \Illuminate\Http\Response
     */ 
-    public function update(StoreResponses $request, $id)
+    public function update(Request $request, $id)
     {
         if ($request->isMethod('put')) {
-            $this->answer->updateAnswer($request, $id);
+            $updating = Answer::updateAnswer($request, $id);
 
-            return redirect()->back()->withStatus('Answer was updated successfully');
+            if ($updating) {
+                return redirect()->back()->withStatus('Answer was updated successfully');
+            }
         }
     }
 
@@ -68,9 +59,11 @@ class AnswersController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $this->answer->deleteAnswer($id);
+            $deletion = Answer::deleteAnswer($id);
 
-            return redirect()->back()->withStatus('Answer was deleted successfully');
+            if ($deletion) {
+                return redirect()->back()->withStatus('Answer was deleted successfully');
+            }
         }
     }
 }
