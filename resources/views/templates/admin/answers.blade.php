@@ -9,21 +9,59 @@
 @section('content')
 
 	<!-- Main content -->
-	<div class="content container mt-4">
+	<div class="content container">
 		<div class="row justify-content-center">
 
+			<div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
+				<div class="greeting">
+					
+					<a href="{{ Request::path() }}" class="text-muted">
+						<small>
+							{{ Breadcrumbs::render(Request::path()) }}
+						</small>
+					</a>
+					
+					<div class="d-flex">
+						<i class="fas fa-table text-muted mt-1 mr-2"></i>
+						<p class="h4 text-muted nunito-font">
+							<strong>Answers</strong> Table
+						</p>
+					</div>
+				</div>
+				<div class="date">
+					<p class="text-black-50 font-weight-bold montserrat-font">
+						20 JAN 2020
+					</p>
+				</div>
+			</div>
+
 			<!-- Stats about news -->
-			<div class="col-lg-8 col-md-12 col-12 mt-4 chart">
+			<div class="col-lg-8 col-md-12 col-12 mt-4 chart shadow bg-white p-3">
 				{!! $chart->container() !!}
 			</div>
 
-			@include('templates.admin.parts.success-message')
+			<!-- Search form -->
+			<div class="col-lg-12 col-xs-12 col-md-12 mt-3">
+				<form action="{{ route('answers.search') }}" method="post">
+					<div class="form-group d-flex">
+						<input type="search" class="form-control" name="search" placeholder="Search">
+						<button type="submit" class="btn btn-outline-success text-uppercase">
+							<small>
+								Search
+							</small>
+						</button>
+					</div>
+				</form>
+			</div>
+
+			@include('templates.parts.alert')
 
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">
-				<table class="table table-hover dark-theme-item">
+				<table class="table table-hover table-dark">
 							
 					<thead>
 						<tr class="text-uppercase">
+							<th>#</th>
 							<th><small>Вопрос</small></th>
 							<th><small>Редактировать</small></th>
 							<th><small>Удалить</small></th>
@@ -36,7 +74,12 @@
 
 							<tr>
 								<td>
-									<p class="text-light-green">
+									<p class="text-muted">
+										{{ $answer->id }}
+									</p>
+								</td>
+								<td>
+									<p class="text-muted h5">
 										<small>
 											{{ $answer->answer }}
 										</small>
@@ -125,7 +168,11 @@
 												
 												<label for="answer" class="control-label col-xs-2 font-weight-bold montserrat-font">Вопрос</label>
 
-												<textarea name="response" class="form-control @error('response') is-invalid @enderror" cols="10" rows="5">{{ $answer->answer }}</textarea>
+												<textarea name="response" id="response" class="form-control @error('response') is-invalid @enderror" cols="10" rows="5">{{ $answer->answer }}</textarea>
+
+												<script>
+													CKEDITOR.replace('response')
+												</script>
 
 												@error('response')
 
@@ -175,9 +222,7 @@
 
 			<!-- Pagination for table -->
 			<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4">
-				<ul class="pagination">
-					{{ $answers->links() }}
-				</ul>
+				{{ $answers->links() }}
 			</div>
 
 		</div>

@@ -12,12 +12,19 @@
 
 			<div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
 				<div class="greeting">
-					<p class="text-dark nunito-font h3">
-						Hi, welcome back
-					</p>
-					<p class="text-muted nunito-font">
-						This is your dashboard where you can monitoring all processes
-					</p>
+					
+					<a href="{{ Request::path() }}" class="text-muted">
+						<small>
+							{{ Breadcrumbs::render(Request::path()) }}
+						</small>
+					</a>
+					
+					<div class="d-flex">
+						<i class="fas fa-chart-pie text-muted mt-1 mr-2"></i>
+						<p class="h4 text-muted nunito-font">
+							<strong>Analytics</strong> Dashboard
+						</p>
+					</div>
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
@@ -89,7 +96,13 @@
 				{!! $usersChart->container() !!}
 			</div>
 
-			<div class="col-lg-12 shadow col-xs-12 col-md-12 mt-4 p-4">
+			<div class="col-lg-12 col-sm-12">
+				<p class="text-muted h4 nunito-font mt-3">
+					Articles chart
+				</p>
+			</div>
+
+			<div class="col-lg-12 shadow  bg-light col-xs-12 col-md-12 mt-4 ml-2 mb-4 p-4">
 				{!! $articlesChart->container() !!}
 			</div>
 

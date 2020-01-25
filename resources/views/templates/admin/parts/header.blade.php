@@ -31,31 +31,31 @@
                 </p>
 
                 <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="sidebar-link">Dashboard</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Answers</a>
+                <li class="sidebar-item">
+                    <a href="/admin/answers" class="sidebar-link">Answers</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Articles</a>
+                <li class="sidebar-item">
+                    <a href="/admin/articles" class="sidebar-link">Articles</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Discussions</a>
+                <li class="sidebar-item">
+                    <a href="/admin/discussions" class="sidebar-link">Discussions</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">News</a>
+                <li class="sidebar-item">
+                    <a href="/admin/news" class="sidebar-link">News</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Comments</a>
+                <li class="sidebar-item">
+                    <a href="/admin/comments" class="sidebar-link">Comments</a>
                 </li>
 
-                <li class="sidebar-item active">
-                    <a href="/" class="sidebar-link">Categories</a>
+                <li class="sidebar-item">
+                    <a href="/admin/categories" class="sidebar-link">Categories</a>
                 </li>
             </ul>
 
@@ -71,9 +71,19 @@
                 </button>
                 <ul class="navbar-nav ml-auto" id="navbar">
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </a>
+                       
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="post">
+
+                            @csrf
+
+                            <div class="form-group">
+                                <button type="submit" class="btn text-muted mt-3">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </nav>

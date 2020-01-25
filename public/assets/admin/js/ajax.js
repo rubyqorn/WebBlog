@@ -21,19 +21,24 @@ $(document).ready(function() {
         ajaxHandler('/admin/discussions-categories', 'GET', '#categories-table .row');
     });
 
+    $('#category img').mouseenter(function() {
+        $('#category #category-content').toggleClass('d-none');
+        $('#category .col-lg-12').toggleClass('active');
+    })
+
     // Show spinner before content will display
     function before()
     {
-        $('#categories-table').html('<div class="spinner-grow" role="status"> <span></span> </div>');
+        $('#categories-table .row').html('<div class="spinner-grow" role="status"> <span></span> </div>');
     }
 
     // AJAX processing
     function ajaxHandler(url, type, section) 
     {
         $.ajax({
-            url,
-            type,
-            beforeSend: before(),
+            url: url,
+            type: type,
+            beforeSend: before()
         }).done(function(data) {
             $(section).html(data);
         });

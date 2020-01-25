@@ -26,7 +26,7 @@ class DashboardController extends Controller
             ],  
         ]);
 
-        $usersChart = CountRecordsForCharts::chart(new User, 'pie', [
+        $usersChart = CountRecordsForCharts::chart(new User(), 'pie', [
             'backgroundColor' => [
                 '#ffc107', '#dc3545', '#20c997',
                 '#6f42c1', '#17a2b8', '#6c757d',
@@ -35,7 +35,11 @@ class DashboardController extends Controller
             ]
         ]);
 
-        $articlesChart = CountRecordsForCharts::chart(new Article(), 'scatter');
+        $articlesChart = CountRecordsForCharts::chart(new Article(), 'line', [
+            'borderColor' => 'blue',
+            'backgroundColor' => 'transparent'
+        ]);
+
 
         $countedAnswers = Answer::count();
         $countedComments = Comment::count();

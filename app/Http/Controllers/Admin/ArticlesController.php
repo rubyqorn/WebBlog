@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Traits\CountRecordsForCharts;
 use App\ArticleCategory;
 use App\Article;
+use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
@@ -18,7 +19,15 @@ class ArticlesController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.articles')) {
-            $chart = CountRecordsForCharts::chart(new Article());
+            $chart = CountRecordsForCharts::chart(new Article(), 'pie', [
+                'backgroundColor' => [
+                    '#ffc107', '#dc3545', '#20c997',
+                    '#6f42c1', '#17a2b8', '#6c757d',
+                    '#28a745', '#e83e8c', '#6dd5e6',
+                    '#f0d480', '#c1a1f4', '#007bff'
+                ]
+            ]);
+
             $articles = Article::paginate(5);
             $categories = ArticleCategory::all();
 
@@ -93,7 +102,7 @@ class ArticlesController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->isMethod('delete')) {
-            $deletinon = Article::deleteArticles($id);
+            $deletion = Article::deleteArticles($id);
 
             if ($deletion) {
                 return redirect()->back()->withStatus('Article was deleted successfully');

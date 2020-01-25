@@ -18,7 +18,13 @@ class NewsController extends Controller
     public function index(Request $request)
     {
         if (view()->exists('templates.admin.news')) {
-            $chart = CountRecordsForCharts::chart(new News());
+            $chart = CountRecordsForCharts::chart(new News(), 'doughnut', [
+                'backgroundColor' => [
+                    'darkslateblue', 'black', 'grey', 'gray',
+                    'lightblue', 'darkseagreen', 'coral', 'aqua',
+                    'burlywood', 'pink', 'orange', 'violet'
+                ]
+            ]);
             $news = News::paginate(5);
             $categories = NewsCategory::all();
 

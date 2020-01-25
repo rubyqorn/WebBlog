@@ -13,6 +13,9 @@ $(document).ready(function() {
 
 	// Collapsing sidebar 
 	$('#sidebarCollapse').on('click', function () {
+
+		// $('body').css('background: url("/assets/img/background.png") !important;');
+
 		$('#sidebar').toggleClass('active');
 	});
 

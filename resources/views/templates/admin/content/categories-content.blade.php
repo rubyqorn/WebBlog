@@ -1,17 +1,37 @@
 @if(Request::is('admin/articles-categories'))
 
+        <div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
+            <div class="greeting">
+                
+                <a href="{{ Request::path() }}" class="text-muted">
+                    <small>
+                        {{ Breadcrumbs::render(Request::path()) }}
+                    </small>
+                </a>
+                
+                <div class="d-flex">
+                    <i class="fas fa-table text-muted mt-1 mr-2"></i>
+                    <p class="h4 text-muted nunito-font">
+                        <strong>Articles Categories</strong> Table
+                    </p>
+                </div>
+            </div>
+            <div class="date">
+                <p class="text-black-50 font-weight-bold montserrat-font">
+                    20 JAN 2020
+                </p>
+            </div>
+        </div>
+
         <!-- Back to the categories selection -->
         <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="back-to-selection">
            <a href="{{ route('admin.categories') }}">
-               <i class="fas fa-chevron-left fa-2x"></i>
+               <i class="fas fa-chevron-left text-muted"></i>
            </a>
         </div>
 
         <!-- Title and the add articles categories button -->
         <div class="col-lg-12 col-12 mb-4">
-            <h3 class="text-left mb-4">
-                Категории статей
-            </h3>
             <button class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#add">
                 <small>
                     Создать категорию
@@ -20,54 +40,60 @@
         </div>
 
         <!-- Table with categories names and edit and delete buttons -->
-        <table class="table table-striped dark-theme-item">
-            <thead>
-                <tr class="text-uppercase">
-                    <th><small>Категория</small></th>
-                    <th><small>Редактировать</small></th>
-                    <th><small>Удалить</small></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="col-lg-12 col-sm-12 col-md-12 shadow bg-white p-3">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th>#</th>
+                        <th><small>Категория</small></th>
+                        <th><small>Редактировать</small></th>
+                        <th><small>Удалить</small></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            @forelse($articles as $category)
+                @forelse($articles as $category)
 
-                <tr>
-                    <td>
-                        <p class="text-light-green montserrat-font">
-                            <small>
-                                {{ $category->name }}
-                            </small>
-                        </p>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
-                            Редактировать
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
-                            Удалить
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <p class="text-muted">
+                                {{ $category->category_id }}
+                            </p>
+                        </td>
+                        <td>
+                            <p class="text-muted h5 montserrat-font">
+                                <small>
+                                    {{ $category->name }}
+                                </small>
+                            </p>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
+                                Редактировать
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
 
-            @empty
+                @empty
 
-                <h4 class="text-center">
-                    Нет записей
-                </h4>
+                    <h4 class="text-center">
+                        Нет записей
+                    </h4>
 
-            @endforelse
+                @endforelse
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Pagination for table -->
         <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="pagination">
-            <ul class="pagination">
-                {{ $articles->links() }}
-            </ul>
+            {{ $articles->links() }}
         </div>
 
         <!-- Modal windows -->
@@ -181,18 +207,38 @@
 
 @elseif(Request::is('admin/news-categories'))
 
+        <div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
+			    <div class="greeting">
+                
+                <a href="{{ Request::path() }}" class="text-muted">
+                    <small>
+                        {{ Breadcrumbs::render(Request::path()) }}
+                    </small>
+                </a>
+                
+                <div class="d-flex">
+                    <i class="fas fa-table text-muted mt-1 mr-2"></i>
+                    <p class="h4 text-muted nunito-font">
+                        <strong>News Categories</strong> Table
+                    </p>
+                </div>
+            </div>
+            <div class="date">
+                <p class="text-black-50 font-weight-bold montserrat-font">
+                    20 JAN 2020
+                </p>
+            </div>
+        </div>
+
         <!-- Back to the categories selection -->
-        <div class="col-lg-12 col-md-12 col-12" id="back-to-selection">
+        <div class="col-lg-12 col-md-12 col-12 mt-2 mb-3" id="back-to-selection">
             <a href="{{ route('admin.categories') }}">
-                <i class="fas fa-chevron-left fa-2x"></i>
+                <i class="fas fa-chevron-left text-muted"></i>
             </a>
         </div>
 
         <!-- Title and the add news categories button -->
         <div class="col-lg-12 col-12 mb-4">
-            <h3 class="text-left mb-4 mt-4">
-                Категории новостей
-            </h3>
             <button class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#add">
                 <small>
                     Создать категорию
@@ -201,54 +247,60 @@
         </div>
 
         <!-- Table with categories names and with delete and edit buttons -->
-        <table class="table table-striped dark-theme-item mt-4">
-            <thead>
-                <tr class="text-uppercase">
-                    <th><small>Категория</small></th>
-                    <th><small>Редактировать</small></th>
-                    <th><small>Удалить</small></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="col-lg-12 col-md-12 col-sm-12 shadow bg-white p-3">
+            <table class="table table-striped table-dark mt-4">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th>#</th>
+                        <th><small>Категория</small></th>
+                        <th><small>Редактировать</small></th>
+                        <th><small>Удалить</small></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            @forelse($news as $category)
+                @forelse($news as $category)
 
-                <tr>
-                    <td>
-                        <p class="text-light-green montserrat-font">
-                            <small>
-                                {{ $category->name }}
-                            </small>
-                        </p>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
-                            Редактировать
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
-                            Удалить
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <p class="text-muted">
+                                {{ $category->category_id }}
+                            </p>
+                        </td>
+                        <td>
+                            <p class="text-light-green montserrat-font">
+                                <small>
+                                    {{ $category->name }}
+                                </small>
+                            </p>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
+                                Редактировать
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
 
-            @empty
+                @empty
 
-                <h4 class="text-center">
-                    Нет записей
-                </h4>
+                    <h4 class="text-center">
+                        Нет записей
+                    </h4>
 
-            @endforelse
+                @endforelse
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Pagination for table -->
         <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="pagination">
-            <ul class="pagination">
-                {{ $news->links() }}
-            </ul>
+            {{ $news->links() }}
         </div>
 
         <!-- Modal windows -->
@@ -362,18 +414,39 @@
 
 @elseif(Request::is('admin/discussions-categories'))
 
+        <div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
+			    <div class="greeting">
+                
+                <a href="{{ Request::path() }}" class="text-muted">
+                    <small>
+                        {{ Breadcrumbs::render(Request::path()) }}
+                    </small>
+                </a>
+                
+                <div class="d-flex">
+                    <i class="fas fa-table text-muted mt-1 mr-2"></i>
+                    <p class="h4 text-muted nunito-font">
+                        <strong>Discussions Categories</strong> Table
+                    </p>
+                </div>
+            </div>
+            <div class="date">
+                <p class="text-black-50 font-weight-bold montserrat-font">
+                    20 JAN 2020
+                </p>
+            </div>
+        </div>
+
+
         <!-- Back to the categories selection -->
-        <div class="col-lg-12 col-md-12 col-12" id="back-to-selection">
+        <div class="col-lg-12 col-md-12 col-12 mt-2 mb-3" id="back-to-selection">
             <a href="{{ route('admin.categories') }}">
-                <i class="fas fa-chevron-left fa-2x"></i>
+                <i class="fas fa-chevron-left text-muted"></i>
             </a>
         </div>
 
         <!-- Title and the add discussions categories button -->
         <div class="col-lg-12 col-12 mb-4">
-            <h3 class="text-left mb-4 mt-4">
-                Категории обсуждений
-            </h3>
             <button class="btn btn-outline-primary text-uppercase" data-toggle="modal" data-target="#add">
                 <small>
                     Создать категорию
@@ -382,54 +455,60 @@
         </div>
 
         <!-- Table with categories names and delete and edit buttons -->
-        <table class="table table-striped dark-theme-item mt-4">
-            <thead>
-                <tr class="text-uppercase">
-                    <th><small>Категория</small></th>
-                    <th><small>Редактировать</small></th>
-                    <th><small>Удалить</small></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="col-lg-12 col-md-12 col-sm-12 shadow bg-white p-3">
+            <table class="table table-striped table-dark mt-4">
+                <thead>
+                    <tr class="text-uppercase">
+                        <th>#</th>
+                        <th><small>Категория</small></th>
+                        <th><small>Редактировать</small></th>
+                        <th><small>Удалить</small></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            @forelse($discussions as $category)
+                @forelse($discussions as $category)
 
-                <tr>
-                    <td>
-                        <p class="text-light-green montserrat-font">
-                            <small>
-                                {{ $category->name }}
-                            </small>
-                        </p>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
-                            Редактировать
-                        </button>
-                    </td>
-                    <td>
-                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
-                            Удалить
-                        </button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <p class="text-muted">
+                                {{ $category->category_id }}
+                            </p>
+                        </td>
+                        <td>
+                            <p class="text-muted h5 montserrat-font">
+                                <small>
+                                    {{ $category->name }}
+                                </small>
+                            </p>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-info" data-toggle="modal" data-target="#edit-{{ $category->category_id }}">
+                                Редактировать
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#delete-{{ $category->category_id }}">
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
 
-            @empty
+                @empty
 
-                <h4 class="text-center">
-                    Нет записей
-                </h4>
+                    <h4 class="text-center">
+                        Нет записей
+                    </h4>
 
-            @endforelse
+                @endforelse
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Pagination for table -->
         <div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="pagination">
-            <ul class="pagination">
-                {{ $discussions->links() }}
-            </ul>
+            {{ $discussions->links() }}
         </div>
 
         <!-- Modal windows -->

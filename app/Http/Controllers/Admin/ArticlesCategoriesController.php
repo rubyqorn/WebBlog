@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\CategoriesController;
+use App\ArticleCategory;
 
 class ArticlesCategoriesController extends CategoriesController
 {
@@ -15,7 +16,8 @@ class ArticlesCategoriesController extends CategoriesController
     public function showPage()
     {
         if (view()->exists('templates.admin.content.categories-content')) {
-            $articles = Article::paginate(5);
+            $articles = ArticleCategory::paginate(5);
+
             return view('templates.admin.content.categories-content', compact('articles'));
         }  
     }

@@ -58,7 +58,7 @@ class News extends Model
 	*
 	* @return bool
 	*/ 
-	public function store(Request $request)
+	public static function store(Request $request)
 	{	
 		if (is_object($request)) {
 			$validation = $request->validate([
@@ -88,7 +88,7 @@ class News extends Model
 	*
 	* @return updated record
 	*/ 
-	public function updateRecords(Request $request, $id)
+	public static function updateRecords(Request $request, $id)
 	{
 		if (is_object($request)) {
 			
@@ -119,7 +119,7 @@ class News extends Model
 	*
 	* @return bool
 	*/ 
-	public function deleteNews($id)
+	public static function deleteNews($id)
 	{
 		return News::where('id', $id)->delete();
 	}

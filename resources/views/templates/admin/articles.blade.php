@@ -9,38 +9,61 @@
 @section('content')
 
 	<!-- Main content -->
-	<div class="content container mt-4">
+	<div class="content container">
 		<div class="row justify-content-center">
 
+			<div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
+				<div class="greeting">
+					
+					<a href="{{ Request::path() }}" class="text-muted">
+						<small>
+							{{ Breadcrumbs::render(Request::path()) }}
+						</small>
+					</a>
+					
+					<div class="d-flex">
+						<i class="fas fa-table text-muted mt-1 mr-2"></i>
+						<p class="h4 text-muted nunito-font">
+							<strong>Articles</strong> Table
+						</p>
+					</div>
+				</div>
+				<div class="date">
+					<p class="text-black-50 font-weight-bold montserrat-font">
+						20 JAN 2020
+					</p>
+				</div>
+			</div>
+
 			<!-- Stats about news -->
-			<div class="col-lg-8 col-md-12 col-12 mt-4">
+			<div class="col-lg-8 col-md-12 col-12 mt-4 bg-white p-3 shadow">
 				{!! $chart->container() !!}
 			</div>
 
-			@include('templates.admin.parts.success-message')
+			<div class="col-lg-12 col-sm-12 col-md-12 d-flex justify-content-between">
+				<!-- Add new record button -->
+				<div class="col-lg-3 mt-4">
+					<button class="btn btn-outline-primary text-uppercase btn-sm float-right mt-1" data-toggle="modal" data-target="#create">
+						Создать новую запись
+					</button>
+				</div>
 
-			<!-- Add new record button -->
-			<div class="col-lg-12 mt-4">
-				<button class="btn btn-outline-primary text-uppercase btn-sm float-right" data-toggle="modal" data-target="#create">
-					Создать новую запись
-				</button>
-			</div>
-
-			<div class="col-lg-7 col-md-7 col-12 mt-4 mb-4 d-flex text-black-50" id="search-form">
-				<i class="fas fa-search fa-2x text-secondary"></i>
-				<div class="col-lg-12">
-					<form action="{{ route('admin.articles.search') }}">
-						<div class="form-group">
-							<input type="search" class="form-control" name="search" placeholder="Ваш запрос">
-						</div>
-						<button type="submit" class="btn btn-outline-success text-uppercase float-right">
-							<small>
-								Click
-							</small>
-						</button>
-					</form>
+				<div class="col-lg-9 col-md-7 col-12 mt-4 mb-4 d-flex text-black-50" id="search-form">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<form action="{{ route('admin.articles.search') }}">
+							<div class="form-group d-flex">
+								<input type="search" class="form-control" name="search" placeholder="Search">
+								<button type="submit" class="btn btn-outline-success text-uppercase">
+									<small>
+										Search
+									</small>
+								</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
+			
 
 			<!-- Add new records modal window -->
 			<div class="modal fade" id="create" tabindex="-1" role="dialog">
@@ -64,7 +87,9 @@
 
 									<label for="title" class="control-label col-xs-2 font-weight-bold text-black-50 montserrat-font">Заголовок</label>
 
-									<input type="text" name="title" class="form-control @error('title') is-invalid @enderror">
+									<textarea name="title" class="form-control @error('title') is-invalid @enderror" cols="30" rows="3">
+										{{ old('title') }}
+									</textarea>
 
 									@error('title')
 
@@ -81,8 +106,12 @@
 									<label for="description" class="control-label col-xs-2 font-weight-bold text-black-50 montserrat-font">Подробное описание</label>
 
 									<textarea name="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">
-										
+										{{ old('description') }}
 									</textarea>
+
+									<script>
+										CKEDITOR.replace('description')
+									</script>
 
 									@error('description')
 
@@ -116,7 +145,7 @@
 
 								<div class="form-group">
 									
-									<label class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
+									<lable class="control-label col-xs-2 font-weight-bold text-black-50">Категория</lable>
 
 									<select name="category" class="custom-select">
 										
@@ -141,11 +170,14 @@
 				</div>
 			</div>
 
+			@include('templates.parts.alert')
+
 			<div class="col-lg-12 col-md-12 col-12 mt-4 p-4 shadow">
-				<table class="table table-hover dark-theme-item">
+				<table class="table table-hover table-dark">
 							
 					<thead>
 						<tr class="text-uppercase">
+							<th>#</th>
 							<th><small>Заголовок</small></th>
 							<th><small>Редактировать</small></th>
 							<th><small>Удалить</small></th>
@@ -158,7 +190,12 @@
 
 							<tr>
 								<td>
-									<a href="{{ route('article', $article->id) }}" class="text-light-green">
+									<p class="text-muted">
+										{{ $article->id }}
+									</p>
+								</td>
+								<td>
+									<a href="{{ route('article', $article->id) }}" class="text-muted h5">
 										<small>
 											{{ $article->title }}
 										</small>
@@ -253,7 +290,10 @@
 
 											<label for="title" class="control-label col-xs-2 font-weight-bold montserrat-font">Заголовок</label>
 										
-											<input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $article->title }}">
+											<textarea name="title" class="form-control @error('title') is-invalid @enderror" cols="30" rows="3">
+												{{ $article->title }}
+											</textarea>
+
 
 											@error('title')
 
@@ -269,7 +309,11 @@
 											
 											<label for="description" class="control-label font-weight-bold col-xs-2 montserrat-font">Подробное описание</label>
 
-											<textarea name="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">{{ $article->description }}</textarea>
+											<textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">{{ $article->description }}</textarea>
+
+											<script>
+												CKEDITOR.replace('description')
+											</script>
 
 											@error('description')
 
@@ -288,8 +332,8 @@
 
 												<label for="image" class="custom-file-label">Выберите изображение</label>
 
-												<div class="col-lg-12 bg-dark mt-1 mb-3 p-3 text-white">
-													{{ $article->image }}
+												<div class="col-lg-4 mt-1 mb-3 p-3 text-white border">
+													<!-- <img src="{{ $article->image }}" alt="" class="w-100"> -->
 												</div>
 
 												@error('description')
@@ -318,7 +362,7 @@
 
 											</select>
 
-											<div class="col-lg-12 mt-1 text-white bg-dark p-3">
+											<div class="col-lg-4 mt-1 text-white bg-dark p-3">
 												@foreach($categories as $category)
 
 													{{ $category->name }}
@@ -357,9 +401,7 @@
 
 			<!-- Pagination for table -->
 			<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4">
-				<ul class="pagination">
-					{{ $articles->links() }}
-				</ul>
+				{{ $articles->links() }}
 			</div>
 
 		</div>

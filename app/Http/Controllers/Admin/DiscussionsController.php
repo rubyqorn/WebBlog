@@ -18,9 +18,13 @@ class DiscussionsController extends Controller
     public function index()
     {
         if (view()->exists('templates.admin.discussions')) {
-            $chart = CountRecordsForCharts::chart(new Discussion());
+            $chart = CountRecordsForCharts::chart(new Discussion(), 'line', [
+                'backgroundColor' => 'deepskyblue',
+                'borderColor' => 'dodgerblue'
+            ]);
+
             $discussions = Discussion::paginate(5);
-            $categories = DiscussionCategories::all();
+            $categories = DiscussionCategory::all();
 
             return view('templates.admin.discussions')->with([
                 'chart' => $chart,

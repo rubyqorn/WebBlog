@@ -18,7 +18,15 @@ class CommentsController extends Controller
     public function showPage()
     {
     	if (view()->exists('templates.admin.comments')) {
-            $chart = CountRecordsForCharts::chart($this->comment);
+            $chart = CountRecordsForCharts::chart(new Comment(), 'polarArea', [
+                'backgroundColor' => [
+                    '#ffc107', '#dc3545', '#20c997',
+                    '#6f42c1', '#17a2b8', '#6c757d',
+                    '#28a745', '#e83e8c', '#6dd5e6',
+                    '#f0d480', '#c1a1f4', '#007bff'
+                ]
+            ]);
+
             $comments = Comment::paginate(5);
 
     		return view('templates.admin.comments')->with([
@@ -67,5 +75,25 @@ class CommentsController extends Controller
                 return redirect()->back()->withStatus('Comment was deleted successfully');
             }
         }
+    }
+
+    /**
+     * Search comments 
+     * 
+     * @param \Illuminate\Http\Request
+     * 
+     * @return \Illuminate\Http\Response
+     */ 
+    public function search(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $searching = Comment::searchComments($request);
+
+            if ($searching) {
+                return view('templates.admin.search-content')->with('comments', $searching);
+            }
+        }
+
+        abort(404);
     }
 }

@@ -1,6 +1,6 @@
 body {
 	height: 100%;
-	width: 100%;
+    width: 100%;
 }
 
 .miriam-font {
@@ -36,7 +36,7 @@ body {
 }
 
 #sidebar.active {
-	margin-left: -250px;
+    margin-left: -250px;
 }
 
 #sidebar {
@@ -99,6 +99,11 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
+}
+
+#category-content {
+    position: absolute;
+    padding-top: 140px;
 }
 
 @media (max-width: 768px) {
