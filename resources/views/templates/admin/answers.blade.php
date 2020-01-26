@@ -30,7 +30,7 @@
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
-						20 JAN 2020
+						{{ $currentDate }}
 					</p>
 				</div>
 			</div>
@@ -43,6 +43,9 @@
 			<!-- Search form -->
 			<div class="col-lg-12 col-xs-12 col-md-12 mt-3">
 				<form action="{{ route('answers.search') }}" method="post">
+
+					@csrf
+
 					<div class="form-group d-flex">
 						<input type="search" class="form-control" name="search" placeholder="Search">
 						<button type="submit" class="btn btn-outline-success text-uppercase">

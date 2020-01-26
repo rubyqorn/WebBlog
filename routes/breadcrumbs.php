@@ -75,3 +75,23 @@ Breadcrumbs::for('admin/news-categories', function($trail) {
 Breadcrumbs::for('admin/discussions-categories', function($trail) {
 	$trail->push('Dashboard / Discussions / Categories', route('admin.discussions.categories'));
 });
+
+Breadcrumbs::for('admin/answers/search', function($trail) {
+	$trail->push('Dashboard / Answers / Search', route('answers.search'));
+});
+
+Breadcrumbs::for('admin/comments/search', function($trail) {
+	$trail->push('Dashboard / Comments / Search', route('comments.search'));
+});
+
+Breadcrumbs::for('admin/articles/search', function($trail) {
+	$trail->push('Dashboard / Article / Search', route('admin.articles.search'));
+});
+
+Breadcrumbs::for('admin/news/search', function($trail) {
+	$trail->push('Dashboard / News / Search', route('admin.news.search'));
+});
+
+Breadcrumbs::for('admin/discussions/search', function($trail) {
+	$trail->push('Dashboard / Discussions / Search', route('admin.discussions.search'));
+});

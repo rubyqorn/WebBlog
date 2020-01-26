@@ -74,6 +74,11 @@
                        
                     </li>
                     <li class="nav-item">
+                        <p class="text-muted nunito-font mt-4">
+                            {{ auth()->user()->name }}
+                        </p>
+                    </li>
+                    <li class="nav-item">
                         <form action="{{ route('logout') }}" method="post">
 
                             @csrf

@@ -53,8 +53,10 @@ class CommentsController extends Controller
             $updating = Comment::updateComment($request, $id);
 
             if ($updating) {
-                return redirect()->back()->withStatus('Comment was updated successfully');
+                return redirect()->route('admin.comments')->withStatus('Comment was updated successfully');
             }   
+
+            abort(404);
         }
     }
 
@@ -72,8 +74,10 @@ class CommentsController extends Controller
             $deletion = Comment::deleteComment($id);
 
             if ($deletion) {
-                return redirect()->back()->withStatus('Comment was deleted successfully');
+                return redirect()->route('admin.comments')->withStatus('Comment was deleted successfully');
             }
+
+            abort('404');
         }
     }
 
@@ -87,13 +91,11 @@ class CommentsController extends Controller
     public function search(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $searching = Comment::searchComments($request);
+            $comments = Comment::searchComments($request);
 
-            if ($searching) {
-                return view('templates.admin.search-content')->with('comments', $searching);
+            if ($comments) {
+                return view('templates.admin.search-content')->with('comments', $comments);
             }
         }
-
-        abort(404);
     }
 }

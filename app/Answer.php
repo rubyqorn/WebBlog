@@ -96,4 +96,18 @@ class Answer extends Model
     {
         return Answer::where('id', $id)->delete();
     }
+
+    /**
+     * Search answers
+     * 
+     * @param \Illuminate\Http\Request $request 
+     * 
+     * @return \Illuminate\Support\Collection
+     */ 
+    public static function searchArticles(Request $request)
+    {
+        return Answer::where('answer', $request->search)
+                    ->orWhere('answer', 'like', '%' . $request->search . '%')
+                    ->paginate(5);
+    }
 }

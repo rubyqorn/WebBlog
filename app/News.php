@@ -94,6 +94,7 @@ class News extends Model
 			
 			$validation = $request->validate([
 				'title' => 'required|min:15|max:120',
+				'preview_text' => 'required|min:10|max:500',
 				'description' => 'required|min:120|max:1000',
 				'image' => 'image',
 				'category' => 'required',

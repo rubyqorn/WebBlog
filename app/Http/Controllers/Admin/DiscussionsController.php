@@ -82,7 +82,7 @@ class DiscussionsController extends Controller
             $updating = Discussion::updateDiscussions($request, $id);
 
             if($updating) {
-                return redirect()->back()->withStatus('Record was updated successfully');
+                return redirect()->route('discussions.index')->withStatus('Record was updated successfully');
             }
         }
     }
@@ -99,7 +99,7 @@ class DiscussionsController extends Controller
         if ($request->isMethod('delete')) {
             $deletion = Discussion::deleteDiscussions($id);
 
-            return redirect()->back()->withStatus('Discussion was deleted successfully');
+            return redirect()->route('discussions.index')->withStatus('Discussion was deleted successfully');
         }
     }
 }

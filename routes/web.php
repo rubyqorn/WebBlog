@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
 	Route::delete('/comments/delete/{id}', 'CommentsController@destroy')
 		->name('comments.destroy');
 
-	Route::post('/comments/search', 'CommentController@search')
+	Route::post('/comments/search', 'CommentsController@search')
 		->name('comments.search');
 
 	Route::get('/answers', 'AnswersController@showPage')
@@ -95,7 +95,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
 	Route::delete('/answers/delete/{id}', 'AnswersController@destroy')
 		->name('answers.destroy');
 
-	Route::post('/answers/search', 'AsnwersController@search')
+	Route::post('/answers/search', 'AnswersController@search')
 		->name('answers.search');
 
 	Route::get('/categories', 'CategoriesController@showPage')

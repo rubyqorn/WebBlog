@@ -86,9 +86,13 @@ class NewsController extends Controller
             $updating = News::updateRecords($request, $id); 
 
             if ($updating) {
-                return redirect()->back()->withStatus('Record was updated successfully'); 
+                return redirect()->route('news.index')->withStatus('Record was updated successfully'); 
             }
+
+            abort(404);
         }
+
+        abort(404);
     }
 
     /**
@@ -104,7 +108,7 @@ class NewsController extends Controller
             $deletion = News::deleteNews($id);
 
             if($deletion) {
-                return redirect()->back()->withStatus('Record was deleted successfully');
+                return redirect()->route('news.index')->withStatus('Record was deleted successfully');
             }
 
         }

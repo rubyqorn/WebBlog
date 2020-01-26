@@ -28,7 +28,7 @@
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
-						20 JAN 2020
+						{{ $currentDate }}
 					</p>
 				</div>
 			</div>
@@ -45,7 +45,7 @@
 							Users
 						</p>
 						<p class="text-muted">
-							378
+							{{ $countedUsers }}
 						</p>
 					</div>
 				</div>
@@ -58,7 +58,7 @@
 							Answers
 						</p>
 						<p class="text-muted">
-							10021
+							{{ $countedAnswers }}
 						</p>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 							Comments
 						</p>
 						<p class="text-muted">
-							12320
+							{{ $countedComments }}
 						</p>
 					</div>
 				</div>

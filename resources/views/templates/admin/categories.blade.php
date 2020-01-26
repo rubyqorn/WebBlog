@@ -30,7 +30,7 @@
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
-						20 JAN 2020
+						{{ $currentDate }}
 					</p>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
                         <img src="/assets/img/articles-category-background.jpg" class="w-100" alt="">
                     </div>
                     <div class="d-none" id="category-content">
-                        <a href="{{ route('admin.articles.categories') }}" class="text-white font-weight-bold nunito-font">
+                        <a href="{{ route('admin.articles.categories') }}" class="articles text-white font-weight-bold nunito-font">
                             Articles categories
                         </a>
                         <p class="text-white text-center">
@@ -63,7 +63,7 @@
                         <img src="/assets/img/news-category-background.jpg" class="w-100" alt="">
                     </div>
                     <div class="d-none" id="category-content">
-                        <a href="{{ route('admin.articles.categories') }}" class="text-white font-weight-bold nunito-font">
+                        <a href="{{ route('admin.news.categories') }}" class="news text-white font-weight-bold nunito-font">
                             News categories
                         </a>
                         <p class="text-white text-center">
@@ -79,7 +79,7 @@
                         <img src="/assets/img/discussions-category-background.jpg" class="w-100" alt="">
                     </div>
                     <div class="d-none" id="category-content">
-                        <a href="{{ route('admin.articles.categories') }}" class="text-white font-weight-bold nunito-font">
+                        <a href="{{ route('admin.discussions.categories') }}" class="discussions text-white font-weight-bold nunito-font">
                             Discussions categories
                         </a>
                         <p class="text-white text-center">

@@ -9,7 +9,7 @@
 @section('content')
 
 	<!-- Main content -->
-	<div class="content container mt-4">
+	<div class="content container">
 		<div class="row justify-content-center">
 
 			<div class="col-lg-12 col-xs-12 p-4 d-flex justify-content-between bg-grey">
@@ -30,7 +30,7 @@
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
-						20 JAN 2020
+						{{ $currentDate }}
 					</p>
 				</div>
 			</div>
@@ -294,7 +294,7 @@
 												<label for="description" class="control-label font-weight-bold montserrat-font col-xs-2">Подробное описание</label>
 
 												<textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" cols="30" rows="10">
-													{{ old('description') }}
+													{{ $discussion->description }}
 												</textarea>
 
 												<script>
@@ -319,8 +319,8 @@
 
 													<label for="image" class="custom-file-label">Выберите изображение</label>
 
-													<div class="text-white bg-dark p-3 mt-1 col-lg-12">
-														{{ $discussion->image }}
+													<div class="text-white border mt-1 col-lg-3">
+														<img src="{{ asset('/assets/img/' . $discussion->image) }}" alt="">
 													</div>
 
 													@error('image')
@@ -349,7 +349,7 @@
 												
 												</select>
 
-												<div class="text-white bg-dark p-3 mt-1 col-lg-12">
+												<div class="text-white bg-dark p-1 mt-1 col-lg-3">
 
 													{{ $discussion->category->name }}
 												

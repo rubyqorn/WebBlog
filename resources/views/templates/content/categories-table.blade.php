@@ -50,7 +50,7 @@
 
 	
 	<!-- Pagination for table -->
-	<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4">
+	<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="pagination">
 		<ul class="pagination">
 			{{ $news->links() }}
 		</ul>
@@ -109,9 +109,9 @@
 
 	
 	<!-- Pagination for table -->
-	<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4">
+	<div class="col-lg-12 col-md-12 col-12 mt-4 mb-4" id="pagination">
 		<ul class="pagination">
-			{{ $news->links() }}
+			{{ $articles->links() }}
 		</ul>
 	</div>
 

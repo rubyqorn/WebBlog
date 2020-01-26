@@ -87,9 +87,11 @@ class ArticlesController extends Controller
             $updating = Article::updateArticles($request, $id);
 
             if ($updating) {
-                return redirect()->back()->withStatus('Record was updated successfully');
+                return redirect()->route('articles.index')->withStatus('Record was updated successfully');
             } 
         }
+
+        abort(404);
     } 
 
     /**
@@ -105,8 +107,10 @@ class ArticlesController extends Controller
             $deletion = Article::deleteArticles($id);
 
             if ($deletion) {
-                return redirect()->back()->withStatus('Article was deleted successfully');
+                return redirect()->route('articles.index')->withStatus('Article was deleted successfully');
             }
         }
+
+        abort(404);
     }
 }

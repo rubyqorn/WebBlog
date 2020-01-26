@@ -1,35 +1,49 @@
 $(document).ready(function() {
 
     // Show articles categories with AJAX
-    $('#categories-table #categories-item a.articles').click(function(event) {
+    $('#category a.articles').click(function(event) {
         event.preventDefault();
 
-        ajaxHandler('/admin/articles-categories', 'GET', '#categories-table .row');
+        ajaxHandler('/admin/articles-categories', 'GET', '.container .row');
     });
 
     // Show news categories with AJAX
-    $('#categories-table #categories-item a.news').click(function(event) {
+    $('#category a.news').click(function(event) {
         event.preventDefault();
 
-        ajaxHandler('/admin/news-categories', 'GET', '#categories-table .row');
+        ajaxHandler('/admin/news-categories', 'GET', '.container .row');
     });
 
     // Show discussions categories with AJAX
-    $('#categories-table #categories-item a.discussions').click(function(event) {
+    $('#category a.discussions').click(function(event) {
         event.preventDefault();
 
-        ajaxHandler('/admin/discussions-categories', 'GET', '#categories-table .row');
+        ajaxHandler('/admin/discussions-categories', 'GET', '.container .row');
     });
 
+    // Show and hide block in categories
     $('#category img').mouseenter(function() {
-        $('#category #category-content').toggleClass('d-none');
-        $('#category .col-lg-12').toggleClass('active');
-    })
+
+        const col = $(this).parent();
+        const row = $(col).parent();
+        const mainElem = $(row).parent();
+
+        $(mainElem).find('#category-content').removeClass('d-none');
+
+    }).mouseleave(function() {
+
+        const col = $(this).parent();
+        const row = $(col).parent();
+        const mainElem = $(row).parent();
+
+        $(mainElem).find('#category-content').addClass('d-none');
+    });
+
 
     // Show spinner before content will display
     function before()
     {
-        $('#categories-table .row').html('<div class="spinner-grow" role="status"> <span></span> </div>');
+        $('.container .row').html('<div class="spinner-grow" role="status"> <span></span> </div>');
     }
 
     // AJAX processing

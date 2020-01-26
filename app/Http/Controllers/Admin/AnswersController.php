@@ -47,7 +47,7 @@ public function update(Request $request, $id)
         $updating = Answer::updateAnswer($request, $id);
 
         if ($updating) {
-            return redirect()->back()->withStatus('Answer was updated successfully');
+            return redirect()->route('admin.answers')->withStatus('Answer was updated successfully');
         }
     }
 }
@@ -66,7 +66,7 @@ public function destroy(Request $request, $id)
         $deletion = Answer::deleteAnswer($id);
 
         if ($deletion) {
-            return redirect()->back()->withStatus('Answer was deleted successfully');
+            return redirect()->route('admin.answers')->withStatus('Answer was deleted successfully');
         }
     }
 }
@@ -81,11 +81,14 @@ public function destroy(Request $request, $id)
 public function search(Request $request)
 {
     if ($request->isMethod('POST')) {
-        $searching = Answer::searchArticles($request);
+        $answers = Answer::searchArticles($request);
 
-        if ($searching) {
-            return view('templates.admin.search-content')->with('answers', $searching);
+
+        if ($answers) {
+            return view('templates.admin.search-content', compact('answers'));
         }
+
+        abort(404);
     }
 }
 }

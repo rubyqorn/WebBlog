@@ -30,7 +30,7 @@
 				</div>
 				<div class="date">
 					<p class="text-black-50 font-weight-bold montserrat-font">
-						20 JAN 2020
+						{{ $currentDate }}
 					</p>
 				</div>
 			</div>

@@ -88,7 +88,7 @@ class Comment extends Model
 			]);
 
 			return Comment::where('id', $id)->update([
-				'comment' => $request->response
+				'comment' => $request->comment
 			]);
 		}
 	}
@@ -103,6 +103,20 @@ class Comment extends Model
 	public static function deleteComment($id)
 	{
 		return Comment::where('id', $id)->delete();
+	}
+
+	/**
+	 * Search comments
+	 * 
+	 * @param \Illuminate\Http\Request $request 
+	 * 
+	 * @return \Illuminate\Support\Collection
+	 * */ 
+	public static function searchComments(Request $request)
+	{
+		return Comment::where('comment', $request->search)
+					->orWhere('comment', 'like', '%' . $request->search . '%')
+					->paginate(5);
 	}
 
 }
