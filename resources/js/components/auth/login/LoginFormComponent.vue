@@ -13,14 +13,14 @@
 
                         <div class="row justify-content-center mt-4" id="auth-with-socials">
                             <div class="col">
-                                <button class="btn btn-dark btn-sm btn-block">
+                                <a href="/" class="btn btn-dark btn-sm btn-block">
                                     <i class="fab fa-github fa-2x"></i>
-                                </button>
+                                </a>
                             </div>
                             <div class="col">
-                                <button class="btn btn-info btn-sm text-white btn-block">
+                                <a href="/google-redirect" class="btn btn-info btn-sm text-white btn-block">
                                     <i class="fab fa-google fa-2x"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
 
