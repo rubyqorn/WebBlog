@@ -13,15 +13,16 @@ class NewsController extends Controller
     */
     public function showPage()
     {
-        $categories = NewsCategory::orderBy('created_at', 'desc')->get();
-
-        if (view()->exists('news')) {
-        	return view('news')->with([
-                'categories' => $categories
-        	]);
+        if (!view()->exists('news')) {
+            abort(404);	
         }
         
-        abort(404);
+        $categories = NewsCategory::orderBy('created_at', 'desc')->get();
+
+        return view('news')->with([
+            'categories' => $categories
+        ]);
+        
     }
 
     /**
@@ -35,9 +36,29 @@ class NewsController extends Controller
             ->paginate(6);
     }
 
-    public function newsByCategory($id) 
+    public function newsByCategory($id)
     {
-        return News::where('category_id', $id)->get();
+        if (!view()->exists('news-by-category')) {
+            abort(404);            
+        }
+
+        $news = News::orderBy('created_at', 'DESC')
+                ->withCount('comments')
+                ->with('category')
+                ->where('category_id' , $id)
+                ->get();
+
+        $categoryName = NewsCategory::select('name')
+            ->where('category_id', $id)
+            ->get();
+
+        $title = "Новости из категории: {$categoryName['0']->name}";
+
+        return view('news-by-category')->with([
+            'title' => $title,
+            'news' => $news
+        ]);
+
     }
 
     /**

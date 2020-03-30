@@ -110,3 +110,13 @@ body {
     border: 1px solid #ddd;
     border-radius: 50px;
 }
+
+#news #news-by0category .preview-img {
+    transition: all 0.3s ease-in-out;
+}
+
+#news #news-by-category .preview-img:hover {
+    transform: scale(1.1);
+    background-color: #000;
+    opacity: 0.8;
+}
