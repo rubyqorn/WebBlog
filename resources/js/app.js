@@ -52,6 +52,14 @@ Vue.component('login-form-component', require('./components/auth/login/LoginForm
 // Components of register page
 Vue.component('register-form-component', require('./components/auth/register/RegisterFormComponent.vue').default);
 
+// Components from auth/verify folder
+Vue.component('verify-email-component', require('./components/auth/verify/VerifyEmailAddressComponent.vue').default);
+
+// Password components (auth/password)
+Vue.component('confirm-password-component', require('./components/auth/password/ConfirmComponent.vue').defualt);
+Vue.component('email-confirm-component', require('./components/auth/password/EmailComponent.vue').default);
+Vue.component('reset-password-component', require('./components/auth/password/ResetComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
