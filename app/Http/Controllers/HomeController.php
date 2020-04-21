@@ -24,7 +24,7 @@ class HomeController extends Controller
                 'lastNews' => $lastNews,
                 'newsItems' => $news
     		]);
-    	}
-    	abort(404);
+        }
+        abort(404); 
     }
 }

@@ -152,4 +152,4 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
 
 });
 
-Auth::routes();
+// Auth::routes();
