@@ -68,7 +68,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('login') }}" class="form-group" method="post">
+          <form action="/" class="form-group" method="post">
 
             @csrf
 

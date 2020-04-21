@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'HomeController@showPage')
-	->name('home');
+Route::get('/', 'IndexController@showPage')
+	->name('main');
 
 Route::get('/news', 'NewsController@showPage')
 	->name('news');
@@ -152,4 +152,6 @@ Route::group(['prefix' => 'admin',  'middleware' => ['role', 'auth'], 'namespace
 
 });
 
-// Auth::routes();
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
