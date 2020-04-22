@@ -2,7 +2,7 @@
 
     <div class="col-lg-3 col-md-5 col-sm-12 mr-3 mt-2">
         <div class="card">
-            <img src="{{ $article->image }}" alt="" class="card-img-top">
+            <img src="{{ asset('assets/' . $article->image) }}" alt="" class="card-img-top">
             <div class="card-body bg-dark">
                 <h5 class="card-title">
                     <a href="{{ route('article', $article->id) }}" class="miriam-font-family text-white">{{ $article->title }}</a>

@@ -1,7 +1,7 @@
 @foreach($lastNews as $news)
     <div class="col-lg-12 mt-3">
         <div class="card">
-            <img src="{{ $news->image }}" alt="" class="card-img-top">
+            <img src="{{ asset('assets/' . $news->image) }}" alt="" class="card-img-top">
             <div class="card-body bg-dark p-5">
                 <div class="d-flex">
                     <i class="far fa-clock text-white mt-1"></i>

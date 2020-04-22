@@ -8,10 +8,24 @@ use App\Article;
 
 class IndexController extends Controller
 {
+    /**
+     * @var \App\News
+     */ 
     protected $lastNews;
+    
+    /**
+     * @var \App\News
+     */ 
     protected $fiveLastNews;
+    
+    /**
+     * @var \App\Article
+     */ 
     protected $articles;
 
+    /**
+     * @return void
+     */ 
     public function showPage()
     {
         $this->lastNews = News::orderBy('created_at', 'DESC')->take(1)->get();
