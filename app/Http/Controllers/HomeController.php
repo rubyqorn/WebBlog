@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Charts\UsersCommentsActivity;
 use App\Charts\UsersAnswersActivity;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,11 @@ class HomeController extends Controller
         return view('home')->withTitle('Dashboard')
             ->withCommentsChart($commentsChart)
             ->withAnswersChart($answersChart);
+    }
+
+    public function users()
+    {
+        return User::with('roles')->orderByDesc('created_at')  
+            ->paginate(10);
     }
 }

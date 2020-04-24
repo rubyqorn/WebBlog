@@ -17,12 +17,17 @@
                         </a>
                         <div class="collapse" id="articles-content">
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
-                                    <i class="fas fa-table"></i> News table 
+                                <a href="/dashboard/news" class="robot-font text-grey">
+                                    <i class="fas fa-cubes"></i> News table 
                                 </a>
                             </div>
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
+                                <a href="/dashboard/news/categories" class="robot-font text-grey">
+                                    <i class="fa fa-tags"></i> Categories
+                                </a>
+                            </div>
+                            <div class="pl-4 mt-2">
+                                <a href="/dashboard/news/comments" class="robot-font text-grey">
                                     <i class="far fa-comments"></i> Comments 
                                 </a>
                             </div>
@@ -30,16 +35,21 @@
                     </li> 
                     <li class="nav-link border-bottom pb-3 pt-3">
                         <a href="#" role="button" class="robot-font text-grey" data-toggle="collapse" data-target="#discussions-content">
-                            <i class="far fa-newspaper"></i> Articles
+                            <i class="fa fa-book"></i> Articles
                         </a>
                         <div class="collapse" id="discussions-content">
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
-                                    <i class="fas fa-table"></i> Articles table 
+                                <a href="/dashboard/articles" class="robot-font text-grey">
+                                    <i class="fas fa-cubes"></i> Articles table 
                                 </a>
                             </div>
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
+                                <a href="/dashboard/articles/categories" class="robot-font text-grey">
+                                    <i class="fa fa-tags"></i> Categories
+                                </a>
+                            </div>
+                            <div class="pl-4 mt-2">
+                                <a href="/dashboard/articles/comments" class="robot-font text-grey">
                                     <i class="far fa-comments"></i> Comments 
                                 </a>
                             </div>
@@ -47,16 +57,21 @@
                     </li> 
                     <li class="nav-link border-bottom pb-3 pt-3">
                         <a href="#" role="button" class="robot-font text-grey" data-toggle="collapse" data-target="#news-content">
-                            <i class="far fa-newspaper"></i> Discussions
+                            <i class="fa fa-comments"></i> Discussions
                         </a>
                         <div class="collapse" id="news-content">
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
-                                    <i class="fas fa-table"></i> Discussions table 
+                                <a href="/dashboard/discussions" class="robot-font text-grey">
+                                    <i class="fas fa-cubes"></i> Discussions table 
                                 </a>
                             </div>
                             <div class="pl-4 mt-2">
-                                <a href="/" class="robot-font text-grey">
+                                <a href="/dashboard/discussions/categories" class="robot-font text-grey">
+                                    <i class="fa fa-tags"></i> Categories
+                                </a>
+                            </div>
+                            <div class="pl-4 mt-2">
+                                <a href="/dashboard/discussions/answers" class="robot-font text-grey">
                                     <i class="far fa-comments"></i> Answers 
                                 </a>
                             </div>
@@ -70,8 +85,8 @@
                     <i class="fas fa-align-left"></i>
                 </button>
                 <div class="col-lg-12 mt-3 d-flex">
-                    <i class="fa fa-box text-white mt-3 mr-3"></i>
-                    <p class="text-white font-weight-bold h1">Dashboard</p>
+                    <i class="fas fa-cubes text-white mt-3 mr-3 fa-1x"></i>
+                    <p class="text-white font-weight-bold h1">{{ title }}</p>
                 </div>
                     
                 <slot></slot>
@@ -85,7 +100,7 @@
 <script>
     export default {
         props: [
-            'item'
+            'title'
         ],
         methods: {
             slideNavbar() {

@@ -72,6 +72,10 @@ Vue.component('reset-password-component', require('./components/auth/password/Re
 // Common parts
 Vue.component('admin-navbar-component', require('./components/admin/parts/NavbarComponent.vue').default);
 Vue.component('admin-collapsible-sidebar-component', require('./components/admin/parts/CollapsibleSidebarComponent.vue').default);
+Vue.component('admin-footer-component', require('./components/admin/parts/FooterComponent.vue'));
+
+// Dashboard components
+Vue.component('users-list-component', require('./components/admin/dashboard/UsersListComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
