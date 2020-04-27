@@ -3,85 +3,27 @@ body {
     width: 100%;
 }
 
-.text-light-green{
-    color: #29e661 !important;
+.robot-font {
+    font-family: 'Roboto Mono';
 }
 
-.miriam-font-family {
-    font-family: 'Miriam Libre', sans-serif !important;
-}
-
-.montserrat-font-family {
-    font-family: 'Montserrat', sans-serif;
-}
-.nunito-font-family {
-    font-family: 'Nunito', sans-serif;
-}
-.raleway-font-family {
-    font-family: 'Raleway', sans-serif;
-}
-
-.badge-purple {
-    background-color: #a44fb9;
-    color: #fff;
+#header .title {
+    font-family: 'Roboto Mono';
+    color: darkslategrey;
 }
 
 .bg-grey {
-    background-color: #ece8e8;
+    background-color: #ecebeb;
 }
 
-.bg-light-grey {
-    background-color: #dad8d8;    
+.bg-ultra-dark {
+    background-color: #000;
 }
 
-.bg-dark-red {
-    background-color: #df626d;
+#home-news {
+    margin-top: 30px;
 }
 
-.dark-theme {
-    background-color: #333;
-}
-
-.dark-theme-bg {
-    background-color: #444 !important;
-}
-
-.dark-theme-color {
-    color: #fff !important;
-}
-
-#categories span {
-    cursor: pointer;
-}
-
-#search-form .fas {
-    color: #555;
-    cursor: pointer;
-}
-
-#article hr.text-black-50 {
-    border: 2px #ddd solid;
-    width: 70%;
-}
-
-#article a.text-primary {
-    cursor: pointer;
-}
-
-#discussion #answer img {
-    width: 45%;
-}
-
-#discussion a.text-primary {
-    cursor: pointer;
-}
-
-#success-message, #error-message {
-    position: absolute;
-    bottom: 10px;
-    left: 15px;
-}
-
-.violet-badge {
-    background-color: rgb(208, 52, 240) !important;
+#home-news #news-item {
+    padding: 60px 60px 60px 60px;
 }
