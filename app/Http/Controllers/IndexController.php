@@ -18,9 +18,14 @@ class IndexController extends Controller
     public function showPage()
     {
         $this->article = Article::orderBy('created_at', 'DESC')->take(1)->get();
+        $article = [];
+
+        foreach($this->article as $article) {
+            $article = Article::find($article->id);
+        }
 
         return view('main')->with([
-            'article' => $this->article,
+            'article' => $article,
             'title' => '</webblog>'
         ]);
     }

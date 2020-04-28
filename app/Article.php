@@ -19,6 +19,11 @@ class Article extends Model
 	{
 		return $this->belongsTo(ArticleCategory::class, 'category_id', 'category_id');
 	}
+
+	public function author()
+	{
+		return $this->belongsTo('\App\User', 'user_id');
+	}
 	
 	/**
 	* Get and count records by month

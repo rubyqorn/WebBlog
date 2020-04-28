@@ -10,6 +10,11 @@ class ArticleCategory extends Model
     protected $table = 'articles_categories';
     protected $fillable = ['name'];
 
+    public function articles()
+    {
+        return $this->hasMany('\App\Article', 'category_id', 'category_id');
+    }
+
     /**
      * Store categories 
      * 

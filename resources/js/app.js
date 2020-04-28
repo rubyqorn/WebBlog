@@ -21,6 +21,8 @@ window.Vue = require('vue');
 
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
+Vue.component('article-component', require('./components/ArticleComponent.vue').default);
+Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

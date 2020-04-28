@@ -5,19 +5,19 @@
             <ul class="navbar-nav mr-4">
                 <li class="nav-item d-flex ml-2">
                     <i class="fa fa-home text-muted mt-3"></i>
-                    <a href="" class="nav-link robot-font mt-1">Главная</a>                    
+                    <a :href="this.mainpage" class="nav-link robot-font mt-1">Главная</a>                    
                 </li>
                 <li class="nav-item d-flex ml-2">
                     <i class="fas fa-newspaper text-muted mt-3"></i>
-                    <a href="" class="nav-link robot-font mt-1">Новости</a>                    
+                    <a :href="this.newspage" class="nav-link robot-font mt-1">Новости</a>                    
                 </li>
                 <li class="nav-item d-flex ml-2">
                     <i class="fa fa-list-alt text-muted mt-3"></i>
-                    <a href="" class="nav-link robot-font mt-1">Статьи</a>                    
+                    <a :href="this.articlespage" class="nav-link robot-font mt-1">Статьи</a>                    
                 </li>
                 <li class="nav-item d-flex ml-2">
                     <i class="far fa-comments text-muted mt-3"></i>
-                    <a href="/" class="nav-link robot-font mt-1">Дискуссии</a>                    
+                    <a :href="this.discussionspage" class="nav-link robot-font mt-1">Дискуссии</a>                    
                 </li>
             </ul>
         </div>
@@ -27,6 +27,9 @@
 
 <script>
     export default {
-        
+        props: [
+            'mainpage', 'newspage',
+            'articlespage', 'discussionspage' 
+        ]
     }
 </script>
