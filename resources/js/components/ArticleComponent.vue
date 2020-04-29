@@ -31,9 +31,6 @@
         props: [
             'category', 'title', 'author',
             'date', 'route'
-        ],
-        mounted() {
-            console.log(this.route);
-        }
+        ]
     }
 </script>

@@ -23,6 +23,8 @@ Vue.component('header-component', require('./components/HeaderComponent.vue').de
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
 Vue.component('article-component', require('./components/ArticleComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
+Vue.component('common-navbar-component', require('./components/CommonNavbarComponent.vue').default);
+Vue.component('categories-component', require('./components/news/CategoriesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,4 +34,8 @@ Vue.component('footer-component', require('./components/FooterComponent.vue').de
 
 const app = new Vue({
     el: '#app',
+});
+
+const news = new Vue({
+    el: '#news' 
 });

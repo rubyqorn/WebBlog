@@ -16,8 +16,8 @@ class NewsController extends Controller
        $news = News::paginate(5);
        $categories = Newscategory::orderBy('created_at', 'desc')->get();
 
-        if (view()->exists('templates.news')) {
-        	return view('templates.news')->with([
+        if (view()->exists('news')) {
+        	return view('news')->with([
         		'news' => $news,
                 'categories' => $categories
         	]);

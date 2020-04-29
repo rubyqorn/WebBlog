@@ -7,6 +7,34 @@ body {
     font-family: 'Roboto Mono';
 }
 
+.green-color {
+    color: #1abe51;
+}
+
+.lightblue-color {
+    color: #4fbbe6;
+}
+
+.orange-color {
+    color: #f39759;
+}
+
+.yellow-color {
+    color: #f0ec10;
+}
+
+.darkslateblue-color {
+    color: #8c4cf3;
+}
+
+.dark-color {
+    color: #000000;
+}
+
+.grey-color {
+    color: #9fa2a3;
+}
+
 #header .title {
     font-family: 'Roboto Mono';
     color: darkslategrey;
