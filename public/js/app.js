@@ -1837,18 +1837,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['mainpage', 'newspage', 'articlespage', 'discussionspage']
+  props: ['mainpage', 'newspage', 'articlespage', 'discussionspage'],
+  data: function data() {
+    return {
+      links: [{
+        link: "/",
+        name: "Главная"
+      }, {
+        link: "/news",
+        name: "Новости"
+      }, {
+        link: "/articles",
+        name: "Статьи"
+      }, {
+        link: "/discussions",
+        name: "Дискуссии"
+      }]
+    };
+  },
+  methods: {
+    loadPage: function loadPage(event) {
+      event.preventDefault();
+      console.log(event.target);
+    }
+  }
 });
 
 /***/ }),
@@ -37921,59 +37934,36 @@ var render = function() {
           attrs: { id: "navbar-content" }
         },
         [
-          _c("ul", { staticClass: "navbar-nav mr-4" }, [
-            _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-              _c("i", { staticClass: "fa fa-home text-muted mt-3" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link robot-font mt-1",
-                  attrs: { href: this.mainpage }
-                },
-                [_vm._v("Главная")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-              _c("i", { staticClass: "fas fa-newspaper text-muted mt-3" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link robot-font mt-1",
-                  attrs: { href: this.newspage }
-                },
-                [_vm._v("Новости")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-              _c("i", { staticClass: "fa fa-list-alt text-muted mt-3" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link robot-font mt-1",
-                  attrs: { href: this.articlespage }
-                },
-                [_vm._v("Статьи")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-              _c("i", { staticClass: "far fa-comments text-muted mt-3" }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "nav-link robot-font mt-1",
-                  attrs: { href: this.discussionspage }
-                },
-                [_vm._v("Дискуссии")]
-              )
-            ])
-          ])
+          _c(
+            "ul",
+            { staticClass: "navbar-nav mr-4" },
+            _vm._l(_vm.links, function(link) {
+              return _c("li", { staticClass: "nav-item d-flex ml-2" }, [
+                _c("i", { staticClass: "fa fa-home text-muted mt-3" }),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link robot-font mt-1",
+                    attrs: { href: "" + link.link },
+                    on: {
+                      click: function($event) {
+                        return _vm.onSubmit($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(link.name) +
+                        "\n                "
+                    )
+                  ]
+                )
+              ])
+            }),
+            0
+          )
         ]
       )
     ]
