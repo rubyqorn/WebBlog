@@ -10,12 +10,16 @@
         
         <ul class="nav nav-fill shadow border-top">
             @foreach($categories as $category)
-                <categories-component
+                <categories-news-component
                     :name="{{ json_encode($category->name) }}"
                     :color="{{ json_encode($category->color) }}"
                 >
-                </categories-component>
+                </categories-news-component>
             @endforeach
         </ul>   
+
+        <search-bar-component
+            :categories="{{ json_encode($categories) }}"
+        ></search-bar-component>
     </div>
 @endsection

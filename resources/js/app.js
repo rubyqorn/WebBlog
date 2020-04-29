@@ -24,8 +24,8 @@ Vue.component('navbar-component', require('./components/NavbarComponent.vue').de
 Vue.component('article-component', require('./components/ArticleComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('common-navbar-component', require('./components/CommonNavbarComponent.vue').default);
-Vue.component('categories-component', require('./components/news/CategoriesComponent.vue').default);
-
+Vue.component('categories-news-component', require('./components/news/CategoriesComponent.vue').default);
+Vue.component('search-bar-component', require('./components/news/SearchBarComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

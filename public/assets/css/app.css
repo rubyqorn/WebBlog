@@ -55,3 +55,8 @@ body {
 #home-news #news-item {
     padding: 60px 60px 60px 60px;
 }
+
+#search-bar select, #search-bar input, #search-bar .search-btn {
+    border: none;
+    background-color: transparent;
+}
