@@ -1,22 +1,26 @@
 <template>
+    <div class="container mt-4">
+        <div class="row" >
 
-    <div class="col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow">
-        <a :href="`${route}`" class="article-img">
-            <img class="w-100 shadow rounded m-1" :src="`${ img }`"
-                @mouseover="hover($event)"
-                @mouseout="unHover()"
-            >
-        </a>
-        <p class="text-muted robot-font">
-            <small>{{ date }}</small>
-        </p>
-        <div class="text-center mb-2">
-            <a :href="`${ route }`" class="text-dark robot-font">
-                {{ title }}
-            </a>
+            <div class="col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow" v-for="news in news.data">
+                <a :href="`${'/news/' + news.id}`" class="article-img">
+                    <img class="w-100 shadow rounded m-1" :src="`${ news.image }`"
+                        @mouseover="hover($event)"
+                        @mouseout="unHover()"
+                    >
+                </a>
+                <p class="text-muted robot-font">
+                    <small>{{ news.created_at }}</small>
+                </p>
+                <div class="text-center mb-2">
+                    <a :href="`${ '/news/' + news.id }`" class="text-dark robot-font">
+                        {{ news.title }}
+                    </a>
+                </div>
+            </div>
+
         </div>
     </div>
-
  
                  
                 
@@ -24,15 +28,14 @@
 
 <script>
     export default {
-        props: [
-            'title', 'date', 'img',
-            'author', 'comments',
-            'route'
-        ],
         data: function() {
             return {
                 activeImage: false,
+                news: []
             }
+        },
+        mounted() {
+            this.getNews();
         },
         methods: {
             hover(event) {
@@ -49,6 +52,16 @@
                 for(let i = 0; i < images.length; i++) {
                     images[i].classList.remove('activeImage')
                 }
+            },
+
+            getNews(page) {
+                if (typeof page === 'undefined') {
+                    page = 1;
+                }
+
+                axios.get('/json-news?page=' + page).then(response => {
+                    this.news = response.data;
+                });
             }
         }
     }

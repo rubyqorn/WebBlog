@@ -5,7 +5,7 @@
                 {{ tag.name }}
             </li>
         </ul> 
-        <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>  
+        <pagination :data="this.laravelData" @pagination-change-page="getResults"></pagination>  
     </div>
 </template>
 

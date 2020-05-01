@@ -1966,12 +1966,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['title', 'date', 'img', 'author', 'comments', 'route'],
   data: function data() {
     return {
-      activeImage: false
+      activeImage: false,
+      news: []
     };
+  },
+  mounted: function mounted() {
+    this.getNews();
   },
   methods: {
     hover: function hover(event) {
@@ -1987,6 +1994,17 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < images.length; i++) {
         images[i].classList.remove('activeImage');
       }
+    },
+    getNews: function getNews(page) {
+      var _this = this;
+
+      if (typeof page === 'undefined') {
+        page = 1;
+      }
+
+      axios.get('/json-news?page=' + page).then(function (response) {
+        _this.news = response.data;
+      });
     }
   }
 });
@@ -38496,7 +38514,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("pagination", {
-        attrs: { data: _vm.laravelData },
+        attrs: { data: this.laravelData },
         on: { "pagination-change-page": _vm.getResults }
       })
     ],
@@ -38760,41 +38778,66 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow" },
-    [
-      _c("a", { staticClass: "article-img", attrs: { href: "" + _vm.route } }, [
-        _c("img", {
-          staticClass: "w-100 shadow rounded m-1",
-          attrs: { src: "" + _vm.img },
-          on: {
-            mouseover: function($event) {
-              return _vm.hover($event)
-            },
-            mouseout: function($event) {
-              return _vm.unHover()
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "text-muted robot-font" }, [
-        _c("small", [_vm._v(_vm._s(_vm.date))])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-center mb-2" }, [
-        _c(
-          "a",
+  return _c("div", { staticClass: "container mt-4" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.news.data, function(news) {
+        return _c(
+          "div",
           {
-            staticClass: "text-dark robot-font",
-            attrs: { href: "" + _vm.route }
+            staticClass:
+              "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow"
           },
-          [_vm._v("\n            " + _vm._s(_vm.title) + "\n        ")]
+          [
+            _c(
+              "a",
+              {
+                staticClass: "article-img",
+                attrs: { href: "" + ("/news/" + news.id) }
+              },
+              [
+                _c("img", {
+                  staticClass: "w-100 shadow rounded m-1",
+                  attrs: { src: "" + news.image },
+                  on: {
+                    mouseover: function($event) {
+                      return _vm.hover($event)
+                    },
+                    mouseout: function($event) {
+                      return _vm.unHover()
+                    }
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted robot-font" }, [
+              _c("small", [_vm._v(_vm._s(news.created_at))])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-center mb-2" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "text-dark robot-font",
+                  attrs: { href: "" + ("/news/" + news.id) }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(news.title) +
+                      "\n                "
+                  )
+                ]
+              )
+            ])
+          ]
         )
-      ])
-    ]
-  )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
