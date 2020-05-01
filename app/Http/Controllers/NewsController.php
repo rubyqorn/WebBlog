@@ -13,8 +13,8 @@ class NewsController extends Controller
     */
     public function showPage()
     {
-       $news = News::paginate(5);
-       $categories = Newscategory::orderBy('created_at', 'desc')->get();
+        $news = News::paginate(6);
+        $categories = Newscategory::orderBy('created_at', 'desc')->get();
 
         if (view()->exists('news')) {
         	return view('news')->with([
@@ -24,6 +24,11 @@ class NewsController extends Controller
         }
         
         abort(404);
+    }
+
+    public function news()
+    {
+        return News::paginate(6);
     }
 
     /**

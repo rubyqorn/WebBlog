@@ -17,6 +17,8 @@ Route::get('/', 'IndexController@showPage')
 Route::get('/news', 'NewsController@showPage')
 	->name('news');
 
+Route::get('/json-news', 'NewsController@news');
+
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 

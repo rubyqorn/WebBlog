@@ -7,6 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+Vue.use(require('vue-resource'));
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +27,10 @@ Vue.component('footer-component', require('./components/FooterComponent.vue').de
 Vue.component('common-navbar-component', require('./components/CommonNavbarComponent.vue').default);
 Vue.component('categories-news-component', require('./components/news/CategoriesComponent.vue').default);
 Vue.component('search-bar-component', require('./components/news/SearchBarComponent.vue').default);
+Vue.component('news-component', require('./components/news/NewsComponent.vue').default);
+Vue.component('data-component', require('./components/DataComponent.vue').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

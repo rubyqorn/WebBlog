@@ -60,3 +60,13 @@ body {
     border: none;
     background-color: transparent;
 }
+
+#news img {
+    transition: all 0.6s;
+}
+
+.activeImage {
+    opacity: 0.8;
+    transition: all 0.6s;
+    padding-top: 10px;
+}

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class Comment extends Model
+class ArticleComment extends Model
 {
 	protected $fillable = [
 		'user_id', 'article_id', 'comment'
