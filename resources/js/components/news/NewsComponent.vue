@@ -10,13 +10,17 @@
                     >
                 </a>
                 <p class="text-muted robot-font">
-                    <small>{{ news.created_at }}</small>
+                    <small>{{ dateFormating(news.created_at) }}</small>
                 </p>
                 <div class="text-center mb-2">
                     <a :href="`${ '/news/' + news.id }`" class="text-dark robot-font">
                         {{ news.title }}
                     </a>
                 </div>
+            </div>
+
+            <div class="col-lg-12">
+                <pagination :data="this.news" @pagination-change-page="getNews"></pagination>
             </div>
 
         </div>
@@ -59,9 +63,19 @@
                     page = 1;
                 }
 
-                axios.get('/json-news?page=' + page).then(response => {
-                    this.news = response.data;
-                });
+                this.$http.get('/json-news?page=' + page)
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.news = data;
+                    });
+            },
+
+            dateFormating(date) {
+                let format = require('dateformat');
+
+                return format(date, 'dd mmm');
             }
         }
     }

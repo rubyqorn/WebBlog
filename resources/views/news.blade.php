@@ -26,13 +26,7 @@
             <div class="row justify-content-center">
                 
                 <div class="col-lg-10">
-                    
                     <news-component></news-component>
-                    
-                    <div class="col-lg-12">
-                        <data-component></data-component> 
-                    </div>
-                    
                 </div>
 
             </div>

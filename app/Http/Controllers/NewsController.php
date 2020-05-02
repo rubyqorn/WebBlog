@@ -31,7 +31,7 @@ class NewsController extends Controller
      */ 
     public function news()
     {
-        return News::paginate(6);
+        return News::paginate(4);
     }
 
     /**
