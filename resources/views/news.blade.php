@@ -10,11 +10,11 @@
         
         <ul class="nav nav-fill shadow border-top">
             @foreach($categories as $category)
-                <categories-news-component
+                <categories-component
                     :name="{{ json_encode($category->name) }}"
                     :color="{{ json_encode($category->color) }}"
                 >
-                </categories-news-component>
+                </categories-component>
             @endforeach
         </ul>   
 
@@ -25,12 +25,16 @@
         <div class="container mt-4">
             <div class="row justify-content-center">
                 
+                <social-links-sidebar-component></social-links-sidebar-component>
+
                 <div class="col-lg-10">
                     <news-component></news-component>
                 </div>
 
             </div>
         </div>
+
+        <footer-component></footer-component>
         
     </div>
 @endsection
