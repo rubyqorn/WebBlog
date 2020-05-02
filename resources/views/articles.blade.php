@@ -1,13 +1,14 @@
 @extends('layouts.main')
 
 @section('title')
-    Новости
+    Статьи
 @endsection
 
 @section('content')
-    <div id="news">
+
+    <div id="articles">
         <common-navbar-component></common-navbar-component>
-        
+
         <ul class="nav nav-fill shadow border-top">
             @foreach($categories as $category)
                 <categories-component
@@ -16,25 +17,27 @@
                 >
                 </categories-component>
             @endforeach
-        </ul>   
+        </ul>
 
         <search-bar-component
             :categories="{{ json_encode($categories) }}"
-        ></search-bar-component>
+        >
+        </search-bar-component>
 
         <div class="container mt-4">
             <div class="row justify-content-center">
-                
+
                 <social-links-sidebar-component></social-links-sidebar-component>
 
                 <div class="col-lg-10">
-                    <news-component></news-component>
+                    <articles-component></articles-component>
                 </div>
 
             </div>
         </div>
-
+    
         <footer-component></footer-component>
-        
+
     </div>
+
 @endsection

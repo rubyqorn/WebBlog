@@ -15,17 +15,23 @@ class ArticlesController extends Controller
     */
     public function showPage()
     {
-    	$articles = Article::paginate(5);
-    	$categories = ArticleCategory::all();
+    	$categories = ArticleCategory::orderBy('created_at', 'DESC')->get();
 
-        if (view()->exists('templates.articles')) {
-        	return view('templates.articles')->with([
-        		'articles' => $articles,
+        if (view()->exists('articles')) {
+        	return view('articles')->with([
         		'categories' => $categories
         	]);
         }
         
         abort(404);
+    }
+
+    /**
+     * @return string
+     */ 
+    public function articles()
+    {
+        return Article::paginate(6);
     }
 
     /**
