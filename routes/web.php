@@ -30,6 +30,8 @@ Route::get('/news-categories/{id}', 'AjaxRequestController@recordsByCategory')
 Route::get('/articles', 'ArticlesController@showPage')
 	->name('articles');
 
+Route::get('json-articles', 'ArticlesController@articles');
+
 Route::get('/article/{id}', 'ArticlesController@showSingleArticle')
 	->name('article');
 

@@ -20,16 +20,26 @@ Vue.use(require('vue-resource'));
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+// Common components
+Vue.component('footer-component', require('./components/parts/FooterComponent.vue').default);
+Vue.component('common-navbar-component', require('./components/parts/CommonNavbarComponent.vue').default);
+Vue.component('categories-component', require('./components/parts/CategoriesComponent.vue').default);
+Vue.component('search-bar-component', require('./components/parts/SearchBarComponent.vue').default);
+Vue.component('social-links-sidebar-component', require('./components/parts/SocialLinksSidebarComponent.vue').default);
+
+// Components of home page
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('navbar-component', require('./components/NavbarComponent.vue').default);
 Vue.component('article-component', require('./components/ArticleComponent.vue').default);
-Vue.component('footer-component', require('./components/FooterComponent.vue').default);
-Vue.component('common-navbar-component', require('./components/CommonNavbarComponent.vue').default);
-Vue.component('categories-news-component', require('./components/news/CategoriesComponent.vue').default);
-Vue.component('search-bar-component', require('./components/news/SearchBarComponent.vue').default);
-Vue.component('news-component', require('./components/news/NewsComponent.vue').default);
-Vue.component('data-component', require('./components/DataComponent.vue').default);
+
+// Pagination component
 Vue.component('pagination', require('laravel-vue-pagination'));
+
+// Components of news page
+Vue.component('news-component', require('./components/news/NewsComponent.vue').default);
+
+// Components of articles page
+Vue.component('articles-component', require('./components/articles/ArticlesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -43,4 +53,8 @@ const app = new Vue({
 
 const news = new Vue({
     el: '#news' 
+});
+
+const articles = new Vue({
+    el: '#articles' 
 });
