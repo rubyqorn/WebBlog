@@ -52846,7 +52846,7 @@ Vue.component('common-navbar-component', __webpack_require__(/*! ./components/Co
 Vue.component('categories-news-component', __webpack_require__(/*! ./components/news/CategoriesComponent.vue */ "./resources/js/components/news/CategoriesComponent.vue")["default"]);
 Vue.component('search-bar-component', __webpack_require__(/*! ./components/news/SearchBarComponent.vue */ "./resources/js/components/news/SearchBarComponent.vue")["default"]);
 Vue.component('news-component', __webpack_require__(/*! ./components/news/NewsComponent.vue */ "./resources/js/components/news/NewsComponent.vue")["default"]);
-Vue.component('data-component', __webpack_require__(/*! ./components/DataComponent.vue */ "./resources/js/components/DataComponent.vue")["default"]);
+Vue.component('data-component', __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './components/DataComponent.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()))["default"]);
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -53027,17 +53027,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CommonNavbarComponent_vue_vue_type_template_id_7cfde9f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/components/DataComponent.vue":
-/*!***************************************************!*\
-  !*** ./resources/js/components/DataComponent.vue ***!
-  \***************************************************/
-/*! exports provided: default */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/webblog/resources/js/components/DataComponent.vue'");
 
 /***/ }),
 
