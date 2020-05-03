@@ -15,16 +15,24 @@ class DiscussionsController extends Controller
     public function showPage()
     {
     	$discussions = Discussion::withCount('answers')->paginate(5);
-    	$categories = DiscussionCategory::all();
+    	$categories = DiscussionCategory::orderBy('created_at', 'DESC')->get();
 
-        if (view()->exists('templates.discussions')) {
-        	return view('templates.discussions')->with([
+        if (view()->exists('discussions')) {
+        	return view('discussions')->with([
         		'discussions' => $discussions,
         		'categories' => $categories
         	]);
         }
 
         abort(404); 
+    }
+
+    /**
+     * @return void
+     */ 
+    public function discussions()
+    {
+        return Discussion::paginate(6);
     }
 
     /**

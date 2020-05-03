@@ -43,6 +43,8 @@ Route::get('/articles-categories/{id}', 'AjaxRequestController@recordsByCategory
 Route::get('/discussions', 'DiscussionsController@showPage')
 	->name('discussions');
 
+Route::get('json-discussions', 'DiscussionsController@discussions');
+
 Route::get('/discussion/{id}', 'DiscussionsController@showSingleDiscussion')
 	->name('discussion');
 
