@@ -74,3 +74,13 @@ body {
 #social-links-sidebar .fab {
     font-size: 20px;
 }
+
+#discussions #discussions-categories .list-group-item {
+    border: none;
+}
+
+#discussions .avatar {
+    width: 6%;
+    border: 1px solid #777;
+    border-radius: 50px;
+}

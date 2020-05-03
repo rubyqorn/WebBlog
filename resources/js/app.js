@@ -41,6 +41,11 @@ Vue.component('news-component', require('./components/news/NewsComponent.vue').d
 // Components of articles page
 Vue.component('articles-component', require('./components/articles/ArticlesComponent.vue').default);
 
+// Components of discussions page
+Vue.component('discussions-component', require('./components/discussions/DiscussionsComponent.vue').default);
+Vue.component('discussions-categories-component', require('./components/discussions/CategoriesSidebarComponent.vue').default);
+Vue.component('ask-question-btn-component', require('./components/discussions/AskQuestionButtonComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -57,4 +62,8 @@ const news = new Vue({
 
 const articles = new Vue({
     el: '#articles' 
+});
+
+const discussions = new Vue({
+    el: '#discussions'
 });
