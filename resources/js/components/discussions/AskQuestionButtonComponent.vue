@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-3 mt-4" id="ask-question-btn">
+    <div class="col-lg-2 mt-4" id="ask-question-btn">
         <button data-toggle="modal" data-target="#ask-question" class="btn btn-dark btn-block text-uppercase">
             <small class="robot-font">
                 Задать вопрос

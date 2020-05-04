@@ -1796,16 +1796,20 @@ __webpack_require__.r(__webpack_exports__);
     return {
       links: [{
         link: "/",
-        name: "Главная"
+        name: "Главная",
+        icon: "fa-home"
       }, {
         link: "/news",
-        name: "Новости"
+        name: "Новости",
+        icon: "fa-newspaper"
       }, {
         link: "/articles",
-        name: "Статьи"
+        name: "Статьи",
+        icon: "fa-file"
       }, {
         link: "/discussions",
-        name: "Дискуссии"
+        name: "Дискуссии",
+        icon: "fa-comments"
       }]
     };
   }
@@ -2066,11 +2070,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       discussions: []
     };
+  },
+  mounted: function mounted() {
+    this.getDiscussions();
+  },
+  methods: {
+    getDiscussions: function getDiscussions(page) {
+      var _this = this;
+
+      if (typeof page == 'undefined') {
+        page = 1;
+      }
+
+      this.$http.get('/json-discussions?page=' + page).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this.discussions = data;
+      });
+    },
+    dateFormating: function dateFormating(date) {
+      var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
+      return format('dd mmm');
+    }
   }
 });
 
@@ -38947,7 +38977,10 @@ var render = function() {
             { staticClass: "navbar-nav mr-4" },
             _vm._l(_vm.links, function(link) {
               return _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-                _c("i", { staticClass: "fa fa-home text-muted mt-3" }),
+                _c("i", {
+                  staticClass: "fa fa-home text-muted mt-3",
+                  class: link.icon
+                }),
                 _vm._v(" "),
                 _c(
                   "a",
@@ -39095,7 +39128,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-lg-3 mt-4", attrs: { id: "ask-question-btn" } },
+    { staticClass: "col-lg-2 mt-4", attrs: { id: "ask-question-btn" } },
     [
       _vm._m(0),
       _vm._v(" "),
@@ -39340,79 +39373,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6 h-100" }, [
-      _c("div", { staticClass: "col-lg-12 border rounded p-3 mt-4" }, [
-        _c("div", { staticClass: "d-flex" }, [
-          _c("img", {
-            staticClass: "avatar",
-            attrs: { src: "assets/img/default.png" }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "robot-font ml-2" }, [
-            _c("small", [_vm._v("John Doe")])
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted ml-4 robot-font" }, [
-            _c("small", [
-              _vm._v(
-                "\n                    создано в категории \n                    "
-              ),
-              _c("span", { staticClass: "text-info" }, [_vm._v("# PHP")]),
-              _vm._v("\n                    20 апр\n                ")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-lg-12 mt-4 border rounded p-3" }, [
-          _c(
-            "a",
-            { staticClass: "text-muted robot-font", attrs: { href: "" } },
-            [_vm._v("\n                This is a title\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-lg-9 justify-content-start" }, [
-            _c("p", { staticClass: "text-muted robot-font" }, [
+  return _c(
+    "div",
+    { staticClass: "col-lg-7 h-100" },
+    [
+      _vm._l(_vm.discussions.data, function(discussion) {
+        return _c("div", { staticClass: "col-lg-12 border rounded p-3 mt-4" }, [
+          _c("div", { staticClass: "d-flex" }, [
+            _c("img", {
+              staticClass: "avatar",
+              attrs: { src: "assets/img/" + discussion.authors.image }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "robot-font ml-2" }, [
+              _c("small", [_vm._v(_vm._s(discussion.authors.name))])
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted ml-4 robot-font" }, [
               _c("small", [
                 _vm._v(
-                  "\n                        Количество ответов\n                        "
+                  "\n                    создано в категории \n                    "
                 ),
-                _c("span", { staticClass: "text-info border-bottom" }, [
-                  _vm._v(
-                    "\n                            10\n                        "
-                  )
-                ])
+                _c("span", { staticClass: "text-info" }, [
+                  _vm._v("# " + _vm._s(discussion.category.name))
+                ]),
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.dateFormating(discussion.created_at)) +
+                    "\n                "
+                )
               ])
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-lg-3 text-right justify-content-end" },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-dark btn-sm robot-font",
-                  attrs: { href: "/" }
-                },
-                [_vm._v("\n                    Ответить\n                ")]
-              )
-            ]
-          )
+          _c("div", { staticClass: "col-lg-12 mt-4 border rounded p-3" }, [
+            _c(
+              "a",
+              {
+                staticClass: "text-muted robot-font",
+                attrs: { href: "/discussion/" + discussion.id }
+              },
+              [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(discussion.title) +
+                    "\n            "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [
+            _c("div", { staticClass: "col-lg-9 justify-content-start" }, [
+              _c("p", { staticClass: "text-muted robot-font" }, [
+                _c("small", [
+                  _vm._v(
+                    "\n                        Количество ответов\n                        "
+                  ),
+                  _c("span", { staticClass: "text-info border-bottom" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(discussion.answers_count) +
+                        "\n                        "
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-lg-3 text-right justify-content-end" },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-dark btn-sm robot-font",
+                    attrs: { href: "/discussion/" + discussion.id }
+                  },
+                  [_vm._v("\n                    Ответить\n                ")]
+                )
+              ]
+            )
+          ])
         ])
-      ])
-    ])
-  }
-]
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-lg-12 mt-4" },
+        [
+          _c("pagination", {
+            attrs: { data: this.discussions },
+            on: { "pagination-change-page": _vm.getDiscussions }
+          })
+        ],
+        1
+      )
+    ],
+    2
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
