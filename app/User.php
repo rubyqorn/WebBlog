@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasMany('\App\Article', 'id');
     }
 
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class, 'id');
+    }
+
     /**
     * Check for user has an admin role
     * or return false

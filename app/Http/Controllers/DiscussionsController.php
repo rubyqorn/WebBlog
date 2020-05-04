@@ -15,7 +15,7 @@ class DiscussionsController extends Controller
     public function showPage()
     {
     	$discussions = Discussion::withCount('answers')->paginate(5);
-    	$categories = DiscussionCategory::orderBy('created_at', 'DESC')->get();
+        $categories = DiscussionCategory::orderBy('created_at', 'DESC')->get();
 
         if (view()->exists('discussions')) {
         	return view('discussions')->with([
@@ -32,7 +32,10 @@ class DiscussionsController extends Controller
      */ 
     public function discussions()
     {
-        return Discussion::paginate(6);
+        return Discussion::with('category')
+                ->with('authors')
+                ->withCount('answers')
+                ->paginate(6);
     }
 
     /**

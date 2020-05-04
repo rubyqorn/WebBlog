@@ -28,6 +28,11 @@ class Discussion extends Model
     	return $this->belongsTo(Answer::class, 'id', 'discussion_id');
     }
 
+    public function authors()
+    {
+        return $this->belongsTo('\App\User', 'user_id');
+    }
+
     /**
     * Get discussions by category id
     *
