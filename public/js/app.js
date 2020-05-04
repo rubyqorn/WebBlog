@@ -1855,10 +1855,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      articles: []
+      articles: {}
     };
   },
   mounted: function mounted() {
@@ -1879,13 +1897,10 @@ __webpack_require__.r(__webpack_exports__);
         articles[i].classList.remove('activeImage');
       }
     },
-    getArticles: function getArticles(page) {
+    getArticles: function getArticles() {
       var _this = this;
 
-      if (page == 'undefined') {
-        page = 1;
-      }
-
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$http.get('json-articles?page=' + page).then(function (response) {
         return response.json();
       }).then(function (data) {
@@ -2076,20 +2091,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      discussions: []
+      discussions: {}
     };
   },
   mounted: function mounted() {
     this.getDiscussions();
   },
   methods: {
-    getDiscussions: function getDiscussions(page) {
+    getDiscussions: function getDiscussions() {
       var _this = this;
 
-      if (typeof page == 'undefined') {
-        page = 1;
-      }
-
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$http.get('/json-discussions?page=' + page).then(function (response) {
         return response.json();
       }).then(function (data) {
@@ -2145,11 +2157,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       activeImage: false,
-      news: []
+      news: {}
     };
   },
   mounted: function mounted() {
@@ -2170,13 +2200,10 @@ __webpack_require__.r(__webpack_exports__);
         images[i].classList.remove('activeImage');
       }
     },
-    getNews: function getNews(page) {
+    getNews: function getNews() {
       var _this = this;
 
-      if (typeof page === 'undefined') {
-        page = 1;
-      }
-
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$http.get('/json-news?page=' + page).then(function (response) {
         return response.json();
       }).then(function (data) {
@@ -39083,6 +39110,36 @@ var render = function() {
                     )
                   ]
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
+                _c("div", { staticClass: "col-lg-9" }, [
+                  _c(
+                    "p",
+                    {
+                      staticClass: "robot-font",
+                      class: article.category.color
+                    },
+                    [
+                      _c("small", [
+                        _vm._v("\n                            # "),
+                        _c("span", { staticClass: "font-weight-bold" }, [
+                          _vm._v(_vm._s(article.category.name))
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("p", { staticClass: "robot-font text-right text-muted" }, [
+                    _c("small", [
+                      _c("i", { staticClass: "far fa-comment" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(article.comments_count))])
+                    ])
+                  ])
+                ])
               ])
             ]
           )
@@ -39464,7 +39521,7 @@ var render = function() {
         { staticClass: "col-lg-12 mt-4" },
         [
           _c("pagination", {
-            attrs: { data: this.discussions },
+            attrs: { data: _vm.discussions },
             on: { "pagination-change-page": _vm.getDiscussions }
           })
         ],
@@ -39552,6 +39609,33 @@ var render = function() {
                     )
                   ]
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
+                _c("div", { staticClass: "col-lg-9" }, [
+                  _c(
+                    "p",
+                    { staticClass: "robot-font", class: news.category.color },
+                    [
+                      _c("small", [
+                        _vm._v("\n                            # "),
+                        _c("span", { staticClass: "font-weight-bold" }, [
+                          _vm._v(_vm._s(news.category.name))
+                        ])
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-3" }, [
+                  _c("p", { staticClass: "robot-font text-right text-muted" }, [
+                    _c("small", [
+                      _c("i", { staticClass: "far fa-comment" }),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(news.comments_count))])
+                    ])
+                  ])
+                ])
               ])
             ]
           )
@@ -39562,7 +39646,7 @@ var render = function() {
           { staticClass: "col-lg-12" },
           [
             _c("pagination", {
-              attrs: { data: this.news },
+              attrs: { data: _vm.news },
               on: { "pagination-change-page": _vm.getNews }
             })
           ],

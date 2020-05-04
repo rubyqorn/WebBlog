@@ -15,7 +15,7 @@ class ArticlesController extends Controller
     */
     public function showPage()
     {
-    	$categories = ArticleCategory::orderBy('created_at', 'DESC')->get();
+        $categories = ArticleCategory::orderBy('created_at', 'DESC')->get();
 
         if (view()->exists('articles')) {
         	return view('articles')->with([
@@ -31,7 +31,9 @@ class ArticlesController extends Controller
      */ 
     public function articles()
     {
-        return Article::paginate(6);
+        return Article::with('category')
+            ->withCount('comments')
+            ->paginate(6);
     }
 
     /**

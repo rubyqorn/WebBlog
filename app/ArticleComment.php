@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class ArticleComment extends Model
 {
+	protected $table = 'articles_comments';
+
 	protected $fillable = [
 		'user_id', 'article_id', 'comment'
 	];

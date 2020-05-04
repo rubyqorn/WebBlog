@@ -23,6 +23,11 @@ class News extends Model
 		return $this->belongsTo(NewsCategory::class, 'category_id', 'category_id');
 	}
 
+	public function comments()
+	{
+		return $this->belongsTo(NewsComment::class, 'id', 'news_id');
+	}
+
 	/**
 	* Get and count records by month
 	*
