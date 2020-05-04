@@ -17,10 +17,28 @@
                         {{ news.title }}
                     </a>
                 </div>
+
+                <div class="col-lg-12 d-flex p-2 mt-2">
+                    <div class="col-lg-9">
+                        <p class="robot-font" :class="news.category.color">
+                            <small>
+                                # <span class="font-weight-bold">{{ news.category.name }}</span>
+                            </small>
+                        </p>
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="robot-font text-right text-muted">
+                            <small>
+                                <i class="far fa-comment"></i>
+                                <span>{{ news.comments_count }}</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-12">
-                <pagination :data="this.news" @pagination-change-page="getNews"></pagination>
+                <pagination :data="news" @pagination-change-page="getNews"></pagination>
             </div>
 
         </div>
@@ -33,7 +51,7 @@
         data: function() {
             return {
                 activeImage: false,
-                news: []
+                news: {}
             }
         },
         mounted() {
@@ -56,10 +74,7 @@
                 }
             },
 
-            getNews(page) {
-                if (typeof page === 'undefined') {
-                    page = 1;
-                }
+            getNews(page = 1) {
 
                 this.$http.get('/json-news?page=' + page)
                     .then(response => {

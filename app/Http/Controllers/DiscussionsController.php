@@ -35,7 +35,7 @@ class DiscussionsController extends Controller
         return Discussion::with('category')
                 ->with('authors')
                 ->withCount('answers')
-                ->paginate(6);
+                ->paginate(10);
     }
 
     /**

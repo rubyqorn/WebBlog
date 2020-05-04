@@ -22,7 +22,12 @@ class Article extends Model
 
 	public function author()
 	{
-		return $this->belongsTo('\App\User', 'user_id');
+		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function comments()
+	{
+		return $this->belongsTo(ArticleComment::class, 'id', 'article_id');
 	}
 	
 	/**

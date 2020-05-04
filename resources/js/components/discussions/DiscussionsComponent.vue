@@ -41,7 +41,7 @@
         </div>
 
        <div class="col-lg-12 mt-4">
-         <pagination :data="this.discussions" @pagination-change-page="getDiscussions"></pagination>
+         <pagination :data="discussions" @pagination-change-page="getDiscussions"></pagination>
        </div>
     </div>
 </template>
@@ -50,17 +50,14 @@
     export default {
         data: function() {
             return {
-                discussions: []
+                discussions: {}
             }
         },
         mounted() {
             this.getDiscussions();
         },
         methods: {
-            getDiscussions(page) {
-                if (typeof page == 'undefined') {
-                    page = 1
-                }
+            getDiscussions(page = 1) {
 
                 this.$http.get('/json-discussions?page=' + page)
                     .then(response => {

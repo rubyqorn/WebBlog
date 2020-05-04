@@ -17,6 +17,24 @@
                         {{ article.title }}
                     </a>
                 </div>
+
+                <div class="col-lg-12 d-flex p-2 mt-2">
+                    <div class="col-lg-9">
+                        <p class="robot-font" :class="article.category.color">
+                            <small>
+                                # <span class="font-weight-bold">{{ article.category.name }}</span>
+                            </small>
+                        </p>
+                    </div>
+                    <div class="col-lg-3">
+                        <p class="robot-font text-right text-muted">
+                            <small>
+                                <i class="far fa-comment"></i>
+                                <span>{{ article.comments_count }}</span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-12">
@@ -31,7 +49,7 @@
     export default {
         data: function() {
             return {
-                articles: []
+                articles: {}
             }
         },
         mounted() {
@@ -54,10 +72,7 @@
                 }
             },
 
-            getArticles(page) {
-                if (page == 'undefined') {
-                    page = 1;
-                }
+            getArticles(page = 1) {
 
                 this.$http.get('json-articles?page=' + page)
                     .then(response => {
