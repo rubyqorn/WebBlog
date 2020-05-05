@@ -6,6 +6,15 @@
 
 @section('content')
     <div id="discussions">
+        @if(Auth::user())
+            <common-navbar-component
+                :usercontent="{{ json_encode([
+                    'user' => Auth::user()->name,
+                    'csrfToken' => csrf_token()
+                ]) }}"
+            ></common-navbar-component>
+        @endif
+
         <common-navbar-component></common-navbar-component>
         
         <search-bar-component

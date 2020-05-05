@@ -13,29 +13,69 @@
                     <a href="/" class="nav-link robot-font">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link robot-font">Новости</a>
+                    <a href="/news" class="nav-link robot-font">Новости</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link robot-font">Статьи</a>
+                    <a href="/articles" class="nav-link robot-font">Статьи</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/" class="nav-link robot-font">Дискуссии</a>
+                    <a href="/discussions" class="nav-link robot-font">Дискуссии</a>
                 </li>
             </ul>
 
+            
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a href="/" class="robot-font nav-link">
-                        Войти
+                <div class="d-flex" v-if="!authUser">
+                    <li class="nav-item mr-1">
+                        <a href="/login" class="robot-font nav-link">
+                            Войти
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/register" class="robot-font nav-link">
+                            Регистрация
+                        </a>    
+                    </li>
+                </div>
+
+                <li class="nav-item dropdown" v-else>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ authUser }}<span class="caret"></span>
                     </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/logout">
+                            Выйти
+                        </a>
+
+                        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                            {{ this.usercontent.csrfToken }}
+                        </form>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a href="/" class="robot-font nav-link">
-                        Регистрация
-                    </a>
-                </li>
+
             </ul>
+            
         </div>
 
     </nav>
 </template>
+
+<script>
+    export default {
+        props: [
+            'usercontent'
+        ],
+        data: function() {
+            return {
+                authUser: null
+            }
+        },
+        mounted() {
+            if (this.usercontent.name !== null) {
+                this.authUser = this.usercontent.user;
+            }
+
+        }
+    }
+</script>

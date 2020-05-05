@@ -35,6 +35,7 @@ class DiscussionsController extends Controller
         return Discussion::with('category')
                 ->with('authors')
                 ->withCount('answers')
+                ->orderBy('created_at', 'DESC')
                 ->paginate(10);
     }
 

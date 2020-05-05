@@ -31,6 +31,7 @@ class NewsController extends Controller
     {
         return News::with('category')
             ->withCount('comments')
+            ->orderBy('created_at', 'DESC')
             ->paginate(6);
     }
 
