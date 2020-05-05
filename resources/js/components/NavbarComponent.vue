@@ -4,7 +4,7 @@
         <div class="collapse navbar-collapse  justify-content-center" id="navbar-content">
             <ul class="navbar-nav mr-4">
                 <li class="nav-item d-flex ml-2" v-for="link in links">
-                    <i class="fa fa-home text-muted mt-3" :class="link.icon"></i>
+                    <i class="fa text-muted mt-3" :class="link.icon"></i>
                     <a :href="`${link.link}`" class="nav-link robot-font mt-1">
                         {{ link.name }}
                     </a>                    

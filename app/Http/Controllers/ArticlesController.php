@@ -33,6 +33,7 @@ class ArticlesController extends Controller
     {
         return Article::with('category')
             ->withCount('comments')
+            ->orderBy('created_at', 'DESC')
             ->paginate(6);
     }
 

@@ -6,7 +6,12 @@
 
 @section('content')
     <div id="discussions">
-        <common-navbar-component></common-navbar-component>
+        <common-navbar-component
+            :usercontent="{{ json_encode([
+                'user' => Auth::user()->name,
+                'csrfToken' => csrf_token()
+            ]) }}"
+        ></common-navbar-component>
         
         <search-bar-component
             :categories="{{ json_encode($categories) }}"

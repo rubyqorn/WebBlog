@@ -6,7 +6,12 @@
 
 @section('content')
     <div id="news">
-        <common-navbar-component></common-navbar-component>
+        <common-navbar-component
+            :usercontent="{{ json_encode([
+                'user' => Auth::user()->name,
+                'csrfToken' => csrf_token()
+            ]) }}"
+        ></common-navbar-component>
         
         <ul class="nav nav-fill shadow border-top">
             @foreach($categories as $category)
