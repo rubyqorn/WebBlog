@@ -46,6 +46,12 @@ Vue.component('discussions-component', require('./components/discussions/Discuss
 Vue.component('discussions-categories-component', require('./components/discussions/CategoriesSidebarComponent.vue').default);
 Vue.component('ask-question-btn-component', require('./components/discussions/AskQuestionButtonComponent.vue').default);
 
+// Components of login page
+Vue.component('login-form-component', require('./components/auth/login/LoginFormComponent.vue').default);
+
+// Components of register page
+Vue.component('register-form-component', require('./components/auth/register/RegisterFormComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
