@@ -24,7 +24,7 @@ Route::get('/news/{id}', 'NewsController@newsById')
 
 Route::get('/news-content', 'AjaxRequestController@getData');
 
-Route::get('/news-categories/{id}', 'AjaxRequestController@recordsByCategory')
+Route::get('/news-categories/{id}', 'NewsController@newsByCategory')
 	->name('newsCategories');
 
 Route::get('/articles', 'ArticlesController@showPage')
@@ -37,7 +37,7 @@ Route::get('/article/{id}', 'ArticlesController@showSingleArticle')
 
 Route::get('/articles-content', 'AjaxRequestController@getData');
 
-Route::get('/articles-categories/{id}', 'AjaxRequestController@recordsByCategory')
+Route::get('/articles-categories/{id}', 'ArticlesController@articlesByCategory')
 	->name('articlesCategories');
 
 Route::get('/discussions', 'DiscussionsController@showPage')

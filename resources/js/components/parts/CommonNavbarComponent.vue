@@ -63,7 +63,7 @@
 
 <script>
     export default {
-        props: [
+        props: [   
             'usercontent'
         ],
         data: function() {
@@ -72,7 +72,7 @@
             }
         },
         mounted() {
-            if (this.usercontent.name !== null) {
+            if (typeof(this.usercontent) !== 'undefined') {
                 this.authUser = this.usercontent.user;
             }
 

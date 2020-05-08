@@ -21,6 +21,7 @@
         <ul class="nav nav-fill shadow border-top">
             @foreach($categories as $category)
                 <categories-component
+                    :route="{{ json_encode(route('articlesCategories', $category->category_id)) }}"
                     :name="{{ json_encode($category->name) }}"
                     :color="{{ json_encode($category->color) }}"
                 >
