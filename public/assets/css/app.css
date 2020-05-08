@@ -35,17 +35,21 @@ body {
     color: #9fa2a3;
 }
 
-#header .title {
-    font-family: 'Roboto Mono';
-    color: darkslategrey;
-}
-
 .bg-grey {
     background-color: #ecebeb;
 }
 
 .bg-ultra-dark {
     background-color: #000;
+}
+
+#header .title {
+    font-family: 'Roboto Mono';
+    color: darkslategrey;
+}
+
+#category_link {
+    font-size: 10px;
 }
 
 #home-news {
@@ -82,5 +86,27 @@ body {
 #discussions .avatar {
     width: 6%;
     border: 1px solid #777;
+    border-radius: 50px;
+}
+
+#articles #articles-by-category .preview-img{
+    transition: all 0.3s ease-in-out;
+}
+
+#articles #articles-by-category .preview-img:hover {
+    transform: scale(1.1);
+    background-color: #000;
+    opacity: 0.8;
+}
+
+#articles #articles-by-category .avatar {
+    width: 13%;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+}
+
+#articles #articles-by-category .container .avatar {
+    width: 8%;
+    border: 1px solid #ddd;
     border-radius: 50px;
 }

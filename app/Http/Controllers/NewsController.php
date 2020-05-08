@@ -35,6 +35,11 @@ class NewsController extends Controller
             ->paginate(6);
     }
 
+    public function newsByCategory($id) 
+    {
+        return News::where('category_id', $id)->get();
+    }
+
     /**
     * Get single record by id from query string
     *
