@@ -47,6 +47,7 @@ Vue.component('articles-by-category-component', require('./components/articles/A
 Vue.component('discussions-component', require('./components/discussions/DiscussionsComponent.vue').default);
 Vue.component('discussions-categories-component', require('./components/discussions/CategoriesSidebarComponent.vue').default);
 Vue.component('ask-question-btn-component', require('./components/discussions/AskQuestionButtonComponent.vue').default);
+Vue.component('discussions-by-category-component', require('./components/discussions/DiscussionsByCategoryComponent.vue').default);
 
 // Components of login page
 Vue.component('login-form-component', require('./components/auth/login/LoginFormComponent.vue').default);

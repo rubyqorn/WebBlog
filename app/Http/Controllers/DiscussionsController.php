@@ -38,6 +38,26 @@ class DiscussionsController extends Controller
                 ->paginate(10);
     }
 
+    public function discussionsByCategory($id) 
+    {
+        if (!view()->exists('discussions-by-category')) {
+            return abort(404);
+        }
+
+        $discussions = Discussion::orderBy('created_at', 'DESC')
+            ->where('category_id', $id)
+            ->with('category')
+            ->with('answers')
+            ->with('authors')
+            ->get();
+        $categories = DiscussionCategory::orderBy('created_at', 'DESC')->get();
+
+        return view('discussions-by-category')->with([
+            'discussions' => $discussions,
+            'categories' => $categories
+        ]);
+    }
+
     /**
     * Show single discussion page where contains 
     * answers discussion content and latest discussions

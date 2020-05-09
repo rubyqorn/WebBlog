@@ -50,9 +50,9 @@
                                 </p>
                             </div>
                             <div class="col-lg-4">
-                                <p class="text-muted robot-font">
+                                <p class="text-muted robot-font text-right">
                                     <small>
-                                        {{ item.created_at }}
+                                        {{ dateFormating(item.created_at) }}
                                     </small>
                                 </p>
                             </div>

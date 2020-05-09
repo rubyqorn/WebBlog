@@ -22,8 +22,6 @@ Route::get('/json-news', 'NewsController@news');
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 
-Route::get('/news-content', 'AjaxRequestController@getData');
-
 Route::get('/news-categories/{id}', 'NewsController@newsByCategory')
 	->name('newsCategories');
 
@@ -33,9 +31,7 @@ Route::get('/articles', 'ArticlesController@showPage')
 Route::get('json-articles', 'ArticlesController@articles');
 
 Route::get('/article/{id}', 'ArticlesController@showSingleArticle')
-	->name('article');
-
-Route::get('/articles-content', 'AjaxRequestController@getData');
+	->name('singleArticle');
 
 Route::get('/articles-categories/{id}', 'ArticlesController@articlesByCategory')
 	->name('articlesCategories');
@@ -46,11 +42,9 @@ Route::get('/discussions', 'DiscussionsController@showPage')
 Route::get('json-discussions', 'DiscussionsController@discussions');
 
 Route::get('/discussion/{id}', 'DiscussionsController@showSingleDiscussion')
-	->name('discussion');
+	->name('singleDiscussion');
 
-Route::get('/discussions-content', 'AjaxRequestController@getData');
-
-Route::get('/discussions-categories/{id}', 'AjaxRequestController@recordsByCategory')
+Route::get('/discussions-categories/{id}', 'DiscussionsController@discussionsByCategory')
 	->name('discussionsCategories');
 
 Route::post('/articles/search', 'ArticlesController@search')

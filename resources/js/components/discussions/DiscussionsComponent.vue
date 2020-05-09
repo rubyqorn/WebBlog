@@ -71,7 +71,7 @@
             dateFormating(date) {
                 let format = require('dateformat');
 
-                return format('dd mmm');
+                return format(date, 'dd mmm');
             }
         }
     }

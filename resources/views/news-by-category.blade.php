@@ -22,5 +22,7 @@
         >
         </news-by-category-component>
 
+        <footer-component></footer-component>
+
     </div>
 @endsection
