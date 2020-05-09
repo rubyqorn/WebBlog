@@ -9,7 +9,7 @@
             <div class="card-body">
                 <ul class="list-group" v-for="category in categories">
                     <li class="list-group-item border-bottom">
-                        <a href="/" class="dark-color robot-font">
+                        <a :href="'/discussions-categories/'+ category.category_id" class="dark-color robot-font">
                             # {{ category.name }}
                         </a>
                     </li>
