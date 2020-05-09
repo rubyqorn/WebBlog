@@ -15,15 +15,16 @@ class ArticlesController extends Controller
     */
     public function showPage()
     {
+
+        if (!view()->exists('articles')) {
+            abort(404);
+        }
+
         $categories = ArticleCategory::orderBy('created_at', 'DESC')->get();
 
-        if (view()->exists('articles')) {
-        	return view('articles')->with([
-        		'categories' => $categories
-        	]);
-        }
-        
-        abort(404);
+        return view('articles')->with([
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -39,25 +40,26 @@ class ArticlesController extends Controller
 
     public function articlesByCategory($id)
     {
-        if (view()->exists('articles-by-category')) {
-            $articles = Article::orderBy('created_at', 'DESC')
-                ->with('category')
-                ->with('author')
-                ->withCount('comments')
-                ->where('category_id', $id)
-                ->get();
-
-            $categoryName = ArticleCategory::select('name')
-                ->where('category_id', $id)->get();
-            $title = "Статьи из категории {$categoryName['0']->name}"; 
-
-            return view('articles-by-category', [
-                'title' => $title,
-                'articles' => $articles
-            ]);
+        if (!view()->exists('articles-by-category')) {
+            abort(404);            
         }
 
-        abort(404);
+        $articles = Article::orderBy('created_at', 'DESC')
+            ->with('category')
+            ->with('author')
+            ->withCount('comments')
+            ->where('category_id', $id)
+            ->get();
+
+        $categoryName = ArticleCategory::select('name')
+            ->where('category_id', $id)->get();
+        $title = "Статьи из категории {$categoryName['0']->name}"; 
+
+        return view('articles-by-category', [
+            'title' => $title,
+            'articles' => $articles
+        ]);
+
     }
 
     /**
