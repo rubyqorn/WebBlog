@@ -31,7 +31,7 @@
                     :title="{{ json_encode($article->title) }}"
                     :author="{{ json_encode($article->author->name) }}"
                     :date="{{ json_encode(date('d.m.Y', strtotime($article->created_at))) }}"
-                    :route="{{ json_encode(route('article', $article->id)) }}"
+                    :route="{{ json_encode(route('singleArticle', $article->id)) }}"
                 >
                 </article-component>
 

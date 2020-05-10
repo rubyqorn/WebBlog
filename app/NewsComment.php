@@ -12,4 +12,9 @@ class NewsComment extends Model
     {
         return $this->hasMany(News::class, 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,  'id');
+    }
 }

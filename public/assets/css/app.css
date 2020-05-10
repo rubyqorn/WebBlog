@@ -8,11 +8,11 @@ body {
 }
 
 .robot-cond-font {
-    font-family: 'Roboto Condensed' sans-serif;
+    font-family: 'Roboto Condensed';
 }
 
 .oswald-font {
-    font-family: 'Oswald' sans-serif;
+    font-family: 'Oswald';
 }
 
 .green-color {
@@ -127,4 +127,16 @@ body {
     transform: scale(1.1);
     background-color: #000;
     opacity: 0.8;
+}
+
+#news #single-news-item #content p {
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-align: justify;
+}
+
+#news #single-news-item #comments .avatar {
+    width: 5%;
+    border: 1px solid #ddd;
+    border-radius: 50px;
 }
