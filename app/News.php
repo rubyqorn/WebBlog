@@ -15,9 +15,7 @@ class News extends Model
 
 	protected $table = 'news';
 
-	/**
-	* Get a relationship with NewsCategory
-	*/ 
+	
 	public function category()
 	{
 		return $this->belongsTo(NewsCategory::class, 'category_id', 'category_id');

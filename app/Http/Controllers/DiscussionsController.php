@@ -9,26 +9,17 @@ use App\Answer;
 
 class DiscussionsController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\Response
-    */
     public function showPage()
     {
-
         if (!view()->exists('discussions')) {
             abort(404);
         }
 
         $categories = DiscussionCategory::orderBy('created_at', 'DESC')->get();
 
-        return view('discussions')->with([
-            'categories' => $categories
-        ]); 
+        return view('discussions')->withCategories($categories); 
     }
 
-    /**
-     * @return void
-     */ 
     public function discussions()
     {
         return Discussion::with('category')
@@ -58,30 +49,15 @@ class DiscussionsController extends Controller
         ]);
     }
 
-    /**
-    * Show single discussion page where contains 
-    * answers discussion content and latest discussions
-    * 
-    * @param $id int Get discussion id which we wanna to look
-    *
-    * @return single discussion page
-    */ 
-    public function showSingleDiscussion($id)
+    public function discussionById($id)
     {
+        if (!view()->exists('single-discussion')) {
+            return abort(404);
+        }
 
-    	$discussion = Discussion::findOrFail($id);
-    	$answers = Answer::where('discussion_id', $id)->paginate(3);
-        $latestDiscussions = Discussion::latest()->limit(5)->get();
+        $discussion = Discussion::findOrfail($id);
 
-    	if (view()->exists('templates.discussion')) {
-    		return view('templates.discussion')->with([
-    			'discussion' => $discussion,
-    			'answers' => $answers,
-    			'latestDiscussions' => $latestDiscussions
-    		]);
-    	}
-
-    	abort(404);
+        return view('single-discussion')->withDiscussion($discussion);
     }
 
     /**

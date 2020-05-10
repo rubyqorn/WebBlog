@@ -10,9 +10,6 @@ use App\Comment;
 
 class ArticlesController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\Response
-    */
     public function showPage()
     {
 
@@ -22,14 +19,9 @@ class ArticlesController extends Controller
 
         $categories = ArticleCategory::orderBy('created_at', 'DESC')->get();
 
-        return view('articles')->with([
-            'categories' => $categories
-        ]);
+        return view('articles')->withCategories($categories);
     }
 
-    /**
-     * @return string
-     */ 
     public function articles()
     {
         return Article::with('category')
@@ -55,11 +47,20 @@ class ArticlesController extends Controller
             ->where('category_id', $id)->get();
         $title = "Статьи из категории {$categoryName['0']->name}"; 
 
-        return view('articles-by-category', [
-            'title' => $title,
-            'articles' => $articles
-        ]);
+        return view('articles-by-category')->withTitle($title)
+            ->withArticles($articles);
 
+    }
+
+    public function articleById($id)
+    {
+        if (!view()->exists('single-article')) {
+            abort(404);
+        }
+
+        $article = Article::findOrFail($id);
+
+        return view('single-article')->withArticle($article);
     }
 
     /**
@@ -75,32 +76,6 @@ class ArticlesController extends Controller
 
         return view('templates.search-content', compact('articles'));
     }
-
-    /**
-    * Return page with single article where contains
-    * main block with article content and 2 sidebars
-    * with latest articles and categories names
-    *
-    * @param $id int|string
-    * 
-    * @return page with single article
-    */ 
-    public function showSingleArticle($id)
-    {
-        $article = Article::findOrFail($id);
-        $latestArticles = Article::orderBy('created_at', 'desc')->limit(5)->get();
-        $comments = Comment::where('article_id', $article->id)->paginate(3);
-
-        if (view()->exists('templates.article')) {
-            return view('templates.article')->with([
-                'article' => $article,
-                'latestArticles' => $latestArticles,
-                'comments' => $comments,    
-            ]);
-        }
-
-        abort(404);
-    } 
 
     public function storeComment(Request $request)
     {

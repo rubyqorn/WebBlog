@@ -38,6 +38,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 // Components of news page
 Vue.component('news-component', require('./components/news/NewsComponent.vue').default);
 Vue.component('news-by-category-component', require('./components/news/NewsByCategoryComponent.vue').default);
+Vue.component('single-news-component', require('./components/news/SingleNewsComponent.vue').default);
 
 // Components of articles page
 Vue.component('articles-component', require('./components/articles/ArticlesComponent.vue').default);

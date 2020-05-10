@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\News;
 use App\NewsCategory;
+use App\NewsComment;
 
 class NewsController extends Controller
 {
-    /**
-     * @return \Illuminate\Http\Response
-    */
     public function showPage()
     {
         if (!view()->exists('news')) {
@@ -19,15 +17,10 @@ class NewsController extends Controller
         
         $categories = NewsCategory::orderBy('created_at', 'desc')->get();
 
-        return view('news')->with([
-            'categories' => $categories
-        ]);
+        return view('news')->withCategories($categories);
         
     }
 
-    /**
-     * @return string
-     */ 
     public function news()
     {
         return News::with('category')
@@ -54,33 +47,23 @@ class NewsController extends Controller
 
         $title = "Новости из категории: {$categoryName['0']->name}";
 
-        return view('news-by-category')->with([
-            'title' => $title,
-            'news' => $news
-        ]);
+        return view('news-by-category')->withTitle($title)
+            ->withNews($news);
 
     }
 
-    /**
-    * Get single record by id from query string
-    *
-    * @param $id int|string
-    *
-    * @return single news 
-    */ 
     public function newsById($id)
     {
-        $newsContent = News::findOrFail($id);
-        $latestNews = News::orderBy('created_at', 'desc')->limit(5)->get();
-
-        if (view()->exists('templates.article')) {
-            return view('templates.article')->with([
-                'news' => $newsContent,
-                'latestNews' => $latestNews
-            ]);
+        if (!view()->exists('single-news')) {
+            return abort(404);            
         }
 
-        abort(404);
+        $newsContent = News::findOrFail($id);
+        $comments = NewsComment::where('news_id', $id)->with('user')->get();
+
+        return view('single-news')->withNews($newsContent)
+            ->withComments($comments);
+
     }
 
     /**
