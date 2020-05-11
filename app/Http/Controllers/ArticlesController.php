@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreResponses;
 use App\ArticleCategory;
 use App\Article;
-use App\Comment;
+use App\ArticleComment;
 
 class ArticlesController extends Controller
 {
@@ -59,8 +59,11 @@ class ArticlesController extends Controller
         }
 
         $article = Article::findOrFail($id);
+        $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'DESC')
+            ->with('users')
+            ->get();
 
-        return view('single-article')->withArticle($article);
+        return view('single-article')->withArticle($article)->withComments($comments);
     }
 
     /**

@@ -59,7 +59,9 @@ class NewsController extends Controller
         }
 
         $newsContent = News::findOrFail($id);
-        $comments = NewsComment::where('news_id', $id)->with('user')->get();
+        $comments = NewsComment::where('news_id', $id)->orderBy('created_at', 'DESC')
+            ->with('user')
+            ->get();
 
         return view('single-news')->withNews($newsContent)
             ->withComments($comments);
