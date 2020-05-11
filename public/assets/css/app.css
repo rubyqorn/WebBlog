@@ -129,13 +129,13 @@ body {
     opacity: 0.8;
 }
 
-#news #single-news-item #content p {
+#news #single-news-item #content p, #articles #single-article-item p {
     font-size: 18px;
     letter-spacing: 1px;
     text-align: justify;
 }
 
-#news #single-news-item #comments .avatar {
+#news #single-news-item #comments .avatar, #articles #single-article-item #comments .avatar {
     width: 5%;
     border: 1px solid #ddd;
     border-radius: 50px;

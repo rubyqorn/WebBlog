@@ -43,6 +43,7 @@ Vue.component('single-news-component', require('./components/news/SingleNewsComp
 // Components of articles page
 Vue.component('articles-component', require('./components/articles/ArticlesComponent.vue').default);
 Vue.component('articles-by-category-component', require('./components/articles/ArticlesByCategoryComponent.vue').default);
+Vue.component('single-article-component', require('./components/articles/SingleArticleComponent.vue').default);
 
 // Components of discussions page
 Vue.component('discussions-component', require('./components/discussions/DiscussionsComponent.vue').default);

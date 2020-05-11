@@ -14,19 +14,12 @@ class ArticleComment extends Model
 		'user_id', 'article_id', 'comment'
 	];
 
-	/**
-	* @return inverse relationships with App\Article
-	*/ 
+
 	public function article()
 	{
 		return $this->belongsTo(Article::class, 'article_id');
 	}
 
-	/**
-	* Set has many relationship with App\User
-	*
-	* @return relationship with user model 
-	*/ 
 	public function users()
 	{
 		return $this->belongsTo(User::class, 'id');
