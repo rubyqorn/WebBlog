@@ -55,9 +55,15 @@ class DiscussionsController extends Controller
             return abort(404);
         }
 
-        $discussion = Discussion::findOrfail($id);
-
-        return view('single-discussion')->withDiscussion($discussion);
+        $discussion = Discussion::where('id', $id)->with('authors')
+            ->with('category')
+            ->get();
+        $answers = Answer::where('discussion_id', $id)->with('user')->get();
+        $lastDiscussions = Discussion::orderBy('created_at', 'DESC')->take(5)->get();
+        
+        return view('single-discussion')->withDiscussion($discussion)
+            ->withAnswers($answers)
+            ->withLastDiscussions($lastDiscussions);
     }
 
     /**

@@ -30,7 +30,7 @@ class Discussion extends Model
 
     public function authors()
     {
-        return $this->belongsTo('\App\User', 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

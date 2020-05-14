@@ -12,17 +12,13 @@ class Answer extends Model
         'user_id', 'answer', 'discussion_id'
     ];
 
-	/**
-	* @return inverse relationships with App\Discussion
-	*/ 
+
     public function discussion()
     {
     	return $this->belongsTo(Discussion::class);
     }
 
-    /**
-     * Get relationships with App\User model
-     */ 
+
     public function user()
     {
         return Answer::belongsTo(User::class);
