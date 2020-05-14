@@ -97,6 +97,10 @@ body {
     border-radius: 50px;
 }
 
+#discussions #single-discussion-item a[data-toggle="modal"] {
+    cursor: pointer;
+}
+
 #articles #articles-by-category .preview-img{
     transition: all 0.3s ease-in-out;
 }
