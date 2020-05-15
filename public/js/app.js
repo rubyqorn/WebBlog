@@ -3485,11 +3485,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categories', 'route', 'csrftoken'],
   data: function data() {
@@ -43376,19 +43371,7 @@ var render = function() {
               ])
             ]
           )
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-12" },
-          [
-            _c("pagination", {
-              attrs: { data: _vm.items },
-              on: { "pagination-change-page": _vm.getItems }
-            })
-          ],
-          1
-        )
+        })
       ],
       2
     )
