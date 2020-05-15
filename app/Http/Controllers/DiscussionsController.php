@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DiscussionCategory;
 use App\Discussion;
@@ -66,6 +67,25 @@ class DiscussionsController extends Controller
             ->withLastDiscussions($lastDiscussions);
     }
 
+    public function search(Request $request)
+    {
+        if ($request->category == null) {
+            return Discussion::where('title', 'like', '%'. $request->searching .'%')->get();
+        }
+
+        $categoryId = DiscussionCategory::select('category_id')
+            ->where('name', $request->category)
+            ->get();
+        $discussionsWithCategory = DB::table('discussions')
+            ->whereRaw(
+                "title = '{$request->searching}' and
+                category_id = {$categoryId['0']->category_id}"
+            )
+            ->get();
+        
+        return $discussionsWithCategory;
+    }
+
     /**
     * The method where we get fields for validation
     * and get redirect if validation and adding
@@ -105,19 +125,5 @@ class DiscussionsController extends Controller
 
         return abort(404);
         
-    }
-
-    /**
-     * Search discussions by search content
-     * 
-     * @param \Illuminate\Http\Request
-     *  
-     * @return \Illuminate\Http\Response
-     */ 
-    public function search(Request $request)
-    {
-        $discussions = Discussion::searchDiscussions($request);
-    
-        return view('templates.search-content', compact('discussions'));
     }
 }

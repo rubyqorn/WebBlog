@@ -3551,7 +3551,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     unhover: function unhover() {
-      var images = document.querySelectorAll('#news img.w-100');
+      var blockName = this.link.split('/')['1'];
+      var images = document.querySelectorAll('#' + blockName + ' img.w-100');
 
       for (var i = 0; i < images.length; i++) {
         images[i].classList.remove('activeImage');

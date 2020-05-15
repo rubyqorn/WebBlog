@@ -120,7 +120,8 @@
             },
 
             unhover() {
-                let images = document.querySelectorAll('#news img.w-100');
+                let blockName = this.link.split('/')['1'];
+                let images = document.querySelectorAll('#'+ blockName +' img.w-100');
 
                 for(let i = 0; i < images.length; i++) {
                     images[i].classList.remove('activeImage')
