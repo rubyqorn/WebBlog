@@ -21,10 +21,12 @@
             :categories="{{ json_encode($categories) }}"
         ></search-bar-component>
         
-        <div class="container-fluid">
+        <div class="container-fluid" id="all-discussions">
             <div class="row">
                 <discussions-categories-component
                     :categories="{{ json_encode($categories) }}"
+                    :route="{{ json_encode('/news/search') }}"
+                    :csrftoken="{{ json_encode(csrf_token()) }}"
                 ></discussions-categories-component>
 
                 <discussions-component></discussions-component>
