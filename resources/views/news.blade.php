@@ -30,6 +30,8 @@
 
         <search-bar-component
             :categories="{{ json_encode($categories) }}"
+            :route="{{ json_encode('/news/search') }}"
+            :csrftoken="{{ json_encode(csrf_token()) }}"
         ></search-bar-component>
 
         <div class="container mt-4">

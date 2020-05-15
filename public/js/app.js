@@ -3464,8 +3464,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['categories']
+  props: ['categories', 'route', 'csrftoken'],
+  data: function data() {
+    return {
+      items: {},
+      link: ''
+    };
+  },
+  methods: {
+    getItems: function getItems(resource, data) {
+      var _this = this;
+
+      axios.post(resource, data).then(function (response) {
+        _this.items = response;
+      });
+    },
+    search: function search() {
+      var categoryField = document.querySelector('#search-bar form select').value;
+      var tokenField = document.querySelector('#search-bar form input[name="_token"]').value;
+      var searchingField = document.querySelector('#search-bar form input[name="searching"]').value;
+      var resource = document.querySelector('#search-bar form').getAttribute('action');
+      var data = {
+        _token: tokenField,
+        category: categoryField,
+        searching: searchingField
+      };
+      this.getItems(resource, data);
+      var parsedResource = this.parseResource(resource);
+      this.link = '/' + parsedResource + '/';
+      this.removeAllItemsBlock(parsedResource);
+      this.removeSocialLinksSidebar(parsedResource);
+    },
+    dateFormating: function dateFormating(date) {
+      var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
+      return format(date, 'dd mmm');
+    },
+    parseResource: function parseResource(resource) {
+      return resource.split('/')['1'];
+    },
+    removeAllItemsBlock: function removeAllItemsBlock(blockName) {
+      var block = document.querySelector('#all-' + blockName);
+
+      if (block == null) {
+        return false;
+      }
+
+      return block.remove();
+    },
+    removeSocialLinksSidebar: function removeSocialLinksSidebar(blockName) {
+      var block = document.querySelector('#' + blockName + ' #social-links-sidebar');
+
+      if (block == null) {
+        return false;
+      }
+
+      return block.remove();
+    },
+    hover: function hover(event) {
+      var target = event.target;
+
+      if (event.type == 'mouseover') {
+        return target.classList.add('activeImage');
+      }
+    },
+    unhover: function unhover() {
+      var images = document.querySelectorAll('#news img.w-100');
+
+      for (var i = 0; i < images.length; i++) {
+        images[i].classList.remove('activeImage');
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -40366,112 +40463,120 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-4" }, [
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _vm._l(_vm.articles.data, function(article) {
-          return _c(
-            "div",
-            {
-              staticClass:
-                "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow"
-            },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "article-img",
-                  attrs: { href: "" + ("/article/" + article.id) }
-                },
-                [
-                  _c("img", {
-                    staticClass: "w-100 shadow rounded m-1",
-                    attrs: { src: "" + article.image },
-                    on: {
-                      mouseover: function($event) {
-                        return _vm.hover($event)
-                      },
-                      mouseout: function($event) {
-                        return _vm.unHover()
-                      }
-                    }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-muted robot-font" }, [
-                _c("small", [
-                  _vm._v(_vm._s(_vm.dateFormating(article.created_at)))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-center mb-2" }, [
+  return _c(
+    "div",
+    { staticClass: "container mt-4", attrs: { id: "all-articles" } },
+    [
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm._l(_vm.articles.data, function(article) {
+            return _c(
+              "div",
+              {
+                staticClass:
+                  "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow"
+              },
+              [
                 _c(
                   "a",
                   {
-                    staticClass: "text-dark robot-font",
+                    staticClass: "article-img",
                     attrs: { href: "" + ("/article/" + article.id) }
                   },
                   [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(article.title) +
-                        "\n                "
-                    )
+                    _c("img", {
+                      staticClass: "w-100 shadow rounded m-1",
+                      attrs: { src: "" + article.image },
+                      on: {
+                        mouseover: function($event) {
+                          return _vm.hover($event)
+                        },
+                        mouseout: function($event) {
+                          return _vm.unHover()
+                        }
+                      }
+                    })
                   ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
-                _c("div", { staticClass: "col-lg-9" }, [
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted robot-font" }, [
+                  _c("small", [
+                    _vm._v(_vm._s(_vm.dateFormating(article.created_at)))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-center mb-2" }, [
                   _c(
-                    "p",
+                    "a",
                     {
-                      staticClass: "robot-font",
-                      class: article.category.color
+                      staticClass: "text-dark robot-font",
+                      attrs: { href: "" + ("/article/" + article.id) }
                     },
                     [
-                      _c("small", [
-                        _vm._v("\n                            # "),
-                        _c("span", { staticClass: "font-weight-bold" }, [
-                          _vm._v(_vm._s(article.category.name))
-                        ])
-                      ])
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(article.title) +
+                          "\n                "
+                      )
                     ]
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-3" }, [
-                  _c("p", { staticClass: "robot-font text-right text-muted" }, [
-                    _c("small", [
-                      _c("i", { staticClass: "far fa-comment" }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v(_vm._s(article.comments_count))])
-                    ])
+                _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
+                  _c("div", { staticClass: "col-lg-9" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "robot-font",
+                        class: article.category.color
+                      },
+                      [
+                        _c("small", [
+                          _vm._v("\n                            # "),
+                          _c("span", { staticClass: "font-weight-bold" }, [
+                            _vm._v(_vm._s(article.category.name))
+                          ])
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-3" }, [
+                    _c(
+                      "p",
+                      { staticClass: "robot-font text-right text-muted" },
+                      [
+                        _c("small", [
+                          _c("i", { staticClass: "far fa-comment" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v(_vm._s(article.comments_count))])
+                        ])
+                      ]
+                    )
                   ])
                 ])
-              ])
-            ]
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-lg-12" },
+            [
+              _c("pagination", {
+                attrs: { data: this.articles },
+                on: { "pagination-change-page": _vm.getArticles }
+              })
+            ],
+            1
           )
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-12" },
-          [
-            _c("pagination", {
-              attrs: { data: this.articles },
-              on: { "pagination-change-page": _vm.getArticles }
-            })
-          ],
-          1
-        )
-      ],
-      2
-    )
-  ])
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -42481,109 +42586,117 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-4" }, [
-    _c(
-      "div",
-      { staticClass: "row" },
-      [
-        _vm._l(_vm.news.data, function(news) {
-          return _c(
-            "div",
-            {
-              staticClass:
-                "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow"
-            },
-            [
-              _c(
-                "a",
-                {
-                  staticClass: "article-img",
-                  attrs: { href: "" + ("/news/" + news.id) }
-                },
-                [
-                  _c("img", {
-                    staticClass: "w-100 shadow rounded m-1",
-                    attrs: { src: "" + news.image },
-                    on: {
-                      mouseover: function($event) {
-                        return _vm.hover($event)
-                      },
-                      mouseout: function($event) {
-                        return _vm.unHover()
-                      }
-                    }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-muted robot-font" }, [
-                _c("small", [
-                  _vm._v(_vm._s(_vm.dateFormating(news.created_at)))
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "text-center mb-2" }, [
+  return _c(
+    "div",
+    { staticClass: "container mt-4", attrs: { id: "all-news" } },
+    [
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm._l(_vm.news.data, function(news) {
+            return _c(
+              "div",
+              {
+                staticClass:
+                  "col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow"
+              },
+              [
                 _c(
                   "a",
                   {
-                    staticClass: "text-dark robot-font",
+                    staticClass: "article-img",
                     attrs: { href: "" + ("/news/" + news.id) }
                   },
                   [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(news.title) +
-                        "\n                "
-                    )
+                    _c("img", {
+                      staticClass: "w-100 shadow rounded m-1",
+                      attrs: { src: "" + news.image },
+                      on: {
+                        mouseover: function($event) {
+                          return _vm.hover($event)
+                        },
+                        mouseout: function($event) {
+                          return _vm.unHover()
+                        }
+                      }
+                    })
                   ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
-                _c("div", { staticClass: "col-lg-9" }, [
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted robot-font" }, [
+                  _c("small", [
+                    _vm._v(_vm._s(_vm.dateFormating(news.created_at)))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-center mb-2" }, [
                   _c(
-                    "p",
-                    { staticClass: "robot-font", class: news.category.color },
+                    "a",
+                    {
+                      staticClass: "text-dark robot-font",
+                      attrs: { href: "" + ("/news/" + news.id) }
+                    },
                     [
-                      _c("small", [
-                        _vm._v("\n                            # "),
-                        _c("span", { staticClass: "font-weight-bold" }, [
-                          _vm._v(_vm._s(news.category.name))
-                        ])
-                      ])
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(news.title) +
+                          "\n                "
+                      )
                     ]
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-lg-3" }, [
-                  _c("p", { staticClass: "robot-font text-right text-muted" }, [
-                    _c("small", [
-                      _c("i", { staticClass: "far fa-comment" }),
-                      _vm._v(" "),
-                      _c("span", [_vm._v(_vm._s(news.comments_count))])
-                    ])
+                _c("div", { staticClass: "col-lg-12 d-flex p-2 mt-2" }, [
+                  _c("div", { staticClass: "col-lg-9" }, [
+                    _c(
+                      "p",
+                      { staticClass: "robot-font", class: news.category.color },
+                      [
+                        _c("small", [
+                          _vm._v("\n                            # "),
+                          _c("span", { staticClass: "font-weight-bold" }, [
+                            _vm._v(_vm._s(news.category.name))
+                          ])
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-3" }, [
+                    _c(
+                      "p",
+                      { staticClass: "robot-font text-right text-muted" },
+                      [
+                        _c("small", [
+                          _c("i", { staticClass: "far fa-comment" }),
+                          _vm._v(" "),
+                          _c("span", [_vm._v(_vm._s(news.comments_count))])
+                        ])
+                      ]
+                    )
                   ])
                 ])
-              ])
-            ]
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-lg-12" },
+            [
+              _c("pagination", {
+                attrs: { data: _vm.news },
+                on: { "pagination-change-page": _vm.getNews }
+              })
+            ],
+            1
           )
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-12" },
-          [
-            _c("pagination", {
-              attrs: { data: _vm.news },
-              on: { "pagination-change-page": _vm.getNews }
-            })
-          ],
-          1
-        )
-      ],
-      2
-    )
-  ])
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43147,57 +43260,141 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "div",
-        { staticClass: "col-lg-7 ml-4 mt-4", attrs: { id: "search-bar" } },
-        [
-          _c("div", { staticClass: "col-lg-12 ml-4 mt-4" }, [
-            _c("form", { attrs: { action: "/", method: "post" } }, [
-              _c("div", { staticClass: "form-group d-flex border rounded" }, [
-                _c(
-                  "select",
-                  {
-                    staticClass: "custom-select w-25 robot-font",
-                    attrs: { name: "category" }
-                  },
-                  _vm._l(_vm.categories, function(category) {
-                    return _c("option", { staticClass: "robot-font" }, [
-                      _vm._v(_vm._s(category.name))
-                    ])
-                  }),
-                  0
-                ),
-                _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row justify-content-center" },
+      [
+        _c(
+          "div",
+          { staticClass: "col-lg-7 ml-4 mt-4", attrs: { id: "search-bar" } },
+          [
+            _c("div", { staticClass: "col-lg-12 ml-4 mt-4" }, [
+              _c("form", { attrs: { action: _vm.route, method: "post" } }, [
                 _c("input", {
-                  staticClass: "form-control robot-font",
-                  attrs: {
-                    name: "searching",
-                    placeholder: "| Type your request"
-                  }
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrftoken }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "form-group d-flex border rounded" }, [
+                  _c(
+                    "select",
+                    {
+                      staticClass: "custom-select w-25 robot-font",
+                      attrs: { name: "category" }
+                    },
+                    [
+                      _c("option", { attrs: { selected: "" } }),
+                      _vm._v(" "),
+                      _vm._l(_vm.categories, function(category) {
+                        return _c("option", { staticClass: "robot-font" }, [
+                          _vm._v(_vm._s(category.name))
+                        ])
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "form-control robot-font",
+                    attrs: {
+                      name: "searching",
+                      placeholder: "| Type your request"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "search-btn",
+                      attrs: { type: "submit" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.search($event)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-search text-muted" })]
+                  )
+                ])
               ])
             ])
-          ])
-        ]
-      )
-    ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.items.data, function(item) {
+          return _c(
+            "div",
+            {
+              staticClass:
+                "col-lg-5 ml-1 mr-1 mb-4 h-100 border rounded border p-2"
+            },
+            [
+              _c(
+                "a",
+                {
+                  staticClass: "article-img",
+                  attrs: { href: "" + (_vm.link + item.id) }
+                },
+                [
+                  _c("img", {
+                    staticClass: "w-100 shadow rounded m-1",
+                    attrs: { src: "/" + item.image },
+                    on: {
+                      mouseover: function($event) {
+                        return _vm.hover($event)
+                      },
+                      mouseout: function($event) {
+                        return _vm.unhover()
+                      }
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted robot-font" }, [
+                _c("small", [
+                  _vm._v(_vm._s(_vm.dateFormating(item.created_at)))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-center mb-2" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "text-dark robot-font",
+                    attrs: { href: "" + (_vm.link + item.id) }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(item.title) +
+                        "\n                "
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-12" },
+          [
+            _c("pagination", {
+              attrs: { data: _vm.items },
+              on: { "pagination-change-page": _vm.getItems }
+            })
+          ],
+          1
+        )
+      ],
+      2
+    )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "search-btn", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "fa fa-search text-muted" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

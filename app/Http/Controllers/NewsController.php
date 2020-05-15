@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\News;
 use App\NewsCategory;
@@ -68,17 +69,23 @@ class NewsController extends Controller
 
     }
 
-    /**
-    * Search news by request property 
-    * 
-    * @param \Illuminate\Http\Request
-    *
-    * @return \Illuminate\Http\Response
-    */ 
     public function search(Request $request)
     {
-        $news = News::searchNews($request);
+        if ($request->category == null) {
+            return News::where('title', 'like', '%'. $request->searching . '%')->get();
+        }
 
-        return view('templates.search-content', compact('news'));
+        $categoryID = NewsCategory::select('category_id')
+            ->where('name', $request->category)
+            ->get();
+
+        $newsWithCategory = DB::table('news')
+            ->whereRaw("title = '{$request->searching}' 
+                    and category_id = {$categoryID['0']->category_id}"
+            )
+            ->get();
+
+        return $newsWithCategory;
+
     }
 }
