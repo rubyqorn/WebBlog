@@ -3485,11 +3485,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['categories', 'route', 'csrftoken'],
   data: function data() {
@@ -3556,7 +3551,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     unhover: function unhover() {
-      var images = document.querySelectorAll('#news img.w-100');
+      var blockName = this.link.split('/')['1'];
+      var images = document.querySelectorAll('#' + blockName + ' img.w-100');
 
       for (var i = 0; i < images.length; i++) {
         images[i].classList.remove('activeImage');
@@ -43376,19 +43372,7 @@ var render = function() {
               ])
             ]
           )
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-12" },
-          [
-            _c("pagination", {
-              attrs: { data: _vm.items },
-              on: { "pagination-change-page": _vm.getItems }
-            })
-          ],
-          1
-        )
+        })
       ],
       2
     )

@@ -32,7 +32,7 @@
         <search-bar-component
             :categories="{{ json_encode($categories) }}"
             :route="{{ json_encode('/articles/search') }}"
-            ;csrftoken="{{ json_encode(csrf_token()) }}"
+            :csrftoken="{{ json_encode(csrf_token()) }}"
         >
         </search-bar-component>
 

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreResponses;
 use App\ArticleCategory;
 use App\Article;
 use App\ArticleComment;
@@ -66,18 +66,22 @@ class ArticlesController extends Controller
         return view('single-article')->withArticle($article)->withComments($comments);
     }
 
-    /**
-    * Search articles by request content
-    *
-    * @param \Illuminate\Http\Request $request
-    *
-    * @return \Illuminate\Http\Response
-    */ 
     public function search(Request $request)
     {
-        $articles = Article::searchArticles($request);
+        if ($request->category == null) {
+            return Article::where('title', 'like', '%' . $request->searching . '%')->get();
+        }
 
-        return view('templates.search-content', compact('articles'));
+        $categoryId = ArticleCategory::select('category_id')
+            ->where('name', $request->category)
+            ->get();
+        $articlesWithCategory = DB::table('articles')
+            ->whereRaw("title = '{$request->searching}' and 
+                category_id = {$categoryId['0']->category_id}"
+            )
+            ->get();
+
+        return $articlesWithCategory;
     }
 
     public function storeComment(Request $request)
