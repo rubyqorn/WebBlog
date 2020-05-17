@@ -61,4 +61,6 @@ Route::post('/discussions/search', 'DiscussionsController@search')
 
 Auth::routes();
 
+Route::get('/google/redirect', 'Auth\LoginController@redirectToGoogle');
+Route::get('/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('/home', 'HomeController@index')->name('home');

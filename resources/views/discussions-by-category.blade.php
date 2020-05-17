@@ -6,7 +6,6 @@
 
 @section('content')
     <div id="discussions">
-
         @if(Auth::user())
             <common-navbar-component
                 :usercontent="{{ json_encode([
@@ -14,9 +13,10 @@
                     'csrfToken' => csrf_token()
                 ]) }}"
             ></common-navbar-component>
-        @endif
 
-        <common-navbar-component></common-navbar-component>
+        @else 
+            <common-navbar-component></common-navbar-component>
+        @endif
 
         <div class="container mt-4" id="discussions-by-category">
             <div class="row justify-content-center">

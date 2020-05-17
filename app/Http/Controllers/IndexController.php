@@ -7,14 +7,8 @@ use App\Article;
 
 class IndexController extends Controller
 {
-    /**
-     * @var \App\Article;
-     */ 
     protected $article;
 
-    /**
-     * @return void
-     */ 
     public function showPage()
     {
         $this->article = Article::orderBy('created_at', 'DESC')->take(1)->get();
@@ -29,4 +23,5 @@ class IndexController extends Controller
             'title' => '</webblog>'
         ]);
     }
+
 }
