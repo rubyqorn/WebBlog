@@ -9,14 +9,15 @@
     <div id="discussions">
         @if(Auth::user())
             <common-navbar-component
-                :usercontent="{{ jsont_encode([
+                :usercontent="{{ json_encode([
                     'user' => Auth::user()->name,
-                    'csrfToken' => csrf_token
+                    'csrfToken' => csrf_token()
                 ]) }}"
             ></common-navbar-component>
-        @endif
 
-        <common-navbar-component></common-navbar-component>
+        @else 
+            <common-navbar-component></common-navbar-component>
+        @endif
 
         <single-discussion-component
             :discussion="{{ json_encode($discussion) }}"

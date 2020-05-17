@@ -13,9 +13,11 @@
                     'csrfToken' => csrf_token()
                 ]) }}"
             ></common-navbar-component>
+
+        @else 
+            <common-navbar-component></common-navbar-component>
         @endif
 
-        <common-navbar-component></common-navbar-component>
         
         <articles-by-category-component
             :articles="{{json_encode($articles)}}"

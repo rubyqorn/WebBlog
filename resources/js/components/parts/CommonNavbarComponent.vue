@@ -44,7 +44,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/logout">
+                        <a class="dropdown-item" href="/logout" @click.prevent="logout">
                             Выйти
                         </a>
 
@@ -64,7 +64,7 @@
 <script>
     export default {
         props: [   
-            'usercontent'
+            'authuser', 'csrf'
         ],
         data: function() {
             return {
@@ -76,6 +76,11 @@
                 this.authUser = this.usercontent.user;
             }
 
+        },
+        methods: {
+            logout() {
+                return document.getElementById('logout-form').submit()
+            }
         }
     }
 </script>

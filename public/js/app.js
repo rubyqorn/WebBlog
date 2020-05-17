@@ -3369,7 +3369,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['usercontent'],
+  props: ['authuser', 'csrf'],
   data: function data() {
     return {
       authUser: null
@@ -3378,6 +3378,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (typeof this.usercontent !== 'undefined') {
       this.authUser = this.usercontent.user;
+    }
+  },
+  methods: {
+    logout: function logout() {
+      return document.getElementById('logout-form').submit();
     }
   }
 });
@@ -40874,7 +40879,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn btn-info btn-sm text-white btn-block",
-              attrs: { href: "/google-redirect" }
+              attrs: { href: "/google/redirect" }
             },
             [_c("i", { staticClass: "fab fa-google fa-2x" })]
           )
@@ -43006,7 +43011,13 @@ var render = function() {
                         "a",
                         {
                           staticClass: "dropdown-item",
-                          attrs: { href: "/logout" }
+                          attrs: { href: "/logout" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.logout($event)
+                            }
+                          }
                         },
                         [
                           _vm._v(

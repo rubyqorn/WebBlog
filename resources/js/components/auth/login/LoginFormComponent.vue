@@ -18,7 +18,7 @@
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="/google-redirect" class="btn btn-info btn-sm text-white btn-block">
+                                <a href="/google/redirect" class="btn btn-info btn-sm text-white btn-block">
                                     <i class="fab fa-google fa-2x"></i>
                                 </a>
                             </div>
