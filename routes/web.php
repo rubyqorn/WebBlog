@@ -23,6 +23,13 @@ Route::get('/json-news', 'NewsController@news');
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 
+Route::get('/news/{id}/comments', 'NewsController@comments')
+	->name('newsComments');
+
+Route::post('/news/{id}/comments', 'NewsController@storeComment')
+	->name('storeNewsComment')
+	->middleware('auth');
+
 Route::get('/news-categories/{id}', 'NewsController@newsByCategory')
 	->name('newsCategories');
 
@@ -37,6 +44,13 @@ Route::get('json-articles', 'ArticlesController@articles');
 
 Route::get('/article/{id}', 'ArticlesController@articleById')
 	->name('singleArticle');
+
+Route::get('/article/{id}/comments', 'ArticlesController@comments')
+	->name('articleComments');
+
+Route::post('/article/{id}/comments', 'ArticlesController@storeComment')
+	->name('storeArticleComment')
+	->middleware('auth');
 
 Route::get('/articles-categories/{id}', 'ArticlesController@articlesByCategory')
 	->name('articlesCategories');

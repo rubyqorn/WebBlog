@@ -25,7 +25,7 @@
 
             
             <ul class="navbar-nav ml-auto">
-                <div class="d-flex" v-if="!authUser">
+                <div class="d-flex" v-if="typeof(this.user) == 'undefined'">
                     <li class="nav-item mr-1">
                         <a href="/login" class="robot-font nav-link">
                             Войти
@@ -39,8 +39,8 @@
                 </div>
 
                 <li class="nav-item dropdown" v-else>
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ authUser }}<span class="caret"></span>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{this.user}} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -49,7 +49,7 @@
                         </a>
 
                         <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                            {{ this.usercontent.csrfToken }}
+                            <input type="hidden" name="_token" :value="csrf">
                         </form>
                     </div>
                 </li>
@@ -64,7 +64,7 @@
 <script>
     export default {
         props: [   
-            'authuser', 'csrf'
+            'user', 'csrf'
         ],
         data: function() {
             return {
@@ -72,10 +72,7 @@
             }
         },
         mounted() {
-            if (typeof(this.usercontent) !== 'undefined') {
-                this.authUser = this.usercontent.user;
-            }
-
+            console.log(this.user.name);
         },
         methods: {
             logout() {

@@ -2122,7 +2122,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['article', 'comments'],
+  props: ['article', 'csrf', 'status'],
   data: function data() {
     return {
       links: [{
@@ -2131,14 +2131,27 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         icon: 'fa-vk',
         url: 'https://vk.com/rubyqorn'
-      }]
+      }],
+      comments: {}
     };
+  },
+  mounted: function mounted() {
+    this.getComments();
   },
   methods: {
     dateFormating: function dateFormating(date) {
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm');
+    },
+    getComments: function getComments() {
+      var _this = this;
+
+      return this.$http.get('/article/' + this.article.id + '/comments').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this.comments = data;
+      });
     }
   }
 });
@@ -3248,9 +3261,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['news', 'comments'],
+  props: ['news', 'csrf', 'status'],
   data: function data() {
     return {
+      comments: {},
       links: [{
         name: 'fa-github',
         url: 'https://github.com/rubyqorn'
@@ -3260,11 +3274,23 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
+  mounted: function mounted() {
+    this.getComments();
+  },
   methods: {
     dateFormating: function dateFormating(date) {
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm');
+    },
+    getComments: function getComments() {
+      var _this = this;
+
+      return this.$http.get('/news/' + this.news.id + '/comments').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this.comments = data;
+      });
     }
   }
 });
@@ -3369,16 +3395,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['authuser', 'csrf'],
+  props: ['user', 'csrf'],
   data: function data() {
     return {
       authUser: null
     };
   },
   mounted: function mounted() {
-    if (typeof this.usercontent !== 'undefined') {
-      this.authUser = this.usercontent.user;
-    }
+    console.log(this.user.name);
   },
   methods: {
     logout: function logout() {
@@ -40689,7 +40713,7 @@ var render = function() {
           [
             _vm._m(0),
             _vm._v(" "),
-            _vm._l(_vm.comments, function(comment) {
+            _vm._l(this.comments, function(comment) {
               return _c(
                 "div",
                 { staticClass: "col-lg-12 border rounded p-3 mt-4" },
@@ -40728,7 +40752,45 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _vm._m(1)
+            _vm.status
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 mt-4 fade show bg-success alert alert-dismissible"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("strong", { staticClass: "text-white robot-font" }, [
+                      _vm._v(_vm._s(_vm.status))
+                    ])
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12 mt-4" }, [
+              _c(
+                "form",
+                {
+                  staticClass: "mt-4",
+                  attrs: {
+                    action: "/article/" + _vm.article.id + "/comments",
+                    method: "post"
+                  }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]
+              )
+            ])
           ],
           2
         )
@@ -40753,49 +40815,36 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-12 mt-4" }, [
-      _c(
-        "form",
-        { staticClass: "mt-4", attrs: { action: "/", method: "post" } },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c("textarea", {
-              staticClass: "form-control",
-              attrs: { name: "comment", rows: "5" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "custom-file" }, [
-            _c(
-              "label",
-              {
-                staticClass: "custom-file-label text-muted",
-                attrs: { for: "file" }
-              },
-              [
-                _c("small", [
-                  _c("i", { staticClass: "fa fa-camera" }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v("Выбрать фото")])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "custom-file-input",
-              attrs: { type: "file", name: "file" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mt-4" }, [
-            _c("button", { staticClass: "btn btn-dark btn-sm robot-font" }, [
-              _vm._v(
-                "\n                            Отправить\n                        "
-              )
-            ])
-          ])
-        ]
-      )
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white font-weight-bold robot-font",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "comment", rows: "5" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group mt-4" }, [
+      _c("button", { staticClass: "btn btn-dark btn-sm robot-font" }, [
+        _vm._v(
+          "\n                            Отправить\n                        "
+        )
+      ])
     ])
   }
 ]
@@ -41440,7 +41489,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn btn-info btn-sm text-white btn-block",
-              attrs: { href: "/google-redirect" }
+              attrs: { href: "/google/redirect" }
             },
             [_c("i", { staticClass: "fab fa-google fa-2x" })]
           )
@@ -42806,7 +42855,7 @@ var render = function() {
           [
             _vm._m(0),
             _vm._v(" "),
-            _vm._l(_vm.comments, function(comment) {
+            _vm._l(this.comments, function(comment) {
               return _c(
                 "div",
                 { staticClass: "col-lg-12 border rounded p-3 mt-4" },
@@ -42848,7 +42897,45 @@ var render = function() {
           2
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _vm.status
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "col-lg-8 mt-4 fade show bg-success alert alert-dismissible"
+              },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("strong", { staticClass: "text-white robot-font" }, [
+                  _vm._v(_vm._s(_vm.status))
+                ])
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-8 mt-4" }, [
+          _c(
+            "form",
+            {
+              staticClass: "mt-4",
+              attrs: {
+                action: "/news/" + _vm.news.id + "/comments",
+                method: "post"
+              }
+            },
+            [
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf }
+              }),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3)
+            ]
+          )
+        ])
       ])
     ]
   )
@@ -42870,48 +42957,34 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8 mt-4" }, [
-      _c(
-        "form",
-        { staticClass: "mt-4", attrs: { action: "/", method: "post" } },
-        [
-          _c("div", { staticClass: "form-group" }, [
-            _c("textarea", {
-              staticClass: "form-control",
-              attrs: { name: "comment", rows: "5" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "custom-file" }, [
-            _c(
-              "label",
-              { staticClass: "custom-file-label", attrs: { for: "image" } },
-              [
-                _c("small", [
-                  _c("i", { staticClass: "fa fa-camera text-muted" }),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "robot-font text-muted" }, [
-                    _vm._v("Выбрать фото")
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "custom-file-input",
-              attrs: { type: "file", name: "file" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group mt-4" }, [
-            _c("button", { staticClass: "btn btn-dark robot-font btn-sm" }, [
-              _vm._v(
-                "\n                        Отправить\n                    "
-              )
-            ])
-          ])
-        ]
-      )
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white font-weight-bold robot-font",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "comment", rows: "5" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group mt-4" }, [
+      _c("button", { staticClass: "btn btn-dark robot-font btn-sm" }, [
+        _vm._v("\n                        Отправить\n                    ")
+      ])
     ])
   }
 ]
@@ -42991,14 +43064,33 @@ var render = function() {
           _vm._m(2),
           _vm._v(" "),
           _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-            !_vm.authUser
+            typeof this.user == "undefined"
               ? _c("div", { staticClass: "d-flex" }, [
                   _vm._m(3),
                   _vm._v(" "),
                   _vm._m(4)
                 ])
               : _c("li", { staticClass: "nav-item dropdown" }, [
-                  _vm._m(5),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link dropdown-toggle",
+                      attrs: {
+                        id: "navbarDropdown",
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    " + _vm._s(this.user) + " "
+                      ),
+                      _c("span", { staticClass: "caret" })
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -43037,11 +43129,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(this.usercontent.csrfToken) +
-                              "\n                    "
-                          )
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.csrf }
+                          })
                         ]
                       )
                     ]
@@ -43139,30 +43230,6 @@ var staticRenderFns = [
         [_vm._v("\n                        Регистрация\n                    ")]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        pre: true,
-        attrs: {
-          id: "navbarDropdown",
-          class: "nav-link dropdown-toggle",
-          href: "#",
-          role: "button",
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _vm._v("\n                    {{ authUser }}"),
-        _c("span", { pre: true, attrs: { class: "caret" } })
-      ]
-    )
   }
 ]
 render._withStripped = true

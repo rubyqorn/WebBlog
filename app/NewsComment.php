@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class NewsComment extends Model
 {
     protected $table = 'news_comments';
+    protected $fillable = [
+        'user_id', 'news_id', 'comment'
+    ];
 
     public function news()
     {
@@ -15,6 +18,6 @@ class NewsComment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,  'id');
+        return $this->belongsTo(User::class,  'user_id', 'id');
     }
 }
