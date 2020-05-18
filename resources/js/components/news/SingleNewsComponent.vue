@@ -50,7 +50,7 @@
                     <hr>
                 </div>
 
-                <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in comments">
+                <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in this.comments">
                     <div class="d-flex">
                         <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
                         <p class="text-dark robot-font ml-2">
@@ -73,19 +73,19 @@
 
             </div>
 
+            <div class="col-lg-8 mt-4 fade show bg-success alert alert-dismissible" v-if="status">
+                <button class="close text-white font-weight-bold robot-font" data-dismiss="alert">
+                    <span>&times;</span>
+                </button>
+                <strong class="text-white robot-font">{{ status }}</strong>
+            </div>
+
             <div class="col-lg-8 mt-4">
-                <form action="/" method="post" class="mt-4">
+                <form :action="'/news/'+ news.id +'/comments'" method="post" class="mt-4">
+                    <input type="hidden" name="_token" :value="csrf">
+
                     <div class="form-group">
                         <textarea name="comment" class="form-control" rows="5"></textarea>
-                    </div>
-                    <div class="custom-file">
-                        <label for="image" class="custom-file-label">
-                            <small>
-                                <i class="fa fa-camera text-muted"></i>
-                                <span class="robot-font text-muted">Выбрать фото</span>
-                            </small>
-                        </label>
-                        <input type="file" class="custom-file-input" name="file">
                     </div>
                     <div class="form-group mt-4">
                         <button class="btn btn-dark robot-font btn-sm">
@@ -102,21 +102,36 @@
 <script>
     export default {
         props: [
-            'news', 'comments'
+            'news', 'csrf', 'status'
         ],
         data: function() {
             return {
+                comments: {},
                 links: [
                     {name: 'fa-github', url: 'https://github.com/rubyqorn'},
                     {name: 'fa-vk', url: 'https://vk.com/rubyqorn'}
                 ]
             }
         },
+        mounted() {
+            this.getComments();
+        },
         methods: {
             dateFormating(date) {
                 let format = require('dateformat');
                 return format(date, 'dd mmm');
-            }
+            },
+
+            getComments() {
+                return this.$http.get('/news/' + this.news.id + '/comments')
+                        .then(response => {
+                            return response.json()
+                        })
+                        .then(data => {
+                            this.comments = data;
+                        })
+
+            },
         }
     }
 </script>

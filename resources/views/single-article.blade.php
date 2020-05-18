@@ -9,7 +9,8 @@
     <div id="articles">
         <single-article-component
             :article="{{ json_encode($article) }}"
-            :comments="{{ json_encode($comments) }}"
+            :csrf="{{ json_encode(csrf_token()) }}"
+            :status="{{ json_encode(session('status') ? session('status') : null) }}"
         ></single-article-component>
 
         <footer-component></footer-component>

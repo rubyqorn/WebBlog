@@ -59,11 +59,15 @@ class ArticlesController extends Controller
         }
 
         $article = Article::findOrFail($id);
-        $comments = ArticleComment::where('article_id', $id)->orderBy('created_at', 'DESC')
-            ->with('users')
-            ->get();
 
-        return view('single-article')->withArticle($article)->withComments($comments);
+        return view('single-article')->withArticle($article);
+    }
+
+    public function comments($id) 
+    {
+        return ArticleComment::where('article_id', $id)->orderBy('created_at', 'DESC')
+                ->with('users')
+                ->get();
     }
 
     public function search(Request $request)
@@ -84,18 +88,22 @@ class ArticlesController extends Controller
         return $articlesWithCategory;
     }
 
-    public function storeComment(Request $request)
+    public function storeComment(Request $request, $id)
     {
         if (!$request->isMethod('POST')) {
             return abort(404);
         }
 
-        $storeComment = Comment::store($request);
+        $data = $request->validate([
+            'comment' => 'required|min:3|max:500',
+        ]);
 
-        if ($storeComment) {
-            return redirect()->back()->with('status', 'Commented');
-        }
+        $comment = auth()->user()->articleComment()->create([
+            'user_id' => \Auth::user()->id,
+            'article_id' => $id,
+            'comment' => $data['comment']
+        ]);
 
-        return redirect()->back();
+        return redirect()->back()->withStatus('Комментарий оставлен');
     }
 }

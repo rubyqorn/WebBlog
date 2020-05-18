@@ -8,7 +8,8 @@
     <div id="news">
         <single-news-component
             :news="{{ json_encode($news) }}"
-            :comments="{{ json_encode($comments) }}"
+            :csrf="{{ json_encode(csrf_token()) }}"
+            :status="{{ json_encode(session('status') ? session('status') : null) }}"
         ></single-news-component>
 
         <footer-component></footer-component>

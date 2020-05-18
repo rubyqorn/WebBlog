@@ -38,27 +38,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-    * @return inverse relationships App\Role
-    */ 
     public function roles()
     {
         return $this->belongsTo(Role::class);
     }
 
-    /**
-    * Set inverse relationship for App\Comment
-    *
-    * @return inverse relationship for comment model
-    */ 
-    public function comment()
+    public function newsComment()
     {
-        return $this->belongsTo(Comment::class);
+        return $this->belongsTo(NewsComment::class, 'user_id', 'id');
+    }
+
+    public function articleComment()
+    {
+        return $this->belongsTo(ArticleComment::class, 'user_id', 'id');
     }
 
     public function articles()
     {
-        return $this->hasMany('\App\Article', 'id');
+        return $this->hasMany(Article::class, 'id');
     }
 
     public function discussions()
