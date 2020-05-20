@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class Answer extends Model
 {
     protected $fillable = [
-        'user_id', 'answer', 'discussion_id'
+        'user_id', 'answer', 'discussion_id', 'image'
     ];
 
 
@@ -17,7 +17,6 @@ class Answer extends Model
     {
     	return $this->belongsTo(Discussion::class);
     }
-
 
     public function user()
     {

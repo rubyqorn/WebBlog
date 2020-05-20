@@ -87,6 +87,48 @@
                                 </p>
                             </div>
                         </div>
+
+                        <div class="col-lg-12 mt-4">
+                            <p class="text-muted robot-font border-bottom">
+                                <small> 
+                                    Вы не сможете оставить комментарий, 
+                                    если вы не <a class="text-primary" href="/register">
+                                        зарегистрировались
+                                    </a> 
+                                    или не <a class="text-primary" href="/login">вошли</a>
+                                    в свой аккаунт
+                                </small>
+                            </p>
+
+                            <div class="col-lg-12 mt-4 fade show bg-success alert alert-dismissible" v-if="status">
+                                <button class="close text-white font-weight-bold robot-font" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                                <strong class="text-white robot-font">{{ status }}</strong>
+                            </div>
+
+                            <div class="col-lg-12 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
+                                <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                                <strong class="text-white" v-for="error in errors">{{ error }}</strong>
+                            </div>
+
+                            <form :action="'/discussion/'+ item.id + '/answers'" method="post">
+                                <input type="hidden" name="_token" :value="csrf">
+
+                                <div class="form-group">
+                                    <textarea name="answer" class="form-control" rows="5"></textarea>
+                                </div>
+
+                                <div class="form-group mt-4">
+                                    <button class="btn btn-dark robot-font btn-sm">
+                                        Ответить
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
                     </div>
                 </div>
 
@@ -99,7 +141,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item" v-for="discussion in lastdiscussions">
+                            <li class="list-group-item" v-for="discussion in this.lastDiscussions">
                                 <a :href="'/discussion/'+ discussion.id" class="robot-font text-dark">
                                     {{ stringTriming(discussion.title) }}
                                 </a>
@@ -116,16 +158,47 @@
 <script>
     export default {
         props: [
-            'discussion', 'lastdiscussions', 'answers'
+            'discussion', 'csrf', 'status', 'errors'
         ],
+        data: function() {
+            return {
+                answers: {},
+                lastDiscussions: {}
+            }
+        },
+        mounted() {
+            this.getAnswers();
+            this.getLastDiscussions();
+        },
         methods: {
             stringTriming(str) {
-                let trimedStr = str.slice(0, 20);
+                let trimedStr = str.slice(0, 30);
                 return trimedStr += '...';
             },
+
             dateFormating(date) {
                 let format = require('dateformat');
                 return format(date, 'dd mmm');
+            },
+
+            getAnswers() {
+                this.$http.get('/discussion/'+ this.discussion['0'].id + '/answers')
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.answers = data;
+                    });
+            },
+
+            getLastDiscussions() {
+                this.$http.get('/discussions/last-discussions')
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        this.lastDiscussions = data;
+                    })
             }
         }
     } 

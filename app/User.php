@@ -43,6 +43,16 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function discussions()
+    {
+        return $this->hasMany(Discussion::class, 'id');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'id');
+    }
+
     public function newsComment()
     {
         return $this->belongsTo(NewsComment::class, 'user_id', 'id');
@@ -51,16 +61,6 @@ class User extends Authenticatable
     public function articleComment()
     {
         return $this->belongsTo(ArticleComment::class, 'user_id', 'id');
-    }
-
-    public function articles()
-    {
-        return $this->hasMany(Article::class, 'id');
-    }
-
-    public function discussions()
-    {
-        return $this->hasMany(Discussion::class, 'id');
     }
 
     /**

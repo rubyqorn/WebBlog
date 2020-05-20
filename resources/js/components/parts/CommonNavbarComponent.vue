@@ -71,9 +71,6 @@
                 authUser: null
             }
         },
-        mounted() {
-            console.log(this.user.name);
-        },
         methods: {
             logout() {
                 return document.getElementById('logout-form').submit()

@@ -59,12 +59,20 @@ class DiscussionsController extends Controller
         $discussion = Discussion::where('id', $id)->with('authors')
             ->with('category')
             ->get();
-        $answers = Answer::where('discussion_id', $id)->with('user')->get();
-        $lastDiscussions = Discussion::orderBy('created_at', 'DESC')->take(5)->get();
-        
-        return view('single-discussion')->withDiscussion($discussion)
-            ->withAnswers($answers)
-            ->withLastDiscussions($lastDiscussions);
+
+        return view('single-discussion')->withDiscussion($discussion);
+    }
+
+    public function answers($id)
+    {
+        return Answer::orderByDesc('created_at')->where('discussion_id', $id)
+                ->with('user')
+                ->get();
+    }
+
+    public function lastDiscussions()
+    {   
+        return Discussion::orderByDesc('created_at')->take(5)->get();
     }
 
     public function search(Request $request)
@@ -86,25 +94,23 @@ class DiscussionsController extends Controller
         return $discussionsWithCategory;
     }
 
-    /**
-    * The method where we get fields for validation
-    * and get redirect if validation and adding
-    * new record was successfully
-    *
-    * @param $request object Illuninate\Http\Request
-    * 
-    * @return new added record in database
-    */ 
-    public function storeAnswers(Request $request)
+    public function storeAnswers(Request $request, $id)
     {
-        if ($request->isMethod('POST')) {
-            $validation = Answer::store($request);
-
-            return redirect()->back();
+        if (!$request->isMethod('POST')) {
+            return abort(404);
         }
 
-        return abort(404);
-        
+        $data = $request->validate([
+            'answer' => 'required|min:3|max:700'
+        ]);
+
+        $answer = Answer::create([
+            'user_id' => \Auth::user()->id,
+            'discussion_id' => $id,
+            'answer' => $data['answer']
+        ]);
+
+        return redirect()->back()->withStatus('Ответ оставлен');
     }
 
     /**
