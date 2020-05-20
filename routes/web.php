@@ -67,6 +67,16 @@ Route::get('json-discussions', 'DiscussionsController@discussions');
 Route::get('/discussion/{id}', 'DiscussionsController@discussionById')
 	->name('singleDiscussion');
 
+Route::get('/discussion/{id}/answers', 'DiscussionsController@answers')
+	->name('discussionsAnswers');
+
+Route::post('/discussion/{id}/answers', 'DiscussionsController@storeAnswers')
+	->name('storeDiscussionsAnswers')
+	->middleware('auth');
+
+Route::get('/discussions/last-discussions', 'DiscussionsController@lastDiscussions')
+	->name('lastDiscussionsList');
+
 Route::get('/discussions-categories/{id}', 'DiscussionsController@discussionsByCategory')
 	->name('discussionsCategories');
 

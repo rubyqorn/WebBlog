@@ -11,6 +11,7 @@
             :article="{{ json_encode($article) }}"
             :csrf="{{ json_encode(csrf_token()) }}"
             :status="{{ json_encode(session('status') ? session('status') : null) }}"
+            :errors="{{ json_encode($errors->any() ? $errors->all() : null) }}"
         ></single-article-component>
 
         <footer-component></footer-component>

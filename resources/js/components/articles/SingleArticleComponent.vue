@@ -78,7 +78,24 @@
                     <strong class="text-white robot-font">{{ status }}</strong>
                 </div>
 
+                <div class="col-lg-12 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
+                    <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    <strong class="text-white" v-for="error in errors">{{ error }}</strong>
+                </div>
+
                 <div class="col-lg-12 mt-4">
+                    <p class="text-muted robot-font border-bottom">
+                        <small> 
+                            Вы не сможете оставить комментарий, 
+                            если вы не <a class="text-primary" href="/register">
+                                зарегистрировались
+                            </a> 
+                            или не <a class="text-primary" href="/login">вошли</a>
+                            в свой аккаунт
+                        </small>
+                    </p>
                     <form :action="'/article/'+ article.id + '/comments'" method="post" class="mt-4">
                         <input type="hidden" name="_token" :value="csrf">
 
@@ -101,7 +118,8 @@
 <script>
     export default {
         props: [
-            'article', 'csrf', 'status'
+            'article', 'csrf', 'status',
+             'errors'
         ],
         data: function() {
             return {

@@ -2121,8 +2121,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['article', 'csrf', 'status'],
+  props: ['article', 'csrf', 'status', 'errors'],
   data: function data() {
     return {
       links: [{
@@ -2932,17 +2949,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['discussion', 'lastdiscussions', 'answers'],
+  props: ['discussion', 'csrf', 'status', 'errors'],
+  data: function data() {
+    return {
+      answers: {},
+      lastDiscussions: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getAnswers();
+    this.getLastDiscussions();
+  },
   methods: {
     stringTriming: function stringTriming(str) {
-      var trimedStr = str.slice(0, 20);
+      var trimedStr = str.slice(0, 30);
       return trimedStr += '...';
     },
     dateFormating: function dateFormating(date) {
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm');
+    },
+    getAnswers: function getAnswers() {
+      var _this = this;
+
+      this.$http.get('/discussion/' + this.discussion['0'].id + '/answers').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this.answers = data;
+      });
+    },
+    getLastDiscussions: function getLastDiscussions() {
+      var _this2 = this;
+
+      this.$http.get('/discussions/last-discussions').then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        _this2.lastDiscussions = data;
+      });
     }
   }
 });
@@ -3260,8 +3347,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['news', 'csrf', 'status'],
+  props: ['news', 'csrf', 'status', 'errors'],
   data: function data() {
     return {
       comments: {},
@@ -3400,9 +3504,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       authUser: null
     };
-  },
-  mounted: function mounted() {
-    console.log(this.user.name);
   },
   methods: {
     logout: function logout() {
@@ -40769,7 +40870,29 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
+            _vm.errors
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("strong", { staticClass: "text-white" }, [
+                        _vm._v(_vm._s(error))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c("div", { staticClass: "col-lg-12 mt-4" }, [
+              _vm._m(3),
+              _vm._v(" "),
               _c(
                 "form",
                 {
@@ -40785,9 +40908,9 @@ var render = function() {
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(4),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _vm._m(5)
                 ]
               )
             ])
@@ -40823,6 +40946,41 @@ var staticRenderFns = [
       },
       [_c("span", [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted robot-font border-bottom" }, [
+      _c("small", [
+        _vm._v(
+          " \n                        Вы не сможете оставить комментарий, \n                        если вы не "
+        ),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/register" } }, [
+          _vm._v(
+            "\n                            зарегистрировались\n                        "
+          )
+        ]),
+        _vm._v(" \n                        или не "),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/login" } }, [
+          _vm._v("вошли")
+        ]),
+        _vm._v("\n                        в свой аккаунт\n                    ")
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -42397,7 +42555,72 @@ var render = function() {
                             ])
                           ]
                         )
-                      })
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-lg-12 mt-4" }, [
+                        _vm._m(1, true),
+                        _vm._v(" "),
+                        _vm.status
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col-lg-12 mt-4 fade show bg-success alert alert-dismissible"
+                              },
+                              [
+                                _vm._m(2, true),
+                                _vm._v(" "),
+                                _c(
+                                  "strong",
+                                  { staticClass: "text-white robot-font" },
+                                  [_vm._v(_vm._s(_vm.status))]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.errors
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+                              },
+                              [
+                                _vm._m(3, true),
+                                _vm._v(" "),
+                                _vm._l(_vm.errors, function(error) {
+                                  return _c(
+                                    "strong",
+                                    { staticClass: "text-white" },
+                                    [_vm._v(_vm._s(error))]
+                                  )
+                                })
+                              ],
+                              2
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c(
+                          "form",
+                          {
+                            attrs: {
+                              action: "/discussion/" + item.id + "/answers",
+                              method: "post"
+                            }
+                          },
+                          [
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf }
+                            }),
+                            _vm._v(" "),
+                            _vm._m(4, true),
+                            _vm._v(" "),
+                            _vm._m(5, true)
+                          ]
+                        )
+                      ])
                     ],
                     2
                   )
@@ -42421,7 +42644,7 @@ var render = function() {
                   _c(
                     "ul",
                     { staticClass: "list-group" },
-                    _vm._l(_vm.lastdiscussions, function(discussion) {
+                    _vm._l(this.lastDiscussions, function(discussion) {
                       return _c("li", { staticClass: "list-group-item" }, [
                         _c(
                           "a",
@@ -42459,6 +42682,79 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-lg-12 border-bottom" }, [
       _c("h5", { staticClass: "robot-font text-muted" }, [
         _vm._v("\n                            Ответы\n                        ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted robot-font border-bottom" }, [
+      _c("small", [
+        _vm._v(
+          " \n                                Вы не сможете оставить комментарий, \n                                если вы не "
+        ),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/register" } }, [
+          _vm._v(
+            "\n                                    зарегистрировались\n                                "
+          )
+        ]),
+        _vm._v(" \n                                или не "),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/login" } }, [
+          _vm._v("вошли")
+        ]),
+        _vm._v(
+          "\n                                в свой аккаунт\n                            "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white font-weight-bold robot-font",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "answer", rows: "5" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group mt-4" }, [
+      _c("button", { staticClass: "btn btn-dark robot-font btn-sm" }, [
+        _vm._v(
+          "\n                                    Ответить\n                                "
+        )
       ])
     ])
   }
@@ -42914,7 +43210,29 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
+        _vm.errors
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "col-lg-8 mt-4 fade show alert-dismissible alert bg-danger"
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._l(_vm.errors, function(error) {
+                  return _c("strong", { staticClass: "text-white" }, [
+                    _vm._v(_vm._s(error))
+                  ])
+                })
+              ],
+              2
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "col-lg-8 mt-4" }, [
+          _vm._m(3),
+          _vm._v(" "),
           _c(
             "form",
             {
@@ -42930,9 +43248,9 @@ var render = function() {
                 domProps: { value: _vm.csrf }
               }),
               _vm._v(" "),
-              _vm._m(2),
+              _vm._m(4),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(5)
             ]
           )
         ])
@@ -42965,6 +43283,41 @@ var staticRenderFns = [
       },
       [_c("span", [_vm._v("×")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-muted robot-font border-bottom" }, [
+      _c("small", [
+        _vm._v(
+          " \n                    Вы не сможете оставить комментарий, \n                    если вы не "
+        ),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/register" } }, [
+          _vm._v(
+            "\n                        зарегистрировались\n                    "
+          )
+        ]),
+        _vm._v(" \n                    или не "),
+        _c("a", { staticClass: "text-primary", attrs: { href: "/login" } }, [
+          _vm._v("вошли")
+        ]),
+        _vm._v("\n                    в свой аккаунт\n                ")
+      ])
+    ])
   },
   function() {
     var _vm = this

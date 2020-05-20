@@ -19,8 +19,9 @@
 
         <single-discussion-component
             :discussion="{{ json_encode($discussion) }}"
-            :answers="{{ json_encode($answers) }}"
-            :lastdiscussions="{{ json_encode($lastDiscussions) }}"
+            :csrf="{{ json_encode(csrf_token()) }}"
+            :status="{{ json_encode(session('status') ? session('status') : null) }}"
+            :errors="{{ json_encode($errors->any() ? $errors->all() : null) }}"
         ></single-discussion-component>
 
         <footer-component></footer-component>
