@@ -2630,8 +2630,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['categories']
+  props: ['categories', 'csrf']
 });
 
 /***/ }),
@@ -2795,7 +2809,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['status', 'errors'],
   data: function data() {
     return {
       discussions: {}
@@ -41895,39 +41926,56 @@ var render = function() {
                 _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _c("form", { attrs: { action: "/", method: "post" } }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { staticClass: "robot-font control-label" }, [
-                        _vm._v(
-                          "\n                                Категория:\n                            "
+                  _c(
+                    "form",
+                    {
+                      attrs: {
+                        action: "/discussions",
+                        method: "post",
+                        enctype: "multipart/form-data"
+                      }
+                    },
+                    [
+                      _c("input", {
+                        attrs: { name: "_token", type: "hidden" },
+                        domProps: { value: _vm.csrf }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            staticClass: "custom-select",
+                            attrs: { name: "categories" }
+                          },
+                          _vm._l(_vm.categories, function(category) {
+                            return _c(
+                              "option",
+                              { attrs: { name: "category" } },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(category.name) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          }),
+                          0
                         )
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          staticClass: "custom-select",
-                          attrs: { name: "categories" }
-                        },
-                        _vm._l(_vm.categories, function(category) {
-                          return _c("option", { attrs: { name: "category" } }, [
-                            _vm._v(
-                              "\n                                    " +
-                                _vm._s(category.name) +
-                                "\n                                "
-                            )
-                          ])
-                        }),
-                        0
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4)
-                  ])
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _vm._m(6)
+                    ]
+                  )
                 ])
               ])
             ]
@@ -41975,17 +42023,62 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "robot-font control-label" }, [
+      _c("span", { staticClass: "text-info" }, [_vm._v("*")]),
+      _vm._v(" Категория:\n                            ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "label",
+        { staticClass: "control-label robot-font", attrs: { for: "title" } },
+        [
+          _c("span", { staticClass: "text-info" }, [_vm._v("*")]),
+          _vm._v(" Заголовок:\n                            ")
+        ]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          type: "text",
+          name: "title",
+          placeholder: "Заголовок обсуждения"
+        }
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-muted" }, [
+        _c("small", [_vm._v("* Минимальное количество символов - 3")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c("label", { staticClass: "control-label robot-font" }, [
-        _vm._v(
-          "\n                                Вопрос:\n                            "
-        )
+        _c("span", { staticClass: "text-info" }, [_vm._v("*")]),
+        _vm._v(" Вопрос:\n                            ")
       ]),
       _vm._v(" "),
       _c("textarea", {
         staticClass: "form-control",
-        attrs: { name: "question", cols: "30", rows: "10" }
-      })
+        attrs: {
+          name: "question",
+          cols: "30",
+          rows: "10",
+          placeholder: "Подробное описание того что вас интересует"
+        }
+      }),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-muted" }, [
+        _c("small", [_vm._v("* Минимальное количество символов - 40")])
+      ])
     ])
   },
   function() {
@@ -42220,108 +42313,182 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-lg-7 h-100" },
-    [
-      _vm._l(_vm.discussions.data, function(discussion) {
-        return _c("div", { staticClass: "col-lg-12 border rounded p-3 mt-4" }, [
-          _c("div", { staticClass: "d-flex" }, [
-            _c("img", {
-              staticClass: "avatar",
-              attrs: { src: "assets/img/" + discussion.authors.image }
-            }),
+  return _c("div", { staticClass: "col-lg-7" }, [
+    _vm.status
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-12 mt-4 fade show bg-success alert alert-dismissible"
+          },
+          [
+            _vm._m(0),
             _vm._v(" "),
-            _c("p", { staticClass: "robot-font ml-2" }, [
-              _c("small", [_vm._v(_vm._s(discussion.authors.name))])
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-muted ml-4 robot-font" }, [
-              _c("small", [
-                _vm._v(
-                  "\n                    создано в категории \n                    "
-                ),
-                _c("span", { staticClass: "text-info" }, [
-                  _vm._v("# " + _vm._s(discussion.category.name))
-                ]),
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.dateFormating(discussion.created_at)) +
-                    "\n                "
-                )
-              ])
+            _c("strong", { staticClass: "text-white robot-font" }, [
+              _vm._v(_vm._s(_vm.status))
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-12 mt-4 border rounded p-3" }, [
-            _c(
-              "a",
-              {
-                staticClass: "text-muted robot-font",
-                attrs: { href: "/discussion/" + discussion.id }
-              },
-              [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(discussion.title) +
-                    "\n            "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row mt-3" }, [
-            _c("div", { staticClass: "col-lg-9 justify-content-start" }, [
-              _c("p", { staticClass: "text-muted robot-font" }, [
-                _c("small", [
-                  _vm._v(
-                    "\n                        Количество ответов\n                        "
-                  ),
-                  _c("span", { staticClass: "text-info border-bottom" }, [
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.errors
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+          },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.errors, function(error) {
+              return _c("strong", { staticClass: "text-white" }, [
+                _vm._v(_vm._s(error))
+              ])
+            })
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-lg-12 h-100" },
+      [
+        _vm._l(_vm.discussions.data, function(discussion) {
+          return _c(
+            "div",
+            { staticClass: "col-lg-12 border rounded p-3 mt-4" },
+            [
+              _c("div", { staticClass: "d-flex" }, [
+                _c("img", {
+                  staticClass: "avatar",
+                  attrs: { src: "assets/img/" + discussion.authors.image }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "robot-font ml-2" }, [
+                  _c("small", [_vm._v(_vm._s(discussion.authors.name))])
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted ml-4 robot-font" }, [
+                  _c("small", [
                     _vm._v(
-                      "\n                            " +
-                        _vm._s(discussion.answers_count) +
-                        "\n                        "
+                      "\n                        создано в категории \n                        "
+                    ),
+                    _c("span", { staticClass: "text-info" }, [
+                      _vm._v("# " + _vm._s(discussion.category.name))
+                    ]),
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.dateFormating(discussion.created_at)) +
+                        "\n                    "
                     )
                   ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-lg-3 text-right justify-content-end" },
-              [
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-12 mt-4 border rounded p-3" }, [
                 _c(
                   "a",
                   {
-                    staticClass: "btn btn-dark btn-sm robot-font",
+                    staticClass: "text-muted robot-font",
                     attrs: { href: "/discussion/" + discussion.id }
                   },
-                  [_vm._v("\n                    Ответить\n                ")]
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(discussion.title) +
+                        "\n                "
+                    )
+                  ]
                 )
-              ]
-            )
-          ])
-        ])
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-lg-12 mt-4" },
-        [
-          _c("pagination", {
-            attrs: { data: _vm.discussions },
-            on: { "pagination-change-page": _vm.getDiscussions }
-          })
-        ],
-        1
-      )
-    ],
-    2
-  )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col-lg-9 justify-content-start" }, [
+                  _c("p", { staticClass: "text-muted robot-font" }, [
+                    _c("small", [
+                      _vm._v(
+                        "\n                            Количество ответов\n                            "
+                      ),
+                      _c("span", { staticClass: "text-info border-bottom" }, [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(discussion.answers_count) +
+                            "\n                            "
+                        )
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-lg-3 text-right justify-content-end" },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-dark btn-sm robot-font",
+                        attrs: { href: "/discussion/" + discussion.id }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Ответить\n                    "
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-12 mt-4" },
+          [
+            _c("pagination", {
+              attrs: { data: _vm.discussions },
+              on: { "pagination-change-page": _vm.getDiscussions }
+            })
+          ],
+          1
+        )
+      ],
+      2
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white font-weight-bold robot-font",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 
 

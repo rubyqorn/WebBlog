@@ -28,12 +28,18 @@
                     :categories="{{ json_encode($categories) }}"
                 ></discussions-categories-component>
 
-                <discussions-component></discussions-component>
+                <discussions-component
+                        :status="{{ json_encode(session('status') ? session('status') : null) }}"
+                        :errors="{{ json_encode($errors->any() ? $errors->all() : null) }}"
+                ></discussions-component>
 
-                <ask-question-btn-component
-                    :categories="{{ json_encode($categories) }}"
-                >
-                </ask-question-btn-component>
+                @if(Auth::user())
+                    <ask-question-btn-component
+                        :categories="{{ json_encode($categories) }}"
+                        :csrf="{{ json_encode(csrf_token()) }}" 
+                    >
+                    </ask-question-btn-component>
+                @endif
             </div>
         </div>
         

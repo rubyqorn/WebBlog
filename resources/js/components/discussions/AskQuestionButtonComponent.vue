@@ -20,10 +20,12 @@
                     </div>
 
                     <div class="modal-body">
-                        <form action="/" method="post">
+                        <form action="/discussions" method="post" enctype="multipart/form-data">
+                            <input name="_token" type="hidden" :value="csrf">
+
                             <div class="form-group">
                                 <label class="robot-font control-label">
-                                    Категория:
+                                    <span class="text-info">*</span> Категория:
                                 </label>
                                 <select name="categories" class="custom-select">
                                     <option name="category" v-for="category in categories">
@@ -32,10 +34,22 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="control-label robot-font">
-                                    Вопрос:
+                                <label for="title" class="control-label robot-font">
+                                    <span class="text-info">*</span> Заголовок:
                                 </label>
-                                <textarea name="question" cols="30" rows="10" class="form-control"></textarea>
+                                <input type="text" class="form-control" name="title" placeholder="Заголовок обсуждения">
+                                <p class="text-muted">
+                                    <small>* Минимальное количество символов - 3</small>
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label robot-font">
+                                   <span class="text-info">*</span> Вопрос:
+                                </label>
+                                <textarea name="question" cols="30" rows="10" class="form-control" placeholder="Подробное описание того что вас интересует"></textarea>
+                                <p class="text-muted">
+                                    <small>* Минимальное количество символов - 40</small>
+                                </p>
                             </div>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="file" id="file">
@@ -64,7 +78,7 @@
 <script>
     export default {
         props: [
-            'categories'
+            'categories', 'csrf'
         ]
     }
 </script>

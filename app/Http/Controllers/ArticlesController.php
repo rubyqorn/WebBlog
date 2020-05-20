@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\ArticleCategory;
 use App\Article;
-use App\ArticleComment;
 
 class ArticlesController extends Controller
 {
@@ -63,13 +62,6 @@ class ArticlesController extends Controller
         return view('single-article')->withArticle($article);
     }
 
-    public function comments($id) 
-    {
-        return ArticleComment::where('article_id', $id)->orderBy('created_at', 'DESC')
-                ->with('users')
-                ->get();
-    }
-
     public function search(Request $request)
     {
         if ($request->category == null) {
@@ -88,22 +80,4 @@ class ArticlesController extends Controller
         return $articlesWithCategory;
     }
 
-    public function storeComment(Request $request, $id)
-    {
-        if (!$request->isMethod('POST')) {
-            return abort(404);
-        }
-
-        $data = $request->validate([
-            'comment' => 'required|min:3|max:500',
-        ]);
-
-        $comment = auth()->user()->articleComment()->create([
-            'user_id' => \Auth::user()->id,
-            'article_id' => $id,
-            'comment' => $data['comment']
-        ]);
-
-        return redirect()->back()->withStatus('Комментарий оставлен');
-    }
 }
