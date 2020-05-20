@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\DiscussionCategory;
 use App\Discussion;
-use App\Answer;
 
 class DiscussionsController extends Controller
 {
@@ -63,13 +64,6 @@ class DiscussionsController extends Controller
         return view('single-discussion')->withDiscussion($discussion);
     }
 
-    public function answers($id)
-    {
-        return Answer::orderByDesc('created_at')->where('discussion_id', $id)
-                ->with('user')
-                ->get();
-    }
-
     public function lastDiscussions()
     {   
         return Discussion::orderByDesc('created_at')->take(5)->get();
@@ -94,42 +88,72 @@ class DiscussionsController extends Controller
         return $discussionsWithCategory;
     }
 
-    public function storeAnswers(Request $request, $id)
+    protected function getCategoryId(Request $request)
+    {
+        return DiscussionCategory::select('category_id')
+            ->where('name', $request->categories)
+            ->get();
+    }
+
+    protected function askQuestionWithFile(Request $request)
+    {
+        $data = $request->validate([
+            'categories' => 'required',
+            'title' => 'required|min:10|max:120',
+            'question' => 'required|min:40|max:700',
+            'file' => 'nullable|image'
+        ]);
+        
+        $image = $request->file('file');
+        $extension = $image->getClientOriginalExtension();
+        Storage::disk('public')->put(
+            $image->getFileName() . '.' . $extension, File::get($image)
+        );
+         
+        $categoryId = $this->getCategoryId($request)['0']->category_id;
+
+        return Discussion::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $data['title'],
+            'description' => $data['question'],
+            'image' => $image->getFileName() . '.' . $extension
+        ]);
+    }
+
+
+    protected function askQuestionWithoutFile(Request $request)
+    {
+        $data = $request->validate([
+            'categories' => 'required',
+            'title' => 'required|min:10|max:120',
+            'question' => 'required|min:40|max:700',
+            'image' => 'nullable|image'
+        ]);
+
+        $categoryId = $this->getCategoryId($request)['0']->category_id;
+
+        return Discussion::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $data['title'],
+            'description' => $data['question']
+        ]);
+    }
+
+    public function askQuestion(Request $request)
     {
         if (!$request->isMethod('POST')) {
             return abort(404);
         }
 
-        $data = $request->validate([
-            'answer' => 'required|min:3|max:700'
-        ]);
-
-        $answer = Answer::create([
-            'user_id' => \Auth::user()->id,
-            'discussion_id' => $id,
-            'answer' => $data['answer']
-        ]);
-
-        return redirect()->back()->withStatus('Ответ оставлен');
-    }
-
-    /**
-    * The method where we get fields for validation
-    * and get redirect if validation and adding
-    * new record was successfully
-    *
-    * @param $request object Illuninate\Http\Request
-    * 
-    * @return new added record in database
-    */
-    public function askQuestions(Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            $validation = Discussion::storeQuestions($request);
-            return redirect()->back()->with('status', 'Asked');
+        if($request->hasFile('file')) {
+            $this->askQuestionWithFile($request);
+            return redirect()->back()->withStatus('Вопрос задан, ожидайте ответа)');
         }
 
-        return abort(404);
-        
+        $this->askQuestionWithoutFile($request);
+        return redirect()->back()->withStatus('Вопрос задан, ожидайте ответа)');
     }
+    
 }

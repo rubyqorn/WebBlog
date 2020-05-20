@@ -23,10 +23,10 @@ Route::get('/json-news', 'NewsController@news');
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 
-Route::get('/news/{id}/comments', 'NewsController@comments')
+Route::get('/news/{id}/comments', 'NewsCommentsController@comments')
 	->name('newsComments');
 
-Route::post('/news/{id}/comments', 'NewsController@storeComment')
+Route::post('/news/{id}/comments', 'NewsCommentsController@storeComment')
 	->name('storeNewsComment')
 	->middleware('auth');
 
@@ -45,10 +45,10 @@ Route::get('json-articles', 'ArticlesController@articles');
 Route::get('/article/{id}', 'ArticlesController@articleById')
 	->name('singleArticle');
 
-Route::get('/article/{id}/comments', 'ArticlesController@comments')
+Route::get('/article/{id}/comments', 'ArticlesCommentsController@comments')
 	->name('articleComments');
 
-Route::post('/article/{id}/comments', 'ArticlesController@storeComment')
+Route::post('/article/{id}/comments', 'ArticlesCommentsController@storeComment')
 	->name('storeArticleComment')
 	->middleware('auth');
 
@@ -62,15 +62,19 @@ Route::post('/articles/search', 'ArticlesController@search')
 Route::get('/discussions', 'DiscussionsController@showPage')
 	->name('discussions');
 
+Route::post('/discussions', 'DiscussionsController@askQuestion')
+	->name('askQuestion')
+	->middleware('auth');
+
 Route::get('json-discussions', 'DiscussionsController@discussions');
 
 Route::get('/discussion/{id}', 'DiscussionsController@discussionById')
 	->name('singleDiscussion');
 
-Route::get('/discussion/{id}/answers', 'DiscussionsController@answers')
+Route::get('/discussion/{id}/answers', 'AnswersController@answers')
 	->name('discussionsAnswers');
 
-Route::post('/discussion/{id}/answers', 'DiscussionsController@storeAnswers')
+Route::post('/discussion/{id}/answers', 'AnswersController@storeAnswers')
 	->name('storeDiscussionsAnswers')
 	->middleware('auth');
 

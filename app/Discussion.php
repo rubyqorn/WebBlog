@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 class Discussion extends Model
 {
     protected $fillable = [
-        'description','title', 'image', 'category_id'
+        'description','title', 'image', 'category_id', 
+        'user_id'
     ];
 
 	/**
