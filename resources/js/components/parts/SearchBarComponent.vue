@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
         
-            <div class="col-lg-7 ml-4 mt-4" id="search-bar">
+            <div class="col-lg-7 mt-4" id="search-bar">
                 <div class="col-lg-12 ml-4 mt-4">
                     <form :action="route" method="post">
                         <input type="hidden" name="_token" :value="csrftoken">

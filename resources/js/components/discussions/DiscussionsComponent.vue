@@ -17,7 +17,7 @@
         <div class="col-lg-12 h-100">
             <div class="col-lg-12 border rounded p-3 mt-4" v-for="discussion in discussions.data">
                 <div class="d-flex">
-                    <img :src="'assets/img/' + discussion.authors.image" class="avatar">
+                    <img :src="'assets/img/' + discussion.authors.image" class="avatar h-100">
                     <p class="robot-font ml-2">
                         <small>{{ discussion.authors.name }}</small>
                     </p>
