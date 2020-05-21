@@ -7,7 +7,7 @@
 
                     <div class="row justify-content-center mt-4 p-4" id="auth-with-socials">
                         <div class="col">
-                            <a href="/" class="btn btn-dark btn-sm btn-block">
+                            <a href="/github/redirect" class="btn btn-dark btn-sm btn-block">
                                 <i class="fab fa-github fa-2x"></i>
                             </a>
                         </div>

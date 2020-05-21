@@ -2,6 +2,6 @@
 
 @section('content')
     <login-form-component
-        csrf="{{ json_encode(csrf_token()) }}"
+        :csrf="{{ json_encode(csrf_token()) }}"
     ></login-form-component>
 @endsection
