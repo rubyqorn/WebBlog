@@ -1756,8 +1756,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['title']
 });
@@ -1773,6 +1771,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39984,7 +39987,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "col-lg-8 bg-grey mr-1 mt-1 mb-2",
+      staticClass: "col-lg-8 p-4 bg-grey mr-1 mt-1 mb-2",
       attrs: { id: "news-item" }
     },
     [
@@ -40050,15 +40053,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container", attrs: { id: "header" } }, [
-    _c("div", { staticClass: "p-4" }, [
-      _vm._m(0),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-lg-12 p-0 m-0" }, [
+      _vm._m(1),
       _vm._v(" "),
-      _c("div", { staticClass: "col-lg-12" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c("p", { staticClass: "display-3 text-center title" }, [
-          _vm._v(_vm._s(_vm.title))
-        ])
+      _c("p", { staticClass: "display-4 text-center title" }, [
+        _vm._v(_vm._s(_vm.title))
       ])
     ])
   ])
@@ -40069,16 +40070,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-lg-12 d-flex justify-content-end" }, [
-      _c("a", { attrs: { href: "https://github.com/rubyqorn" } }, [
-        _c("i", { staticClass: "fab fa-github text-dark fa-2x" })
-      ])
+      _c(
+        "a",
+        {
+          staticClass: "text-right",
+          attrs: { href: "https://github.com/rubyqorn" }
+        },
+        [_c("i", { staticClass: "fab fa-github text-dark fa-2x" })]
+      )
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-warning text-center ml-4 display-2" }, [
+    return _c("p", { staticClass: "text-warning text-center display-4 ml-4" }, [
       _c("i", { staticClass: "fa fa-bolt" })
     ])
   }
@@ -40105,53 +40111,75 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "nav",
-    {
-      staticClass: "navbar navbar-expand-lg navbar-light",
-      attrs: { id: "navbar" }
-    },
+    "div",
+    { staticClass: "col-lg-12 border-bottom border-top p-4 mt-4" },
     [
       _c(
-        "div",
+        "nav",
         {
-          staticClass: "collapse navbar-collapse  justify-content-center",
-          attrs: { id: "navbar-content" }
+          staticClass: "navbar navbar-expand-lg navbar-light",
+          attrs: { id: "navbar" }
         },
         [
+          _vm._m(0),
+          _vm._v(" "),
           _c(
-            "ul",
-            { staticClass: "navbar-nav mr-4" },
-            _vm._l(_vm.links, function(link) {
-              return _c("li", { staticClass: "nav-item d-flex ml-2" }, [
-                _c("i", {
-                  staticClass: "fa text-muted mt-3",
-                  class: link.icon
-                }),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link robot-font mt-1",
-                    attrs: { href: "" + link.link }
-                  },
-                  [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(link.name) +
-                        "\n                "
+            "div",
+            {
+              staticClass: "collapse navbar-collapse  justify-content-center",
+              attrs: { id: "navbar-content" }
+            },
+            [
+              _c(
+                "ul",
+                { staticClass: "navbar-nav mr-4" },
+                _vm._l(_vm.links, function(link) {
+                  return _c("li", { staticClass: "nav-item d-flex ml-2" }, [
+                    _c("i", {
+                      staticClass: "fa text-muted mt-3 mr-1",
+                      class: link.icon
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link robot-font mt-1",
+                        attrs: { href: "" + link.link }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(link.name) +
+                            "\n                    "
+                        )
+                      ]
                     )
-                  ]
-                )
-              ])
-            }),
-            0
+                  ])
+                }),
+                0
+              )
+            ]
           )
         ]
       )
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: { "data-toggle": "collapse", "data-target": "#navbar-content" }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -42088,7 +42116,7 @@ var render = function() {
             [
               _c("div", { staticClass: "d-flex" }, [
                 _c("img", {
-                  staticClass: "avatar",
+                  staticClass: "avatar h-100",
                   attrs: { src: "assets/img/" + discussion.authors.image }
                 }),
                 _vm._v(" "),
@@ -43586,7 +43614,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "col-lg-7 ml-4 mt-4", attrs: { id: "search-bar" } },
+          { staticClass: "col-lg-7 mt-4", attrs: { id: "search-bar" } },
           [
             _c("div", { staticClass: "col-lg-12 ml-4 mt-4" }, [
               _c("form", { attrs: { action: _vm.route, method: "post" } }, [

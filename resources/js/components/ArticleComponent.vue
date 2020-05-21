@@ -1,6 +1,6 @@
 <template>
     
-    <div class="col-lg-8 bg-grey mr-1 mt-1 mb-2" id="news-item">
+    <div class="col-lg-8 p-4 bg-grey mr-1 mt-1 mb-2" id="news-item">
         <div class="bg-ultra-dark p-4">
             <p class="robot-font text-success">
                 # {{ category }}
