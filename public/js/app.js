@@ -41134,7 +41134,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn btn-dark btn-sm btn-block",
-              attrs: { href: "/" }
+              attrs: { href: "/github/redirect" }
             },
             [_c("i", { staticClass: "fab fa-github fa-2x" })]
           )
@@ -41695,7 +41695,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn btn-dark btn-sm btn-block",
-              attrs: { href: "/" }
+              attrs: { href: "/github/redirect" }
             },
             [_c("i", { staticClass: "fab fa-github fa-2x" })]
           )
