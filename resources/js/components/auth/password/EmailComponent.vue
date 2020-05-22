@@ -7,6 +7,13 @@
 
                     <div class="card-body">
 
+                        <div class="col-lg-12 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
+                            <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
+                                <span>&times;</span>
+                            </button>
+                            <strong class="text-white" v-for="error in errors">{{ error }}</strong>
+                        </div>
+
                         <form method="POST" action="/password/email">
                             <input name="_token" type="hidden" :value="csrf">
 
@@ -36,7 +43,7 @@
 <script>
     export default {
         props: [
-            'csrf'
+            'csrf', 'errors'
         ]
     }
 </script>

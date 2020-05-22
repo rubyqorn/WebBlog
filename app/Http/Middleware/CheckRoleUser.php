@@ -9,16 +9,6 @@ use App\User;
 class CheckRoleUser
 {
     /**
-     * @var \App\User
-     */ 
-    private $user;
-
-    public function __construct()
-    {
-        $this->user = new User();
-    }
-
-    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -27,10 +17,10 @@ class CheckRoleUser
      */
     public function handle($request, Closure $next)
     {
-        if ($this->user->hasAdminRole()) {
+        if (\Auth::user()->role_id == '2') {
             return $next($request);
         }
         
-        return redirect()->route('home');
+        return redirect()->route('main');
     }
 }

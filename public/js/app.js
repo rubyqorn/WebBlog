@@ -2319,8 +2319,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['csrf']
+  props: ['csrf', 'errors']
 });
 
 /***/ }),
@@ -2369,8 +2376,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['csrf']
+  props: ['csrf', 'errors']
 });
 
 /***/ }),
@@ -2434,8 +2448,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['csrf']
+  props: ['csrf', 'token', 'errors'],
+  mounted: function mounted() {
+    console.log(this.token);
+  }
 });
 
 /***/ }),
@@ -41300,6 +41326,26 @@ var render = function() {
             _vm._v(
               "\n                    Пожалуйста подтвердите ваш пароль прежде чем продолжить\n\n                    "
             ),
+            _vm.errors
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("strong", { staticClass: "text-white" }, [
+                        _vm._v(_vm._s(error))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "form",
               { attrs: { method: "POST", action: "/password/confirm" } },
@@ -41309,9 +41355,9 @@ var render = function() {
                   domProps: { value: _vm.csrf }
                 }),
                 _vm._v(" "),
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             )
           ])
@@ -41321,6 +41367,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -41398,6 +41457,26 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _vm.errors
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("strong", { staticClass: "text-white" }, [
+                        _vm._v(_vm._s(error))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "form",
               { attrs: { method: "POST", action: "/password/email" } },
@@ -41407,9 +41486,9 @@ var render = function() {
                   domProps: { value: _vm.csrf }
                 }),
                 _vm._v(" "),
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             )
           ])
@@ -41419,6 +41498,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -41497,6 +41589,26 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _vm.errors
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.errors, function(error) {
+                      return _c("strong", { staticClass: "text-white" }, [
+                        _vm._v(_vm._s(error))
+                      ])
+                    })
+                  ],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "form",
               { attrs: { method: "POST", action: "/password/reset" } },
@@ -41506,13 +41618,18 @@ var render = function() {
                   domProps: { value: _vm.csrf }
                 }),
                 _vm._v(" "),
-                _vm._m(0),
+                _c("input", {
+                  attrs: { name: "token", type: "hidden" },
+                  domProps: { value: _vm.token }
+                }),
                 _vm._v(" "),
                 _vm._m(1),
                 _vm._v(" "),
                 _vm._m(2),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4)
               ]
             )
           ])
@@ -41522,6 +41639,19 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close text-white robot-font font-weight-bold",
+        attrs: { "data-dismiss": "alert" }
+      },
+      [_c("span", [_vm._v("×")])]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -24,7 +24,12 @@
 <body class="bg-white">
 
     <div id="app">
-        <common-navbar-component></common-navbar-component>
+        @if(Auth::user())
+            <common-navbar-component
+                :csrf="{{ json_encode(csrf_token()) }}"
+                :user="{{ json_encode(Auth::user()->name) }}"
+            ></common-navbar-component>
+        @endif
 
         <main class="py-4">
             @yield('content')
