@@ -95,4 +95,4 @@ Route::get('/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('github/redirect', 'Auth\LoginController@redirectToGithub');
 Route::get('github/callback', 'Auth\LoginController@handleGithubCallback');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('role');

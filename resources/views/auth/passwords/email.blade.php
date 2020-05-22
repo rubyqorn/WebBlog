@@ -2,6 +2,7 @@
 
 @section('content')
     <email-confirm-component
-        :csrf="{{ jsn_encode(csrf_token()) }}"
+        :csrf="{{ json_encode(csrf_token()) }}"
+        :errors="{{ json_encode($errors->any() ? $errors->all() : null) }}"
     ></email-confirm-component>
 @endsection
