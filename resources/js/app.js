@@ -66,6 +66,13 @@ Vue.component('confirm-password-component', require('./components/auth/password/
 Vue.component('email-confirm-component', require('./components/auth/password/EmailComponent.vue').default);
 Vue.component('reset-password-component', require('./components/auth/password/ResetComponent.vue').default);
 
+
+// Admin components
+
+// Common parts
+Vue.component('admin-navbar-component', require('./components/admin/parts/NavbarComponent.vue').default);
+Vue.component('admin-collapsible-sidebar-component', require('./components/admin/parts/CollapsibleSidebarComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -86,4 +93,8 @@ const articles = new Vue({
 
 const discussions = new Vue({
     el: '#discussions'
+});
+
+const admin = new Vue({
+    el: '#dashboard'
 });

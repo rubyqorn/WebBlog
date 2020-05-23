@@ -29,6 +29,8 @@
                 :csrf="{{ json_encode(csrf_token()) }}"
                 :user="{{ json_encode(Auth::user()->name) }}"
             ></common-navbar-component>
+        @else 
+            <common-navbar-component></common-navbar-component>
         @endif
 
         <main class="py-4">
