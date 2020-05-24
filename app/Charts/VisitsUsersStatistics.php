@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ConsoleTVs\Charts\Classes\Chartjs\Chart;
 
-class CountRecordsPerMonth extends Chart
+class VisitsUsersStatistics extends Chart
 {
     /**
      * Initializes the chart.
