@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid p-0">
         <div class="row m-0">
-            <div class="col-lg-3">
-                <ul class="sidebar list-group">
+            <div class="col-lg-3 col-sm-1" id="navbar-slider">
+                <ul class="sidebar col-lg-12 col-sm-1 list-group">
                     <a href="/home" class="robot-font border-bottom pb-2 text-white font-weight-bold text-center">
                         <i class="fa fa-bolt mr-1 text-warning"></i> WebBlog Panel
                     </a>
@@ -65,14 +65,17 @@
                 </ul>
             </div>
 
-            <div class="col-lg-9 bg-primary p-4" id="header">
-                <button class="btn m-0 p-0 text-grey" id="navbar-slider">
+            <div class="col-lg-9 p-4" id="header">
+                <button class="btn m-0 p-0 text-grey" @click="slideNavbar" id="navbar-slider">
                     <i class="fas fa-align-left"></i>
                 </button>
                 <div class="col-lg-12 mt-3 d-flex">
                     <i class="fa fa-box text-white mt-3 mr-3"></i>
                     <p class="text-white font-weight-bold h1">Dashboard</p>
                 </div>
+                    
+                <slot></slot>
+                
             </div>
         </div>
     </div>
@@ -81,6 +84,20 @@
 
 <script>
     export default {
-
+        props: [
+            'item'
+        ],
+        methods: {
+            slideNavbar() {
+                let navbar = document.querySelector('#dashboard #navbar-slider .sidebar');
+                let col = document.querySelector('#dashboard #navbar-slider');
+                let header = document.querySelector('#dashboard #header');
+                
+                $(navbar).toggleClass('slide');
+                $(header).toggleClass('move');
+                $(header).toggleClass('col-lg-9');
+                $(header).toggleClass('col-lg-12');
+            }
+        }
     }
 </script>

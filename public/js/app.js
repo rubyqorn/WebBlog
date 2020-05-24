@@ -1910,7 +1910,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['item'],
+  methods: {
+    slideNavbar: function slideNavbar() {
+      var navbar = document.querySelector('#dashboard #navbar-slider .sidebar');
+      var col = document.querySelector('#dashboard #navbar-slider');
+      var header = document.querySelector('#dashboard #header');
+      $(navbar).toggleClass('slide');
+      $(header).toggleClass('move');
+      $(header).toggleClass('col-lg-9');
+      $(header).toggleClass('col-lg-12');
+    }
+  }
+});
 
 /***/ }),
 
@@ -40651,229 +40667,240 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container-fluid p-0" }, [
+    _c("div", { staticClass: "row m-0" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-lg-9 p-4", attrs: { id: "header" } },
+        [
+          _c(
+            "button",
+            {
+              staticClass: "btn m-0 p-0 text-grey",
+              attrs: { id: "navbar-slider" },
+              on: { click: _vm.slideNavbar }
+            },
+            [_c("i", { staticClass: "fas fa-align-left" })]
+          ),
+          _vm._v(" "),
+          _vm._m(1),
+          _vm._v(" "),
+          _vm._t("default")
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container-fluid p-0" }, [
-      _c("div", { staticClass: "row m-0" }, [
-        _c("div", { staticClass: "col-lg-3" }, [
-          _c("ul", { staticClass: "sidebar list-group" }, [
+    return _c(
+      "div",
+      { staticClass: "col-lg-3 col-sm-1", attrs: { id: "navbar-slider" } },
+      [
+        _c("ul", { staticClass: "sidebar col-lg-12 col-sm-1 list-group" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "robot-font border-bottom pb-2 text-white font-weight-bold text-center",
+              attrs: { href: "/home" }
+            },
+            [
+              _c("i", { staticClass: "fa fa-bolt mr-1 text-warning" }),
+              _vm._v(" WebBlog Panel\n                ")
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-link border-bottom mt-4 pb-3" }, [
+            _c(
+              "a",
+              { staticClass: "robot-font text-grey", attrs: { href: "/" } },
+              [
+                _c("i", { staticClass: "fas fa-tachometer-alt" }),
+                _vm._v(" Dashboard\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
             _c(
               "a",
               {
-                staticClass:
-                  "robot-font border-bottom pb-2 text-white font-weight-bold text-center",
-                attrs: { href: "/home" }
+                staticClass: "robot-font text-grey",
+                attrs: {
+                  href: "#",
+                  role: "button",
+                  "data-toggle": "collapse",
+                  "data-target": "#articles-content"
+                }
               },
               [
-                _c("i", { staticClass: "fa fa-bolt mr-1 text-warning" }),
-                _vm._v(" WebBlog Panel\n                ")
+                _c("i", { staticClass: "far fa-newspaper" }),
+                _vm._v(" News\n                    ")
               ]
             ),
             _vm._v(" "),
-            _c("li", { staticClass: "nav-link border-bottom mt-4 pb-3" }, [
-              _c(
-                "a",
-                { staticClass: "robot-font text-grey", attrs: { href: "/" } },
-                [
-                  _c("i", { staticClass: "fas fa-tachometer-alt" }),
-                  _vm._v(" Dashboard\n                    ")
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "robot-font text-grey",
-                  attrs: {
-                    href: "#",
-                    role: "button",
-                    "data-toggle": "collapse",
-                    "data-target": "#articles-content"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "far fa-newspaper" }),
-                  _vm._v(" News\n                    ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "collapse", attrs: { id: "articles-content" } },
-                [
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-table" }),
-                        _vm._v(" News table \n                            ")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "far fa-comments" }),
-                        _vm._v(" Comments \n                            ")
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "robot-font text-grey",
-                  attrs: {
-                    href: "#",
-                    role: "button",
-                    "data-toggle": "collapse",
-                    "data-target": "#discussions-content"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "far fa-newspaper" }),
-                  _vm._v(" Articles\n                    ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "collapse",
-                  attrs: { id: "discussions-content" }
-                },
-                [
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-table" }),
-                        _vm._v(" Articles table \n                            ")
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "far fa-comments" }),
-                        _vm._v(" Comments \n                            ")
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "robot-font text-grey",
-                  attrs: {
-                    href: "#",
-                    role: "button",
-                    "data-toggle": "collapse",
-                    "data-target": "#news-content"
-                  }
-                },
-                [
-                  _c("i", { staticClass: "far fa-newspaper" }),
-                  _vm._v(" Discussions\n                    ")
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "collapse", attrs: { id: "news-content" } },
-                [
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-table" }),
-                        _vm._v(
-                          " Discussions table \n                            "
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pl-4 mt-2" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "robot-font text-grey",
-                        attrs: { href: "/" }
-                      },
-                      [
-                        _c("i", { staticClass: "far fa-comments" }),
-                        _vm._v(" Answers \n                            ")
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "col-lg-9 bg-primary p-4", attrs: { id: "header" } },
-          [
             _c(
-              "button",
+              "div",
+              { staticClass: "collapse", attrs: { id: "articles-content" } },
+              [
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-table" }),
+                      _vm._v(" News table \n                            ")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "far fa-comments" }),
+                      _vm._v(" Comments \n                            ")
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
+            _c(
+              "a",
               {
-                staticClass: "btn m-0 p-0 text-grey",
-                attrs: { id: "navbar-slider" }
+                staticClass: "robot-font text-grey",
+                attrs: {
+                  href: "#",
+                  role: "button",
+                  "data-toggle": "collapse",
+                  "data-target": "#discussions-content"
+                }
               },
-              [_c("i", { staticClass: "fas fa-align-left" })]
+              [
+                _c("i", { staticClass: "far fa-newspaper" }),
+                _vm._v(" Articles\n                    ")
+              ]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-12 mt-3 d-flex" }, [
-              _c("i", { staticClass: "fa fa-box text-white mt-3 mr-3" }),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-white font-weight-bold h1" }, [
-                _vm._v("Dashboard")
-              ])
-            ])
-          ]
-        )
+            _c(
+              "div",
+              { staticClass: "collapse", attrs: { id: "discussions-content" } },
+              [
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-table" }),
+                      _vm._v(" Articles table \n                            ")
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "far fa-comments" }),
+                      _vm._v(" Comments \n                            ")
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-link border-bottom pb-3 pt-3" }, [
+            _c(
+              "a",
+              {
+                staticClass: "robot-font text-grey",
+                attrs: {
+                  href: "#",
+                  role: "button",
+                  "data-toggle": "collapse",
+                  "data-target": "#news-content"
+                }
+              },
+              [
+                _c("i", { staticClass: "far fa-newspaper" }),
+                _vm._v(" Discussions\n                    ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "collapse", attrs: { id: "news-content" } },
+              [
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-table" }),
+                      _vm._v(
+                        " Discussions table \n                            "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "pl-4 mt-2" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "robot-font text-grey",
+                      attrs: { href: "/" }
+                    },
+                    [
+                      _c("i", { staticClass: "far fa-comments" }),
+                      _vm._v(" Answers \n                            ")
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-12 mt-3 d-flex" }, [
+      _c("i", { staticClass: "fa fa-box text-white mt-3 mr-3" }),
+      _vm._v(" "),
+      _c("p", { staticClass: "text-white font-weight-bold h1" }, [
+        _vm._v("Dashboard")
       ])
     ])
   }

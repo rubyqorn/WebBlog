@@ -47,4 +47,33 @@ body {
 #dashboard #header {
     margin-top: 57px; 
     height: 200px;
+    background: rgb(86,79,215);
+    background: radial-gradient(circle, rgba(78,69,240,1) 0%, rgba(70,56,227,1) 50%, rgba(41,65,159,1) 100%);
+}
+
+.slide {
+    animation: navbarSlider 0.4s ease-in normal forwards;
+}
+
+.move {
+    animation: moveHeader 0.4s ease-in normal alternate;
+}
+
+@keyframes navbarSlider {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-400px);
+    }
+}
+
+@keyframes moveHeader {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(20%);
+    }
 }
