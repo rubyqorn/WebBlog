@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 mt-4 mb-4 p-4 rounded bg-white shadow">
+    <div class="col-lg-12 mt-4 mb-4 p-4 rounded bg-white shadow" id="discussions-categories-table">
         <div class="col-lg-12 row border-bottom">
             <div class="col-lg-6 robot-font text-info">
                 <span># Discussions categories table</span>
@@ -11,7 +11,9 @@
             </div>
         </div>
 
-        <table class="table table-striped table-hover table-border mt-4">
+        <slot></slot>
+
+        <table class="table table-striped table-hover table-border mt-4" id="table">
             <thead class="text-white bg-raspberry font-weight-bold robot-font">
                 <tr>
                     <th>#</th>
@@ -57,7 +59,7 @@
                 </tr>
             </tfoot>
         </table>
-        <div class="row justify-content-end p-3">
+        <div class="row justify-content-end p-3" id="discussions-categories-pagination">
             <pagination :data="this.categories" @pagination-change-page="this.getCategories"></pagination>
         </div>
     </div>

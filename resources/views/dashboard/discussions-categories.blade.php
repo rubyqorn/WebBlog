@@ -19,7 +19,13 @@
                     {!! $chart->container() !!}
                 </div>
                 
-                <discussions-categories-table-component></discussions-categories-table-component>
+                <discussions-categories-table-component>
+                    <slot>
+                        <search-discussions-categories-form-component
+                            :csrf="{{ json_encode(csrf_token()) }}"
+                        ></search-discussions-categories-form-component>
+                    </slot>
+                </discussions-categories-table-component>
             </slot>
 
             <admin-footer-component></admin-footer-component>

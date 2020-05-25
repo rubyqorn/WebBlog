@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12 mt-4 p-4 mb-4 rounded bg-white shadow" id="news-comments">
+    <div class="col-lg-12 mt-4 p-4 mb-4 rounded bg-white shadow" id="discussions-answers">
         <div class="col-lg-12 row border-bottom">
             <div class="col-lg-6 robot-font text-info">
                 <span class="h6"># Discussions answers table</span>
@@ -11,13 +11,15 @@
             </div>
         </div>
 
-        <table class="table mt-4 table-striped table-hover">
+        <slot></slot>
+
+        <table class="table mt-4 table-striped table-hover" id="table">
             <thead class="bg-violet">
                 <tr class="robot-font font-weight-bold text-white">
                     <td>#</td>
                     <td>Answer</td>
                     <td>Author</td>
-                    <td>News</td>
+                    <td>Discussions</td>
                     <td>Created</td>
                     <td>Delete</td>
                     <td>Update</td>
@@ -47,7 +49,7 @@
                     <td>#</td>
                     <td>Answer</td>
                     <td>Author</td>
-                    <td>News</td>
+                    <td>Discussions</td>
                     <td>Created</td>
                     <td>Delete</td>
                     <td>Update</td>
@@ -55,7 +57,7 @@
             </tfoot>
         </table>
 
-        <div class="row justify-content-end p-3">
+        <div class="row justify-content-end p-3" id="discussion-answers-pagination">
             <pagination :data="this.answers" @pagination-change-page="this.getAnswers"></pagination>
         </div>
     </div>
