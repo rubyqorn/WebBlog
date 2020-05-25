@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Charts\VisitsUsersStatistics;
+use App\Charts\UsersCommentsActivity;
+use App\Charts\UsersAnswersActivity;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home', ['title' => 'Dashboard']);
+        $commentsChart = new UsersCommentsActivity();
+        $answersChart = new UsersAnswersActivity();
+        $commentsChart = $commentsChart->create();
+        $answersChart = $answersChart->create();
+
+        return view('home')->withTitle('Dashboard')
+            ->withCommentsChart($commentsChart)
+            ->withAnswersChart($answersChart);
     }
 }
