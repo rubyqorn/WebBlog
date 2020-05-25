@@ -29,6 +29,15 @@ class AnswersController extends Controller
             ->paginate(5);
     }
 
+    public function search(Request $request) 
+    {
+        return Answer::with('user')
+            ->with('discussion')
+            ->where('answer', 'like', '%' . $request->answer . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
+    }
+
     /**
     * Update answers by id property
     *
@@ -64,27 +73,6 @@ class AnswersController extends Controller
             if ($deletion) {
                 return redirect()->route('admin.answers')->withStatus('Answer was deleted successfully');
             }
-        }
-    }
-
-    /**
-     * Search answers and display in template
-     * 
-     * @param \Illuminate\Http\Request
-     * 
-     * @return \Illuminate\Http\Response
-     */ 
-    public function search(Request $request)
-    {
-        if ($request->isMethod('POST')) {
-            $answers = Answer::searchArticles($request);
-
-
-            if ($answers) {
-                return view('templates.admin.search-content', compact('answers'));
-            }
-
-            abort(404);
         }
     }
 }

@@ -24,19 +24,14 @@ class DiscussionsController extends Controller
             ->withChart($chart);
     }
 
-    /**
-     * Search discussions by request content
-     * 
-     * @param \Illuminate\Http\Request
-     *  
-     * @return \Illuminate\Http\Response
-    */ 
     public function search(Request $request)
     {
-        $discussions = Discussion::searchDiscussions($request);
-        $categories = DiscussionCategory::all();
-
-        return view('templates.admin.search-content', compact('discussions', 'categories'));
+        return Discussion::with('category')
+            ->with('authors')
+            ->withCount('answers')
+            ->where('title', 'like', '%' . $request->title . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 
     /**

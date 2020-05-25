@@ -97,6 +97,9 @@ Vue.component('search-articles-comments-form-component', require('./components/a
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);
 Vue.component('discussions-categories-table-component', require('./components/admin/discussions/DiscussionsCategoriesComponent.vue').default);
 Vue.component('discussions-answers-table-component', require('./components/admin/discussions/DiscussionsAnswersComponent.vue').default);
+Vue.component('search-discussions-form-component', require('./components/admin/discussions/SearchDiscussionsFormComponent.vue').default);
+Vue.component('search-discussions-categories-form-component', require('./components/admin/discussions/SearchDiscussionsCategoriesComponent.vue').default);
+Vue.component('search-discussions-answers-form-component', require('./components/admin/discussions/SearchDiscussionsAnswersComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

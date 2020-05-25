@@ -11,13 +11,15 @@
             </div>
         </div>
 
-        <table class="table table-striped table-hover mt-4 mb-4">
+        <slot></slot>
+
+        <table class="table table-striped table-hover mt-4 mb-4" id="table">
             <thead class="bg-primary">
                 <tr class="robot-font text-white font-weight-bold">
                     <td>#</td>
                     <td>Title</td>
                     <td>Author</td>
-                    <td>Comments</td>
+                    <td>Answers</td>
                     <td>Created</td>
                     <td>Delete</td>
                     <td>Update</td>
@@ -47,7 +49,7 @@
                     <td>#</td>
                     <td>Title</td>
                     <td>Author</td>
-                    <td>Comments</td>
+                    <td>Answers</td>
                     <td>Created</td>
                     <td>Delete</td>
                     <td>Update</td>
@@ -55,7 +57,7 @@
             </tfoot>
         </table>
 
-        <div class="col-lg-12 p-3 row justify-content-end">
+        <div class="col-lg-12 p-3 row justify-content-end" id="discussions-pagination">
             <pagination :data="this.discussions" @pagination-change-page="this.getDiscussions"></pagination>
         </div>
     </div>

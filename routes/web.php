@@ -151,4 +151,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.discussions.categories');
 	Route::get('/discussions/json-categories', 'DiscussionsCategoriesController@categories')
 		->name('admin.discussions.json.categories');
+	Route::post('/discussions/search', 'DiscussionsController@search')
+		->name('admin.discussions.search');
+	Route::post('/discussions/categories/search', 'DiscussionsCategoriesController@search')
+		->name('admin.discussions.categories.search');
+	Route::post('/discussions/answers/search', 'AnswersController@search')
+		->name('admin.discussions.answers.search');
 });

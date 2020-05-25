@@ -28,6 +28,13 @@ class DiscussionsCategoriesController extends Controller
             ->paginate(5);
     }
 
+    public function search(Request $request) 
+    {
+        return DiscussionCategory::where('name', 'like', '%' . $request->name . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
+    }
+
     /**
      * Store articles categories in database
      * 
