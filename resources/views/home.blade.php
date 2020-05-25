@@ -12,10 +12,14 @@
 
                 <div class="row mt-4">
                     <div class="col-lg-5 ml-4 bg-white shadow p-4 rounded">
-                        
+                        {!! $commentsChart->container() !!}
+
+                        {!! $commentsChart->script() !!}
                     </div>
                     <div class="col-lg-5 ml-4 bg-white shadow p-4 rounded">
-                        
+                        {!! $answersChart->container() !!}
+
+                        {!! $answersChart->script() !!}
                     </div>
                 </div>
 

@@ -95,4 +95,12 @@ Route::get('/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('github/redirect', 'Auth\LoginController@redirectToGithub');
 Route::get('github/callback', 'Auth\LoginController@handleGithubCallback');
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('role');
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware(['role', 'auth'])->prefix('admin')->group(function() {
+	Route::get('news', 'NewsController@showPage')->name('admin.news');
+
+	Route::get('articles', 'ArticlesController@showPage')->name('admin.articles');
+
+	Route::get('discussions', 'DiscussionsController@showPage')->name('admin.discussions');
+});
