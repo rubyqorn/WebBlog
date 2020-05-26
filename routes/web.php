@@ -95,12 +95,36 @@ Route::get('/google/callback', 'Auth\LoginController@handleGoogleCallback');
 Route::get('github/redirect', 'Auth\LoginController@redirectToGithub');
 Route::get('github/callback', 'Auth\LoginController@handleGithubCallback');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware(['role', 'auth'])->prefix('admin')->group(function() {
-	Route::get('news', 'NewsController@showPage')->name('admin.news');
+Route::get('/home', 'HomeController@index')
+	->name('home');
+Route::get('/users', 'HomeController@users')
+	->name('users');
 
-	Route::get('articles', 'ArticlesController@showPage')->name('admin.articles');
+Route::middleware(['role', 'auth'])->prefix('dashboard')
+	->namespace('Admin')
+	->group(function() {
 
-	Route::get('discussions', 'DiscussionsController@showPage')->name('admin.discussions');
+	
+
+	Route::get('news', 'NewsController@showPage')
+		->name('admin.news');
+	Route::get('/news/comments', 'NewsController@comments')
+		->name('admin.news.comments');
+	Route::get('/news/categories', 'NewsController@categories')
+		->name('admin.news.categories');
+
+	Route::get('articles', 'ArticlesController@showPage')
+		->name('admin.articles');
+	Route::get('/articles/comments', 'ArticlesController@comments')
+		->name('admin.articles.comments');
+	Route::get('/articles/categories', 'ArticlesController@categories')
+		->name('admin.articles.categories');
+
+	Route::get('discussions', 'DiscussionsController@showPage')
+		->name('admin.discussions');
+	Route::get('/discussions/answers', 'DiscussionsController@answers')
+		->name('admin.discussions.answers');
+	Route::get('/discussions/categories', 'DiscussionsController@categories')
+		->name('admin.discussions.categories');
 });

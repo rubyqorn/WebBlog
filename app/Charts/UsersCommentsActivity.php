@@ -15,9 +15,9 @@ class UsersCommentsActivity extends Chart
 
     protected function getTodayCommentsNumber()
     {   
-        $newsComments = NewsComment::where('created_at', 'like', '%'. '2020-05-18' . '%')
+        $newsComments = NewsComment::where('created_at', 'like', '%'. date('Y-m-d') . '%')
             ->count();
-        $articlesComments = ArticleComment::where('created_at', 'like', '%' . '2020-05-18' . '%')
+        $articlesComments = ArticleComment::where('created_at', 'like', '%' . date('Y-m-d') . '%')
             ->count();
 
         return $newsComments + $articlesComments;

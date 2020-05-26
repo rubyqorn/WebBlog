@@ -51,6 +51,12 @@ body {
     background: radial-gradient(circle, rgba(78,69,240,1) 0%, rgba(70,56,227,1) 50%, rgba(41,65,159,1) 100%);
 }
 
+#dashboard #users-list tbody .avatar {
+    width: 15%;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+}
+
 .slide {
     animation: navbarSlider 0.4s ease-in normal forwards;
 }

@@ -40,7 +40,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function discussions()
@@ -61,22 +61,6 @@ class User extends Authenticatable
     public function articleComment()
     {
         return $this->belongsTo(ArticleComment::class, 'user_id', 'id');
-    }
-
-    /**
-    * Check for user has an admin role
-    * or return false
-    *
-    * @return bool 
-    */ 
-    public function hasAdminRole()
-    {
-        if (Auth::user()->role_id == 1) {
-            return true;
-        }
-
-        return false;
-        
     }
 
     /**

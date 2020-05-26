@@ -14,7 +14,7 @@ class UsersAnswersActivity extends Chart
 
     protected function getTodayAnswersNumber()
     {
-        return Answer::where('created_at', 'like', '%' . '2020-05-20' . '%')
+        return Answer::where('created_at', 'like', '%' . date('Y-m-d') . '%')
             ->count();
     }
 
