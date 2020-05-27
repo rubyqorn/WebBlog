@@ -104,9 +104,7 @@ Route::get('/users', 'HomeController@users')
 Route::middleware(['role', 'auth'])->prefix('dashboard')
 	->namespace('Admin')
 	->group(function() {
-
 	
-
 	Route::get('news', 'NewsController@showPage')
 		->name('admin.news');
 	Route::get('/news/comments', 'NewsController@comments')

@@ -4,39 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\CountRecordsForCharts;
+use App\Charts\NewsItemsChart;
 use App\NewsCategory;
 use App\News;
 
 class NewsController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function showPage()
     {
-        if (view()->exists('templates.admin.news')) {
-            $chart = CountRecordsForCharts::chart(new News(), 'doughnut', [
-                'backgroundColor' => [
-                    'darkslateblue', 'black', 'grey', 'gray',
-                    'lightblue', 'darkseagreen', 'coral', 'aqua',
-                    'burlywood', 'pink', 'orange', 'violet'
-                ]
-            ]);
-            $news = News::paginate(5);
-            $categories = NewsCategory::all();
-
-            return view('templates.admin.news')->with([
-                'chart' => $chart,
-                'news' => $news,
-                'categories' => $categories
-            ]);
+        if (!view()->exists('dashboard.news')) {
+            abort(404);
         }
 
-        abort(404);
-        
+        $chart = new NewsItemsChart();
+        $chart = $chart->create();
+
+        return view('dashboard.news')->withTitle('News')
+            ->withChart($chart);
     }
 
     /**
