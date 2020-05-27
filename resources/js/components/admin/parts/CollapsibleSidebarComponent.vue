@@ -7,7 +7,7 @@
                         <i class="fa fa-bolt mr-1 text-warning"></i> WebBlog Panel
                     </a>
                     <li class="nav-link border-bottom mt-4 pb-3">
-                        <a href="/" class="robot-font text-grey">
+                        <a href="/home" class="robot-font text-grey">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>

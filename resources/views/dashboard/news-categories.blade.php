@@ -15,14 +15,15 @@
             :title="{{ json_encode($title) }}"
         >
             <slot>
-                <div class="col-lg-12 p-4 mt-4 shadow bg-white rounded">
+                <div class="col-lg-12 mt-4 mb-4 p-4 rounded shadow bg-white">
                     {!! $chart->container() !!}
                 </div>
 
-                <news-table-component></news-table-component>
-                
-                <admin-footer-component></admin-footer-component>
+                <news-categories-table-component></news-categories-table-component>
             </slot>
+
+        <admin-footer-component></admin-footer-component>
+        
         </admin-collapsible-sidebar-component>
     </div>
 
