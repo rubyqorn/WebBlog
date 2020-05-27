@@ -24,6 +24,7 @@ class NewsController extends Controller
     public function news()
     {
         return News::with('category')
+            ->with('author')
             ->withCount('comments')
             ->orderBy('created_at', 'DESC')
             ->paginate(6);

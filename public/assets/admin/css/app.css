@@ -19,12 +19,6 @@ body {
     transition: all 0.6s;
 }
 
-.avatar {
-    border: 1px solid #ddd;
-    border-radius: 50px;
-    width: 35%;
-}
-
 #dashboard .sidebar {
     margin-top: 55px;
     padding-top: 30px;
@@ -55,6 +49,11 @@ body {
     width: 15%;
     border: 1px solid #ddd;
     border-radius: 50px;
+}
+
+#dashboard #dashboard-footer {
+    background: rgb(86,79,215);
+    background: radial-gradient(circle, rgba(78,69,240,1) 0%, rgba(70,56,227,1) 50%, rgba(41,65,159,1) 100%);
 }
 
 .slide {

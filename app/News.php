@@ -15,6 +15,10 @@ class News extends Model
 
 	protected $table = 'news';
 
+	public function author()
+	{
+		return $this->belongsTo(User::class, 'user_id');
+	}
 	
 	public function category()
 	{
