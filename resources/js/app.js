@@ -79,6 +79,7 @@ Vue.component('users-list-component', require('./components/admin/dashboard/User
 
 // News components
 Vue.component('news-table-component', require('./components/admin/news/NewsTableComponent.vue').default);
+Vue.component('news-categories-table-component', require('./components/admin/news/NewsCategoriesTableComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

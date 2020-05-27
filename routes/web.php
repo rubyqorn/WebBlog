@@ -107,22 +107,30 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 	
 	Route::get('news', 'NewsController@showPage')
 		->name('admin.news');
-	Route::get('/news/comments', 'NewsController@comments')
+	Route::get('/news/comments', 'NewsCommentsController@showPage')
 		->name('admin.news.comments');
-	Route::get('/news/categories', 'NewsController@categories')
+	Route::get('/news/json-comments', 'NewsCommentsController@comments')
+		->name('admin.news.json.comments');
+	Route::get('/news/categories', 'NewsCategoriesController@showPage')
 		->name('admin.news.categories');
+	Route::get('/news/json-categories', 'NewsCategoriesController@categories')
+		->name('admin.news.json.categories');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');
-	Route::get('/articles/comments', 'ArticlesController@comments')
+	Route::get('/articles/comments', 'ArticlesCommentsController@showPage')
 		->name('admin.articles.comments');
-	Route::get('/articles/categories', 'ArticlesController@categories')
+	Route::get('/articles/json-comments', 'ArticlesCommentsController@comments')
+		->name('admin.articles.json.comments');
+	Route::get('/articles/categories', 'ArticleCategoriesController@showPage')
 		->name('admin.articles.categories');
+	Route::get('/articles/json-categories', 'ArticleCategoriesController@categories')
+		->name('admin.articles.json.categories');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');
-	Route::get('/discussions/answers', 'DiscussionsController@answers')
+	Route::get('/discussions/answers', 'AnsewersController@showPage')
 		->name('admin.discussions.answers');
-	Route::get('/discussions/categories', 'DiscussionsController@categories')
+	Route::get('/discussions/categories', 'DiscussionsCategoriesController@showPage')
 		->name('admin.discussions.categories');
 });

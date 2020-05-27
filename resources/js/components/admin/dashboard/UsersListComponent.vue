@@ -11,7 +11,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Registered date</th>
+                    <th>Registered</th>
                 </tr>
             </thead>
             <tbody class="robot-font">
@@ -31,11 +31,11 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th>Registered date</th>
+                    <th>Registered</th>
                 </tr>
             </tfoot>
         </table>
-        <div class="row justify-content-end p-4">
+        <div class="row justify-content-end p-3">
             <pagination :data="this.users" @pagination-change-page="this.getUsers"></pagination>
         </div>
     </div>
