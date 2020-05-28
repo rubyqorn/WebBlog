@@ -86,7 +86,7 @@
                 </button>
                 <div class="col-lg-12 mt-3 d-flex">
                     <i class="fas fa-cubes text-white mt-3 mr-3 fa-1x"></i>
-                    <p class="text-white font-weight-bold h1">{{ title }}</p>
+                    <p class="text-white font-weight-bold h1 robot-font">{{ title }}</p>
                 </div>
                     
                 <slot></slot>
