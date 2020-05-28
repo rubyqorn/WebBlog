@@ -26,18 +26,6 @@ class ArticleComment extends Model
 	}
 
 	/**
-	* Get records for chart
-	*
-	* @param $month int|string
-	*
-	* @return records for chart
-	*/ 
-	public function getRecordsByMonth($month)
-	{
-		return Comment::whereMonth('created_at', $month)->count();
-	}
-
-	/**
 	* Validate forms fields and create new record in
 	* database
 	*

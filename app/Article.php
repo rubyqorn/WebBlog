@@ -12,9 +12,6 @@ class Article extends Model
 		'title', 'description', 'image', 'category_id'
 	];
 
-	/**
-	 * Get a relationships with ArticleCategory 
-	 */ 
 	public function category()
 	{
 		return $this->belongsTo(ArticleCategory::class, 'category_id', 'category_id');

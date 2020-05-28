@@ -4,42 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\CountRecordsForCharts;
+use App\Charts\ArticlesItemsChart;
 use App\ArticleCategory;
 use App\Article;
-use Illuminate\Support\Facades\Auth;
 
 class ArticlesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function showPage()
     {
-        if (view()->exists('templates.admin.articles')) {
-            $chart = CountRecordsForCharts::chart(new Article(), 'pie', [
-                'backgroundColor' => [
-                    '#ffc107', '#dc3545', '#20c997',
-                    '#6f42c1', '#17a2b8', '#6c757d',
-                    '#28a745', '#e83e8c', '#6dd5e6',
-                    '#f0d480', '#c1a1f4', '#007bff'
-                ]
-            ]);
-
-            $articles = Article::paginate(5);
-            $categories = ArticleCategory::all();
-
-            return view('templates.admin.articles')->with([
-                'chart' => $chart,
-                'articles' => $articles,
-                'categories' => $categories
-            ]);
+        if (!view()->exists('dashboard.articles')) {
+            abort(404);
         }
 
-        abort(404);
+        $chart = new ArticlesItemsChart();
+        $chart = $chart->create();
 
+        return view('dashboard.articles')
+            ->withTitle('Articles')
+            ->withChart($chart);
+    }
+    
+    public function articles()
+    {
+        return Article::with('category')
+            ->with('author')
+            ->withCount('comments')
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 
     /**

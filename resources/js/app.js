@@ -82,6 +82,10 @@ Vue.component('news-table-component', require('./components/admin/news/NewsTable
 Vue.component('news-categories-table-component', require('./components/admin/news/NewsCategoriesTableComponent.vue').default);
 Vue.component('news-comments-table-component', require('./components/admin/news/NewsCommentsTableComponent.vue').default);
 
+// Articles components
+Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
+Vue.component('articles-comments-table-component', require('./components/admin/articles/ArticlesCommentsComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

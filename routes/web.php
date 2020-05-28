@@ -118,6 +118,8 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');
+	Route::get('/articles/json-articles', 'ArticlesController@articles')
+		->name('admin.articles.json');
 	Route::get('/articles/comments', 'ArticlesCommentsController@showPage')
 		->name('admin.articles.comments');
 	Route::get('/articles/json-comments', 'ArticlesCommentsController@comments')
