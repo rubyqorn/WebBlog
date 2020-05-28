@@ -5,7 +5,7 @@
                 <span># News categories table</span>
             </div>
             <div class="col-lg-6 text-right justify-content-end">
-                <a href="/dashboard" class="btn btn-sm btn-info mb-3 text-uppercase font-weight-bold">
+                <a href="/dashboard" class="btn btn-sm btn-warning mb-3 text-uppercase text-white font-weight-bold">
                     <small>Create</small>
                 </a>
             </div>

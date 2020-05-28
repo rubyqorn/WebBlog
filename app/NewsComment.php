@@ -13,7 +13,7 @@ class NewsComment extends Model
 
     public function news()
     {
-        return $this->hasMany(News::class, 'id');
+        return $this->belongsTo(News::class, 'news_id');
     }
 
     public function user()
