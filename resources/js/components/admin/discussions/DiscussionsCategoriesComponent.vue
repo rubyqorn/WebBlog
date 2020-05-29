@@ -1,25 +1,25 @@
 <template>
-    <div class="col-lg-12 rounded shadow bg-white mt-4 mb-4 p-4" id="articles-categories">
-        <div class="col-lg-12 border-bottom row">
-            <div class="col-lg-6">
-                <span class="robot-font text-info h6"># Articles categories table</span>
+    <div class="col-lg-12 mt-4 mb-4 p-4 rounded bg-white shadow">
+        <div class="col-lg-12 row border-bottom">
+            <div class="col-lg-6 robot-font text-info">
+                <span># Discussions categories table</span>
             </div>
             <div class="col-lg-6 text-right justify-content-end">
-                <a href="/" class="mb-3 btn btn-sm btn-dark robot-font text-uppercase">
+                <a href="/dashboard" class="btn btn-sm bg-raspberry mb-3 text-uppercase text-white font-weight-bold">
                     <small>Create</small>
                 </a>
             </div>
         </div>
 
-        <table class="table table-hover table-striped mt-4">
-            <thead class="bg-peach rounded">
-                <tr class="robot-font text-white font-weight-bold">
-                    <td>#</td>
-                    <td>Name</td>
-                    <td>Color</td>
-                    <td>Created</td>
-                    <td>Delete</td>
-                    <td>Update</td>
+        <table class="table table-striped table-hover table-border mt-4">
+            <thead class="text-white bg-raspberry font-weight-bold robot-font">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Created</th>
+                    <th>Delete</th>
+                    <th>Update</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,19 +46,18 @@
                     </td>
                 </tr>
             </tbody>
-            <tfoot class="bg-peach rounded">
-                <tr class="robot-font text-white font-weight-bold">
-                    <td>#</td>
-                    <td>Name</td>
-                    <td>Color</td>
-                    <td>Created</td>
-                    <td>Delete</td>
-                    <td>Update</td>
+            <tfoot class="text-white bg-raspberry font-weight-bold robot-font">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Color</th>
+                    <th>Created</th>
+                    <th>Delete</th>
+                    <th>Update</th>
                 </tr>
             </tfoot>
         </table>
-
-        <div class="col-lg-12 p-3 row justify-content-end">
+        <div class="row justify-content-end p-3">
             <pagination :data="this.categories" @pagination-change-page="this.getCategories"></pagination>
         </div>
     </div>
@@ -72,11 +71,11 @@
             }
         },
         created() {
-            this.getCategories()
+            this.getCategories();
         },
         methods: {
             getCategories(page = 1) {
-                this.$http.get('/dashboard/articles/json-categories?page='+ page)
+                this.$http.get('/dashboard/discussions/json-categories?page='+ page)
                     .then(response => {
                         return response.json();
                     })

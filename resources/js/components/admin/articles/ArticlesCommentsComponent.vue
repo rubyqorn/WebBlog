@@ -54,6 +54,10 @@
                 </tr>
             </tfoot>
         </table>
+
+        <div class="col-lg-12 p-3 row justify-content-end">
+            <pagination :data="this.comments" @pagination-change-page="this.getComments"></pagination>
+        </div>
     </div>
 </template>
 

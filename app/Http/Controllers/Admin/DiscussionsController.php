@@ -4,37 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Traits\CountRecordsForCharts;
+use App\Charts\DiscussionsItemsChart;
 use App\DiscussionCategory;
 use App\Discussion;
 
 class DiscussionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function showPage()
     {
-        if (view()->exists('templates.admin.discussions')) {
-            $chart = CountRecordsForCharts::chart(new Discussion(), 'line', [
-                'backgroundColor' => 'deepskyblue',
-                'borderColor' => 'dodgerblue'
-            ]);
-
-            $discussions = Discussion::paginate(5);
-            $categories = DiscussionCategory::all();
-
-            return view('templates.admin.discussions')->with([
-                'chart' => $chart,
-                'discussions' => $discussions,
-                'categories' => $categories,
-            ]);
+        if (!view()->exists('dashboard.discussions')) {
+            abort(404);
         }
 
-        abort(404);
-        
+        $chart = new DiscussionsItemsChart();
+        $chart = $chart->create();
+
+        return view('dashboard.discussions')
+            ->withTitle('Discussions')
+            ->withChart($chart);
     }
 
     /**

@@ -3,22 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Controller;
+use App\Charts\DiscussionsCategoriesChart;
 use App\DiscussionCategory;
 
-class DiscussionsCategoriesController extends CategoriesController
+class DiscussionsCategoriesController extends Controller
 {
-    /**
-     * Get discussions categories page
-     * 
-     * @return \Illuminate\Http\Response 
-    */ 
     public function showPage()
     {
-        if (view()->exists('templates.admin.content.categories-content')) {
-            $discussions = DiscussionCategory::paginate(5);
-            return view('templates.admin.content.categories-content', compact('discussions'));
+        if (!view()->exists('dashboard.discussions-categories')) {
+            abort(404);
         }
+
+        $chart = new DiscussionsCategoriesChart();
+
+        return view('dashboard.discussions-categories')
+            ->withTitle('Discussions Categories')
+            ->withChart($chart->create());
+    }
+
+    public function categories()
+    {
+        return DiscussionCategory::orderByDesc('created_at')
+            ->paginate(5);
     }
 
     /**
