@@ -23,6 +23,18 @@ body {
     background-color: #ff6f69;
 }
 
+.bg-orange {
+    background-color: #feb236;
+}
+
+.bg-raspberry {
+    background-color: #d64161;
+}
+
+.bg-violet {
+    background-color: #6b5b95;
+}
+
 #dashboard .sidebar {
     margin-top: 55px;
     padding-top: 30px;

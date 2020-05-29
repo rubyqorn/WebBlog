@@ -2,20 +2,20 @@
     <div class="col-lg-12 mt-4 p-4 mb-4 rounded bg-white shadow" id="news-comments">
         <div class="col-lg-12 row border-bottom">
             <div class="col-lg-6 robot-font text-info">
-                <span class="h6"># News comments table</span>
+                <span class="h6"># Discussions answers table</span>
             </div>
             <div class="col-lg-6 pb-3 text-right justify-content-end">
-                <a class="btn btn-sm btn-dark text-uppercase text-white robot-font">
+                <a class="btn btn-sm bg-violet text-uppercase text-white robot-font">
                     <small>Create</small>
                 </a>
             </div>
         </div>
 
         <table class="table mt-4 table-striped table-hover">
-            <thead class="bg-dark">
+            <thead class="bg-violet">
                 <tr class="robot-font font-weight-bold text-white">
                     <td>#</td>
-                    <td>Comment</td>
+                    <td>Answer</td>
                     <td>Author</td>
                     <td>News</td>
                     <td>Created</td>
@@ -24,12 +24,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="robot-font" v-for="comment in this.comments.data">
-                    <td class="font-weight-bold">{{ comment.id }}</td>
-                    <td class="text-muted">{{ trimStr(comment.comment) }}</td>
-                    <td class="text-muted font-weight-bold">{{ comment.user.name }}</td>
-                    <td class="text-muted">{{ trimStr(comment.news.title) }}</td>
-                    <td class="text-muted">{{ dateFormating(comment.created_at) }}</td>
+                <tr class="robot-font" v-for="answer in this.answers.data">
+                    <td class="font-weight-bold">{{ answer.id }}</td>
+                    <td class="text-muted">{{ trimStr(answer.answer) }}</td>
+                    <td class="text-muted font-weight-bold">{{ answer.user.name }}</td>
+                    <td class="text-muted">{{ trimStr(answer.discussion.title) }}</td>
+                    <td class="text-muted">{{ dateFormating(answer.created_at) }}</td>
                     <td>
                         <a href="/" class="btn btn-sm btn-outline-danger text-uppercase robot-font">
                             <small>Delete</small>
@@ -42,10 +42,10 @@
                     </td>
                 </tr>
             </tbody>
-            <tfoot class="bg-dark">
+            <tfoot class="bg-violet">
                 <tr class="robot-font font-weight-bold text-white">
                     <td>#</td>
-                    <td>Comment</td>
+                    <td>Answer</td>
                     <td>Author</td>
                     <td>News</td>
                     <td>Created</td>
@@ -56,7 +56,7 @@
         </table>
 
         <div class="row justify-content-end p-3">
-            <pagination :data="this.comments" @pagination-change-page="this.getComments"></pagination>
+            <pagination :data="this.answers" @pagination-change-page="this.getAnswers"></pagination>
         </div>
     </div>
 </template>
@@ -65,20 +65,20 @@
     export default {
         data: function() {
             return {
-                comments: {}
+                answers: {}
             }
         },
         created() {
-            this.getComments();
+            this.getAnswers();
         },
         methods: {
-            getComments(page = 1) {
-                this.$http.get('/dashboard/news/json-comments?page='+ page)
+            getAnswers(page = 1) {
+                this.$http.get('/dashboard/discussions/json-answers?page='+ page)
                     .then(response => {
                         return response.json();
                     })
                     .then(data => {
-                        this.comments = data;
+                        this.answers = data;
                     })
             },
             dateFormating(date) {

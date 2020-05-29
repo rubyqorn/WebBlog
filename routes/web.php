@@ -131,8 +131,12 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');
-	Route::get('/discussions/answers', 'AnsewersController@showPage')
+	Route::get('/discussions/answers', 'AnswersController@showPage')
 		->name('admin.discussions.answers');
+	Route::get('/discussions/json-answers', 'AnswersController@answers')
+		->name('discussions.json.answers');
 	Route::get('/discussions/categories', 'DiscussionsCategoriesController@showPage')
 		->name('admin.discussions.categories');
+	Route::get('/discussions/json-categories', 'DiscussionsCategoriesController@categories')
+		->name('admin.discussions.json.categories');
 });

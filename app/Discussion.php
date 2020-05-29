@@ -13,17 +13,11 @@ class Discussion extends Model
         'user_id'
     ];
 
-	/**
-	* @return Relationships with App\DiscussionCategory
-	*/ 
     public function category()
     {
     	return $this->belongsTo(DiscussionCategory::class, 'category_id', 'category_id');
     }
 
-    /**
-    * @return Relationships with App\Answer
-    */ 
     public function answers()
     {
     	return $this->belongsTo(Answer::class, 'id', 'discussion_id');
@@ -32,31 +26,6 @@ class Discussion extends Model
     public function authors()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-    * Get discussions by category id
-    *
-    * @param $id int Give articles by category_id field
-    * 
-    * @return discussions by category_id field in table
-    */ 
-    public function getDiscussionsById($id)
-    {
-        return Discussion::withCount('answers')->where('category_id', $id)
-                        ->paginate(5);
-    }
-
-    /**
-    * Get and count records by month
-    *
-    * @param $month int|string Have to be like 01, 02...
-    *
-    * @return counted records by month
-    */
-    public function getRecordsByMonth($month)
-    {
-        return Discussion::whereMonth('created_at', $month)->count();
     }
 
     /**

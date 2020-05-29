@@ -23,13 +23,6 @@ class Answer extends Model
         return Answer::belongsTo(User::class);
     }
 
-    /**
-    * @return records for chart
-    */ 
-    public function getRecordsByMonth($month)
-    {
-        return Answer::whereMonth('created_at', $month)->count();
-    }
 
 
      /**
