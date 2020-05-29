@@ -2,24 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Charts\ArticlesCategoriesChart;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Admin\CategoriesController;
 use App\ArticleCategory;
 
-class ArticlesCategoriesController extends CategoriesController
+class ArticlesCategoriesController extends Controller
 {
-    /**
-     * Get articles categories page
-     *  
-     * @return \Illuminate\Http\Response
-    */ 
     public function showPage()
     {
-        if (view()->exists('templates.admin.content.categories-content')) {
-            $articles = ArticleCategory::paginate(5);
-
-            return view('templates.admin.content.categories-content', compact('articles'));
+        if (!view()->exists('dashboard.articles-categories')) {
+            abort(404);
         }  
+
+        $chart = new ArticlesCategoriesChart();
+        $chart = $chart->create();
+
+        return view('dashboard.articles-categories')
+            ->withTitle('Articles Categories')
+            ->withChart($chart);
+    }
+
+    public function categories()
+    {
+        return ArticleCategory::orderByDesc('created_at')->paginate(5);
     }
 
     /**

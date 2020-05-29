@@ -85,6 +85,7 @@ Vue.component('news-comments-table-component', require('./components/admin/news/
 // Articles components
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
 Vue.component('articles-comments-table-component', require('./components/admin/articles/ArticlesCommentsComponent.vue').default);
+Vue.component('articles-categories-table-component', require('./components/admin/articles/ArticlesCategoriesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
