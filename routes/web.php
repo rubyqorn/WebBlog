@@ -124,9 +124,9 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.comments');
 	Route::get('/articles/json-comments', 'ArticlesCommentsController@comments')
 		->name('admin.articles.json.comments');
-	Route::get('/articles/categories', 'ArticleCategoriesController@showPage')
+	Route::get('/articles/categories', 'ArticlesCategoriesController@showPage')
 		->name('admin.articles.categories');
-	Route::get('/articles/json-categories', 'ArticleCategoriesController@categories')
+	Route::get('/articles/json-categories', 'ArticlesCategoriesController@categories')
 		->name('admin.articles.json.categories');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
