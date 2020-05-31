@@ -81,6 +81,9 @@ Vue.component('users-list-component', require('./components/admin/dashboard/User
 Vue.component('news-table-component', require('./components/admin/news/NewsTableComponent.vue').default);
 Vue.component('news-categories-table-component', require('./components/admin/news/NewsCategoriesTableComponent.vue').default);
 Vue.component('news-comments-table-component', require('./components/admin/news/NewsCommentsTableComponent.vue').default);
+Vue.component('search-news-form-component', require('./components/admin/news/SearchNewsFormComponent.vue').default);
+Vue.component('search-news-categories-form-component', require('./components/admin/news/SearchNewsCategoriesComponent.vue').default);
+Vue.component('search-news-comments-form-component', require('./components/admin/news/SearchNewsCommentsComponent.vue').default);
 
 // Articles components
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);

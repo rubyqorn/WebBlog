@@ -28,6 +28,13 @@ class NewsCategoriesController extends Controller
         return NewsCategory::paginate(5);
     }
 
+    public function search(Request $request)
+    {
+        return NewsCategory::where('name', 'like', '%' . $request->name . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
+    }
+
     /**
      * Store articles categories in database
      * 

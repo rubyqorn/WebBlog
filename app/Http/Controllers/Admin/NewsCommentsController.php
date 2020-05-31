@@ -29,4 +29,12 @@ class NewsCommentsController extends Controller
             ->with('user')
             ->paginate(5);
     }
+
+    public function search(Request $request)
+    {
+        return NewsComment::with('news')
+            ->with('user')
+            ->where('comment', 'like', '%' . $request->comment . '%')
+            ->paginate(5);
+    }
 }

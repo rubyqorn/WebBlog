@@ -2528,6 +2528,10 @@ __webpack_require__.r(__webpack_exports__);
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm, yy');
+    },
+    trimString: function trimString(str) {
+      var trimed = str.slice(0, 50);
+      return trimed += '...';
     }
   }
 });
@@ -2543,6 +2547,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2710,6 +2716,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2814,6 +2822,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2842,6 +2853,393 @@ __webpack_require__.r(__webpack_exports__);
     trimString: function trimString(str) {
       var trimed = str.slice(0, 50);
       return trimed += '...';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf'],
+  data: function data() {
+    return {
+      categories: {}
+    };
+  },
+  methods: {
+    searchCategories: function searchCategories(url, data) {
+      var _this = this;
+
+      this.$http.post(url, data).then(function (response) {
+        _this.categories = response.data;
+      });
+    },
+    search: function search() {
+      var data = {
+        _token: document.querySelector('#dashboard #search-news-categories-form input[name="_token"]').value,
+        name: document.querySelector('#dashboard #search-news-categories-form input[name="searching"]').value
+      };
+      this.searchCategories('/dashboard/news/categories/search', data);
+      this.hideMainCategoriesTable();
+      this.hideCategoriesPagination();
+      this.showSearchCategoriesTable();
+    },
+    hideMainCategoriesTable: function hideMainCategoriesTable() {
+      return document.querySelector('#dashboard #news-categories-table #table').remove();
+    },
+    hideCategoriesPagination: function hideCategoriesPagination() {
+      return document.querySelector('#dashboard #news-categories-table #news-categories-pagination').remove();
+    },
+    showSearchCategoriesTable: function showSearchCategoriesTable() {
+      return document.querySelector('#dashboard #search-news-categories-form #search-content').classList.remove('d-none');
+    },
+    trimString: function trimString(str) {
+      var trimed = str.slice(0, 50);
+      return trimed += '...';
+    },
+    dateFormating: function dateFormating(date) {
+      var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
+      return format(date, 'dd mmm, yy');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf'],
+  data: function data() {
+    return {
+      comments: {}
+    };
+  },
+  methods: {
+    trimStr: function trimStr(str) {
+      var trimed = str.slice(0, 50);
+      return trimed += '...';
+    },
+    dateFormating: function dateFormating(date) {
+      var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
+      return format(date, 'dd mmm, yyy');
+    },
+    getComments: function getComments(url, data) {
+      var _this = this;
+
+      this.$http.post(url, data).then(function (response) {
+        _this.comments = response.data;
+      });
+    },
+    search: function search() {
+      var data = {
+        _token: document.querySelector('#dashboard #search-news-comments-form input[name="_token"]').value,
+        comment: document.querySelector('#dashboard #search-news-comments-form input[name="searching"]').value
+      };
+      this.getComments('/dashboard/news/comments/search', data);
+      this.hideNewsCommentsTable();
+      this.hideNewsCommentsPagination();
+      this.showSearhedNewsComments();
+    },
+    hideNewsCommentsTable: function hideNewsCommentsTable() {
+      return document.querySelector('#dashboard #news-comments #table').remove();
+    },
+    hideNewsCommentsPagination: function hideNewsCommentsPagination() {
+      return document.querySelector('#dashboard #news-comments #news-comments-pagination').remove();
+    },
+    showSearhedNewsComments: function showSearhedNewsComments() {
+      return document.querySelector('#dashboard #search-news-comments-form #search-content').classList.remove('d-none');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf'],
+  data: function data() {
+    return {
+      news: {}
+    };
+  },
+  methods: {
+    searchNews: function searchNews(url, data) {
+      var _this = this;
+
+      this.$http.post(url, data).then(function (response) {
+        _this.news = response.data;
+      });
+    },
+    search: function search() {
+      var data = {
+        _token: document.querySelector('#dashboard #search-news-form input[name="_token"]').value,
+        title: document.querySelector('#dashboard #search-news-form input[name="searching"]').value
+      };
+      this.searchNews('/dashboard/news/search', data);
+      this.hideMainNewsTable();
+      this.hideNewsPagination();
+      this.showSearchNewsTable();
+    },
+    hideMainNewsTable: function hideMainNewsTable() {
+      return document.querySelector('#dashboard #news-categories-table #table').remove();
+    },
+    hideNewsPagination: function hideNewsPagination() {
+      return document.querySelector('#dashboard #news-categories-table #news-pagination').remove();
+    },
+    showSearchNewsTable: function showSearchNewsTable() {
+      return document.querySelector('#dashboard #search-news-categories-form #search-content').classList.remove('d-none');
+    },
+    trimString: function trimString(str) {
+      var trimed = str.slice(0, 50);
+      return trimed += '...';
+    },
+    dateFormating: function dateFormating(date) {
+      var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
+
+      return format(date, 'dd mmm, yy');
     }
   }
 });
@@ -42829,11 +43227,11 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted font-weight-bold" }, [
-                  _vm._v(_vm._s(discussion.author.name))
+                  _vm._v(_vm._s(discussion.authors.name))
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted font-weight-bold" }, [
-                  _vm._v(_vm._s(discussion.comments_count))
+                  _vm._v(_vm._s(discussion.answers_count))
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted" }, [
@@ -42988,13 +43386,21 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-lg-12 mt-4 mb-4 p-4 rounded bg-white shadow" },
+    {
+      staticClass: "col-lg-12 mt-4 mb-4 p-4 rounded bg-white shadow",
+      attrs: { id: "news-categories-table" }
+    },
     [
       _vm._m(0),
       _vm._v(" "),
+      _vm._t("default"),
+      _vm._v(" "),
       _c(
         "table",
-        { staticClass: "table table-striped table-hover table-border mt-4" },
+        {
+          staticClass: "table table-striped table-hover table-border mt-4",
+          attrs: { id: "table" }
+        },
         [
           _vm._m(1),
           _vm._v(" "),
@@ -43056,7 +43462,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row justify-content-end p-3" },
+        {
+          staticClass: "row justify-content-end p-3",
+          attrs: { id: "news-categories-pagination" }
+        },
         [
           _c("pagination", {
             attrs: { data: this.categories },
@@ -43065,7 +43474,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -43201,47 +43611,59 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("table", { staticClass: "table mt-4 table-striped table-hover" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(this.comments.data, function(comment) {
-            return _c("tr", { staticClass: "robot-font" }, [
-              _c("td", { staticClass: "font-weight-bold" }, [
-                _vm._v(_vm._s(comment.id))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-muted" }, [
-                _vm._v(_vm._s(_vm.trimStr(comment.comment)))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-muted font-weight-bold" }, [
-                _vm._v(_vm._s(comment.user.name))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-muted" }, [
-                _vm._v(_vm._s(_vm.trimStr(comment.news.title)))
-              ]),
-              _vm._v(" "),
-              _c("td", { staticClass: "text-muted" }, [
-                _vm._v(_vm._s(_vm.dateFormating(comment.created_at)))
-              ]),
-              _vm._v(" "),
-              _vm._m(2, true),
-              _vm._v(" "),
-              _vm._m(3, true)
-            ])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _vm._m(4)
-      ]),
+      _vm._t("default"),
+      _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass: "table mt-4 table-striped table-hover",
+          attrs: { id: "table" }
+        },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(this.comments.data, function(comment) {
+              return _c("tr", { staticClass: "robot-font" }, [
+                _c("td", { staticClass: "font-weight-bold" }, [
+                  _vm._v(_vm._s(comment.id))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.trimStr(comment.comment)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted font-weight-bold" }, [
+                  _vm._v(_vm._s(comment.user.name))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.trimStr(comment.news.title)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.dateFormating(comment.created_at)))
+                ]),
+                _vm._v(" "),
+                _vm._m(2, true),
+                _vm._v(" "),
+                _vm._m(3, true)
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _vm._m(4)
+        ]
+      ),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row justify-content-end p-3" },
+        {
+          staticClass: "row justify-content-end p-3",
+          attrs: { id: "news-comments-pagination" }
+        },
         [
           _c("pagination", {
             attrs: { data: this.comments },
@@ -43250,7 +43672,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -43386,9 +43809,14 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
+      _vm._t("default"),
+      _vm._v(" "),
       _c(
         "table",
-        { staticClass: "mt-4 table table-border table-stripped table-hover" },
+        {
+          staticClass: "mt-4 table table-border table-stripped table-hover",
+          attrs: { id: "table" }
+        },
         [
           _vm._m(1),
           _vm._v(" "),
@@ -43402,18 +43830,20 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted" }, [
-                  _vm._v(_vm._s(news.title))
+                  _vm._v(_vm._s(_vm.trimString(news.title)))
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted font-weight-bold" }, [
-                  _vm._v(_vm._s(news.author.name))
+                  _vm._v(_vm._s(news.category.name))
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted font-weight-bold" }, [
                   _vm._v(_vm._s(news.comments_count))
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(_vm.dateFormating(news.created_at)))]),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.dateFormating(news.created_at)))
+                ]),
                 _vm._v(" "),
                 _vm._m(2, true),
                 _vm._v(" "),
@@ -43429,7 +43859,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row justify-content-end p-4" },
+        {
+          staticClass: "row justify-content-end p-4",
+          attrs: { id: "news-pagination" }
+        },
         [
           _c("pagination", {
             attrs: { data: this.news },
@@ -43438,7 +43871,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -43474,7 +43908,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Author")]),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("Comments")]),
         _vm._v(" "),
@@ -43527,7 +43961,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Author")]),
+        _c("th", [_vm._v("Category")]),
         _vm._v(" "),
         _c("th", [_vm._v("Comments")]),
         _vm._v(" "),
@@ -43536,6 +43970,745 @@ var staticRenderFns = [
         _c("th", [_vm._v("Delete")]),
         _vm._v(" "),
         _c("th", [_vm._v("Update")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 mt-3",
+      attrs: { id: "search-news-categories-form" }
+    },
+    [
+      _c("div", { staticClass: "d-flex" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-11 collapse", attrs: { id: "search-field" } },
+          [
+            _c(
+              "form",
+              {
+                attrs: {
+                  action: "/dashboard/news/categories/search",
+                  method: "post"
+                }
+              },
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group d-flex" }, [
+                  _c("input", {
+                    staticClass: "form-control robot-font text-muted",
+                    attrs: {
+                      type: "search",
+                      name: "searching",
+                      placeholder: "News searching",
+                      autofocus: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-dark robot-font text-uppercase ml-2 mt-1 h-100",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.search($event)
+                        }
+                      }
+                    },
+                    [_c("small", [_vm._v("Search")])]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass:
+            "table table-striped table-hover table-border mt-4 d-none",
+          attrs: { id: "search-content" }
+        },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(this.categories.data, function(category) {
+              return _c("tr", [
+                _c("td", { staticClass: "font-weight-bold" }, [
+                  _vm._v(_vm._s(category.category_id))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { staticClass: "text-muted font-weight-bold robot-font" },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(category.name) +
+                        "\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { staticClass: "text-muted font-weight-bold robot-font" },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(category.color) +
+                        "\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  { staticClass: "text-muted font-weight-bold robot-font" },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.dateFormating(category.created_at)) +
+                        "\n                "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(2, true),
+                _vm._v(" "),
+                _vm._m(3, true)
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _vm._m(4)
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "row justify-content-end p-3",
+          attrs: { id: "news-categories-pagination" }
+        },
+        [
+          _c("pagination", {
+            attrs: { data: this.categories },
+            on: { "pagination-change-page": this.searchCategories }
+          })
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-1" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn",
+          attrs: {
+            "data-toggle": "collapse",
+            "data-target": "#search-field",
+            id: "toggle-search-form"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-search text-muted" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "thead",
+      { staticClass: "text-white bg-warning font-weight-bold robot-font" },
+      [
+        _c("tr", [
+          _c("th", [_vm._v("#")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Color")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Created")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Delete")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Update")])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass:
+            "btn btn-outline-secondary btn-sm text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Delete")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-outline-dark btn-sm text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Update")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "tfoot",
+      { staticClass: "text-white bg-warning font-weight-bold robot-font" },
+      [
+        _c("tr", [
+          _c("th", [_vm._v("#")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Color")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Created")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Delete")]),
+          _vm._v(" "),
+          _c("th", [_vm._v("Update")])
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 mt-3",
+      attrs: { id: "search-news-comments-form" }
+    },
+    [
+      _c("div", { staticClass: "d-flex" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-11 collapse", attrs: { id: "search-field" } },
+          [
+            _c(
+              "form",
+              {
+                attrs: {
+                  action: "/dashboard/news/comments/search",
+                  method: "post"
+                }
+              },
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group d-flex" }, [
+                  _c("input", {
+                    staticClass: "form-control robot-font text-muted",
+                    attrs: {
+                      type: "search",
+                      name: "searching",
+                      placeholder: "News searching",
+                      autofocus: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-dark robot-font text-uppercase ml-2 mt-1 h-100",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.search($event)
+                        }
+                      }
+                    },
+                    [_c("small", [_vm._v("Search")])]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass: "table mt-4 table-striped table-hover d-none",
+          attrs: { id: "search-content" }
+        },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(this.comments.data, function(comment) {
+              return _c("tr", { staticClass: "robot-font" }, [
+                _c("td", { staticClass: "font-weight-bold" }, [
+                  _vm._v(_vm._s(comment.id))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.trimStr(comment.comment)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted font-weight-bold" }, [
+                  _vm._v(_vm._s(comment.user.name))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.trimStr(comment.news.title)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.dateFormating(comment.created_at)))
+                ]),
+                _vm._v(" "),
+                _vm._m(2, true),
+                _vm._v(" "),
+                _vm._m(3, true)
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _vm._m(4)
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "row justify-content-end p-3",
+          attrs: { id: "news-comments-pagination" }
+        },
+        [
+          _c("pagination", {
+            attrs: { data: this.comments },
+            on: { "pagination-change-page": this.getComments }
+          })
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-1" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn",
+          attrs: {
+            "data-toggle": "collapse",
+            "data-target": "#search-field",
+            id: "toggle-search-form"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-search text-muted" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-dark" }, [
+      _c("tr", { staticClass: "robot-font font-weight-bold text-white" }, [
+        _c("td", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Comment")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Author")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("News")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Delete")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Update")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass:
+            "btn btn-sm btn-outline-danger text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Delete")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass:
+            "btn btn-sm btn-outline-success text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Edit")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tfoot", { staticClass: "bg-dark" }, [
+      _c("tr", { staticClass: "robot-font font-weight-bold text-white" }, [
+        _c("td", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Comment")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Author")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("News")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Delete")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Update")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 mt-3",
+      attrs: { id: "search-news-categories-form" }
+    },
+    [
+      _c("div", { staticClass: "d-flex" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-11 collapse", attrs: { id: "search-field" } },
+          [
+            _c(
+              "form",
+              { attrs: { action: "/dashboard/news/search", method: "post" } },
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group d-flex" }, [
+                  _c("input", {
+                    staticClass: "form-control robot-font text-muted",
+                    attrs: {
+                      type: "search",
+                      name: "searching",
+                      placeholder: "News searching",
+                      autofocus: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-dark robot-font text-uppercase ml-2 mt-1 h-100",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.search($event)
+                        }
+                      }
+                    },
+                    [_c("small", [_vm._v("Search")])]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass: "table table-hover table-striped mt-4 d-none",
+          attrs: { id: "search-content" }
+        },
+        [
+          _vm._m(1),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            { staticClass: "robot-font" },
+            _vm._l(this.news.data, function(news) {
+              return _c("tr", [
+                _c("td", { staticClass: "font-weight-bold" }, [
+                  _vm._v(_vm._s(news.id))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.trimString(news.title)))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted font-weight-bold" }, [
+                  _vm._v(_vm._s(news.category.name))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted font-weight-bold" }, [
+                  _vm._v(_vm._s(news.comments_count))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-muted" }, [
+                  _vm._v(_vm._s(_vm.dateFormating(news.created_at)))
+                ]),
+                _vm._v(" "),
+                _vm._m(2, true),
+                _vm._v(" "),
+                _vm._m(3, true)
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _vm._m(4)
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-12 mt-4 mb-3 row justify-content-end",
+          attrs: { id: "search-news-pagination" }
+        },
+        [
+          _c("pagination", {
+            attrs: { data: this.news },
+            on: { "pagination-change-page": this.searchNews }
+          })
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-1" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn",
+          attrs: {
+            "data-toggle": "collapse",
+            "data-target": "#search-field",
+            id: "toggle-search-form"
+          }
+        },
+        [_c("i", { staticClass: "fa fa-search text-muted" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "bg-dark font-weight-bold" }, [
+      _c("tr", { staticClass: "robot-font text-white" }, [
+        _c("td", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Comments")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Delete")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Update")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-outline-info text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Delete")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          staticClass:
+            "btn btn-sm btn-sm btn-outline-primary text-uppercase robot-font",
+          attrs: { href: "/" }
+        },
+        [_c("small", [_vm._v("Edit")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tfoot", { staticClass: "bg-dark font-weight-bold" }, [
+      _c("tr", { staticClass: "robot-font text-white" }, [
+        _c("td", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Comments")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Delete")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("Update")])
       ])
     ])
   }
@@ -61517,7 +62690,10 @@ Vue.component('users-list-component', __webpack_require__(/*! ./components/admin
 
 Vue.component('news-table-component', __webpack_require__(/*! ./components/admin/news/NewsTableComponent.vue */ "./resources/js/components/admin/news/NewsTableComponent.vue")["default"]);
 Vue.component('news-categories-table-component', __webpack_require__(/*! ./components/admin/news/NewsCategoriesTableComponent.vue */ "./resources/js/components/admin/news/NewsCategoriesTableComponent.vue")["default"]);
-Vue.component('news-comments-table-component', __webpack_require__(/*! ./components/admin/news/NewsCommentsTableComponent.vue */ "./resources/js/components/admin/news/NewsCommentsTableComponent.vue")["default"]); // Articles components
+Vue.component('news-comments-table-component', __webpack_require__(/*! ./components/admin/news/NewsCommentsTableComponent.vue */ "./resources/js/components/admin/news/NewsCommentsTableComponent.vue")["default"]);
+Vue.component('search-news-form-component', __webpack_require__(/*! ./components/admin/news/SearchNewsFormComponent.vue */ "./resources/js/components/admin/news/SearchNewsFormComponent.vue")["default"]);
+Vue.component('search-news-categories-form-component', __webpack_require__(/*! ./components/admin/news/SearchNewsCategoriesComponent.vue */ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue")["default"]);
+Vue.component('search-news-comments-form-component', __webpack_require__(/*! ./components/admin/news/SearchNewsCommentsComponent.vue */ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue")["default"]); // Articles components
 
 Vue.component('articles-table-component', __webpack_require__(/*! ./components/admin/articles/ArticlesTableComponent.vue */ "./resources/js/components/admin/articles/ArticlesTableComponent.vue")["default"]);
 Vue.component('articles-comments-table-component', __webpack_require__(/*! ./components/admin/articles/ArticlesCommentsComponent.vue */ "./resources/js/components/admin/articles/ArticlesCommentsComponent.vue")["default"]);
@@ -62487,6 +63663,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewsTableComponent_vue_vue_type_template_id_4bb5cb63___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewsTableComponent_vue_vue_type_template_id_4bb5cb63___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55& */ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55&");
+/* harmony import */ var _SearchNewsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchNewsCategoriesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchNewsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/news/SearchNewsCategoriesComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsCategoriesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCategoriesComponent.vue?vue&type=template&id=30e23a55&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCategoriesComponent_vue_vue_type_template_id_30e23a55___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCommentsComponent.vue ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d& */ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d&");
+/* harmony import */ var _SearchNewsCommentsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchNewsCommentsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchNewsCommentsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/news/SearchNewsCommentsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCommentsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsCommentsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCommentsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsCommentsComponent.vue?vue&type=template&id=15ef707d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsCommentsComponent_vue_vue_type_template_id_15ef707d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsFormComponent.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsFormComponent.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad& */ "./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad&");
+/* harmony import */ var _SearchNewsFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchNewsFormComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchNewsFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/news/SearchNewsFormComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsFormComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsFormComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/news/SearchNewsFormComponent.vue?vue&type=template&id=67a9b1ad&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchNewsFormComponent_vue_vue_type_template_id_67a9b1ad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

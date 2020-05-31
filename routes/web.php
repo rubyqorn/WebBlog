@@ -115,6 +115,12 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.categories');
 	Route::get('/news/json-categories', 'NewsCategoriesController@categories')
 		->name('admin.news.json.categories');
+	Route::post('/news/search', 'NewsController@search')
+		->name('admin.news.search');
+	Route::post('/news/categories/search', 'NewsCategoriesController@search')
+		->name('admin.news.categories.search');
+	Route::post('/news/comments/search', 'NewsCommentsController@search')
+		->name('admin.news.comments.search');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');

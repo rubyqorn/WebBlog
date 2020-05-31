@@ -23,19 +23,13 @@ class NewsController extends Controller
             ->withChart($chart);
     }
 
-    /**
-     * Search news by request content
-     * 
-     * @param \Illuminate\Http\Request
-     *  
-     * @return \Illuminate\Http\Response
-    */ 
     public function search(Request $request)
     {
-        $news = News::searchNews($request);
-        $categories = NewsCategory::all();
-
-        return view('templates.admin.search-content', compact('categories', 'news'));
+        return News::with('category')
+            ->withCount('comments')
+            ->where('title', 'like', '%' . $request->title . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 
     /**

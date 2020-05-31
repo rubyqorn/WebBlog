@@ -10,12 +10,15 @@
                 </a>
             </div>
         </div>
-        <table class="mt-4 table table-border table-stripped table-hover">
+
+        <slot></slot>
+
+        <table class="mt-4 table table-border table-stripped table-hover" id="table">
             <thead class="bg-info text-white">
                 <tr class="font-weight-bold robot-font">
                     <th>#</th>
                     <th>Title</th>
-                    <th>Author</th>
+                    <th>Category</th>
                     <th>Comments</th>
                     <th>Created</th>
                     <th>Delete</th>
@@ -25,10 +28,10 @@
             <tbody class="robot-font">
                 <tr v-for="news in this.news.data">
                     <td class="font-weight-bold">{{ news.id }}</td>
-                    <td class="text-muted">{{ news.title }}</td>
-                    <td class="text-muted font-weight-bold">{{ news.author.name }}</td>
+                    <td class="text-muted">{{ trimString(news.title )}}</td>
+                    <td class="text-muted font-weight-bold">{{ news.category.name }}</td>
                     <td class="text-muted font-weight-bold">{{ news.comments_count }}</td>
-                    <td>{{ dateFormating(news.created_at) }}</td>
+                    <td class="text-muted">{{ dateFormating(news.created_at) }}</td>
                     <td>
                         <a href="/" class="btn btn-sm btn-outline-info text-uppercase robot-font">
                             <small>Delete</small>
@@ -45,7 +48,7 @@
                 <tr class="font-weight-bold robot-font">
                     <th>#</th>
                     <th>Title</th>
-                    <th>Author</th>
+                    <th>Category</th>
                     <th>Comments</th>
                     <th>Created</th>
                     <th>Delete</th>
@@ -53,7 +56,7 @@
                 </tr>
             </tfoot>
         </table>
-        <div class="row justify-content-end p-4">
+        <div class="row justify-content-end p-4" id="news-pagination">
             <pagination :data="this.news" @pagination-change-page="this.getNews"></pagination>
         </div>
     </div>
