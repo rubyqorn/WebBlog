@@ -11,7 +11,9 @@
             </div>
         </div>
 
-        <table class="table table-hover table-striped mt-4">
+        <slot></slot>
+
+        <table class="table table-hover table-striped mt-4" id="table">
             <thead class="bg-peach rounded">
                 <tr class="robot-font text-white font-weight-bold">
                     <td>#</td>
@@ -58,7 +60,7 @@
             </tfoot>
         </table>
 
-        <div class="col-lg-12 p-3 row justify-content-end">
+        <div class="col-lg-12 p-3 row justify-content-end" id="articles-categories-pagination">
             <pagination :data="this.categories" @pagination-change-page="this.getCategories"></pagination>
         </div>
     </div>
