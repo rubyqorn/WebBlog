@@ -33,18 +33,14 @@ class ArticlesController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Search articles by request content
-     * 
-     * @param \Illuminate\Http\Request
-     *  
-     * @return \Illuminate\Http\Response
-    */ 
     public function search(Request $request)
     {
-        $articles = Article::searchArticles($request);
-        $categories = ArticleCategory::all();
-        return view('templates.admin.search-content', compact('articles', 'categories'));
+        return Article::with('category')
+            ->with('author')
+            ->withCount('comments')
+            ->where('title', 'like', '%' . $request->title . '%')
+            ->orderByDesc('created_at')
+            ->paginate(5);
     }
 
     /**

@@ -89,6 +89,9 @@ Vue.component('search-news-comments-form-component', require('./components/admin
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
 Vue.component('articles-comments-table-component', require('./components/admin/articles/ArticlesCommentsComponent.vue').default);
 Vue.component('articles-categories-table-component', require('./components/admin/articles/ArticlesCategoriesComponent.vue').default);
+Vue.component('search-articles-form-component', require('./components/admin/articles/SearchArticlesFormComponent.vue').default);
+Vue.component('search-articles-categories-form-component', require('./components/admin/articles/SearchArticlesCategoriesComponent.vue').default);
+Vue.component('search-articles-comments-form-component', require('./components/admin/articles/SearchArticlesCommentsComponent.vue').default);
 
 // Discussions components
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);

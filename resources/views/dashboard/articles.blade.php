@@ -19,7 +19,13 @@
                     {!! $chart->container() !!}
                 </div>
 
-                <articles-table-component></articles-table-component>
+                <articles-table-component>
+                    <slot>
+                        <search-articles-form-component
+                            :csrf="{{ json_encode(csrf_token()) }}"
+                        ></search-articles-form-component>
+                    </slot>
+                </articles-table-component>
             </slot>
 
         <admin-footer-component></admin-footer-component>
