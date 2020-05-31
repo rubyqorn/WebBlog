@@ -27,8 +27,8 @@
                 <tr class="robot-font" v-for="discussion in this.discussions.data">
                     <td class="font-weight-bold">{{ discussion.id }}</td>
                     <td class="text-muted">{{ trimString(discussion.title) }}</td>
-                    <td class="text-muted font-weight-bold">{{ discussion.author.name }}</td>
-                    <td class="text-muted font-weight-bold">{{ discussion.comments_count }}</td>
+                    <td class="text-muted font-weight-bold">{{ discussion.authors.name }}</td>
+                    <td class="text-muted font-weight-bold">{{ discussion.answers_count }}</td>
                     <td class="text-muted">{{ dateFormating(discussion.created_at) }}</td>
                     <td>
                         <a href="/" class="btn btn-sm btn-outline-info robot-font text-uppercase">
@@ -88,6 +88,11 @@
             dateFormating(date) {
                 let format = require('dateformat');
                 return format(date, 'dd mmm, yy');
+            },
+
+            trimString(str) {
+                let trimed = str.slice(0,50);
+                return trimed += '...';
             }   
         }
     }

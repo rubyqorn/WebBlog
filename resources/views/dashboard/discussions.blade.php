@@ -18,10 +18,11 @@
                 <div class="col-lg-12 rounded shadow bg-white mt-4 mb-4 p-4">
                     {!! $chart->container() !!}
                 </div>
-                
+
                 <discussions-table-component></discussions-table-component>
+
+                <admin-footer-component></admin-footer-component>
             </slot>
-        
         </admin-collapsible-sidebar-component>
     </div>
 

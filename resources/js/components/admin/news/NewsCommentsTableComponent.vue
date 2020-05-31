@@ -11,7 +11,9 @@
             </div>
         </div>
 
-        <table class="table mt-4 table-striped table-hover">
+        <slot></slot>
+
+        <table class="table mt-4 table-striped table-hover" id="table">
             <thead class="bg-dark">
                 <tr class="robot-font font-weight-bold text-white">
                     <td>#</td>
@@ -55,7 +57,7 @@
             </tfoot>
         </table>
 
-        <div class="row justify-content-end p-3">
+        <div class="row justify-content-end p-3" id="news-comments-pagination">
             <pagination :data="this.comments" @pagination-change-page="this.getComments"></pagination>
         </div>
     </div>
