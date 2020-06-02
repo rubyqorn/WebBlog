@@ -121,6 +121,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.categories.search');
 	Route::post('/news/comments/search', 'NewsCommentsController@search')
 		->name('admin.news.comments.search');
+	Route::get('/news/create', 'NewsController@create')
+		->name('admin.news.create');
+	Route::post('/news/store', 'NewsController@store')
+		->name('admin.news.store');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');

@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 Vue.use(require('vue-resource'));
+Vue.use(require('ckeditor4-vue'));
 
 /**
  * The following block of code may be used to automatically register your
@@ -84,6 +85,7 @@ Vue.component('news-comments-table-component', require('./components/admin/news/
 Vue.component('search-news-form-component', require('./components/admin/news/SearchNewsFormComponent.vue').default);
 Vue.component('search-news-categories-form-component', require('./components/admin/news/SearchNewsCategoriesComponent.vue').default);
 Vue.component('search-news-comments-form-component', require('./components/admin/news/SearchNewsCommentsComponent.vue').default);
+Vue.component('create-news-component', require('./components/admin/news/CreateNewsFormComponent.vue').default);
 
 // Articles components
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
