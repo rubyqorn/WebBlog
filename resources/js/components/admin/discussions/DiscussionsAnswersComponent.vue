@@ -57,7 +57,7 @@
             </tfoot>
         </table>
 
-        <div class="row justify-content-end p-3" id="discussion-answers-pagination">
+        <div class="row justify-content-end p-3" id="discussions-answers-pagination">
             <pagination :data="this.answers" @pagination-change-page="this.getAnswers"></pagination>
         </div>
     </div>

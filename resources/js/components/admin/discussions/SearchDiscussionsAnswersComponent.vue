@@ -7,7 +7,7 @@
                 </button>
             </div>
             <div class="col-lg-11 collapse" id="search-field">
-                <form action="/dashboard/news/categories/search" method="post">
+                <form action="/dashboard/discussions/answers/search" method="post">
                     <input type="hidden" name="_token" :value="csrf">
 
                     <div class="form-group d-flex">
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <table class="table mt-4 table-striped table-hover" id="search-content">
+        <table class="table mt-4 table-striped table-hover d-none" id="search-content">
             <thead class="bg-violet">
                 <tr class="robot-font font-weight-bold text-white">
                     <td>#</td>

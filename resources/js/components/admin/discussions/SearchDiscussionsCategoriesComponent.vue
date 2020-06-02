@@ -92,7 +92,7 @@
             },
 
             getCategories(url, data) {
-                return this.$http.post(url,data).then(response => {
+                this.$http.post(url, data).then(response => {
                     this.categories = response.data;
                 });
             },
@@ -130,7 +130,7 @@
                 return document.querySelector(
                     '#dashboard #search-discussions-categories-form #search-content'
                 ).classList
-                 remove('d-none');
+                 .remove('d-none');
             }
         }
     }

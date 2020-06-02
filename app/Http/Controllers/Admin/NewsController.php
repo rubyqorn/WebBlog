@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Charts\NewsItemsChart;
@@ -32,23 +34,47 @@ class NewsController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function create() 
     {
-        if ($request->isMethod('post')) {
-             $storing = News::store($request);
-
-             if($storing) {
-                return redirect()->back()->withStatus('Your record was created successfully');
-             }
-            
+        if (!view()->exists('dashboard.create-news')) {
+            abort(404);
         }
 
+        return view('dashboard.create-news')
+            ->withTitle('Create news')
+            ->withCategories(NewsCategory::all());
+    }
+
+    protected function getCategoryIdByName(string $name)
+    {
+        return NewsCategory::select('category_id')
+            ->where('name', 'like', '%' . $name . '%')
+            ->get();
+    }
+
+    public function store(Request $request) 
+    {
+
+        $categoryId = $this->getCategoryIdByName($request->category)['0']['category_id'];
+        $newsData = $request->validate([
+            'title' => 'required|min:10|max:80',
+            'description' => 'required|min:120',
+            'file' => 'required|image'
+        ]);
+
+        $image = $request->file('file');
+        $extension = $image->getClientOriginalExtension();
+        Storage::disk('public')->put(
+            $image->getFileName() . '.' . $extension, File::get($image)
+        );
+
+        return News::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'image' => $image->getFileName() . '.' . $extension
+        ]);
     }
 
     /**

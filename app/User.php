@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany(Discussion::class, 'id');
     }
 
+    public function news() 
+    {
+        return $this->hasMany(News::class, 'id');
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class, 'id');
