@@ -50,6 +50,10 @@
                 </button>
             </div>
         </form>
+
+        <admin-toast-component
+            :message="this.message"
+        ></admin-toast-component>
     </div>
 </template>
 
@@ -64,7 +68,8 @@
                 title: '',
                 description: '',
                 file: '',
-                response: {}
+                response: {},
+                message: ''
             }
         },
 
@@ -81,28 +86,56 @@
                 formData.append('category', document.querySelector(
                     '#dashboard #create-news #category'
                 ).value);
+                formData.append('_token', document.querySelector(
+                    '#dashboard #create-news input[name="_token"]'
+                ).value);
 
                 return formData;
             },
 
             pushRequest(url, data, headers) {
-
                 axios.post(url, data, headers).then(data => {
                     this.response = data.data;
-                }).catch(error => console.log(error));
+
+                    if (this.response.status_code == '200') {
+                        this.message = this.response.message
+                        $('#dashboard #toast').removeClass('hide').addClass('show');
+
+                        this.clearForm();
+                        this.hideToastBtn();   
+                    }
+                })
             },
 
             createNews() {
-                let data = this.getFormData()                
+                let data = this.getFormData();           
 
-                const headers = {
+                this.pushRequest('/dashboard/news/create', data, {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRF-TOKEN': document.querySelector(
                         '#dashboard #create-news input[name="_token"]'
                     ).value
-                };
+                });
+            },
 
-                this.pushRequest('/dashboard/news/store', data, headers);
+            clearForm() {
+                this.title = '';
+                this.description = '';
+            },
+
+            hideToastBtn() {
+                let hideToastBtn = document.querySelector(
+                    '#dashboard #toast #hide-toast'
+                );
+
+                hideToastBtn.addEventListener('click', function() {
+                    let toast = document.querySelector(
+                        '#dashboard #toast'
+                    );
+
+                    toast.classList.add('hide');
+                    toast.classList.remove('show');
+                });
             }
         }
     }

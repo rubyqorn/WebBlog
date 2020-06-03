@@ -87,7 +87,7 @@
                 return format(date, 'dd mmm, yy');
             },
             trimString(str) {
-                let trimed = str.slice(0, 50);
+                let trimed = str.slice(0, 30);
                 return trimed += '...'
             }
         }

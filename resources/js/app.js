@@ -74,6 +74,7 @@ Vue.component('reset-password-component', require('./components/auth/password/Re
 Vue.component('admin-navbar-component', require('./components/admin/parts/NavbarComponent.vue').default);
 Vue.component('admin-collapsible-sidebar-component', require('./components/admin/parts/CollapsibleSidebarComponent.vue').default);
 Vue.component('admin-footer-component', require('./components/admin/parts/FooterComponent.vue').default);
+Vue.component('admin-toast-component', require('./components/admin/parts/StatusMessageComponent.vue').default);
 
 // Dashboard components
 Vue.component('users-list-component', require('./components/admin/dashboard/UsersListComponent.vue').default);

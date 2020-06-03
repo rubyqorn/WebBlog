@@ -13,7 +13,7 @@
                     <small>{{ dateFormating(news.created_at) }}</small>
                 </p>
                 <div class="text-center mb-2">
-                    <a :href="`${ '/news/' + news.id }`" class="text-dark robot-font">
+                    <a v-html="news.title" :href="`${ '/news/' + news.id }`" class="text-dark robot-font">
                         {{ news.title }}
                     </a>
                 </div>

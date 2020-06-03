@@ -4,7 +4,7 @@
 
             <div class="col-lg-8">
                 <div class="col-lg-12">
-                    <h2 class="robot-cond-font">
+                    <h2 v-html="news.title" class="robot-cond-font">
                         {{ news.title }}
                     </h2>
                 </div>
@@ -28,15 +28,13 @@
 
                 <div class="col-lg-12 mt-4">
                     <img :src="'/'+ news.image" class="w-100 rounded">
-                    <h5 class="robot-cond-font text-muted text-center mt-2 font-weight-bold">
+                    <h5 v-html="'<small>'+ news.title +'</small>'" class="robot-cond-font text-muted text-center mt-2 font-weight-bold">
                         <small>{{ news.title }}</small>
                     </h5>
                 </div>
 
-                <div class="col-lg-12 mt-4" id="content">
-                    <p class="robot-cond-font">
-                        {{ news.description }}
-                    </p>
+                <div v-html="news.description" class="col-lg-12 mt-4 robot-cond-font" id="content">
+                    {{ news.description }}
                 </div>
 
             </div>
