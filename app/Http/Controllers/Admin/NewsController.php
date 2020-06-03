@@ -54,8 +54,6 @@ class NewsController extends Controller
 
     public function store(Request $request) 
     {
-
-        $categoryId = $this->getCategoryIdByName($request->category)['0']['category_id'];
         $newsData = $request->validate([
             'title' => 'required|min:10|max:80',
             'description' => 'required|min:120',
@@ -68,12 +66,18 @@ class NewsController extends Controller
             $image->getFileName() . '.' . $extension, File::get($image)
         );
 
-        return News::create([
+        $categoryId = $this->getCategoryIdByName($request->category)['0']['category_id'];
+        News::create([
             'category_id' => $categoryId,
             'user_id' => \Auth::user()->id,
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => $newsData['title'],
+            'description' => $newsData['description'],
             'image' => $image->getFileName() . '.' . $extension
+        ]);
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Post created!'
         ]);
     }
 

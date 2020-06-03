@@ -123,7 +123,7 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.comments.search');
 	Route::get('/news/create', 'NewsController@create')
 		->name('admin.news.create');
-	Route::post('/news/store', 'NewsController@store')
+	Route::post('/news/create', 'NewsController@store')
 		->name('admin.news.store');
 
 	Route::get('articles', 'ArticlesController@showPage')
