@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class NewsCategory extends Model
 {
     protected $table = 'news_categories';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'color'];
 
 	/**
 	* @return inverse relationships with App\News
