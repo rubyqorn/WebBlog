@@ -96,6 +96,7 @@ Vue.component('articles-categories-table-component', require('./components/admin
 Vue.component('search-articles-form-component', require('./components/admin/articles/SearchArticlesFormComponent.vue').default);
 Vue.component('search-articles-categories-form-component', require('./components/admin/articles/SearchArticlesCategoriesComponent.vue').default);
 Vue.component('search-articles-comments-form-component', require('./components/admin/articles/SearchArticlesCommentsComponent.vue').default);
+Vue.component('create-articles-component', require('./components/admin/articles/CreateArticlesComponent.vue').default);
 
 // Discussions components
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);

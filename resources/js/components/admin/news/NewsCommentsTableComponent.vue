@@ -4,11 +4,6 @@
             <div class="col-lg-6 robot-font text-info">
                 <span class="h6"># News comments table</span>
             </div>
-            <div class="col-lg-6 pb-3 text-right justify-content-end">
-                <a class="btn btn-sm btn-dark text-uppercase text-white robot-font">
-                    <small>Create</small>
-                </a>
-            </div>
         </div>
 
         <slot></slot>
@@ -88,7 +83,7 @@
                 return format(date, 'dd mmm, yy');
             },
             trimStr(str) {
-                let trimed = str.slice(0, 50);
+                let trimed = str.slice(0, 30);
                 return trimed += '...'
             }
         }
