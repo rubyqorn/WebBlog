@@ -15,13 +15,10 @@
             :title="{{ json_encode($title) }}"
         >
             <slot>
-                <create-news-component
+                <create-articles-categories-component
                     :csrf="{{ json_encode(csrf_token()) }}"
-                    :categories="{{ json_encode($categories) }}"
-                ></create-news-component>
+                ></create-articles-categories-component>
             </slot>
         </admin-collapsible-sidebar-component>
-
-        
     </div>
 @endsection

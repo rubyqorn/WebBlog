@@ -35,17 +35,32 @@ class ArticlesCategoriesController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Store articles categories in database 
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\Response
-    */ 
-    public function storeCategories(Request $request)
+    public function create()
     {
-        parent::store($request, new ArticleCategory());
-        return redirect('admin/categories')->withStatus('Category was added successfully');
+        if (!view()->exists('dashboard.create-articles-categories')) {
+            return abort(404);
+        }
+
+        return view('dashboard.create-articles-categories')
+            ->withTitle('Create Article Category');
+    }
+
+    public function store(Request $request)
+    {
+        $categoryData = $request->validate([
+            'name' => 'required|min:3|max:20',
+            'color' => 'required'
+        ]);
+
+        ArticleCategory::create([
+            'name' => $categoryData['name'],
+            'color' => $categoryData['color']
+        ]);
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Category created!'
+        ]);
     }
 
     /**

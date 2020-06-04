@@ -26,8 +26,6 @@
                         ></search-news-form-component>
                     </slot>
                 </news-table-component>
-                
-                <admin-footer-component></admin-footer-component>
             </slot>
         </admin-collapsible-sidebar-component>
     </div>

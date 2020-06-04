@@ -26,8 +26,6 @@
                         ></search-news-comments-form-component>
                     </slot>
                 </news-comments-table-component>
-
-                <admin-footer-component></admin-footer-component>
             </slot>
         </admin-collapsible-sidebar-component>
     </div>

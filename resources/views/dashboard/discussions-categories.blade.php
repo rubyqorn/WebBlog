@@ -27,8 +27,6 @@
                     </slot>
                 </discussions-categories-table-component>
             </slot>
-
-            <admin-footer-component></admin-footer-component>
         </admin-collapsible-sidebar-component>
     </div>
 

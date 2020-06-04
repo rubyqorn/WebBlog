@@ -73,7 +73,6 @@ Vue.component('reset-password-component', require('./components/auth/password/Re
 // Common parts
 Vue.component('admin-navbar-component', require('./components/admin/parts/NavbarComponent.vue').default);
 Vue.component('admin-collapsible-sidebar-component', require('./components/admin/parts/CollapsibleSidebarComponent.vue').default);
-Vue.component('admin-footer-component', require('./components/admin/parts/FooterComponent.vue').default);
 Vue.component('admin-toast-component', require('./components/admin/parts/StatusMessageComponent.vue').default);
 
 // Dashboard components
@@ -97,6 +96,7 @@ Vue.component('search-articles-form-component', require('./components/admin/arti
 Vue.component('search-articles-categories-form-component', require('./components/admin/articles/SearchArticlesCategoriesComponent.vue').default);
 Vue.component('search-articles-comments-form-component', require('./components/admin/articles/SearchArticlesCommentsComponent.vue').default);
 Vue.component('create-articles-component', require('./components/admin/articles/CreateArticlesComponent.vue').default);
+Vue.component('create-articles-categories-component', require('./components/admin/articles/CreateArticlesCategoriesComponent.vue').default);
 
 // Discussions components
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);
