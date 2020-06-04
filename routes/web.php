@@ -152,6 +152,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.create');
 	Route::post('/articles/create', 'ArticlesController@store')
 		->name('admin.articles.store');
+	Route::get('/articles/categories/create', 'ArticlesCategoriesController@create')
+		->name('admin.articles.categories.create');
+	Route::post('/articles/categories/create', 'ArticlesCategoriesController@store')
+		->name('admin.articles.categories.store');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');

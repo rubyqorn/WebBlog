@@ -26,8 +26,6 @@
                         ></search-discussions-form-component>
                     </slot>
                 </discussions-table-component>
-
-                <admin-footer-component></admin-footer-component>
             </slot>
         </admin-collapsible-sidebar-component>
     </div>

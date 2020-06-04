@@ -5,7 +5,7 @@
                 <span class="robot-font text-info h6"># Articles categories table</span>
             </div>
             <div class="col-lg-6 text-right justify-content-end">
-                <a href="/" class="mb-3 btn btn-sm btn-dark robot-font text-uppercase">
+                <a href="/dashboard/articles/categories/create" class="mb-3 btn btn-sm btn-dark robot-font text-uppercase">
                     <small>Create</small>
                 </a>
             </div>

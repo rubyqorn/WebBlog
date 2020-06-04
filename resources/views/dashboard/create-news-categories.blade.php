@@ -19,8 +19,6 @@
                     :csrf="{{ json_encode(csrf_token()) }}"
                 ></create-news-categories-component>
             </slot>
-
-            <admin-footer-component></admin-footer-component>
         </admin-collapsible-sidebar-component>
     </div>
 @endsection
