@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Charts\ArticlesItemsChart;
@@ -43,22 +45,51 @@ class ArticlesController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        if (!view()->exists('dashboard.create-articles')) {
+            return abort(404);
+        }
+
+        return view('dashboard.create-articles')
+            ->withTitle('Create Article')
+            ->withCategories(ArticleCategory::all());
+    }
+
+    protected function getCategoryIdByName(string $name)
+    {
+        return ArticleCategory::select('category_id')
+            ->where('name', 'like', '%' . $name . '%')
+            ->get();
+    }
+
     public function store(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $storing = Article::store($request);
+        $articleData = $request->validate([
+            'title' => 'required|min:10|max:70',
+            'description' => 'required|min:120',
+            'image' => 'required|image'
+        ]);
 
-            if ($storing) {
-                return redirect()->back()->withStatus('Record was added successfully');
-            }
-            
-        }
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+        Storage::disk('public')->put(
+            $image->getFileName() . '.' . $extension, File::get($image)
+        );
+
+        $categoryId = $this->getCategoryIdByName($request->category)['0']['category_id'];
+        Article::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $articleData['title'],
+            'description' => $articleData['description'],
+            'image' => $image->getFileName() . '.' . $extension
+        ]);
+
+        return response()->json([
+            'status' => '200',
+            'message' => 'Article created!'
+        ]);
     }
 
     /**

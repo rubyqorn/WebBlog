@@ -5,7 +5,7 @@
                 <span class="h6"># Articles table</span>
             </div>
             <div class="col-lg-6 justify-content-end text-right">
-                <a href="/" class="mb-3 btn btn-sm btn-info text-white text-uppercase robot-font">
+                <a href="/dashboard/articles/create" class="mb-3 btn btn-sm btn-info text-white text-uppercase robot-font">
                     <small>Create</small>
                 </a>
             </div>
@@ -85,7 +85,7 @@
             },
 
             trimString(str) {
-                let trimed = str.slice(0, 50);
+                let trimed = str.slice(0, 30);
                 return str += '...';
             },
 

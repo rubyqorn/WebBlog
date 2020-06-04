@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class Article extends Model
 {
 	protected $fillable = [
-		'title', 'description', 'image', 'category_id'
+		'title', 'description', 'image', 'category_id', 'user_id'
 	];
 
 	public function category()

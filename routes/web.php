@@ -148,6 +148,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.categories.search');
 	Route::post('/articles/comments/search', 'ArticlesCommentsController@search')
 		->name('admin.articles.comments.search');
+	Route::get('/articles/create', 'ArticlesController@create')
+		->name('admin.articles.create');
+	Route::post('/articles/create', 'ArticlesController@store')
+		->name('admin.articles.store');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');
