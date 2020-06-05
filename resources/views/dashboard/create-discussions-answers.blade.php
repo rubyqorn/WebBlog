@@ -12,11 +12,12 @@
         ></admin-navbar-component>
 
         <admin-collapsible-sidebar-component
-            :csrf="{{ json_encode($title) }}"
+            :title="{{ json_encode($title) }}"
         >
             <slot>
                 <create-answers-component
                     :csrf="{{ json_encode(csrf_token()) }}"
+                    :discussions="{{ json_encode($discussions) }}"
                 ></create-answers-component>
             </slot>
         </admin-collapsible-sidebar-component>

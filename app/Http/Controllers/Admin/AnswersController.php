@@ -56,7 +56,21 @@ class AnswersController extends Controller
 
     public function store(Request $request)
     {
+        $answersData = $request->validate([
+            'answer' => 'required|min:10',
+            'discussion' => 'required'
+        ]);
 
+        Answer::create([
+            'user_id' => \Auth::user()->id,
+            'discussion_id' => $answersData['discussion'],
+            'answer' => $answersData['answer']
+        ]);
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Answer created!'
+        ]);
     }
 
     /**

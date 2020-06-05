@@ -2914,13 +2914,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf', 'discussions'],
   data: function data() {
     return {
+      response: {},
       answer: '',
       message: ''
     };
+  },
+  methods: {
+    sendRequest: function sendRequest(url, data, headers) {
+      var _this = this;
+
+      axios.post(url, data, headers).then(function (data) {
+        _this.response = data.data;
+        var toast = document.querySelector('#dashboard #toast');
+
+        if (_this.response.status_code == '200') {
+          _this.message = _this.response.message;
+
+          _this.showToast(toast);
+
+          _this.hideToast();
+        }
+      });
+    },
+    hideToast: function hideToast(toast) {
+      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
+      hideToastBtn.addEventListener('click', function () {
+        var toast = document.querySelector('#dashboard #toast');
+        toast.classList.add('hide');
+        toast.classList.remove('show');
+      });
+    },
+    showToast: function showToast() {
+      toast.classList.remove('hide');
+      toast.classList.add('show');
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('answer', this.answer);
+      form.append('discussion', document.querySelector('#dashboard #create-answers #discussion').value);
+      form.append('_token', document.querySelector('#dashboard #create-answers input[name="_token"]').value);
+      return form;
+    },
+    createAnswer: function createAnswer() {
+      var data = this.getFormData();
+      this.sendRequest('/dashboard/discussions/answers/create', data, {
+        'X-CSRF-TOKEN': document.querySelector('#dashboard #create-answers input[name="_token"]').value
+      });
+    }
   }
 });
 
@@ -45641,16 +45694,34 @@ var render = function() {
                 attrs: { id: "discussion" }
               },
               _vm._l(_vm.discussions, function(discussion) {
-                return _c("option", { attrs: { selected: "" } }, [
-                  _vm._v(_vm._s(discussion.id))
-                ])
+                return _c("option", [_vm._v(_vm._s(discussion.id))])
               }),
               0
             )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-end" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-sm btn-dark robot-font text-uppercase mt-3 mr-3",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.createAnswer($event)
+                  }
+                }
+              },
+              [_c("small", [_vm._v("Create")])]
+            )
           ])
         ]
-      )
-    ]
+      ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } })
+    ],
+    1
   )
 }
 var staticRenderFns = [
