@@ -30,6 +30,10 @@ Route::post('/news/{id}/comments', 'NewsCommentsController@storeComment')
 	->name('storeNewsComment')
 	->middleware('auth');
 
+Route::get('/last-comments/news', 'NewsCommentsController@latestComment')
+	->name('latestComment')
+	->middleware(['auth', 'role']);
+
 Route::get('/news-categories/{id}', 'NewsController@newsByCategory')
 	->name('newsCategories');
 

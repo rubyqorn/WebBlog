@@ -51,6 +51,19 @@ body {
     background-color: #000;
 }
 
+#toast-container {
+    position: relative;
+    bottom: 200px;
+    left: 115px;
+}
+
+#toast {
+    width: 330px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 #header .title {
     font-family: 'Roboto Mono';
     color: darkslategrey;
