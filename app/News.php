@@ -30,62 +30,6 @@ class News extends Model
 		return $this->belongsTo(NewsComment::class, 'id', 'news_id');
 	}
 
-	/**
-	* Get and count records by month
-	*
-	* @param $month int|string Have to be like 01, 02...
-	*
-	* @return counted records by month
-	*/ 
-	public function getRecordsByMonth($month) 
-	{
-		return News::whereMonth('created_at', $month)->count();
-	}
-
-	/**
-	 * Search news
-	 * 
-	 * @param \Illuminate\Http\Request $request
-	 *  
-	 * @return \App\News
-	*/ 
-	public static function searchNews(Request $request)
-	{
-		if (is_object($request)) {
-			return News::where('title', $request->search)
-						->orWhere('title', 'like', '%' . $request->search . '%')
-						->paginate(5);
-		}
-	}
-
-	/**
-	* Store new records in database
-	*
-	* @param \Illuminate\Http\Request $request
-	*
-	* @return bool
-	*/ 
-	public static function store(Request $request)
-	{	
-		if (is_object($request)) {
-			$validation = $request->validate([
-				'title' => 'required|min:15|max:120',
-				'description' => 'required|min:120|max:1000',
-				'image' => 'image',
-				'category' => 'required',
-			]);
-
-			$filename = CheckFile::checkForFileContains($request, 'image');
-
-			return News::create([
-				'title' => $request->title,
-				'preview_text' => $request->preview_text,
-				'description' => $request->description,
-				'image' => $filename,
-				'category_id' => $request->category
-			]);
-		}
-	} 
 
 	/**
 	* Update news by id property

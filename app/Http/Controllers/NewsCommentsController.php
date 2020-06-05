@@ -14,7 +14,12 @@ class NewsCommentsController extends Controller
                 ->get();
     }
 
-    public function storeComment(Request $request, $id) 
+    public function latestComment()
+    {
+        return NewsComment::with('user')->latest()->first();
+    }
+
+    public function storeComment(Request $request) 
     {
         if (!$request->isMethod('POST')) {
             return abort(404);
@@ -26,11 +31,14 @@ class NewsCommentsController extends Controller
 
         $comment = auth()->user()->newsComment()->create([
             'user_id' => \Auth::user()->id,
-            'news_id' => $id,
+            'news_id' => $request->id,
             'comment' => $data['comment']
         ]);
 
-        return redirect()->back()->withStatus('Комментарий оставлен');
+        return response()->json([
+            'status' => '200',
+            'message' => 'Комментарий оставлен!'
+        ]);
 
     }
 }

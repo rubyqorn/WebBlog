@@ -27,6 +27,8 @@ Vue.component('common-navbar-component', require('./components/parts/CommonNavba
 Vue.component('categories-component', require('./components/parts/CategoriesComponent.vue').default);
 Vue.component('search-bar-component', require('./components/parts/SearchBarComponent.vue').default);
 Vue.component('social-links-sidebar-component', require('./components/parts/SocialLinksSidebarComponent.vue').default);
+Vue.component('latest-comments', require('./components/parts/LatestCommentComponent.vue').default);
+Vue.component('toast-component', require('./components/parts/ToastComponent.vue').default);
 
 // Components of home page
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);

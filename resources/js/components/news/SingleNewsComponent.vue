@@ -48,6 +48,10 @@
                     <hr>
                 </div>
 
+                <latest-comments
+                    :comments="this.createdComment"
+                ></latest-comments>
+
                 <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in this.comments">
                     <div class="d-flex">
                         <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
@@ -71,20 +75,6 @@
 
             </div>
 
-            <div class="col-lg-8 mt-4 fade show bg-success alert alert-dismissible" v-if="status">
-                <button class="close text-white font-weight-bold robot-font" data-dismiss="alert">
-                    <span>&times;</span>
-                </button>
-                <strong class="text-white robot-font">{{ status }}</strong>
-            </div>
-
-            <div class="col-lg-8 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
-                <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
-                    <span>&times;</span>
-                </button>
-                <strong class="text-white" v-for="error in errors">{{ error }}</strong>
-            </div>
-
             <div class="col-lg-8 mt-4">
                 <p class="text-muted robot-font border-bottom">
                     <small> 
@@ -96,14 +86,14 @@
                         в свой аккаунт
                     </small>
                 </p>
-                <form :action="'/news/'+ news.id +'/comments'" method="post" class="mt-4">
+                <form :action="'/news/'+ news.id +'/comments'" method="post" class="mt-4" id="comment-form">
                     <input type="hidden" name="_token" :value="csrf">
 
                     <div class="form-group">
-                        <textarea name="comment" class="form-control" rows="5"></textarea>
+                        <textarea name="comment" class="form-control" id="comment" rows="5"></textarea>
                     </div>
                     <div class="form-group mt-4">
-                        <button class="btn btn-dark robot-font btn-sm">
+                        <button @click.prevent="leaveComment" class="btn btn-dark robot-font btn-sm">
                             Отправить
                         </button>
                     </div>
@@ -111,13 +101,18 @@
             </div>
 
         </div>
+
+        <toast-component
+            :message="this.message"
+        ></toast-component>
+
     </div>
 </template>
 
 <script>
     export default {
         props: [
-            'news', 'csrf', 'status', 'errors'
+            'news', 'csrf'
         ],
         data: function() {
             return {
@@ -125,10 +120,13 @@
                 links: [
                     {name: 'fa-github', url: 'https://github.com/rubyqorn'},
                     {name: 'fa-vk', url: 'https://vk.com/rubyqorn'}
-                ]
+                ],
+                response: {},
+                createdComment: [],
+                message: '',
             }
         },
-        mounted() {
+        created() {
             this.getComments();
         },
         methods: {
@@ -138,15 +136,65 @@
             },
 
             getComments() {
-                return this.$http.get('/news/' + this.news.id + '/comments')
-                        .then(response => {
-                            return response.json()
-                        })
-                        .then(data => {
-                            this.comments = data;
-                        })
+                this.$http.get('/news/' + this.news.id + '/comments')
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        this.comments = data;
+                    })
 
             },
+
+            getCreatedComment() {
+                axios.get('/last-comments/news').then(response => {
+                    this.createdComment.push(response.data);
+                })
+            },
+
+            sendRequest(url, data, headers) {
+                axios.post(url, data, headers).then(data => {
+                    this.response = data.data;
+
+                    if (this.response.status == '200') {
+                        this.message = this.response.message;
+                    }
+                })
+            },
+
+            getCommentsData() {
+                let form = new FormData();
+
+                form.append('comment', document.querySelector(
+                    '#news #single-news-item #comment-form #comment'
+                ).value);
+                form.append('id', window.location.href.split('/')['4']);
+                form.append('_token', document.querySelector(
+                    '#news #single-news-item #comment-form input[name="_token"]'
+                ).value);
+
+                return form;
+            },
+
+            clearCommentField() {
+                return document.querySelector(
+                    '#news #single-news-item #comment'
+                ).value = '';
+            },
+ 
+            leaveComment() {
+                let formData = this.getCommentsData();
+
+                this.sendRequest('/news/'+news.id+'/comments', formData, {
+                    'X-CSRF-TOKEN': document.querySelector(
+                        '#news #single-news-item #comment-form input[name="_token"]'
+                    ).value
+                });
+
+                this.getCreatedComment();
+                this.clearCommentField();
+                $('#toast-container #toast').toast('show');
+            }
         }
     }
 </script>
