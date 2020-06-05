@@ -5,7 +5,7 @@
                 <span class="h6"># Discussions table</span>
             </div>
             <div class="col-lg-6 justify-content-end text-right">
-                <a href="/" class="mb-3 btn btn-sm btn-info text-white text-uppercase robot-font">
+                <a href="/dashboard/discussions/create" class="mb-3 btn btn-sm btn-info text-white text-uppercase robot-font">
                     <small>Create</small>
                 </a>
             </div>
@@ -69,9 +69,6 @@
             return {
                 discussions: {}
             }
-        },
-        mounted() {
-            console.log('Mounted');
         },
         created() {
             this.getDiscussions();

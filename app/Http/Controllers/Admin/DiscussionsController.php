@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Charts\DiscussionsItemsChart;
@@ -34,21 +36,74 @@ class DiscussionsController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        if (!view()->exists('dashboard.create-discussions')) {
+            return abort(404);
+        }
+
+        return view('dashboard.create-discussions')
+            ->withTitle('Create Discussions')
+            ->withCategories(DiscussionCategory::all());
+    }
+
+    protected function getCategoryIdByName(string $name)
+    {
+       return DiscussionCategory::select('category_id')
+        ->where('name', 'like', '%' . $name . '%')
+        ->get(); 
+    }
+
+    protected function storeDiscussionsWithFile(Request $request, string $categoryId, array $validatedFields)
+    {
+        $image = $request->file('file');
+        $extension = $image->getClientOriginalExtension();
+        Storage::disk('public')->put(
+            $image->getFileName() . $extension, File::get($image)
+        );
+
+        return Discussion::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $validatedFields['title'],
+            'description' => $validatedFields['description'],
+            'image' => $image->getFileName() . '.' . $extension
+        ]);
+    }
+
+    protected function storeDiscussionsWithoutFile(string $categoryId, array $validatedFields)
+    {
+        return Discussion::create([
+            'category_id' => $categoryId,
+            'user_id' => \Auth::user()->id,
+            'title' => $validatedFields['title'],
+            'description' => $validatedFields['description']
+        ]);
+    }
+    
     public function store(Request $request)
     {
-        if ($request->isMethod('post')) {
-            $storing = Discussion::storeQuestions($request);
+        $discussionsData = $request->validate([
+            'title' => 'required|min:10|max:120',
+            'description' => 'required|min:120',
+            'category' => 'required',
+            'file' => 'nullable|image'
+        ]);
+        $categoryId = $this->getCategoryIdByName($request->category)['0']['category_id'];
 
-            if ($storing) {
-                return redirect()->back()->withStatus('Your discussion was created successfully');
-            }
+        if ($request->hasFile('file')) {
+            $this->storeDiscussionsWithFile($request, $categoryId, $discussionsData);
+            return response()->json([
+                'status_code' => '200',
+                'message' => 'Discussion created!'
+            ]);
         }
+
+        $this->storeDiscussionsWithoutFile($categoryId, $discussionsData);
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Discussion created!'
+        ]);
     }
 
     /**

@@ -8,35 +8,12 @@ use Illuminate\Http\Request;
 class DiscussionCategory extends Model
 {
     protected $table = 'discussions_categories';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'color'];
 
-    /**
-    * @return inverse relationships with App\Discussion
-    */ 
     public function discussion()
     {
     	return $this->belongsTo(Discussion::class);
     } 
-
-    /**
-     * Store discussions categories
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \App\DiscussionCategory 
-    */ 
-   public function storeCategories(Request $request)
-   {
-       if (is_object($request)) {
-           $validation = $request->validate([
-               'name' => 'required|min:5|max:20'
-           ]);
-
-           return DiscussionCategory::create([
-               'name' => $request->category
-           ]);
-       }
-   }
 
    /**
     * Update discussions categories by id property

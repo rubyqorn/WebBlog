@@ -35,17 +35,32 @@ class DiscussionsCategoriesController extends Controller
             ->paginate(5);
     }
 
-    /**
-     * Store articles categories in database
-     * 
-     * @param \Illuminate\Http\Request $request
-     * 
-     * @return \Illuminate\Http\Response
-    */ 
-    public function storeCategories(Request $request)
+    public function create() 
     {
-        parent::store($request, new DiscussionCategory());
-        return redirect('admin/categories')->withStatus('Category was aded successfully');
+        if (!view()->exists('dashboard.create-discussions-categories')) {
+            return abort(404);
+        }
+
+        return view('dashboard.create-discussions-categories')
+            ->withTitle('Create Discussions Categories');
+    }
+
+    public function store(Request $request)
+    {
+        $categoryData = $request->validate([
+            'name' => 'required|min:3|max:20',
+            'color' => 'required'
+        ]);
+
+        DiscussionCategory::create([
+            'name' => $categoryData['name'],
+            'color' => $categoryData['color']
+        ]);
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Category created!'
+        ]);
     }
 
      /**
