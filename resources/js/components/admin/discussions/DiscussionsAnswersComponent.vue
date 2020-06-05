@@ -5,7 +5,7 @@
                 <span class="h6"># Discussions answers table</span>
             </div>
             <div class="col-lg-6 pb-3 text-right justify-content-end">
-                <a class="btn btn-sm bg-violet text-uppercase text-white robot-font">
+                <a href="/dashboard/discussions/answers/create" class="btn btn-sm bg-violet text-uppercase text-white robot-font">
                     <small>Create</small>
                 </a>
             </div>
@@ -88,7 +88,7 @@
                 return format(date, 'dd mmm, yy');
             },
             trimStr(str) {
-                let trimed = str.slice(0, 50);
+                let trimed = str.slice(0, 30);
                 return trimed += '...'
             }
         }

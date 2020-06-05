@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Charts\DiscussionsAnswersChart;
+use App\Discussion;
 use App\Answer;
 
 class AnswersController extends Controller
@@ -36,6 +37,26 @@ class AnswersController extends Controller
             ->where('answer', 'like', '%' . $request->answer . '%')
             ->orderByDesc('created_at')
             ->paginate(5);
+    }
+
+    public function create()
+    {
+        if (!view()->exists('dashboard.create-discussions-answers')) {
+            return abort(404);
+        }
+
+        $discussions = Discussion::select('id')
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('dashboard.create-discussions-answers')
+            ->withTitle('Create Answers')
+            ->withDiscussions($discussions);
+    }
+
+    public function store(Request $request)
+    {
+
     }
 
     /**

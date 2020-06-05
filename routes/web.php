@@ -173,4 +173,16 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.discussions.categories.search');
 	Route::post('/discussions/answers/search', 'AnswersController@search')
 		->name('admin.discussions.answers.search');
+	Route::get('/discussions/create', 'DiscussionsController@create')
+		->name('admin.discussions.create');
+	Route::post('/discussions/create', 'DiscussionsController@store')
+		->name('admin.discussions.store');
+	Route::get('/discussions/categories/create', 'DiscussionsCategoriesController@create')
+		->name('admin.discussions.categories.create');
+	Route::post('/discussions/categories/create', 'DiscussionsCategoriesController@store')
+		->name('admin.discussions.categories.store');
+	Route::get('/discussions/answers/create', 'AnswersController@create')
+		->name('admin.discussions.answers.create');
+	Route::post('/discussions/answers/create', 'AnswersController@store')
+		->name('admin.discussions.answers.store');
 });

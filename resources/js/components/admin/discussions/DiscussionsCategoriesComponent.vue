@@ -5,7 +5,7 @@
                 <span># Discussions categories table</span>
             </div>
             <div class="col-lg-6 text-right justify-content-end">
-                <a href="/dashboard" class="btn btn-sm bg-raspberry mb-3 text-uppercase text-white font-weight-bold">
+                <a href="/dashboard/discussions/categories/create" class="btn btn-sm bg-raspberry mb-3 text-uppercase text-white font-weight-bold">
                     <small>Create</small>
                 </a>
             </div>
