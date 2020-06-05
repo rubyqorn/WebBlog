@@ -108,6 +108,7 @@ Vue.component('search-discussions-answers-form-component', require('./components
 Vue.component('create-discussions-component', require('./components/admin/discussions/CreateDiscussionsComponent.vue').default);
 Vue.component('create-discussions-categories-component', require('./components/admin/discussions/CreateDiscussionsCategoriesComponent.vue').default);
 Vue.component('create-answers-component', require('./components/admin/discussions/CreateDiscussionsAnswersComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

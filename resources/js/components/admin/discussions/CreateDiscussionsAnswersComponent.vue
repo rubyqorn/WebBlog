@@ -18,10 +18,19 @@
                 </label>
 
                 <select class="custom-select robot-font text-muted" id="discussion">
-                    <option selected v-for="discussion in discussions">{{ discussion.id }}</option>
+                    <option v-for="discussion in discussions">{{ discussion.id }}</option>
                 </select>
             </div>
+            <div class="form-group row justify-content-end">
+                <button @click.prevent="createAnswer" class="btn btn-sm btn-dark robot-font text-uppercase mt-3 mr-3">
+                    <small>Create</small>
+                </button>
+            </div>
         </form>
+
+        <admin-toast-component
+            :message="this.message"
+        ></admin-toast-component>
     </div>
 </template>
 
@@ -33,8 +42,72 @@
 
         data: function() {
             return {
+                response: {},
                 answer: '',
                 message: ''
+            }
+        },
+
+        methods: {
+            sendRequest(url, data, headers) {
+                axios.post(url, data, headers).then(data => {
+                    this.response = data.data;
+                    let toast = document.querySelector(
+                        '#dashboard #toast'
+                    );
+
+                    if (this.response.status_code == '200') {
+                        this.message = this.response.message;
+
+                        this.showToast(toast);
+                        this.hideToast();
+                    }
+
+                });
+            },
+
+            hideToast(toast) {
+                let hideToastBtn = document.querySelector(
+                    '#dashboard #toast #hide-toast'
+                );
+
+                hideToastBtn.addEventListener('click', function() {
+                    let toast = document.querySelector(
+                        '#dashboard #toast'
+                    );
+
+                    toast.classList.add('hide');
+                    toast.classList.remove('show');
+                });
+            },
+
+            showToast() {
+                toast.classList.remove('hide');
+                toast.classList.add('show');
+            },
+
+            getFormData() {
+                let form = new FormData();
+
+                form.append('answer', this.answer);
+                form.append('discussion', document.querySelector(
+                    '#dashboard #create-answers #discussion'
+                ).value);
+                form.append('_token', document.querySelector(
+                    '#dashboard #create-answers input[name="_token"]'
+                ).value);
+
+                return form;
+            },
+
+            createAnswer() {
+                let data = this.getFormData();
+
+                this.sendRequest('/dashboard/discussions/answers/create', data, {
+                    'X-CSRF-TOKEN': document.querySelector(
+                        '#dashboard #create-answers input[name="_token"]'
+                    ).value
+                });
             }
         }
     }
