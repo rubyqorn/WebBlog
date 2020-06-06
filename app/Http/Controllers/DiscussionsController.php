@@ -88,72 +88,64 @@ class DiscussionsController extends Controller
         return $discussionsWithCategory;
     }
 
-    protected function getCategoryId(Request $request)
+    protected function getCategoryId(string $category)
     {
         return DiscussionCategory::select('category_id')
-            ->where('name', $request->categories)
+            ->where('name', $category)
             ->get();
     }
 
-    protected function askQuestionWithFile(Request $request)
+    protected function storeDiscussionsWithFile(Request $request, string $categoryId, array $validatedFields)
     {
-        $data = $request->validate([
-            'categories' => 'required',
-            'title' => 'required|min:10|max:120',
-            'question' => 'required|min:40|max:700',
-            'file' => 'nullable|image'
-        ]);
-        
         $image = $request->file('file');
         $extension = $image->getClientOriginalExtension();
         Storage::disk('public')->put(
-            $image->getFileName() . '.' . $extension, File::get($image)
+            $image->getFileName() . $extension, File::get($image)
         );
-         
-        $categoryId = $this->getCategoryId($request)['0']->category_id;
 
         return Discussion::create([
             'category_id' => $categoryId,
             'user_id' => \Auth::user()->id,
-            'title' => $data['title'],
-            'description' => $data['question'],
+            'title' => $validatedFields['title'],
+            'description' => $validatedFields['question'],
             'image' => $image->getFileName() . '.' . $extension
         ]);
     }
 
-
-    protected function askQuestionWithoutFile(Request $request)
+    protected function storeDiscussionsWithoutFile(string $categoryId, array $validatedFields)
     {
-        $data = $request->validate([
-            'categories' => 'required',
-            'title' => 'required|min:10|max:120',
-            'question' => 'required|min:40|max:700',
-            'image' => 'nullable|image'
-        ]);
-
-        $categoryId = $this->getCategoryId($request)['0']->category_id;
-
         return Discussion::create([
             'category_id' => $categoryId,
             'user_id' => \Auth::user()->id,
-            'title' => $data['title'],
-            'description' => $data['question']
+            'title' => $validatedFields['title'],
+            'description' => $validatedFields['question']
         ]);
     }
 
     public function askQuestion(Request $request)
     {
-        if (!$request->isMethod('POST')) {
-            return abort(404);
+        $discussionsData = $request->validate([
+            'title' => 'required|min:3|max:120',
+            'question' => 'required|min:120',
+            'categories' => 'required',
+            'file' => 'nullable|image'
+        ]);
+
+        $categoryId = $this->getCategoryId($request->categories)['0']['category_id'];
+
+        if ($request->hasFile('file')) {
+            $this->storeDiscussionsWithFile($request, $categoryId, $discussionsData);
+            return response()->json([
+                'status' => '200',
+                'message' => 'Вопрос задан, ожидайте ответа)'
+            ]);
         }
 
-        if($request->hasFile('file')) {
-            $this->askQuestionWithFile($request);
-            return redirect()->back()->withStatus('Вопрос задан, ожидайте ответа)');
-        }
-
-        $this->askQuestionWithoutFile($request);
-        return redirect()->back()->withStatus('Вопрос задан, ожидайте ответа)');
+        $this->storeDiscussionsWithoutFile($categoryId, $discussionsData);
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Вопрос задан, ожидайте ответа)'
+        ]);
     }
     
 }

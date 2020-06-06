@@ -86,6 +86,10 @@ Route::post('/discussion/{id}/answers', 'AnswersController@storeAnswers')
 	->name('storeDiscussionsAnswers')
 	->middleware('auth');
 
+Route::get('/last-answers/discussions/', 'AnswersController@latestAnswer')
+	->name('lastDiscussionsAnswers')
+	->middleware(['auth', 'role']);
+
 Route::get('/discussions/last-discussions', 'DiscussionsController@lastDiscussions')
 	->name('lastDiscussionsList');
 

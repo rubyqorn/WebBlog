@@ -2374,7 +2374,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     getFormData: function getFormData() {
       var formData = new FormData();
-      console.log(this.file);
       formData.append('title', this.title);
       formData.append('description', this.description);
       formData.append('image', this.file);
@@ -6004,7 +6003,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['categories', 'csrf']
+  props: ['categories', 'csrf'],
+  data: function data() {
+    return {
+      file: '',
+      response: {},
+      discussion: []
+    };
+  },
+  methods: {
+    handleFileSelecting: function handleFileSelecting() {
+      this.file = this.$refs.file.files['0'];
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('file', this.file);
+      form.append('_token', document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question input[name="_token"]').value);
+      form.append('categories', document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question #category').value);
+      form.append('title', document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question input[name="title"]').value);
+      form.append('question', document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question #question').value);
+      return form;
+    },
+    sendRequest: function sendRequest(url, data, header) {
+      var _this = this;
+
+      axios.post(url, data, header).then(function (data) {
+        _this.response = data.data;
+
+        if (_this.response.status == '200') {
+          _this.message = _this.response.message;
+        }
+      });
+    },
+    clearForm: function clearForm() {
+      document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question #category').value = '';
+      document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question input[name="title"]').value = '';
+      document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question #question').value = '';
+      document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question input[name="file"]').value = '';
+    },
+    leaveQuestion: function leaveQuestion() {
+      var data = this.getFormData();
+      this.sendRequest('/discussions', data, {
+        'Content-Type': 'multipart/form-data',
+        'X-CSRF-TOKEN': document.querySelector('#discussions #all-discussions #ask-question-btn #ask-question input[name="_token"]').value
+      });
+      this.clearForm();
+      $('#discussions #all-discussions #ask-question-btn #ask-question').modal('hide');
+    }
+  }
 });
 
 /***/ }),
@@ -6375,21 +6421,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['discussion', 'csrf', 'status', 'errors'],
+  props: ['discussion', 'csrf'],
   data: function data() {
     return {
       answers: {},
-      lastDiscussions: {}
+      lastDiscussions: {},
+      response: {},
+      lastAnswers: [],
+      message: ''
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     this.getAnswers();
     this.getLastDiscussions();
   },
@@ -6420,6 +6463,39 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         _this2.lastDiscussions = data;
       });
+    },
+    getCreatedAnswers: function getCreatedAnswers(url) {
+      var _this3 = this;
+
+      axios.get(url).then(function (response) {
+        _this3.lastAnswers.push(response.data);
+      });
+    },
+    sendRequest: function sendRequest(url, data, headers) {
+      var _this4 = this;
+
+      axios.post(url, data, headers).then(function (data) {
+        _this4.response = data.data;
+      });
+    },
+    clearForm: function clearForm() {
+      document.querySelector('#discussions #single-discussion-item #comments #create-answer #answer').value = '';
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('_token', document.querySelector('#discussions #single-discussion-item #comments #create-answer input[name="_token"]').value);
+      form.append('answer', document.querySelector('#discussions #single-discussion-item #comments #create-answer #answer').value);
+      form.append('id', this.discussion['0'].id);
+      return form;
+    },
+    leaveAnswer: function leaveAnswer() {
+      var data = this.getFormData();
+      this.sendRequest('/discussion/' + this.discussion['0'].id + '/answers', data, {
+        'X-CSRF-TOKEN': document.querySelector('#discussions #single-discussion-item #comments #create-answer input[name="_token"]').value
+      });
+      this.getCreatedAnswers('/last-answers/discussions');
+      this.clearForm();
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -51354,7 +51430,7 @@ var render = function() {
                           "select",
                           {
                             staticClass: "custom-select",
-                            attrs: { name: "categories" }
+                            attrs: { name: "categories", id: "category" }
                           },
                           _vm._l(_vm.categories, function(category) {
                             return _c(
@@ -51377,9 +51453,41 @@ var render = function() {
                       _vm._v(" "),
                       _vm._m(4),
                       _vm._v(" "),
-                      _vm._m(5),
+                      _c("div", { staticClass: "custom-file" }, [
+                        _c("input", {
+                          ref: "file",
+                          staticClass: "custom-file-input",
+                          attrs: { type: "file", name: "file", id: "file" },
+                          on: {
+                            change: function($event) {
+                              return _vm.handleFileSelecting()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm._m(5)
+                      ]),
                       _vm._v(" "),
-                      _vm._m(6)
+                      _c("div", { staticClass: "form-group mt-4" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "btn btn-dark btn-sm float-right robot-font",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.leaveQuestion($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Задать\n                            "
+                            )
+                          ]
+                        )
+                      ])
                     ]
                   )
                 ])
@@ -51399,7 +51507,7 @@ var staticRenderFns = [
     return _c(
       "button",
       {
-        staticClass: "btn btn-dark btn-block text-uppercase",
+        staticClass: "btn btn-sm btn-dark btn-block text-uppercase",
         attrs: { "data-toggle": "modal", "data-target": "#ask-question" }
       },
       [
@@ -51476,6 +51584,7 @@ var staticRenderFns = [
         staticClass: "form-control",
         attrs: {
           name: "question",
+          id: "question",
           cols: "30",
           rows: "10",
           placeholder: "Подробное описание того что вас интересует"
@@ -51491,40 +51600,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "custom-file" }, [
-      _c("input", {
-        staticClass: "custom-file-input",
-        attrs: { type: "file", name: "file", id: "file" }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "custom-file-label", attrs: { for: "file" } },
-        [
-          _c("i", { staticClass: "fas fa-camera" }, [
-            _c("span", { staticClass: "ml-2 robot-font" }, [
-              _c("small", [_vm._v("Выбрать фото")])
-            ])
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "file" } },
+      [
+        _c("i", { staticClass: "fas fa-camera" }, [
+          _c("span", { staticClass: "ml-2 robot-font" }, [
+            _c("small", [_vm._v("Выбрать фото")])
           ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group mt-4" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-dark btn-sm float-right robot-font" },
-        [
-          _vm._v(
-            "\n                                Задать\n                            "
-          )
-        ]
-      )
-    ])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -52062,6 +52148,10 @@ var render = function() {
                     [
                       _vm._m(0, true),
                       _vm._v(" "),
+                      _c("latest-comments", {
+                        attrs: { comment: this.lastAnswers }
+                      }),
+                      _vm._v(" "),
                       _vm._l(_vm.answers, function(answer) {
                         return _c(
                           "div",
@@ -52133,53 +52223,13 @@ var render = function() {
                       _c("div", { staticClass: "col-lg-12 mt-4" }, [
                         _vm._m(1, true),
                         _vm._v(" "),
-                        _vm.status
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "col-lg-12 mt-4 fade show bg-success alert alert-dismissible"
-                              },
-                              [
-                                _vm._m(2, true),
-                                _vm._v(" "),
-                                _c(
-                                  "strong",
-                                  { staticClass: "text-white robot-font" },
-                                  [_vm._v(_vm._s(_vm.status))]
-                                )
-                              ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.errors
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
-                              },
-                              [
-                                _vm._m(3, true),
-                                _vm._v(" "),
-                                _vm._l(_vm.errors, function(error) {
-                                  return _c(
-                                    "strong",
-                                    { staticClass: "text-white" },
-                                    [_vm._v(_vm._s(error))]
-                                  )
-                                })
-                              ],
-                              2
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
                         _c(
                           "form",
                           {
                             attrs: {
                               action: "/discussion/" + item.id + "/answers",
-                              method: "post"
+                              method: "post",
+                              id: "create-answer"
                             }
                           },
                           [
@@ -52188,12 +52238,34 @@ var render = function() {
                               domProps: { value: _vm.csrf }
                             }),
                             _vm._v(" "),
-                            _vm._m(4, true),
+                            _vm._m(2, true),
                             _vm._v(" "),
-                            _vm._m(5, true)
+                            _c("div", { staticClass: "form-group mt-4" }, [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-dark robot-font btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.leaveAnswer($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                    Ответить\n                                "
+                                  )
+                                ]
+                              )
+                            ])
                           ]
                         )
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _c("toast-component", {
+                        attrs: { message: this.message }
+                      })
                     ],
                     2
                   )
@@ -52286,49 +52358,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close text-white font-weight-bold robot-font",
-        attrs: { "data-dismiss": "alert" }
-      },
-      [_c("span", [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close text-white robot-font font-weight-bold",
-        attrs: { "data-dismiss": "alert" }
-      },
-      [_c("span", [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
       _c("textarea", {
         staticClass: "form-control",
-        attrs: { name: "answer", rows: "5" }
+        attrs: { id: "answer", name: "answer", rows: "5" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group mt-4" }, [
-      _c("button", { staticClass: "btn btn-dark robot-font btn-sm" }, [
-        _vm._v(
-          "\n                                    Ответить\n                                "
-        )
-      ])
     ])
   }
 ]
