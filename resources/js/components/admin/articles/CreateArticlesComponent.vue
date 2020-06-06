@@ -101,8 +101,6 @@
             getFormData() {
                 let formData = new FormData();
 
-                console.log(this.file);
-
                 formData.append('title', this.title);
                 formData.append('description', this.description);
                 formData.append('image', this.file);

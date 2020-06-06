@@ -64,6 +64,10 @@
                             </h5>
                         </div>
 
+                        <latest-comments
+                            :comment="this.lastAnswers"
+                        ></latest-comments>
+
                         <div class="col-lg-12 rounded mt-3" v-for="answer in answers">
                             <div class="row">
 
@@ -100,34 +104,24 @@
                                 </small>
                             </p>
 
-                            <div class="col-lg-12 mt-4 fade show bg-success alert alert-dismissible" v-if="status">
-                                <button class="close text-white font-weight-bold robot-font" data-dismiss="alert">
-                                    <span>&times;</span>
-                                </button>
-                                <strong class="text-white robot-font">{{ status }}</strong>
-                            </div>
-
-                            <div class="col-lg-12 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
-                                <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
-                                    <span>&times;</span>
-                                </button>
-                                <strong class="text-white" v-for="error in errors">{{ error }}</strong>
-                            </div>
-
-                            <form :action="'/discussion/'+ item.id + '/answers'" method="post">
+                            <form :action="'/discussion/'+ item.id + '/answers'" method="post" id="create-answer">
                                 <input type="hidden" name="_token" :value="csrf">
 
                                 <div class="form-group">
-                                    <textarea name="answer" class="form-control" rows="5"></textarea>
+                                    <textarea id="answer" name="answer" class="form-control" rows="5"></textarea>
                                 </div>
 
                                 <div class="form-group mt-4">
-                                    <button class="btn btn-dark robot-font btn-sm">
+                                    <button @click.prevent="leaveAnswer" class="btn btn-dark robot-font btn-sm">
                                         Ответить
                                     </button>
                                 </div>
                             </form>
                         </div>
+
+                        <toast-component
+                            :message="this.message"
+                        ></toast-component>
                         
                     </div>
                 </div>
@@ -158,15 +152,18 @@
 <script>
     export default {
         props: [
-            'discussion', 'csrf', 'status', 'errors'
+            'discussion', 'csrf'
         ],
         data: function() {
             return {
                 answers: {},
-                lastDiscussions: {}
+                lastDiscussions: {},
+                response: {},
+                lastAnswers: [],
+                message: ''
             }
         },
-        mounted() {
+        created() {
             this.getAnswers();
             this.getLastDiscussions();
         },
@@ -199,6 +196,52 @@
                     .then(data => {
                         this.lastDiscussions = data;
                     })
+            },
+
+            getCreatedAnswers(url) {
+                axios.get(url).then(response => {
+                    this.lastAnswers.push(response.data);
+                });
+            },
+
+            sendRequest(url, data, headers) {
+                axios.post(url, data, headers).then(data => {
+                    this.response = data.data;
+                })
+            },
+
+            clearForm() {
+                document.querySelector(
+                    '#discussions #single-discussion-item #comments #create-answer #answer'
+                ).value = '';
+            },
+
+            getFormData() {
+                let form = new FormData();
+
+                form.append('_token', document.querySelector(
+                    '#discussions #single-discussion-item #comments #create-answer input[name="_token"]'
+                ).value);
+                form.append('answer', document.querySelector(
+                    '#discussions #single-discussion-item #comments #create-answer #answer'
+                ).value);
+                form.append('id', this.discussion['0'].id);
+
+                return form;
+            },
+
+            leaveAnswer() {
+                let data = this.getFormData();
+
+                this.sendRequest('/discussion/'+this.discussion['0'].id+'/answers', data, {
+                    'X-CSRF-TOKEN': document.querySelector(
+                        '#discussions #single-discussion-item #comments #create-answer input[name="_token"]'
+                    ).value
+                });
+
+                this.getCreatedAnswers('/last-answers/discussions');
+                this.clearForm();
+                $('#toast-container #toast').toast('show');
             }
         }
     } 

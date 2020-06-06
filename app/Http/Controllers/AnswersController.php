@@ -14,6 +14,11 @@ class AnswersController extends Controller
                 ->get();
     }
 
+    public function latestAnswer()
+    {
+        return Answer::with('user')->latest()->first();
+    }
+
     public function storeAnswers(Request $request, $id)
     {
         if (!$request->isMethod('POST')) {
@@ -30,6 +35,9 @@ class AnswersController extends Controller
             'answer' => $data['answer']
         ]);
 
-        return redirect()->back()->withStatus('Ответ оставлен');
+        return response()->json([
+            'status' => '200',
+            'message' => 'Ответ оставлен'
+        ]);
     }
 }
