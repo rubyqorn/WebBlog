@@ -26,7 +26,7 @@ class ArticlesCommentsController extends Controller
     public function comments()
     {
         return ArticleComment::with('article')
-            ->with('users')
+            ->with('user')
             ->orderByDesc('created_at')
             ->paginate(5);
     }
@@ -34,7 +34,7 @@ class ArticlesCommentsController extends Controller
     public function search(Request $request)
     {
         return ArticleComment::with('article')
-            ->with('users')
+            ->with('user')
             ->where('comment', 'like', '%' . $request->comment . '%')
             ->orderByDesc('created_at')
             ->paginate(5);

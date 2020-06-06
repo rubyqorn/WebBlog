@@ -29,7 +29,7 @@
                 <tr class="robot-font" v-for="comment in this.comments.data">
                     <td class="font-weight-bold">{{ comment.id }}</td>
                     <td class="text-muted">{{ trimStr(comment.comment) }}</td>
-                    <td class="text-muted font-weight-bold">{{ comment.users.name }}</td>
+                    <td class="text-muted font-weight-bold">{{ comment.user.name }}</td>
                     <td class="text-muted">{{ trimStr(comment.article.title) }}</td>
                     <td class="text-muted">{{ dateFormating(comment.created_at) }}</td>
                     <td>

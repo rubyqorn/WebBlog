@@ -10,11 +10,16 @@ class ArticlesCommentsController extends Controller
     public function comments($id) 
     {
         return ArticleComment::where('article_id', $id)->orderBy('created_at', 'DESC')
-                ->with('users')
+                ->with('user')
                 ->get();
     }
 
-    public function storeComment(Request $request, $id)
+    public function latestComment()
+    {
+        return ArticleComment::with('user')->latest()->first();
+    }
+
+    public function storeComment(Request $request)
     {
         if (!$request->isMethod('POST')) {
             return abort(404);
@@ -26,10 +31,13 @@ class ArticlesCommentsController extends Controller
 
         $comment = auth()->user()->articleComment()->create([
             'user_id' => \Auth::user()->id,
-            'article_id' => $id,
+            'article_id' => $request->id,
             'comment' => $data['comment']
         ]);
 
-        return redirect()->back()->withStatus('Комментарий оставлен');
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Комментарий оставлен'
+        ]);
     }
 }
