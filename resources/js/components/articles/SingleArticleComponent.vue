@@ -50,11 +50,15 @@
                     <hr>
                 </div>
 
+                <latest-comments
+                    :comments="this.lastComments"
+                ></latest-comments>
+
                 <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in this.comments">
                     <div class="d-flex">
-                        <img :src="'/assets/img/'+ comment.users.image" class="avatar h-100">
+                        <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
                         <p class="text-dark robot-font ml-2">
-                            <small>{{ comment.users.name }}</small>
+                            <small>{{ comment.user.name }}</small>
                         </p>
 
                         <p class="text-muted robot-font ml-4">
@@ -71,20 +75,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 mt-4 fade show bg-success alert alert-dismissible" v-if="status">
-                    <button class="close text-white font-weight-bold robot-font" data-dismiss="alert">
-                        <span>&times;</span>
-                    </button>
-                    <strong class="text-white robot-font">{{ status }}</strong>
-                </div>
-
-                <div class="col-lg-12 mt-4 fade show alert-dismissible alert bg-danger" v-if="errors">
-                    <button class="close text-white robot-font font-weight-bold" data-dismiss="alert">
-                        <span>&times;</span>
-                    </button>
-                    <strong class="text-white" v-for="error in errors">{{ error }}</strong>
-                </div>
-
                 <div class="col-lg-12 mt-4">
                     <p class="text-muted robot-font border-bottom">
                         <small> 
@@ -96,14 +86,14 @@
                             в свой аккаунт
                         </small>
                     </p>
-                    <form :action="'/article/'+ article.id + '/comments'" method="post" class="mt-4">
+                    <form :action="'/article/'+ article.id + '/comments'" method="post" class="mt-4" id="comment-form">
                         <input type="hidden" name="_token" :value="csrf">
 
                         <div class="form-group">
-                            <textarea name="comment" class="form-control" rows="5"></textarea>
+                            <textarea name="comment" class="form-control" rows="5" id="comment"></textarea>
                         </div>
                         <div class="form-group mt-4">
-                            <button class="btn btn-dark btn-sm robot-font">
+                            <button @click.prevent="leaveComment" class="btn btn-dark btn-sm robot-font">
                                 Отправить
                             </button>
                         </div>
@@ -112,14 +102,18 @@
             </div>
             
         </div>
+
+        <toast-component
+            :message="this.message"
+        ></toast-component>
+
     </div>
 </template>
 
 <script>
     export default {
         props: [
-            'article', 'csrf', 'status',
-             'errors'
+            'article', 'csrf'
         ],
         data: function() {
             return {
@@ -127,7 +121,10 @@
                     {icon: 'fa-github', url: 'https://github.com/rubyqorn'},
                     {icon: 'fa-vk', url: 'https://vk.com/rubyqorn'}
                 ],
-                comments: {}
+                comments: {},
+                lastComments: [],
+                response: {},
+                message: ''
             }
         },
         mounted() {
@@ -140,14 +137,64 @@
             },
 
             getComments() {
-                return this.$http.get('/article/'+ this.article.id + '/comments')
-                        .then(response => {
-                            return response.json()
-                        })
-                        .then(data => {
-                            this.comments = data;
-                        });
-            }
+                this.$http.get('/article/'+ this.article.id + '/comments')
+                    .then(response => {
+                        return response.json()
+                    })
+                    .then(data => {
+                        this.comments = data;
+                    });
+            },
+
+            getLastCreatedComment(url) {
+                axios.get(url).then(data => {
+                    this.lastComments.push(data.data);
+                });
+            },
+
+            sendRequest(url, data, headers) {
+                axios.post(url, data, headers).then(data => {
+                    this.response = data.data;
+
+                    if (this.response.status_code == '200') {
+                        this.message = this.response.message;
+                    }
+                })
+            },
+
+            getFormData() {
+                let form = new FormData();
+
+                form.append('comment', document.querySelector(
+                    '#articles #single-article-item #comment-form #comment'
+                ).value);
+                form.append('id', window.location.href.split('/')['4']);
+                form.append('_token', document.querySelector(
+                    '#articles #single-article-item #comment-form input[name="_token"]'
+                ).value);
+
+                return form;
+            },
+
+            clearForm() {
+                document.querySelector(
+                    '#articles #single-article-item #comment-form #comment'
+                ).value = '';
+            },
+
+            leaveComment() {
+                let data = this.getFormData();
+
+                this.sendRequest('/article/'+this.article.id+'/comments', data, {
+                    'X-CSRF-TOKEN': document.querySelector(
+                        '#articles #single-article-item #comment-form input[name="_token"]'
+                    ).value
+                });
+
+                this.getLastCreatedComment('/last-comments/article');
+                this.clearForm();
+                $('#toast-container #toast').toast('show');
+            }   
         }
     }
 </script>

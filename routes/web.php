@@ -31,7 +31,7 @@ Route::post('/news/{id}/comments', 'NewsCommentsController@storeComment')
 	->middleware('auth');
 
 Route::get('/last-comments/news', 'NewsCommentsController@latestComment')
-	->name('latestComment')
+	->name('latestNewsComment')
 	->middleware(['auth', 'role']);
 
 Route::get('/news-categories/{id}', 'NewsController@newsByCategory')
@@ -55,6 +55,10 @@ Route::get('/article/{id}/comments', 'ArticlesCommentsController@comments')
 Route::post('/article/{id}/comments', 'ArticlesCommentsController@storeComment')
 	->name('storeArticleComment')
 	->middleware('auth');
+
+Route::get('/last-comments/article', 'ArticlesCommentsController@latestComment')
+	->name('latestArticleComment')
+	->middleware(['auth', 'role']);
 
 Route::get('/articles-categories/{id}', 'ArticlesController@articlesByCategory')
 	->name('articlesCategories');

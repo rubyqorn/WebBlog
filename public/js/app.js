@@ -5431,13 +5431,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['article', 'csrf', 'status', 'errors'],
+  props: ['article', 'csrf'],
   data: function data() {
     return {
       links: [{
@@ -5447,7 +5442,10 @@ __webpack_require__.r(__webpack_exports__);
         icon: 'fa-vk',
         url: 'https://vk.com/rubyqorn'
       }],
-      comments: {}
+      comments: {},
+      lastComments: [],
+      response: {},
+      message: ''
     };
   },
   mounted: function mounted() {
@@ -5462,11 +5460,48 @@ __webpack_require__.r(__webpack_exports__);
     getComments: function getComments() {
       var _this = this;
 
-      return this.$http.get('/article/' + this.article.id + '/comments').then(function (response) {
+      this.$http.get('/article/' + this.article.id + '/comments').then(function (response) {
         return response.json();
       }).then(function (data) {
         _this.comments = data;
       });
+    },
+    getLastCreatedComment: function getLastCreatedComment(url) {
+      var _this2 = this;
+
+      axios.get(url).then(function (data) {
+        _this2.lastComments.push(data.data);
+      });
+    },
+    sendRequest: function sendRequest(url, data, headers) {
+      var _this3 = this;
+
+      axios.post(url, data, headers).then(function (data) {
+        _this3.response = data.data;
+
+        if (_this3.response.status_code == '200') {
+          _this3.message = _this3.response.message;
+        }
+      });
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('comment', document.querySelector('#articles #single-article-item #comment-form #comment').value);
+      form.append('id', window.location.href.split('/')['4']);
+      form.append('_token', document.querySelector('#articles #single-article-item #comment-form input[name="_token"]').value);
+      return form;
+    },
+    clearForm: function clearForm() {
+      document.querySelector('#articles #single-article-item #comment-form #comment').value = '';
+    },
+    leaveComment: function leaveComment() {
+      var data = this.getFormData();
+      this.sendRequest('/article/' + this.article.id + '/comments', data, {
+        'X-CSRF-TOKEN': document.querySelector('#articles #single-article-item #comment-form input[name="_token"]').value
+      });
+      this.getLastCreatedComment('/last-comments/article');
+      this.clearForm();
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -44168,7 +44203,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted font-weight-bold" }, [
-                  _vm._v(_vm._s(comment.users.name))
+                  _vm._v(_vm._s(comment.user.name))
                 ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-muted" }, [
@@ -50163,6 +50198,8 @@ var render = function() {
           [
             _vm._m(0),
             _vm._v(" "),
+            _c("latest-comments", { attrs: { comments: this.lastComments } }),
+            _vm._v(" "),
             _vm._l(this.comments, function(comment) {
               return _c(
                 "div",
@@ -50171,11 +50208,11 @@ var render = function() {
                   _c("div", { staticClass: "d-flex" }, [
                     _c("img", {
                       staticClass: "avatar h-100",
-                      attrs: { src: "/assets/img/" + comment.users.image }
+                      attrs: { src: "/assets/img/" + comment.user.image }
                     }),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-dark robot-font ml-2" }, [
-                      _c("small", [_vm._v(_vm._s(comment.users.name))])
+                      _c("small", [_vm._v(_vm._s(comment.user.name))])
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted robot-font ml-4" }, [
@@ -50202,45 +50239,8 @@ var render = function() {
               )
             }),
             _vm._v(" "),
-            _vm.status
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-lg-12 mt-4 fade show bg-success alert alert-dismissible"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("strong", { staticClass: "text-white robot-font" }, [
-                      _vm._v(_vm._s(_vm.status))
-                    ])
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.errors
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-lg-12 mt-4 fade show alert-dismissible alert bg-danger"
-                  },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._l(_vm.errors, function(error) {
-                      return _c("strong", { staticClass: "text-white" }, [
-                        _vm._v(_vm._s(error))
-                      ])
-                    })
-                  ],
-                  2
-                )
-              : _vm._e(),
-            _vm._v(" "),
             _c("div", { staticClass: "col-lg-12 mt-4" }, [
-              _vm._m(3),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "form",
@@ -50248,7 +50248,8 @@ var render = function() {
                   staticClass: "mt-4",
                   attrs: {
                     action: "/article/" + _vm.article.id + "/comments",
-                    method: "post"
+                    method: "post",
+                    id: "comment-form"
                   }
                 },
                 [
@@ -50257,17 +50258,38 @@ var render = function() {
                     domProps: { value: _vm.csrf }
                   }),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _vm._m(2),
                   _vm._v(" "),
-                  _vm._m(5)
+                  _c("div", { staticClass: "form-group mt-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-dark btn-sm robot-font",
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.leaveComment($event)
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Отправить\n                        "
+                        )
+                      ]
+                    )
+                  ])
                 ]
               )
             ])
           ],
           2
         )
-      ])
-    ]
+      ]),
+      _vm._v(" "),
+      _c("toast-component", { attrs: { message: this.message } })
+    ],
+    1
   )
 }
 var staticRenderFns = [
@@ -50282,32 +50304,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("hr")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close text-white font-weight-bold robot-font",
-        attrs: { "data-dismiss": "alert" }
-      },
-      [_c("span", [_vm._v("×")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "close text-white robot-font font-weight-bold",
-        attrs: { "data-dismiss": "alert" }
-      },
-      [_c("span", [_vm._v("×")])]
-    )
   },
   function() {
     var _vm = this
@@ -50338,20 +50334,8 @@ var staticRenderFns = [
     return _c("div", { staticClass: "form-group" }, [
       _c("textarea", {
         staticClass: "form-control",
-        attrs: { name: "comment", rows: "5" }
+        attrs: { name: "comment", rows: "5", id: "comment" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group mt-4" }, [
-      _c("button", { staticClass: "btn btn-dark btn-sm robot-font" }, [
-        _vm._v(
-          "\n                            Отправить\n                        "
-        )
-      ])
     ])
   }
 ]
