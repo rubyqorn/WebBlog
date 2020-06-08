@@ -33,12 +33,12 @@
                     <td class="text-muted font-weight-bold">{{ news.comments_count }}</td>
                     <td class="text-muted">{{ dateFormating(news.created_at) }}</td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-outline-info text-uppercase robot-font">
+                        <a :href="'/dashboard/news/'+news.id+'/delete'" class="btn btn-sm btn-outline-info text-uppercase robot-font">
                             <small>Delete</small>
                         </a>
                     </td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-sm btn-outline-primary text-uppercase robot-font">
+                        <a :href="'/dashboard/news/'+news.id+'/edit'" class="btn btn-sm btn-sm btn-outline-primary text-uppercase robot-font">
                             <small>Edit</small>
                         </a>
                     </td>

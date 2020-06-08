@@ -1,5 +1,5 @@
 <template>
-    <div class="toast fade hide bg-info" id="toast">
+    <div class="toast bg-info" id="toast">
         <div class="toast-header">
             <i class="fa fa-bolt text-warning"></i>
             <span class="ml-2 robot-font font-weight-bold mr-auto">
