@@ -64,9 +64,9 @@
                             </h5>
                         </div>
 
-                        <latest-comments
-                            :comment="this.lastAnswers"
-                        ></latest-comments>
+                        <latest-answers
+                            :answers="lastCreatedAnswer"
+                        ></latest-answers>
 
                         <div class="col-lg-12 rounded mt-3" v-for="answer in answers">
                             <div class="row">
@@ -118,9 +118,9 @@
                                 </div>
                             </form>
                         </div>
-
+                        
                         <toast-component
-                            :message="this.message"
+                            :message="message"
                         ></toast-component>
                         
                     </div>
@@ -159,8 +159,8 @@
                 answers: {},
                 lastDiscussions: {},
                 response: {},
-                lastAnswers: [],
-                message: ''
+                message: '',
+                lastCreatedAnswer: []
             }
         },
         created() {
@@ -198,16 +198,34 @@
                     })
             },
 
-            getCreatedAnswers(url) {
-                axios.get(url).then(response => {
-                    this.lastAnswers.push(response.data);
+            getLastCreatedAnswer(url) {
+                axios.get(url).then(data => {
+                    this.lastCreatedAnswer.push(data.data);
                 });
             },
 
-            sendRequest(url, data, headers) {
-                axios.post(url, data, headers).then(data => {
+            getFormData() {
+                let form = new FormData();
+
+                form.append('answer', document.querySelector(
+                    '#discussions #single-discussion-item #comments #create-answer #answer'
+                ).value);
+                form.append('_token', document.querySelector(
+                    '#discussions #single-discussion-item #comments #create-answer input[name="_token"]'
+                ).value);
+                form.append('id', this.discussion['0'].id);
+
+                return form;
+            },
+
+            sendRequest(url, data, header) {
+                axios.post(url, data, header).then(data => {
                     this.response = data.data;
-                })
+
+                    if (this.response.status == '200') {
+                        this.message = this.response.message;
+                    }
+                 })
             },
 
             clearForm() {
@@ -216,32 +234,18 @@
                 ).value = '';
             },
 
-            getFormData() {
-                let form = new FormData();
-
-                form.append('_token', document.querySelector(
-                    '#discussions #single-discussion-item #comments #create-answer input[name="_token"]'
-                ).value);
-                form.append('answer', document.querySelector(
-                    '#discussions #single-discussion-item #comments #create-answer #answer'
-                ).value);
-                form.append('id', this.discussion['0'].id);
-
-                return form;
-            },
-
             leaveAnswer() {
                 let data = this.getFormData();
 
-                this.sendRequest('/discussion/'+this.discussion['0'].id+'/answers', data, {
+                this.sendRequest('/discussion/'+ this.discussion['0'].id + '/answers', data, {
                     'X-CSRF-TOKEN': document.querySelector(
                         '#discussions #single-discussion-item #comments #create-answer input[name="_token"]'
                     ).value
                 });
 
-                this.getCreatedAnswers('/last-answers/discussions');
-                this.clearForm();
+                this.getLastCreatedAnswer('/last-answers/discussions')
                 $('#toast-container #toast').toast('show');
+                this.clearForm();
             }
         }
     } 

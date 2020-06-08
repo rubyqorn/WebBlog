@@ -141,6 +141,14 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.categories.create');
 	Route::post('/news/categories/create', 'NewsCategoriesController@store')
 		->name('admin.news.categories.store');
+	Route::get('/news/{id}/single-json-news', 'NewsController@selectedPostForEdit')
+		->name('admin.json.single.news');
+	Route::get('/news/{id}/edit', 'NewsController@edit')
+		->name('admin.news.edit');
+	Route::post('/news/{id}/edit', 'NewsController@update')
+		->name('admin.news.update');
+	Route::post('/news/{id}/delete', 'NewsController@delete')
+		->name('admin.news.delete');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');

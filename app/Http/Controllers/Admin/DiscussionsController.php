@@ -59,7 +59,7 @@ class DiscussionsController extends Controller
         $image = $request->file('file');
         $extension = $image->getClientOriginalExtension();
         Storage::disk('public')->put(
-            $image->getFileName() . $extension, File::get($image)
+            $image->getFileName() . '.' . $extension, File::get($image)
         );
 
         return Discussion::create([

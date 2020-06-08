@@ -81,26 +81,41 @@ class NewsController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function selectedPostForEdit($id)
     {
-        if ($request->isMethod('patch')) {
-            $updating = News::updateRecords($request, $id); 
+        return News::with('category')->where('id', $id)->get();
+    }
 
-            if ($updating) {
-                return redirect()->route('news.index')->withStatus('Record was updated successfully'); 
-            }
-
-            abort(404);
+    public function edit($id) 
+    {
+        if (!view()->exists('dashboard.edit-news')) {
+            return abort(404);
         }
 
-        abort(404);
+        return view('dashboard.edit-news')
+            ->withTitle('Edit news')
+            ->withCategories(NewsCategory::all());
+    }
+
+    public function update(Request $request)
+    {
+        $newsData = $request->validate([
+            'title' => 'required|min:10|max:80',
+            'description' => 'required|min:120',
+            'category' => 'required'
+        ]);
+
+        $news = News::findOrFail($request->id);
+        $news->category_id = $request->category;
+        $news->user_id = \Auth::user()->id;
+        $news->title = $newsData['title'];
+        $news->description = $newsData['description'];
+        $news->save();
+
+        return response()->json([
+            'status' => '200',
+            'message' => "Post with id {$request->id} was updated"
+        ]);
     }
 
     /**
