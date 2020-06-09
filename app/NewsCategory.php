@@ -9,6 +9,7 @@ class NewsCategory extends Model
 {
     protected $table = 'news_categories';
     protected $fillable = ['name', 'color'];
+    protected $primaryKey = 'category_id';
 
 	/**
 	* @return inverse relationships with App\News

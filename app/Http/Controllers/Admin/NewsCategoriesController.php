@@ -63,18 +63,38 @@ class NewsCategoriesController extends Controller
         ]);
     }
 
-    /**
-     * Update articles categories by id property
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @param $id int
-     * 
-     * @return \Illuminate\Http\Response
-    */ 
-    public function updateCategories(Request $request, $id)
+    public function selectedCategory($id)
     {
-        parent::update($request, new NewsCategory(), $id);
-        return redirect('admin/categories')->withStatus('Category was updated successfully');
+        return NewsCategory::where('category_id', $id)->get();
+    }
+
+    public function edit()
+    {
+        if (!view()->exists('dashboard.edit-news-categories')) {
+            return abort(404);
+        }
+
+        return view('dashboard.edit-news-categories')
+            ->withTitle('Edit News Category');
+    }
+
+    public function update(Request $request)
+    {
+        $categoryData = $request->validate([
+            'name' => 'required|min:3|max:20',
+            'color' => 'required'
+        ]);
+
+        $category = NewsCategory::findOrFail($request->category_id);
+
+        $category->name = $categoryData['name'];
+        $category->color = $categoryData['color'];
+        $category->save();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Category with {$request->id} was updated"
+        ]);
     }
 
     /**

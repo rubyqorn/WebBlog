@@ -91,6 +91,7 @@ Vue.component('search-news-comments-form-component', require('./components/admin
 Vue.component('create-news-component', require('./components/admin/news/CreateNewsFormComponent.vue').default);
 Vue.component('create-news-categories-component', require('./components/admin/news/CreateNewsCategoriesComponent.vue').default);
 Vue.component('edit-news-component', require('./components/admin/news/EditNewsComponent.vue').default);
+Vue.component('edit-news-categories-component', require('./components/admin/news/EditNewsCategoriesComponent').default);
 
 // Articles components
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
