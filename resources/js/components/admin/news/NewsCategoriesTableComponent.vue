@@ -42,7 +42,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="/" class="btn btn-outline-dark btn-sm text-uppercase robot-font">
+                        <a :href="'/dashboard/news/categories/'+category.category_id+'/edit'" class="btn btn-outline-dark btn-sm text-uppercase robot-font">
                             <small>Update</small>
                         </a>
                     </td>
