@@ -2232,10 +2232,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.responseData.status_code == '200') {
           _this.message = _this.responseData.message;
-
-          _this.showToast(toast);
-
-          _this.hideToast();
         }
       });
     },
@@ -2253,18 +2249,7 @@ __webpack_require__.r(__webpack_exports__);
       this.sendRequest('/dashboard/articles/categories/create', data, {
         'X-CSRF_TOKEN': document.querySelector('#dashboard #create-articles-categories input[name="_token"]').value
       });
-    },
-    showToast: function showToast(toast) {
-      toast.classList.remove('hide');
-      toast.classList.add('show');
-    },
-    hideToast: function hideToast() {
-      var toastBtn = document.querySelector('#dashboard #create-articles-categories #toast #hide-toast');
-      return toastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #create-articles-categories #toast');
-        toast.classList.remove('show');
-        toast.classList.add('hide');
-      });
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -2359,13 +2344,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.responseData.status == '200') {
           _this.message = _this.responseData.message;
-          var toast = document.querySelector('#dashboard #toast');
-
-          _this.showToast(toast);
 
           _this.clearForm();
-
-          _this.hideToast();
         }
       });
     },
@@ -2390,20 +2370,13 @@ __webpack_require__.r(__webpack_exports__);
       toast.classList.remove('hide');
       toast.classList.add('show');
     },
-    hideToast: function hideToast() {
-      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
-      hideToastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #toast');
-        toast.classList.add('hide');
-        toast.classList.remove('show');
-      });
-    },
     createArticles: function createArticles() {
       var data = this.getFormData();
       this.sendRequest('/dashboard/articles/create', data, {
         'Content-Type': 'multipart/form-data',
         'X-CSRF-TOKEN': document.querySelector('#dashboard #create-articles input[name="_token"]').value
       });
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -2942,24 +2915,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.response.status_code == '200') {
           _this.message = _this.response.message;
-
-          _this.showToast(toast);
-
-          _this.hideToast();
         }
       });
-    },
-    hideToast: function hideToast(toast) {
-      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
-      hideToastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #toast');
-        toast.classList.add('hide');
-        toast.classList.remove('show');
-      });
-    },
-    showToast: function showToast() {
-      toast.classList.remove('hide');
-      toast.classList.add('show');
     },
     getFormData: function getFormData() {
       var form = new FormData();
@@ -2973,6 +2930,7 @@ __webpack_require__.r(__webpack_exports__);
       this.sendRequest('/dashboard/discussions/answers/create', data, {
         'X-CSRF-TOKEN': document.querySelector('#dashboard #create-answers input[name="_token"]').value
       });
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -3058,18 +3016,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    showToast: function showToast(toast) {
-      toast.classList.remove('hide');
-      toast.classList.add('show');
-    },
-    hideToast: function hideToast() {
-      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
-      hideToastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #toast');
-        toast.classList.add('hide');
-        toast.classList.remove('show');
-      });
-    },
     sendRequest: function sendRequest(url, data, headers) {
       var _this = this;
 
@@ -3098,6 +3044,7 @@ __webpack_require__.r(__webpack_exports__);
       this.sendRequest('/dashboard/discussions/categories/create', data, {
         'X-CSRF-TOKEN': document.querySelector('#dashboard #create-discussions-categories input[name="_token"]').value
       });
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -3193,18 +3140,6 @@ __webpack_require__.r(__webpack_exports__);
       form.append('file', this.file);
       return form;
     },
-    showToast: function showToast(toast) {
-      toast.classList.remove('hide');
-      toast.classList.add('show');
-    },
-    hideToast: function hideToast() {
-      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
-      hideToastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #toast');
-        toast.classList.add('hide');
-        toast.classList.remove('show');
-      });
-    },
     clearForm: function clearForm() {
       this.title = '';
       this.description = '';
@@ -3217,13 +3152,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.data.status_code == '200') {
           _this.message = _this.data.message;
-          var toast = document.querySelector('#dashboard #toast');
-
-          _this.showToast(toast);
 
           _this.clearForm();
-
-          _this.hideToast();
         }
       });
     },
@@ -3233,6 +3163,7 @@ __webpack_require__.r(__webpack_exports__);
         'Content-Type': 'multipart/form-data',
         'X-CSRF-TOKEN': document.querySelector('#dashboard #create-discussions input[name="_token"]').value
       });
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -4025,14 +3956,6 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    hideToast: function hideToast() {
-      var toastBtn = document.querySelector('#dashboard #create-news-categories #toast #hide-toast');
-      return toastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #create-news-categories #toast');
-        toast.classList.remove('show');
-        toast.classList.add('hide');
-      });
-    },
     pushRequest: function pushRequest(url, data) {
       var _this = this;
 
@@ -4041,11 +3964,6 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.response.data.status == '200') {
           _this.message = _this.response.data.message;
-          var toast = document.querySelector('#dashboard #create-news-categories #toast');
-          toast.classList.remove('hide');
-          toast.classList.add('show');
-
-          _this.hideToast();
         }
       });
     },
@@ -4059,6 +3977,7 @@ __webpack_require__.r(__webpack_exports__);
     createCategory: function createCategory() {
       var data = this.getFormData();
       this.pushRequest('/dashboard/news/categories/create', data);
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -4165,11 +4084,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this.response.status_code == '200') {
           _this.message = _this.response.message;
-          $('#dashboard #toast').removeClass('hide').addClass('show');
 
           _this.clearForm();
-
-          _this.hideToastBtn();
         }
       });
     },
@@ -4179,18 +4095,11 @@ __webpack_require__.r(__webpack_exports__);
         'Content-Type': 'multipart/form-data',
         'X-CSRF-TOKEN': document.querySelector('#dashboard #create-news input[name="_token"]').value
       });
+      $('#toast-container #toast').toast('show');
     },
     clearForm: function clearForm() {
       this.title = '';
       this.description = '';
-    },
-    hideToastBtn: function hideToastBtn() {
-      var hideToastBtn = document.querySelector('#dashboard #toast #hide-toast');
-      hideToastBtn.addEventListener('click', function () {
-        var toast = document.querySelector('#dashboard #toast');
-        toast.classList.add('hide');
-        toast.classList.remove('show');
-      });
     }
   }
 });
@@ -4308,6 +4217,7 @@ __webpack_require__.r(__webpack_exports__);
 
         if (_this2.response.status == '200') {
           _this2.message = _this2.response.message;
+          console.log(_this2.message);
         }
       });
     },
@@ -4316,7 +4226,7 @@ __webpack_require__.r(__webpack_exports__);
       this.sendRequest('/dashboard/news/' + this.news['0'].id + '/edit', data, {
         'X-CSRF-TOKEN': document.querySelector('#dashboard #edit-news-item input[name="_token"]').value
       });
-      $('#toast').toast('show');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -5216,6 +5126,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -50178,16 +50090,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "toast bg-info", attrs: { id: "toast" } }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "toast-body text-dark" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("span", { staticClass: "robot-font font-weight-bold text-white" }, [
-          _vm._v(_vm._s(this.message))
+  return _c("div", { attrs: { id: "toast-container" } }, [
+    _c(
+      "div",
+      {
+        staticClass: "toast",
+        attrs: {
+          role: "alert",
+          "data-delay": "2000",
+          "data-autohide": "false",
+          id: "toast"
+        }
+      },
+      [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "toast-body text-dark" }, [
+          _c("div", { staticClass: "col-lg-12" }, [
+            _c("span", { staticClass: "robot-font font-weight-bold" }, [
+              _vm._v(_vm._s(this.message))
+            ])
+          ])
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -50199,7 +50125,7 @@ var staticRenderFns = [
       _c("i", { staticClass: "fa fa-bolt text-warning" }),
       _vm._v(" "),
       _c("span", { staticClass: "ml-2 robot-font font-weight-bold mr-auto" }, [
-        _vm._v("\n            WebBlog\n        ")
+        _vm._v("\n                WebBlog\n            ")
       ]),
       _vm._v(" "),
       _c(

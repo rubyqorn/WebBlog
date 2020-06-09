@@ -59,33 +59,12 @@
         },
 
         methods: {
-            hideToast() {
-                let toastBtn = document.querySelector(
-                    '#dashboard #create-news-categories #toast #hide-toast'
-                );
-
-                return toastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #create-news-categories #toast'
-                    );
-                    
-                    toast.classList.remove('show');
-                    toast.classList.add('hide');
-                })
-            },
-
             pushRequest(url, data) {
                 axios.post(url, data).then(response => {
                     this.response = response;
 
                     if (this.response.data.status == '200') {
                         this.message = this.response.data.message;
-                        let toast = document.querySelector('#dashboard #create-news-categories #toast');
-
-                        toast.classList.remove('hide');
-                        toast.classList.add('show');
-
-                        this.hideToast()
                     }
                 })
             },
@@ -108,6 +87,7 @@
                 let data = this.getFormData();
 
                 this.pushRequest('/dashboard/news/categories/create', data);
+                $('#toast-container #toast').toast('show');
             }
         }
     }

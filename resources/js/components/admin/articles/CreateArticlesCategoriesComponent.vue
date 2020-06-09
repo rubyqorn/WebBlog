@@ -70,9 +70,6 @@
 
                     if(this.responseData.status_code == '200') {
                         this.message = this.responseData.message;
-
-                        this.showToast(toast);
-                        this.hideToast();
                     }
 
                 })
@@ -105,26 +102,8 @@
                         '#dashboard #create-articles-categories input[name="_token"]'
                     ).value
                 });
-            },
 
-            showToast(toast) {
-                toast.classList.remove('hide');
-                toast.classList.add('show');
-            },
-
-            hideToast() {
-                let toastBtn = document.querySelector(
-                    '#dashboard #create-articles-categories #toast #hide-toast'
-                );
-
-                return toastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #create-articles-categories #toast'
-                    );
-                    
-                    toast.classList.remove('show');
-                    toast.classList.add('hide');
-                })
+                $('#toast-container #toast').toast('show');
             }
             
         }
