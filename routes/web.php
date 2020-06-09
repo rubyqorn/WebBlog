@@ -180,6 +180,19 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.categories.create');
 	Route::post('/articles/categories/create', 'ArticlesCategoriesController@store')
 		->name('admin.articles.categories.store');
+	Route::get('/news/{id}/single-json-articles', 'ArticlesController@selectedPost')
+		->name('admin.json.single.articles');
+	Route::get('/articles/{id}/edit', 'ArticlesController@edit')
+		->name('admin.articles.edit');
+	Route::post('/articles/{id}/edit', 'ArticlesController@update')
+		->name('admin.articles.update');
+	Route::get('/articles/categories/{id}/single-json-category', 'ArticlesCategoriesController@selectedCategory')
+		->name('admin.json.articles.categories');
+	Route::get('/articles/categories/{id}/edit', 'ArticlesCategoriesController@edit')
+		->name('admin.articles.categories.edit');
+	Route::post('/articles/categories/{id}/edit', 'ArticlesCategoriesController@update')
+		->name('admin.articles.categories.update');
+	
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');

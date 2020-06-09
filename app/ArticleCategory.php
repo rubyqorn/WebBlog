@@ -9,31 +9,11 @@ class ArticleCategory extends Model
 {
     protected $table = 'articles_categories';
     protected $fillable = ['name', 'color'];
+    protected $primaryKey = 'category_id';
 
     public function articles()
     {
         return $this->hasMany('\App\Article', 'category_id', 'category_id');
-    }
-
-    /**
-     * Update categories 
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @param $id int
-     * 
-     * @return \App\ArticleCategory
-    */ 
-    public function updateCategories(Request $request, $id)
-    {
-        if (is_object($request)) {
-            $validation = $request->validate([
-                'name' => 'required|min:5|max:20'
-            ]);
-
-            return ArticleCategory::where('category_id', $id)->update([
-                'name' => $request->category
-            ]);
-        }
     }
 
     /**

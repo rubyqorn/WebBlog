@@ -102,6 +102,8 @@ Vue.component('search-articles-categories-form-component', require('./components
 Vue.component('search-articles-comments-form-component', require('./components/admin/articles/SearchArticlesCommentsComponent.vue').default);
 Vue.component('create-articles-component', require('./components/admin/articles/CreateArticlesComponent.vue').default);
 Vue.component('create-articles-categories-component', require('./components/admin/articles/CreateArticlesCategoriesComponent.vue').default);
+Vue.component('edit-articles-component', require('./components/admin/articles/EditArticlesComponent.vue').default);
+Vue.component('edit-articles-categories-component', require('./components/admin/articles/EditArticlesCategoryComponent.vue').default);
 
 // Discussions components
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);

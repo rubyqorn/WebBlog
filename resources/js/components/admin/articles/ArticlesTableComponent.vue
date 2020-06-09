@@ -38,7 +38,7 @@
                         </a> 
                     </td>
                     <td>
-                       <a href="/" class="btn btn-sm btn-outline-primary robot-font text-uppercase">
+                       <a :href="'/dashboard/articles/'+article.id+'/edit'" class="btn btn-sm btn-outline-primary robot-font text-uppercase">
                             <small>Edit</small>
                         </a> 
                     </td>

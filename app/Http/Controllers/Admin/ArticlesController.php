@@ -92,24 +92,40 @@ class ArticlesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function selectedPost($id)
     {
-        if ($request->isMethod('patch')) {
-            $updating = Article::updateArticles($request, $id);
+        return Article::where('id', $id)->get();
+    }
 
-            if ($updating) {
-                return redirect()->route('articles.index')->withStatus('Record was updated successfully');
-            } 
+    public function edit()
+    {
+        if(!view()->exists('dashboard.edit-articles')) {
+            return abort(404);
         }
 
-        abort(404);
+        return view('dashboard.edit-articles')
+            ->withTitle('Edit Article')
+            ->withCategories(ArticleCategory::all());
+    }
+
+    public function update(Request $request)
+    {
+        $articleData = $request->validate([
+            'title' => 'required|min:10|max:70',
+            'description' => 'required|min:120',
+            'category' => 'required'
+        ]);
+
+        $article = Article::findOrFail($request->id);
+        $article->title = $articleData['title'];
+        $article->description = $articleData['description'];
+        $article->category_id = $articleData['category'];
+        $article->save();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Post with {$request->id} id was updated"
+        ]);
     } 
 
     /**
