@@ -98,11 +98,9 @@
                     this.response = data.data;
 
                     if (this.response.status_code == '200') {
-                        this.message = this.response.message
-                        $('#dashboard #toast').removeClass('hide').addClass('show');
+                        this.message = this.response.message;  
 
                         this.clearForm();
-                        this.hideToastBtn();   
                     }
                 })
             },
@@ -116,26 +114,13 @@
                         '#dashboard #create-news input[name="_token"]'
                     ).value
                 });
+
+                $('#toast-container #toast').toast('show');
             },
 
             clearForm() {
                 this.title = '';
                 this.description = '';
-            },
-
-            hideToastBtn() {
-                let hideToastBtn = document.querySelector(
-                    '#dashboard #toast #hide-toast'
-                );
-
-                hideToastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #toast'
-                    );
-
-                    toast.classList.add('hide');
-                    toast.classList.remove('show');
-                });
             }
         }
     }

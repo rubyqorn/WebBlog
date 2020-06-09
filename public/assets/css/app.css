@@ -51,13 +51,9 @@ body {
     background-color: #000;
 }
 
-#toast-container {
-    position: relative;
-    bottom: 200px;
-    left: 115px;
-}
-
 #toast {
+    margin-top: 40px;
+    margin-right: 20px;
     width: 330px;
     position: absolute;
     top: 0;

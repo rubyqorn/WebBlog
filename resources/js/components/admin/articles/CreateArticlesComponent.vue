@@ -81,14 +81,8 @@
 
                     if(this.responseData.status == '200') {
                         this.message = this.responseData.message;
-                        let toast = document.querySelector(
-                            '#dashboard #toast'
-                        )
-                        
-                        this.showToast(toast);
-                        this.clearForm();
 
-                        this.hideToast();
+                        this.clearForm();
                     }
                 });
 
@@ -125,21 +119,6 @@
                 toast.classList.add('show');
             },
 
-            hideToast() {
-                let hideToastBtn = document.querySelector(
-                    '#dashboard #toast #hide-toast'
-                );
-
-                hideToastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #toast'
-                    );
-
-                    toast.classList.add('hide');
-                    toast.classList.remove('show');
-                });
-            },
-
             createArticles() {
                 let data = this.getFormData();
 
@@ -149,6 +128,8 @@
                         '#dashboard #create-articles input[name="_token"]'
                     ).value
                 });
+
+                $('#toast-container #toast').toast('show');
             }
         }
     }

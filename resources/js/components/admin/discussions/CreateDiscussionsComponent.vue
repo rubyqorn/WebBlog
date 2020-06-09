@@ -91,26 +91,6 @@
                 return form;
             },
 
-            showToast(toast) {
-                toast.classList.remove('hide');
-                toast.classList.add('show');
-            },
-
-            hideToast() {
-                let hideToastBtn = document.querySelector(
-                    '#dashboard #toast #hide-toast'
-                );
-
-                hideToastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #toast'
-                    );
-
-                    toast.classList.add('hide');
-                    toast.classList.remove('show');
-                });
-            },
-
             clearForm() {
                 this.title = '';
                 this.description = '';
@@ -122,14 +102,8 @@
 
                     if (this.data.status_code == '200') {
                         this.message = this.data.message;
-                        let toast = document.querySelector(
-                            '#dashboard #toast'
-                        );
-
-                        this.showToast(toast);
+                        
                         this.clearForm();
-
-                        this.hideToast();
                     }
                 });
             },
@@ -142,6 +116,8 @@
                         '#dashboard #create-discussions input[name="_token"]'
                     ).value
                 });
+
+                $('#toast-container #toast').toast('show')
             }
         }
     }

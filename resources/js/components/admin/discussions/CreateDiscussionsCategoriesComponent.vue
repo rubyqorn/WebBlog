@@ -61,26 +61,6 @@
         },
 
         methods: {
-            showToast(toast) {
-                toast.classList.remove('hide');
-                toast.classList.add('show');
-            },
-
-            hideToast() {
-                let hideToastBtn = document.querySelector(
-                    '#dashboard #toast #hide-toast'
-                );
-
-                hideToastBtn.addEventListener('click', function() {
-                    let toast = document.querySelector(
-                        '#dashboard #toast'
-                    );
-
-                    toast.classList.add('hide');
-                    toast.classList.remove('show');
-                });
-            },
-
             sendRequest(url, data, headers) {
                 axios.post(url, data, headers).then(data => {
                     this.response = data.data;
@@ -121,6 +101,8 @@
                         '#dashboard #create-discussions-categories input[name="_token"]'
                     ).value
                 });
+
+                $('#toast-container #toast').toast('show');
             }
         }
     }
