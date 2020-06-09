@@ -63,18 +63,37 @@ class ArticlesCategoriesController extends Controller
         ]);
     }
 
-    /**
-     * Update articles categories by id property 
-     * 
-     * @param \App\Http\Requests\StoreCategories $request
-     * @param $id int
-     *
-     * @return \Illuminate\Http\Response
-    */ 
-    public function updateCategories(Request $request, $id)
+    public function selectedCategory($id)
     {
-        parent::update($request, new ArticleCategory(), $id);
-        return redirect('admin/categories')->withStatus('Category was updated successfully');
+        return ArticleCategory::where('category_id', $id)->get();
+    }
+
+    public function edit()
+    {
+        if (!view()->exists('dashboard.edit-articles-categories')) {
+            return abort(404);
+        }
+
+        return view('dashboard.edit-articles-categories')
+            ->withTitle('Edit Articles Category');
+    }
+
+    public function update(Request $request)
+    {
+        $categoryData = $request->validate([
+            'name' => 'required|min:3|max:10',
+            'color' => 'required'
+        ]);
+
+        $category = ArticleCategory::findOrFail($request->id);
+        $category->name = $categoryData['name'];
+        $category->color = $categoryData['color'];
+        $category->save();
+
+        return response()->json([
+            'status' => '200',
+            'message' => "Category with {$request->id} id was updated"
+        ]);
     }
 
     /**
