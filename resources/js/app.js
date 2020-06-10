@@ -92,6 +92,7 @@ Vue.component('create-news-component', require('./components/admin/news/CreateNe
 Vue.component('create-news-categories-component', require('./components/admin/news/CreateNewsCategoriesComponent.vue').default);
 Vue.component('edit-news-component', require('./components/admin/news/EditNewsComponent.vue').default);
 Vue.component('edit-news-categories-component', require('./components/admin/news/EditNewsCategoriesComponent').default);
+Vue.component('edit-news-comment-component', require('./components/admin/news/EditNewsCommentsComponent.vue').default);
 
 // Articles components
 Vue.component('articles-table-component', require('./components/admin/articles/ArticlesTableComponent.vue').default);
@@ -104,6 +105,7 @@ Vue.component('create-articles-component', require('./components/admin/articles/
 Vue.component('create-articles-categories-component', require('./components/admin/articles/CreateArticlesCategoriesComponent.vue').default);
 Vue.component('edit-articles-component', require('./components/admin/articles/EditArticlesComponent.vue').default);
 Vue.component('edit-articles-categories-component', require('./components/admin/articles/EditArticlesCategoryComponent.vue').default);
+Vue.component('edit-articles-comment-component', require('./components/admin/articles/EditArticlesCommentComponent.vue').default);
 
 // Discussions components
 Vue.component('discussions-table-component', require('./components/admin/discussions/DiscussionsTableComponent.vue').default);

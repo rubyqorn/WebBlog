@@ -37,4 +37,35 @@ class NewsCommentsController extends Controller
             ->where('comment', 'like', '%' . $request->comment . '%')
             ->paginate(5);
     }
+
+    public function selectedComment($id)
+    {
+        return NewsComment::with('user')->with('news')->where('id', $id)->get();
+    }
+
+    public function edit()
+    {
+        if (!view()->exists('dashboard.edit-news-comments')) {
+            return abort(404);
+        }
+
+        return view('dashboard.edit-news-comments')
+            ->withTitle('Edit News Comment');
+    }
+
+    public function update(Request $request)
+    {
+        $commentData = $request->validate([
+            'comment' => 'required|min:3|max:500'
+        ]);
+
+        $comment = NewsComment::findOrFail($request->id);
+        $comment->comment = $commentData['comment'];
+        $comment->save();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => 'Comment was updated!'
+        ]);
+    }
 }

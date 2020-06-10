@@ -4,11 +4,6 @@
             <div class="col-lg-6 robot-font text-info">
                 <span class="h6"># Articles comments table</span>
             </div>
-            <div class="col-lg-6 justify-content-end text-right">
-                <a href="/" class="mb-3 btn btn-sm btn-dark text-white text-uppercase robot-font">
-                    <small>Create</small>
-                </a>
-            </div>
         </div>
 
         <slot></slot>
@@ -38,7 +33,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-outline-dark text-uppercase robot-font">
+                        <a :href="'/dashboard/articles/comments/'+comment.id+'/edit'" class="btn btn-sm btn-outline-dark text-uppercase robot-font">
                             <small>Edit</small>
                         </a>
                     </td>

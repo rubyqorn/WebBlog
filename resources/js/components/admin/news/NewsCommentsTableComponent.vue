@@ -33,7 +33,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-outline-success text-uppercase robot-font">
+                        <a :href="'/dashboard/news/comments/'+comment.id+'/edit'" class="btn btn-sm btn-outline-success text-uppercase robot-font">
                             <small>Edit</small>
                         </a>
                     </td>

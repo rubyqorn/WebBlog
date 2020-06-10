@@ -148,11 +148,17 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 	Route::post('/news/{id}/edit', 'NewsController@update')
 		->name('admin.news.update');
 	Route::get('/news/categories/{id}/single-json-category', 'NewsCategoriesController@selectedCategory')
-		->name('admin.json.news.categories');
+		->name('admin.json.single.news.categories');
 	Route::get('/news/categories/{id}/edit', 'NewsCategoriesController@edit')
 		->name('admin.news.categories.edit');
 	Route::post('/news/categories/{id}/edit', 'NewsCategoriesController@update')
 		->name('admin.news.categories.update');
+	Route::get('/news/comments/{id}/single-json-comment', 'NewsCommentsController@selectedComment')
+		->name('admin.json.single.news.comment');
+	Route::get('/news/comments/{id}/edit', 'NewsCommentsController@edit')
+		->name('admin.news.comments.edit');
+	Route::post('/news/comments/{id}/edit', 'NewsCommentsController@update')
+		->name('admin.news.comments.update');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');
@@ -192,7 +198,12 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.categories.edit');
 	Route::post('/articles/categories/{id}/edit', 'ArticlesCategoriesController@update')
 		->name('admin.articles.categories.update');
-	
+	Route::get('/articles/comment/{id}/single-json-comment', 'ArticlesCommentsController@selectedComment')
+		->name('admin.json.single.articles.comments');
+	Route::get('/articles/comments/{id}/edit', 'ArticlesCommentsController@edit')
+		->name('admin.articles.comments.edit');
+	Route::post('/articles/comments/{id}/edit', 'ArticlesCommentsController@update')
+		->name('admin.articles.comments.update');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');
