@@ -106,22 +106,80 @@ class DiscussionsController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function selectedDiscussion($id)
     {
-        if ($request->isMethod('patch')) {
-            $updating = Discussion::updateDiscussions($request, $id);
+        return Discussion::with('category')
+            ->with('authors')
+            ->withCount('answers')
+            ->where('id', $id)
+            ->get();
+    }
 
-            if($updating) {
-                return redirect()->route('discussions.index')->withStatus('Record was updated successfully');
-            }
+    public function edit()
+    {
+        if (!view()->exists('dashboard.edit-discussions')) {
+            return abort(404);
         }
+
+        return view('dashboard.edit-discussions')
+            ->withTitle('Edit Discussion')
+            ->withCategories(DiscussionCategory::all());
+    }
+
+    protected function updateWithFile(Request $request, Discussion $discussion)
+    {
+        $discussionsData = $request->validate([
+            'title' => 'required|min:10|max:120',
+            'description' => 'required|min:120',
+            'category' => 'required',
+            'image' => 'nullable|image'
+        ]);
+
+        $image = $request->file('image');
+        $extension = $image->getClientOriginalExtension();
+
+        Storage::disk('public')->put(
+            $image->getFileName() . '.' . $extension, File::get($image)
+        );
+
+        $discussion->title = $discussionsData['title'];
+        $discussion->description = $discussionsData['description'];
+        $discussion->image = $image->getFileName() . '.' . $extension;
+        $discussion->category_id = $discussionsData['category'];
+        return $discussion->save();
+    }
+
+    protected function updateWithoutFile(Request $request, Discussion $discussion)
+    {
+        $discussionsData = $request->validate([
+            'title' => 'required|min:10|max:120',
+            'description' => 'required|min:120',
+            'category' => 'required',
+        ]);
+
+        $discussion->title = $discussionsData['title'];
+        $discussion->description = $discussionsData['description'];
+        $discussion->category_id = $discussionsData['category'];
+        return $discussion->save();
+    }
+
+    public function update(Request $request)
+    {
+        $discussion = Discussion::findOrFail($request->id);
+
+        if ($request->hasFile('image')) {
+            $this->updateWithFile($request, $discussion);
+            return response()->json([
+                'status' => '200',
+                'message' => "Discussion with {$request->id} id was updated!"
+            ]);       
+        }
+
+        $this->updateWithoutFile($request, $discussion);
+        return response()->json([
+            'status' => '200',
+            'message' => "Discussion with {$request->id} was updated!"
+        ]);
     }
 
     /**

@@ -3858,6 +3858,425 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf'],
+  data: function data() {
+    return {
+      answer: null,
+      author: null,
+      discussion: null,
+      discussionId: null,
+      message: null,
+      currentAnswer: [],
+      response: {}
+    };
+  },
+  mounted: function mounted() {
+    this.getCurrentAnswer();
+  },
+  methods: {
+    getCurrentAnswer: function getCurrentAnswer() {
+      var _this = this;
+
+      var id = window.location.href.split('/')['6'];
+      axios.get('/dashboard/discussions/answers/' + id + '/single-json-answer').then(function (response) {
+        _this.currentAnswer = response.data;
+        _this.answer = _this.currentAnswer['0'].answer;
+        _this.author = _this.currentAnswer['0'].user.email;
+        _this.discussion = _this.currentAnswer['0'].discussion.title;
+        _this.discussionId = _this.currentAnswer['0'].discussion.id;
+      });
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('id', window.location.href.split('/')['6']);
+      form.append('answer', this.answer);
+      form.append('_token', document.querySelector('#dashboard #edit-discussions-answers input[name="_token"]').value);
+      return form;
+    },
+    sendRequest: function sendRequest(url, data, header) {
+      var _this2 = this;
+
+      axios.post(url, data, header).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    editAnswer: function editAnswer() {
+      var data = this.getFormData();
+      var id = window.location.href.split('/')['6'];
+      this.sendRequest('/dashboard/discussions/answers/' + id + '/edit', data, {
+        'X-CSRF-TOKEN': document.querySelector('#dashboard #edit-discussions-answers input[name="_token"]').value
+      });
+      $('#toast-container #toast').toast('show');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf'],
+  mounted: function mounted() {
+    this.getCurrentCategory();
+  },
+  data: function data() {
+    return {
+      name: null,
+      color: null,
+      message: null,
+      response: {},
+      currentCategory: [],
+      colors: [{
+        'name': 'green',
+        'value': 'light-green-color'
+      }, {
+        'name': 'blue',
+        'value': 'blue-color'
+      }, {
+        'name': 'orange',
+        'value': 'orange-color'
+      }, {
+        'name': 'yellow',
+        'value': 'yellow-color'
+      }, {
+        'name': 'violet',
+        'value': 'darkslateblue-color'
+      }, {
+        'name': 'dark',
+        'value': 'dark-color'
+      }, {
+        'name': 'grey',
+        'value': 'grey-color'
+      }]
+    };
+  },
+  methods: {
+    getCurrentCategory: function getCurrentCategory() {
+      var _this = this;
+
+      var id = window.location.href.split('/')['6'];
+      axios.get('/dashboard/discussions/categories/' + id + '/single-json-category').then(function (response) {
+        _this.currentCategory = response.data;
+        _this.name = _this.currentCategory['0'].name;
+        _this.color = _this.currentCategory['0'].color;
+      });
+    },
+    changeColor: function changeColor() {
+      this.color = document.querySelector('#dashboard #edit-discussions-category #color :checked').value;
+    },
+    getFormData: function getFormData() {
+      var form = new FormData();
+      form.append('id', window.location.href.split('/')['6']);
+      form.append('_token', document.querySelector('#dashboard #edit-discussions-category input[name="_token"]').value);
+      form.append('name', this.name);
+      form.append('color', this.color);
+      return form;
+    },
+    sendRequest: function sendRequest(url, data, header) {
+      var _this2 = this;
+
+      axios.post(url, data, header).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    editCategory: function editCategory() {
+      var data = this.getFormData();
+      var id = window.location.href.split('/')['6'];
+      this.sendRequest('/dashboard/discussions/categories/' + id + '/edit', data, {
+        'X-CSRF-TOKEN': document.querySelector('#dashboard #edit-discussions-category input[name="_token"]').value
+      });
+      $('#toast-container #toast').toast('show');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['csrf', 'categories'],
+  data: function data() {
+    return {
+      title: null,
+      description: null,
+      category: null,
+      file: null,
+      answers: null,
+      author: null,
+      message: null,
+      currentDiscussion: []
+    };
+  },
+  mounted: function mounted() {
+    this.getCurrentDiscussion();
+    console.log();
+  },
+  methods: {
+    changeFile: function changeFile() {
+      this.file = this.$refs.file.files['0'];
+      this.image = this.file.name;
+    },
+    getCurrentDiscussion: function getCurrentDiscussion() {
+      var _this = this;
+
+      var id = window.location.href.split('/')['5'];
+      axios.get('/dashboard/discussions/' + id + '/single-json-discussion').then(function (response) {
+        _this.currentDiscussion = response.data;
+        _this.title = _this.currentDiscussion['0'].title;
+        _this.description = _this.currentDiscussion['0'].description;
+        _this.category = _this.currentDiscussion['0'].category.name;
+        _this.file = _this.currentDiscussion['0'].image;
+        _this.answers = _this.currentDiscussion['0'].answers_count;
+        _this.author = _this.currentDiscussion['0'].authors.email;
+      });
+    },
+    getFormData: function getFormData(url, data, headers) {
+      var form = new FormData();
+      form.append('id', window.location.href.split('/')['5']);
+      form.append('_token', document.querySelector('#dashboard #edit-discussions input[name="_token"]').value);
+      form.append('category', $('#dashboard #edit-discussions #category :selected').attr('name'));
+      form.append('title', this.title);
+      form.append('description', this.description);
+      form.append('image', this.file);
+      return form;
+    },
+    sendRequest: function sendRequest(url, data, headers) {
+      var _this2 = this;
+
+      axios.post(url, data, headers).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    editDiscussion: function editDiscussion() {
+      var data = this.getFormData();
+      var id = window.location.href.split('/')['5'];
+      this.sendRequest('/dashboard/discussions/' + id + '/edit', data, {
+        'Content-Type': 'multipart/form-data',
+        'X-CSRF-TOKEN': document.querySelector('#dashboard #edit-discussions input[name="_token"]').value
+      });
+      $('#toast-container #toast').toast('show');
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/SearchDiscussionsAnswersComponent.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/SearchDiscussionsAnswersComponent.vue?vue&type=script&lang=js& ***!
@@ -47603,13 +48022,28 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(2, true),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-success text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/answers/" +
+                          answer.id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(3)
         ]
       ),
       _vm._v(" "),
@@ -47695,22 +48129,6 @@ var staticRenderFns = [
           attrs: { href: "/" }
         },
         [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-success text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
       )
     ])
   },
@@ -47824,13 +48242,28 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(2, true),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-dark btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/categories/" +
+                          category.category_id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Update")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(3)
         ]
       ),
       _vm._v(" "),
@@ -47912,21 +48345,6 @@ var staticRenderFns = [
           attrs: { href: "/" }
         },
         [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-dark btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Update")])]
       )
     ])
   },
@@ -48022,13 +48440,26 @@ var render = function() {
                 _vm._v(" "),
                 _vm._m(2, true),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-primary robot-font text-uppercase",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/" + discussion.id + "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(3)
         ]
       ),
       _vm._v(" "),
@@ -48114,22 +48545,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-primary robot-font text-uppercase",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-primary" }, [
       _c("tr", { staticClass: "robot-font text-white font-weight-bold" }, [
         _c("td", [_vm._v("#")]),
@@ -48147,6 +48562,682 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a&":
+/*!****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a& ***!
+  \****************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 mt-4 mb-4 p-4 rounded shadow bg-white",
+      attrs: { id: "edit-discussions-answers" }
+    },
+    [
+      _c(
+        "form",
+        {
+          attrs: {
+            action: "/dashboard/discussions/answers/edit",
+            method: "post"
+          }
+        },
+        [
+          _c("input", {
+            attrs: { name: "_token", type: "hidden" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("ckeditor", {
+                attrs: { "tag-name": "textarea" },
+                model: {
+                  value: _vm.answer,
+                  callback: function($$v) {
+                    _vm.answer = $$v
+                  },
+                  expression: "answer"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.author,
+                  expression: "author"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "author", type: "text", readonly: "" },
+              domProps: { value: _vm.author },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.author = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group border-bottom" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-lg-12 shadow bg-white p-4 mt-3 mb-2 text-center"
+              },
+              [
+                _c(
+                  "a",
+                  {
+                    staticClass: "robot-font text-muted",
+                    attrs: { href: "/discussions/" + this.discussionId }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(this.discussion) +
+                        "\n                "
+                    )
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-end" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-sm btn-dark robot-font text-uppercase mt-2 mr-3",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.editAnswer($event)
+                  }
+                }
+              },
+              [_c("small", [_vm._v("Edit")])]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted robot-font text-uppercase",
+        attrs: { for: "answer" }
+      },
+      [_c("small", [_vm._v("Answer")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted robot-font text-uppercase",
+        attrs: { for: "author" }
+      },
+      [_c("small", [_vm._v("Author")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted robot-font text-uppercase",
+        attrs: { for: "discussion" }
+      },
+      [_c("small", [_vm._v("Discussion")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 shadow bg-white rounded mt-4 mb-4 p-4",
+      attrs: { id: "edit-discussions-category" }
+    },
+    [
+      _c(
+        "form",
+        { attrs: { action: "/dashboard/discussions/categories/edit" } },
+        [
+          _c("input", {
+            attrs: { name: "_token", type: "hidden" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "name", type: "text" },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group border-bottom pb-2" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-lg-12 row" },
+              _vm._l(this.colors, function(color) {
+                return _c(
+                  "div",
+                  { staticClass: "form-check mr-2", attrs: { id: "color" } },
+                  [
+                    _c("input", {
+                      staticClass: "form-check-input",
+                      attrs: { type: "checkbox", name: "color" },
+                      domProps: { value: color.value },
+                      on: { change: _vm.changeColor }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass:
+                          "form-check-label text-muted robot-font font-weight-bold",
+                        attrs: { for: "color" }
+                      },
+                      [_c("small", [_vm._v(_vm._s(color.name))])]
+                    )
+                  ]
+                )
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12 p-0 m-0" }, [
+              _c("p", { staticClass: "text-muted robot-font" }, [
+                _c("small", [
+                  _vm._v(
+                    "\n                        Selected color name: \n                        "
+                  ),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(this.color) +
+                        "\n                        "
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-end" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "mt-2 mr-3 btn btn-sm btn-dark text-uppercase robot-font",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.editCategory($event)
+                  }
+                }
+              },
+              [_c("small", [_vm._v("Edit")])]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted robot-font text-uppercase",
+        attrs: { for: "name" }
+      },
+      [_c("small", [_vm._v("Name")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass:
+          "robot-font text-muted font-weight-bold control-label text-uppercase",
+        attrs: { for: "color" }
+      },
+      [_c("small", [_vm._v("Color")])]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "col-lg-12 shadow bg-white rounded mt-4 mb-4 p-4",
+      attrs: { id: "edit-discussions" }
+    },
+    [
+      _c(
+        "form",
+        {
+          attrs: {
+            action: "/dashboard/discussions/edit",
+            method: "post",
+            enctype: "multipart/form-data"
+          }
+        },
+        [
+          _c("input", {
+            attrs: { name: "_token", type: "hidden" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("ckeditor", {
+                attrs: { "tag-name": "textarea", id: "title" },
+                model: {
+                  value: _vm.title,
+                  callback: function($$v) {
+                    _vm.title = $$v
+                  },
+                  expression: "title"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("ckeditor", {
+                attrs: { "tag-name": "textarea", id: "description" },
+                model: {
+                  value: _vm.description,
+                  callback: function($$v) {
+                    _vm.description = $$v
+                  },
+                  expression: "description"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.answers,
+                  expression: "answers"
+                }
+              ],
+              staticClass: "form-control robot-font",
+              attrs: { id: "answers", type: "text", readonly: "" },
+              domProps: { value: _vm.answers },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.answers = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.author,
+                  expression: "author"
+                }
+              ],
+              staticClass: "form-control robot-font",
+              attrs: { id: "author", type: "text", readonly: "" },
+              domProps: { value: _vm.author },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.author = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.category,
+                    expression: "category"
+                  }
+                ],
+                staticClass: "custom-select robot-font text-muted",
+                attrs: { id: "category" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.category = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              _vm._l(this.categories, function(category) {
+                return _c("option", { attrs: { name: category.category_id } }, [
+                  _vm._v(_vm._s(category.name))
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12 p-0 m-0" }, [
+              _c("p", { staticClass: "text-muted robot-font" }, [
+                _c("small", [
+                  _vm._v(
+                    "\n                        Name of selected category \n                        "
+                  ),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(_vm._s(this.category))
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "custom-file" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c("input", {
+              ref: "file",
+              staticClass: "custom-file-input",
+              attrs: { type: "file", name: "file" },
+              on: { change: _vm.changeFile }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-12 p-0 m-0" }, [
+              _c("p", { staticClass: "text-muted robot-font" }, [
+                _c("small", [
+                  _vm._v(
+                    "\n                        Name of uploaded photo \n                        "
+                  ),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(
+                          this.file instanceof Object
+                            ? this.file.name
+                            : this.file
+                        ) +
+                        "\n                        "
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row justify-content-end" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "btn btn-sm btn-dark robot-font text-uppercase mt-3 mr-3",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.editDiscussion($event)
+                  }
+                }
+              },
+              [_c("small", [_vm._v("Edit")])]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } })
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted text-uppercase robot-font",
+        attrs: { for: "title" }
+      },
+      [_c("small", [_vm._v("Title")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label text-muted text-uppercase robot-font",
+        attrs: { for: "title" }
+      },
+      [_c("small", [_vm._v("Description")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "robot-font text-muted text-uppercase control-label",
+        attrs: { for: "answers" }
+      },
+      [_c("small", [_vm._v("Counted answers")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "robot-font text-muted text-uppercase control-label",
+        attrs: { for: "answers" }
+      },
+      [_c("small", [_vm._v("Author")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      {
+        staticClass: "control-label robot-font text-muted text-uppercase",
+        attrs: { for: "category" }
+      },
+      [_c("small", [_vm._v("Category")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "custom-file-label", attrs: { for: "image" } },
+      [
+        _c("small", { staticClass: "robot-font text-muted" }, [
+          _c("i", { staticClass: "fa fa-camera" }),
+          _vm._v(" "),
+          _c("span", [_vm._v("Select photo")])
+        ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -69199,6 +70290,9 @@ Vue.component('search-discussions-answers-form-component', __webpack_require__(/
 Vue.component('create-discussions-component', __webpack_require__(/*! ./components/admin/discussions/CreateDiscussionsComponent.vue */ "./resources/js/components/admin/discussions/CreateDiscussionsComponent.vue")["default"]);
 Vue.component('create-discussions-categories-component', __webpack_require__(/*! ./components/admin/discussions/CreateDiscussionsCategoriesComponent.vue */ "./resources/js/components/admin/discussions/CreateDiscussionsCategoriesComponent.vue")["default"]);
 Vue.component('create-answers-component', __webpack_require__(/*! ./components/admin/discussions/CreateDiscussionsAnswersComponent.vue */ "./resources/js/components/admin/discussions/CreateDiscussionsAnswersComponent.vue")["default"]);
+Vue.component('edit-discussions-component', __webpack_require__(/*! ./components/admin/discussions/EditDiscussionsComponent.vue */ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue")["default"]);
+Vue.component('edit-discussions-categories-component', __webpack_require__(/*! ./components/admin/discussions/EditDiscussionsCategoriesComponent.vue */ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue")["default"]);
+Vue.component('edit-discussions-answers-component', __webpack_require__(/*! ./components/admin/discussions/EditDiscussionsAnswersComponent.vue */ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -70712,6 +71806,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DiscussionsTableComponent_vue_vue_type_template_id_7432805b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DiscussionsTableComponent_vue_vue_type_template_id_7432805b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a& */ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a&");
+/* harmony import */ var _EditDiscussionsAnswersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditDiscussionsAnswersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsAnswersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsAnswersComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a& ***!
+  \**********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsAnswersComponent.vue?vue&type=template&id=75f01a2a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsAnswersComponent_vue_vue_type_template_id_75f01a2a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2& */ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2&");
+/* harmony import */ var _EditDiscussionsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditDiscussionsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsCategoriesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2& ***!
+  \*************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsCategoriesComponent.vue?vue&type=template&id=7435aee2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsCategoriesComponent_vue_vue_type_template_id_7435aee2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsComponent.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb& */ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb&");
+/* harmony import */ var _EditDiscussionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditDiscussionsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditDiscussionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/discussions/EditDiscussionsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/discussions/EditDiscussionsComponent.vue?vue&type=template&id=022e1ccb&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditDiscussionsComponent_vue_vue_type_template_id_022e1ccb___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
