@@ -233,4 +233,22 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.discussions.answers.create');
 	Route::post('/discussions/answers/create', 'AnswersController@store')
 		->name('admin.discussions.answers.store');
+	Route::get('/discussions/{id}/single-json-discussion', 'DiscussionsController@selectedDiscussion')
+		->name('admin.json.single.discussions');
+	Route::get('/discussions/{id}/edit', 'DiscussionsController@edit')
+		->name('admin.discussions.edit');
+	Route::post('/discussions/{id}/edit', 'DiscussionsController@update')
+		->name('admin.discussions.update');
+	Route::get('/discussions/categories/{id}/single-json-category', 'DiscussionsCategoriesController@selectedCategory')
+		->name('admin.json.single.discussion.category');
+	Route::get('/discussions/categories/{id}/edit', 'DiscussionsCategoriesController@edit')
+		->name('admin.discussions.categories.edit');
+	Route::post('/discussions/categories/{id}/edit', 'DiscussionsCategoriesController@update')
+		->name('admin.discussions.categories.update');
+	Route::get('/discussions/answers/{id}/single-json-answer', 'AnswersController@selectedAnswer')
+		->name('admin.json.single.discussions.answer');
+	Route::get('/discussions/answers/{id}/edit', 'AnswersController@edit')
+		->name('admin.discussions.answers.edit');
+	Route::post('/discussions/answers/{id}/edit', 'AnswersController@update')
+		->name('admin.discussions.answers.update');
 });

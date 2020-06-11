@@ -73,23 +73,39 @@ class AnswersController extends Controller
         ]);
     }
 
-    /**
-    * Update answers by id property
-    *
-    * @param \AIlluminate\Http\Request
-    * @param $id int
-    *
-    * @return \Illuminate\Http\Response
-    */ 
-    public function update(Request $request, $id)
+    public function selectedAnswer($id)
     {
-        if ($request->isMethod('put')) {
-            $updating = Answer::updateAnswer($request, $id);
+        return Answer::with('user')
+            ->with('discussion')
+            ->where('id', $id)
+            ->get();
+    }
 
-            if ($updating) {
-                return redirect()->route('admin.answers')->withStatus('Answer was updated successfully');
-            }
+    public function edit()
+    {
+        if (!view()->exists('dashboard.edit-discussions-answers')) {
+            return abort(404);
         }
+
+        return view('dashboard.edit-discussions-answers')
+            ->withTitle('Edit Discussion Answers');
+    }
+
+    public function update(Request $request)
+    {
+        $answerData = $request->validate([
+            'answer' => 'required|min:10'
+        ]);
+
+        $answer = Answer::findOrFail($request->id);
+
+        $answer->answer = $answerData['answer'];
+        $answer->save();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Answer with {$request->id} id was edited!"
+        ]);
     }
 
     /**
