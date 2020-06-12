@@ -159,6 +159,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.comments.edit');
 	Route::post('/news/comments/{id}/edit', 'NewsCommentsController@update')
 		->name('admin.news.comments.update');
+	Route::post('/news/{id}/delete', 'NewsController@delete')
+		->name('admin.news.delete');
+	Route::post('/news/categories/{id}/delete', 'NewsCategoriesController@delete')
+		->name('admin.news.categories.delete');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');

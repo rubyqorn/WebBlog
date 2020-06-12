@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-4">
+    <div class="container mt-4 sticky-bottom">
         <div class="col-lg-12">
             <div class="row">
             
