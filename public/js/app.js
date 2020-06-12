@@ -5340,10 +5340,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      categories: {}
+      categories: {},
+      response: {},
+      message: null
     };
   },
   created: function created() {
@@ -5364,6 +5401,24 @@ __webpack_require__.r(__webpack_exports__);
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm, yy');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+        console.log(_this2.response);
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteCategory: function deleteCategory() {
+      var uri = document.querySelector('#dashboard #news-categories-table #delete-news-category').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #news-categories-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -5546,10 +5601,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      news: {}
+      news: {},
+      message: null,
+      response: {}
     };
   },
   created: function created() {
@@ -5574,6 +5666,23 @@ __webpack_require__.r(__webpack_exports__);
     trimString: function trimString(str) {
       var trimed = str.slice(0, 30);
       return trimed += '...';
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteNews: function deleteNews() {
+      var uri = document.querySelector('#dashboard #news-table #delete-news').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #news-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -50947,7 +51056,22 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-secondary btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + category.category_id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("td", [
                   _c(
@@ -50970,9 +51094,92 @@ var render = function() {
             0
           ),
           _vm._v(" "),
-          _vm._m(3)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } }),
+      _vm._v(" "),
+      _vm._l(this.categories.data, function(category) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + category.category_id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(category.category_id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(category.category_id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/news/categories/" +
+                            category.category_id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-news-category"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -51043,22 +51250,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-outline-secondary btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "tfoot",
       { staticClass: "text-white bg-warning font-weight-bold robot-font" },
@@ -51077,6 +51268,19 @@ var staticRenderFns = [
           _c("th", [_vm._v("Update")])
         ])
       ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
     )
   }
 ]
@@ -51331,7 +51535,13 @@ var render = function() {
                     {
                       staticClass:
                         "btn btn-sm btn-outline-info text-uppercase robot-font",
-                      attrs: { href: "/dashboard/news/" + news.id + "/delete" }
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + news.id,
+                        id: news.id
+                      }
                     },
                     [_c("small", [_vm._v("Delete")])]
                   )
@@ -51356,6 +51566,86 @@ var render = function() {
           _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _c("admin-toast-component", { attrs: { message: this.message } }),
+      _vm._v(" "),
+      _vm._l(this.news.data, function(news) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + news.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(news.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(news.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action: "/dashboard/news/" + news.id + "/delete",
+                          method: "post",
+                          id: "delete-news"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteNews($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -51441,6 +51731,19 @@ var staticRenderFns = [
         _c("th", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -56006,7 +56309,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mt-4" }, [
+  return _c("div", { staticClass: "container mt-4 sticky-bottom" }, [
     _c("div", { staticClass: "col-lg-12" }, [
       _c(
         "div",

@@ -12,7 +12,6 @@ class News extends Model
 		'title', 'preview_text', 'description', 'image',
 		'category_id', 'user_id'
 	];
-
 	protected $table = 'news';
 
 	public function author()
@@ -29,51 +28,4 @@ class News extends Model
 	{
 		return $this->belongsTo(NewsComment::class, 'id', 'news_id');
 	}
-
-
-	/**
-	* Update news by id property
-	*
-	* @param \Illuminate\Http\Request $request
-	* @param $id int
-	*
-	* @return updated record
-	*/ 
-	public static function updateRecords(Request $request, $id)
-	{
-		if (is_object($request)) {
-			
-			$validation = $request->validate([
-				'title' => 'required|min:15|max:120',
-				'preview_text' => 'required|min:10|max:500',
-				'description' => 'required|min:120|max:1000',
-				'image' => 'image',
-				'category' => 'required',
-			]);
-
-			$filename = CheckFile::checkForFileContains($request, 'image');
-
-			return News::where('id', $id)->update([
-				'title' => $request->title,
-				'preview_text' => $request->preview_text,
-				'description' => $request->description,
-				'image' => $filename,
-				'category_id' => $request->category
-			]);
-
-		}
-	}
-
-	/**
-	* Delete news by id property
-	*
-	* @param $id int
-	*
-	* @return bool
-	*/ 
-	public static function deleteNews($id)
-	{
-		return News::where('id', $id)->delete();
-	}
-
 }
