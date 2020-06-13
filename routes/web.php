@@ -163,6 +163,8 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.news.delete');
 	Route::post('/news/categories/{id}/delete', 'NewsCategoriesController@delete')
 		->name('admin.news.categories.delete');
+	Route::post('/news/comments/{id}/delete', 'NewsCommentsController@delete')
+		->name('admin.news.comments.delete');
 
 	Route::get('articles', 'ArticlesController@showPage')
 		->name('admin.articles');
@@ -208,6 +210,12 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.articles.comments.edit');
 	Route::post('/articles/comments/{id}/edit', 'ArticlesCommentsController@update')
 		->name('admin.articles.comments.update');
+	Route::post('/articles/{id}/delete', 'ArticlesController@delete')
+		->name('admin.articles.delete');
+	Route::post('/articles/categories/{id}/delete', 'ArticlesCategoriesController@delete')
+		->name('admin.articles.categories.delete');
+	Route::post('/articles/comments/{id}/delete', 'ArticlesCommentsController@delete')
+		->name('admin.articles.comments.delete');
 
 	Route::get('discussions', 'DiscussionsController@showPage')
 		->name('admin.discussions');
@@ -255,4 +263,10 @@ Route::middleware(['role', 'auth'])->prefix('dashboard')
 		->name('admin.discussions.answers.edit');
 	Route::post('/discussions/answers/{id}/edit', 'AnswersController@update')
 		->name('admin.discussions.answers.update');
+	Route::post('/discussions/{id}/delete', 'DiscussionsController@delete')
+		->name('admin.discussions.delete');
+	Route::post('/discussions/categories/{id}/delete', 'DiscussionsCategoriesController@delete')
+		->name('admin.discussions.categories.delete');
+	Route::post('/discussions/answers/{id}/delete', 'AnswersController@delete')
+		->name('admin.discussions.answers.delete');
 });

@@ -33,7 +33,7 @@
                     <td class="text-muted">{{ trimStr(answer.discussion.title) }}</td>
                     <td class="text-muted">{{ dateFormating(answer.created_at) }}</td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-outline-danger text-uppercase robot-font">
+                        <a href="#" role="button" data-toggle="modal" :data-target="'#delete-'+answer.id" class="btn btn-sm btn-outline-danger text-uppercase robot-font">
                             <small>Delete</small>
                         </a>
                     </td>
@@ -57,6 +57,40 @@
             </tfoot>
         </table>
 
+        <admin-toast-component
+            :message="this.message"
+        ></admin-toast-component>
+
+        <div class="modal fade show" :id="'delete-'+answer.id" v-for="answer in this.answers.data">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="text-muted robot-font">
+                            Delete record with {{ answer.id }} id
+                        </span>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="text-danger font-weight-bold robot-font">
+                            Are you sure you want delete record with {{ answer.id }} id ???
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form :action="'/dashboard/discussions/answer/'+answer.id+'/delete'" method="post" id="delete-discussions-answers">
+                            <div class="form-group">
+                                <button data-dismiss="modal" class="btn btn-sm btn-dark text-uppercase robot-font">
+                                    <small>No</small>
+                                </button>
+
+                                <button @click.prevent="deleteAnswer" class="btn btn-sm btn-danger text-uppercase robot-font text-uppercase">
+                                    <small>Yes</small>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row justify-content-end p-3" id="discussions-answers-pagination">
             <pagination :data="this.answers" @pagination-change-page="this.getAnswers"></pagination>
         </div>
@@ -67,7 +101,9 @@
     export default {
         data: function() {
             return {
-                answers: {}
+                answers: {},
+                response: {},
+                message: null
             }
         },
         created() {
@@ -83,14 +119,38 @@
                         this.answers = data;
                     })
             },
+
             dateFormating(date) {
                 let format = require('dateformat');
                 return format(date, 'dd mmm, yy');
             },
+
             trimStr(str) {
                 let trimed = str.slice(0, 30);
                 return trimed += '...'
-            }
+            },
+
+            sendRequest(uri) {
+                axios.post(uri).then(data => {
+                    this.response = data.data;
+
+                    if (this.response.status == '200') {
+                        this.message = this.response.message;
+                    }
+                })
+            },
+
+            deleteAnswer() {
+                let uri = document.querySelector(
+                    '#dashboard #discussions-answers #delete-discussions-answers'
+                ).getAttribute('action');
+
+                this.sendRequest(uri);
+
+                $('#dashboard #discussions-answers .modal').modal('hide');
+                $('#toast-container #toast').toast('show');
+            } 
+
         }
     }
 </script>

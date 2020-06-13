@@ -62,8 +62,5 @@
         props: [
             'csrf', 'token', 'errors'
         ],
-        mounted() {
-            console.log(this.token);
-        }
     }
 </script>

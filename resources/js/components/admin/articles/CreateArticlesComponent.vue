@@ -90,7 +90,6 @@
 
             handleImageSelecting() {
                 this.file = this.$refs.file.files['0'];
-                console.log(this.$refs.file);
             },
 
             getFormData() {

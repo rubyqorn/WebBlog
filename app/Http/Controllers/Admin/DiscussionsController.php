@@ -182,19 +182,13 @@ class DiscussionsController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \Illuminate\Http\Request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $id)
+    public function delete($id)
     {
-        if ($request->isMethod('delete')) {
-            $deletion = Discussion::deleteDiscussions($id);
+        Discussion::where('id', $id)->delete();
 
-            return redirect()->route('discussions.index')->withStatus('Discussion was deleted successfully');
-        }
+        return response()->json([
+            'status' => '200', 
+            'message' => "Discussion with {$id} id was deleted!"
+        ]);
     }
 }
