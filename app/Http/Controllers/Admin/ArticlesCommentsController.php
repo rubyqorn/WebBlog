@@ -73,4 +73,14 @@ class ArticlesCommentsController extends Controller
             'message' => 'Comment was changed!'
         ]);
     }
+
+    public function delete($id) 
+    {
+        ArticleComment::where('id', $id)->delete();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Comment with {$id} id was deleted!"
+        ]);
+    }
 }

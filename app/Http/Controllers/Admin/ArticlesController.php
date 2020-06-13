@@ -128,23 +128,13 @@ class ArticlesController extends Controller
         ]);
     } 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, $id)
+    public function delete($id)
     {
-        if ($request->isMethod('delete')) {
-            $deletion = Article::deleteArticles($id);
+        Article::where('id', $id)->delete();
 
-            if ($deletion) {
-                return redirect()->route('articles.index')->withStatus('Article was deleted successfully');
-            }
-        }
-
-        abort(404);
+        return response()->json([
+            'status' => '200',
+            'message' => "Article with {$id} id was deleted!"
+        ]);
     }
 }

@@ -113,8 +113,6 @@
 
                     if (this.response.status == '200') {
                         this.message = this.response.message;
-
-                        console.log(this.message);
                     }
                 });
             },

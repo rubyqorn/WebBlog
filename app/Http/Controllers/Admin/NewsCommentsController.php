@@ -68,4 +68,14 @@ class NewsCommentsController extends Controller
             'message' => 'Comment was updated!'
         ]);
     }
+
+    public function delete($id)
+    {
+        NewsComment::where('id', $id)->delete();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Comment with {$id} id was deleted!"
+        ]);
+    }
 }

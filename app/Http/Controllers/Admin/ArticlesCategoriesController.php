@@ -96,17 +96,13 @@ class ArticlesCategoriesController extends Controller
         ]);
     }
 
-    /**
-     * Delete articles categories by id property 
-     * 
-     * @param \Illuminate\Http\Request $request
-     * @param $id int
-     *
-     * @return \Illuminate\Http\Response
-    */ 
-    public function destroyCategories(Request $request, $id)
+    public function delete($id)
     {
-        parent::destroy($request, new ArticleCategory(), $id);
-        return redirect('admin/categories')->withStatus('Category was deleted successfully');
+        ArticleCategory::where('category_id', $id)->delete();
+
+        return response()->json([
+            'status_code' => '200',
+            'message' => "Category with {$id} id was deleted!"
+        ]);
     }
 }

@@ -104,7 +104,6 @@
 
         mounted() {
             this.getCurrentDiscussion();
-            console.log();
         },
 
         methods: {

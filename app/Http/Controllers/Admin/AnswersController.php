@@ -108,22 +108,13 @@ class AnswersController extends Controller
         ]);
     }
 
-    /**
-    * Delete answer by id property
-    *
-    * @param \Illuminate\Http\Request $request
-    * @param $id int
-    * 
-    * @return \Illuminate\Http\Response
-    */ 
-    public function destroy(Request $request, $id)
+    public function delete($id)
     {
-        if ($request->isMethod('delete')) {
-            $deletion = Answer::deleteAnswer($id);
+        Answer::where('id', $id)->delete();
 
-            if ($deletion) {
-                return redirect()->route('admin.answers')->withStatus('Answer was deleted successfully');
-            }
-        }
+        return response()->json([
+            'status' => '200', 
+            'message' => "Answer with {$id} id was deleted!"
+        ]);
     }
 }
