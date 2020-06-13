@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{ $discussion['0']->title }}
+    {{ trim($discussion['0']->title, '<p></p>') }}
 @endsection
 
 @section('content')

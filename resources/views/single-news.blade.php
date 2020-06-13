@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    {{ $news->title }}
+    {{ trim($news->title, '<p></p>') }}
 @endsection
 
 @section('content')

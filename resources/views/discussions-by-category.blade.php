@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('title')
-    Discussions by category 
+    Дискуссии по категории
 @endsection
 
 @section('content')

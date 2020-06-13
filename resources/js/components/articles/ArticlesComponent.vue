@@ -3,8 +3,8 @@
         <div class="row" >
 
             <div class="col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow" v-for="article in articles.data">
-                <a :href="`${'/article/' + article.id}`" class="article-img">
-                    <img class="w-100 shadow rounded m-1" :src="`${ article.image }`"
+                <a :href="'/article/' + article.id" class="article-img">
+                    <img class="w-100 shadow rounded m-1" :src="'/storage/'+ article.image"
                         @mouseover="hover($event)"
                         @mouseout="unHover()"
                     >
@@ -13,7 +13,7 @@
                     <small>{{ dateFormating(article.created_at) }}</small>
                 </p>
                 <div class="text-center mb-2">
-                    <a :href="`${ '/article/' + article.id }`" class="text-dark robot-font">
+                    <a v-html="article.title" :href="'/article/' + article.id" class="text-dark robot-font">
                         {{ article.title }}
                     </a>
                 </div>

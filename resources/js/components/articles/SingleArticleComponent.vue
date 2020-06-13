@@ -5,9 +5,9 @@
             <div class="col-lg-8">
 
                 <div class="col-lg-12">
-                    <h2 class="robot-cond-font">
+                    <h2 v-html="article.title" class="robot-cond-font">
                         {{ article.title }}
-                    </h2>   
+                    </h2>  
                 </div>
 
                 <div class="col-lg-12 mt-4">
@@ -27,15 +27,15 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 mt-4">
-                    <img :src="'/'+ article.image" class="w-100 rounded">
-                    <p class="robot-cond-font mt-2 text-muted text-center">
+                <div class="col-lg-12 mt-4 row justify-content-center">
+                    <img :src="'/storage/'+ article.image" class="w-100 rounded">
+                    <p v-html="article.title" class="robot-cond-font mt-2 text-muted text-center">
                         {{ article.title }}
                     </p>
                 </div>
 
                 <div class="robot-cond-font mt-4" id="content">
-                    <p class="robot-cond-font">
+                    <p v-html="article.description" class="robot-cond-font">
                         {{ article.description }}
                     </p>
                 </div>
@@ -56,7 +56,7 @@
 
                 <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in this.comments">
                     <div class="d-flex">
-                        <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
+                        <img :src="'/storage/'+ comment.user.image" class="avatar h-100">
                         <p class="text-dark robot-font ml-2">
                             <small>{{ comment.user.name }}</small>
                         </p>

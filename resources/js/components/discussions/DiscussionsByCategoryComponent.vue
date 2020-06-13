@@ -2,8 +2,8 @@
     <div class="col-lg-9 mb-4 mt-2">        
         <div class="col-lg-12 border rounded p-4 mt-3" v-for="discussion in discussions">
             <div class="d-flex">
-                <img :src="'/assets/img/'+ discussion.authors.image" class="avatar">
-                <p class="robot-font text-dark ml-2">
+                <img :src="'/storage/'+ discussion.authors.image" class="avatar">
+                <p v-html="discussion.authors.name" class="robot-font text-dark ml-2">
                     <small>{{ discussion.authors.name }}</small>
                 </p>
                 <p class="text-muted robot-font ml-4">
@@ -16,7 +16,7 @@
             </div>
 
             <div class="col-lg-12 mt-4 p-3 rounded border">
-                <a :href="'/discussion/'+ discussion.id" class="text-muted robot-font">
+                <a v-html="discussion.title" :href="'/discussion/'+ discussion.id" class="text-muted robot-font">
                     {{ discussion.title }}
                 </a>
             </div>

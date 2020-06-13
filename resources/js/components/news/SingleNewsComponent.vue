@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="col-lg-12 mt-4">
-                    <img :src="'/'+ news.image" class="w-100 rounded">
+                    <img :src="'/storage/'+ news.image" class="w-100 rounded">
                     <h5 v-html="'<small>'+ news.title +'</small>'" class="robot-cond-font text-muted text-center mt-2 font-weight-bold">
                         <small>{{ news.title }}</small>
                     </h5>
@@ -54,7 +54,7 @@
 
                 <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in this.comments">
                     <div class="d-flex">
-                        <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
+                        <img :src="'/storage/'+ comment.user.image" class="avatar h-100">
                         <p class="text-dark robot-font ml-2">
                             <small>{{ comment.user.name }}</small>
                         </p>

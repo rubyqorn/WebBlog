@@ -2,7 +2,7 @@
     <div class="col-lg-12 p-0 m-0" id="new-news-comments" v-if="comments">
         <div class="col-lg-12 border rounded p-3 mt-4" v-for="comment in comments">
             <div class="d-flex">
-                <img :src="'/assets/img/'+ comment.user.image" class="avatar h-100">
+                <img :src="'/storage/'+ comment.user.image" class="avatar h-100">
                 <p class="text-dark robot-font ml-2">
                     <small>{{ comment.user.name }}</small>
                 </p>

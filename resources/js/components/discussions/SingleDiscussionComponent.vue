@@ -5,7 +5,7 @@
             <div class="col-lg-8 mt-4" v-for="item in discussion">
                 <div class="row">
                     <div class="col-lg-7 d-flex h-100">
-                        <img :src="'/assets/img/'+ item.authors.image" class="avatar h-100">
+                        <img :src="'/storage/'+ item.authors.image" class="avatar h-100">
                         <p class="text-dark robot-font ml-2">
                             <small>
                                 {{ item.authors.name }}
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="col-lg-12 bg-white shadow p-4 rouded">
-                    <h3 class="text-dark robot-font font-weight-bold">
+                    <h3 v-html="item.title" class="text-dark robot-font font-weight-bold">
                         {{ item.title }}
                     </h3>
                     <p class="badge badge-pill badge-dark robot-font">
@@ -33,10 +33,10 @@
 
                     <div class="col-lg-12" v-if="item.image">
                         <a role="button" class="border-bottom mt-4" data-toggle="modal" data-target="#image">
-                            <img :src="'/'+ item.image" class="w-100 rounded">
+                            <img :src="'/storage/'+ item.image" class="w-100 rounded">
                         </a>
 
-                        <p class="text-dark robot-cond-font mt-4">
+                        <p v-html="item.description" class="text-dark robot-cond-font mt-4">
                             {{ item.description }}
                         </p>
 
@@ -44,7 +44,7 @@
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <img :src="'/'+ item.image" class="w-100 rounded">
+                                        <img :src="'/storage/'+ item.image" class="w-100 rounded">
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="col-lg-12 border-top mt-4" v-else>
-                        <p class="text-dark robot-font mt-2">
+                        <p v-html="item.description" class="text-dark robot-font mt-2">
                             {{ item.description }}
                         </p>
                     </div>
@@ -72,7 +72,7 @@
                             <div class="row">
 
                                 <div class="col-lg-9 d-flex h-100">
-                                    <img :src="'/assets/img/'+ answer.user.image" class="avatar h-100">
+                                    <img :src="'/storage/'+ answer.user.image" class="avatar h-100">
                                     <p class="text-dark robot-font ml-2">
                                         <small>{{ answer.user.name }}</small>
                                     </p>
@@ -86,7 +86,7 @@
                             </div>
 
                             <div class="col-lg-12 p-2">
-                                <p class="text-dark robot-cond-font">
+                                <p v-html="answer.answer" class="text-dark robot-cond-font">
                                     {{ answer.answer }}
                                 </p>
                             </div>
@@ -119,10 +119,6 @@
                             </form>
                         </div>
                         
-                        <toast-component
-                            :message="message"
-                        ></toast-component>
-                        
                     </div>
                 </div>
 
@@ -136,13 +132,17 @@
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item" v-for="discussion in this.lastDiscussions">
-                                <a :href="'/discussion/'+ discussion.id" class="robot-font text-dark">
+                                <a v-html="discussion.title" :href="'/discussion/'+ discussion.id" class="robot-font text-dark">
                                     {{ stringTriming(discussion.title) }}
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
+
+                <toast-component
+                    :message="message"
+                ></toast-component>
             </div>
 
         </div>

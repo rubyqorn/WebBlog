@@ -5,12 +5,12 @@
             <p class="robot-font text-success">
                 # {{ category }}
             </p>
-            <a :href="this.route" class="text-white robot-font ml-3">
+            <a v-html="title" :href="this.route" class="text-white robot-font">
                 {{ title }}
             </a>
 
             <div class="d-flex mt-4">
-                <div class="col-lg-8">
+                <div class="col-lg-8 p-0">
                     <p class="robot-font text-white">
                         Автор: {{ author }}
                     </p>

@@ -18,13 +18,16 @@ Route::get('/', 'IndexController@showPage')
 Route::get('/news', 'NewsController@showPage')
 	->name('news');
 
-Route::get('/json-news', 'NewsController@news');
+Route::get('/json-news', 'NewsController@news')
+	->name('json.news')
+	->middleware(['auth', 'role']);
 
 Route::get('/news/{id}', 'NewsController@newsById')
 	->name('singleNews');
 
 Route::get('/news/{id}/comments', 'NewsCommentsController@comments')
-	->name('newsComments');
+	->name('newsComments')
+	->middleware(['auth', 'role']);
 
 Route::post('/news/{id}/comments', 'NewsCommentsController@storeComment')
 	->name('storeNewsComment')
@@ -44,13 +47,16 @@ Route::post('/news/search', 'NewsController@search')
 Route::get('/articles', 'ArticlesController@showPage')
 	->name('articles');
 
-Route::get('json-articles', 'ArticlesController@articles');
+Route::get('json-articles', 'ArticlesController@articles')
+	->name('json.articles')
+	->middleware(['role', 'auth']);
 
 Route::get('/article/{id}', 'ArticlesController@articleById')
 	->name('singleArticle');
 
 Route::get('/article/{id}/comments', 'ArticlesCommentsController@comments')
-	->name('articleComments');
+	->name('articleComments')
+	->middleware(['auth', 'role']);
 
 Route::post('/article/{id}/comments', 'ArticlesCommentsController@storeComment')
 	->name('storeArticleComment')
@@ -74,13 +80,16 @@ Route::post('/discussions', 'DiscussionsController@askQuestion')
 	->name('askQuestion')
 	->middleware('auth');
 
-Route::get('json-discussions', 'DiscussionsController@discussions');
+Route::get('json-discussions', 'DiscussionsController@discussions')
+	->name('json.discussions')
+	->middleware(['role', 'auth']);
 
 Route::get('/discussion/{id}', 'DiscussionsController@discussionById')
 	->name('singleDiscussion');
 
 Route::get('/discussion/{id}/answers', 'AnswersController@answers')
-	->name('discussionsAnswers');
+	->name('discussionsAnswers')
+	->middleware(['auth', 'role']);
 
 Route::post('/discussion/{id}/answers', 'AnswersController@storeAnswers')
 	->name('storeDiscussionsAnswers')
@@ -91,7 +100,8 @@ Route::get('/last-answers/discussions/', 'AnswersController@latestAnswer')
 	->middleware(['auth', 'role']);
 
 Route::get('/discussions/last-discussions', 'DiscussionsController@lastDiscussions')
-	->name('lastDiscussionsList');
+	->name('lastDiscussionsList')
+	->middleware(['auth', 'role']);
 
 Route::get('/discussions-categories/{id}', 'DiscussionsController@discussionsByCategory')
 	->name('discussionsCategories');
