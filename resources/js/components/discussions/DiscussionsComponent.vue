@@ -17,7 +17,7 @@
         <div class="col-lg-12 h-100">
             <div class="col-lg-12 border rounded p-3 mt-4" v-for="discussion in discussions.data">
                 <div class="d-flex">
-                    <img :src="'assets/img/' + discussion.authors.image" class="avatar h-100">
+                    <img :src="'/storage/' + discussion.authors.image" class="avatar h-100">
                     <p class="robot-font ml-2">
                         <small>{{ discussion.authors.name }}</small>
                     </p>
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-lg-12 mt-4 border rounded p-3">
-                    <a :href="'/discussion/'+ discussion.id" class="text-muted robot-font">
+                    <a  v-html="discussion.title" :href="'/discussion/'+ discussion.id" class="text-muted robot-font">
                         {{ discussion.title }}
                     </a>
                 </div>
@@ -55,9 +55,9 @@
                 </div>
             </div>
 
-        <div class="col-lg-12 mt-4">
-            <pagination :data="discussions" @pagination-change-page="getDiscussions"></pagination>
-        </div>
+            <div class="col-lg-12 mt-4">
+                <pagination :data="discussions" @pagination-change-page="getDiscussions"></pagination>
+            </div>
         </div>
     </div>
 </template>

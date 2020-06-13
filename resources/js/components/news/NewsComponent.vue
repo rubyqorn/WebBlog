@@ -4,7 +4,7 @@
 
             <div class="col-lg-5 h-100 mr-1 ml-1 mt-3 mb-4 border rounded shadow" v-for="news in news.data">
                 <a :href="`${'/news/' + news.id}`" class="article-img">
-                    <img class="w-100 shadow rounded m-1" :src="`${ news.image }`"
+                    <img class="w-100 shadow rounded m-1" :src="'/storage/'+news.image"
                         @mouseover="hover($event)"
                         @mouseout="unHover()"
                     >

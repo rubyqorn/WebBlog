@@ -7,20 +7,20 @@
 
                     <div class="col-lg-7">
                         <a :href="'/article/' + lastArticle.id">
-                            <img :src="'/' + this.lastArticle.image" class="preview-img rounded shadow w-100">
+                            <img :src="'/storage/' + this.lastArticle.image" class="preview-img rounded shadow w-100">
                         </a>
                     </div>
 
                     <div class="col-lg-5 mt-4 p-3">
-                        <a :href="'/article/' + lastArticle.id" class="h6 mb-3 robot-font text-dark">
+                        <a v-html="lastArticle.title" :href="'/article/' + lastArticle.id" class="h6 mb-3 robot-font text-dark">
                             # {{ lastArticle.title }}
                         </a>
-                        <p class="text-muted robot-font p-2">
-                            <small>{{ this.stringTriming(lastArticle.description) }}</small>
+                        <p v-html="stringTriming(lastArticle.description)" class="text-muted robot-font p-2">
+                            <small>{{ stringTriming(lastArticle.description) }}</small>
                         </p>
                         <div class="row">
                             <div class="d-flex pl-4">
-                                <img :src="'/assets/img/' + lastArticle.author.image" class="avatar">
+                                <img :src="'/storage/' + lastArticle.author.image" class="avatar h-100">
                                 <p class="robot-font text-dark ml-3">
                                     <small>{{ lastArticle.author.name }}</small>
                                 </p>

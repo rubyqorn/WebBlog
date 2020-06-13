@@ -17,7 +17,7 @@
             <tbody class="robot-font">
                 <tr v-for="user in this.users.data">
                     <td class="font-weight-bold">{{ user.id }}</td>
-                    <td><img :src="'/assets/img/'+ user.image" class="avatar"></td>
+                    <td><img :src="'/storage/'+ user.image" class="avatar"></td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.roles.name }}</td>

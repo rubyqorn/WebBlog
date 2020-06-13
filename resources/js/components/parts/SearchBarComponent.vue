@@ -21,8 +21,8 @@
             </div>
 
             <div class="col-lg-5 ml-1 mr-1 mb-4 h-100 border rounded border p-2" v-for="item in items.data">
-                <a :href="`${link + item.id}`" class="article-img">
-                    <img class="w-100 shadow rounded m-1" :src="'/'+ item.image"
+                <a :href="link + item.id" class="article-img">
+                    <img class="w-100 shadow rounded m-1" :src="'/storage/'+ item.image"
                         @mouseover="hover($event)"
                         @mouseout="unhover()"
                     >
@@ -32,7 +32,7 @@
                     <small>{{ dateFormating(item.created_at) }}</small>
                 </p>
                 <div class="text-center mb-2">
-                    <a :href="`${ link + item.id }`" class="text-dark robot-font">
+                    <a v-html="item.title" :href="link + item.id" class="text-dark robot-font">
                         {{ item.title }}
                     </a>
                 </div>

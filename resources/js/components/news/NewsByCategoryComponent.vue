@@ -7,20 +7,20 @@
                 
                     <div class="col-lg-7">
                         <a :href="'/news/'+ lastNews.id">
-                            <img :src="'/'+ lastNews.image" class="w-100 rounded shadow preview-img">
+                            <img :src="'/storage/'+ lastNews.image" class="w-100 rounded shadow preview-img">
                         </a>
                     </div>
 
                     <div class="col-lg-5 mt-4">
-                        <a :href="'/news/'+ lastNews.id" class="h6 mb-4 robot-font text-dark">
+                        <a v-html="lastNews.title" :href="'/news/'+ lastNews.id" class="h6 mb-4 robot-font text-dark">
                             # {{ lastNews.title }}
                         </a>
-                        <p class="text-muted robot-font">
-                            <small>{{ this.stringTriming(lastNews.description) }}</small>
+                        <p  v-html="stringTriming(lastNews.description)" class="text-muted robot-font">
+                            <small>{{ stringTriming(lastNews.description) }}</small>
                         </p>
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 p-0">
                             <p class="text-muted robot-font">
-                                <small>{{ this.dateFormating(lastNews.created_at) }}</small>
+                                <small>{{ dateFormating(lastNews.created_at) }}</small>
                             </p>
                         </div>
                     </div>
@@ -33,10 +33,10 @@
 
                     <div class="col-lg-5 rounded shadow bg-white border ml-2 p-3" v-for="item in news">
                         <a :href="'/news/'+ item.id">
-                            <img :src="'/' + item.image" class="w-100 shadow rounded preview-img">
+                            <img :src="'/storage/' + item.image" class="w-100 shadow rounded preview-img">
                         </a>
-                        <div class="mt-4">
-                            <p class="text-dark robot-font">
+                        <div class="mt-4 text-center">
+                            <p v-html="item.title" class="text-dark robot-font">
                                 # {{ item.title }}
                             </p>
                         </div>

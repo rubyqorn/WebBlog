@@ -45429,14 +45429,15 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "text-white robot-font ml-3",
-            attrs: { href: this.route }
+            staticClass: "text-white robot-font",
+            attrs: { href: this.route },
+            domProps: { innerHTML: _vm._s(_vm.title) }
           },
           [_vm._v("\n            " + _vm._s(_vm.title) + "\n        ")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "d-flex mt-4" }, [
-          _c("div", { staticClass: "col-lg-8" }, [
+          _c("div", { staticClass: "col-lg-8 p-0" }, [
             _c("p", { staticClass: "robot-font text-white" }, [
               _vm._v(
                 "\n                    Автор: " +
@@ -48137,7 +48138,7 @@ var render = function() {
                 _c("td", [
                   _c("img", {
                     staticClass: "avatar",
-                    attrs: { src: "/assets/img/" + user.image }
+                    attrs: { src: "/storage/" + user.image }
                   })
                 ]),
                 _vm._v(" "),
@@ -54057,7 +54058,7 @@ var render = function() {
                 _c("a", { attrs: { href: "/article/" + _vm.lastArticle.id } }, [
                   _c("img", {
                     staticClass: "preview-img rounded shadow w-100",
-                    attrs: { src: "/" + this.lastArticle.image }
+                    attrs: { src: "/storage/" + this.lastArticle.image }
                   })
                 ])
               ]),
@@ -54067,7 +54068,8 @@ var render = function() {
                   "a",
                   {
                     staticClass: "h6 mb-3 robot-font text-dark",
-                    attrs: { href: "/article/" + _vm.lastArticle.id }
+                    attrs: { href: "/article/" + _vm.lastArticle.id },
+                    domProps: { innerHTML: _vm._s(_vm.lastArticle.title) }
                   },
                   [
                     _vm._v(
@@ -54078,21 +54080,30 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-muted robot-font p-2" }, [
-                  _c("small", [
-                    _vm._v(
-                      _vm._s(this.stringTriming(_vm.lastArticle.description))
-                    )
-                  ])
-                ]),
+                _c(
+                  "p",
+                  {
+                    staticClass: "text-muted robot-font p-2",
+                    domProps: {
+                      innerHTML: _vm._s(
+                        _vm.stringTriming(_vm.lastArticle.description)
+                      )
+                    }
+                  },
+                  [
+                    _c("small", [
+                      _vm._v(
+                        _vm._s(_vm.stringTriming(_vm.lastArticle.description))
+                      )
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "d-flex pl-4" }, [
                     _c("img", {
-                      staticClass: "avatar",
-                      attrs: {
-                        src: "/assets/img/" + _vm.lastArticle.author.image
-                      }
+                      staticClass: "avatar h-100",
+                      attrs: { src: "/storage/" + _vm.lastArticle.author.image }
                     }),
                     _vm._v(" "),
                     _c("p", { staticClass: "robot-font text-dark ml-3" }, [
@@ -54233,12 +54244,12 @@ var render = function() {
                   "a",
                   {
                     staticClass: "article-img",
-                    attrs: { href: "" + ("/article/" + article.id) }
+                    attrs: { href: "/article/" + article.id }
                   },
                   [
                     _c("img", {
                       staticClass: "w-100 shadow rounded m-1",
-                      attrs: { src: "" + article.image },
+                      attrs: { src: "/storage/" + article.image },
                       on: {
                         mouseover: function($event) {
                           return _vm.hover($event)
@@ -54262,7 +54273,8 @@ var render = function() {
                     "a",
                     {
                       staticClass: "text-dark robot-font",
-                      attrs: { href: "" + ("/article/" + article.id) }
+                      attrs: { href: "/article/" + article.id },
+                      domProps: { innerHTML: _vm._s(article.title) }
                     },
                     [
                       _vm._v(
@@ -54357,13 +54369,20 @@ var render = function() {
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-lg-8" }, [
           _c("div", { staticClass: "col-lg-12" }, [
-            _c("h2", { staticClass: "robot-cond-font" }, [
-              _vm._v(
-                "\n                    " +
-                  _vm._s(_vm.article.title) +
-                  "\n                "
-              )
-            ])
+            _c(
+              "h2",
+              {
+                staticClass: "robot-cond-font",
+                domProps: { innerHTML: _vm._s(_vm.article.title) }
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.article.title) +
+                    "\n                "
+                )
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-lg-12 mt-4" }, [
@@ -54398,36 +54417,50 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-lg-12 mt-4" }, [
-            _c("img", {
-              staticClass: "w-100 rounded",
-              attrs: { src: "/" + _vm.article.image }
-            }),
-            _vm._v(" "),
-            _c(
-              "p",
-              { staticClass: "robot-cond-font mt-2 text-muted text-center" },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.article.title) +
-                    "\n                "
-                )
-              ]
-            )
-          ]),
+          _c(
+            "div",
+            { staticClass: "col-lg-12 mt-4 row justify-content-center" },
+            [
+              _c("img", {
+                staticClass: "w-100 rounded",
+                attrs: { src: "/storage/" + _vm.article.image }
+              }),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "robot-cond-font mt-2 text-muted text-center",
+                  domProps: { innerHTML: _vm._s(_vm.article.title) }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.article.title) +
+                      "\n                "
+                  )
+                ]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "robot-cond-font mt-4", attrs: { id: "content" } },
             [
-              _c("p", { staticClass: "robot-cond-font" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(_vm.article.description) +
-                    "\n                "
-                )
-              ])
+              _c(
+                "p",
+                {
+                  staticClass: "robot-cond-font",
+                  domProps: { innerHTML: _vm._s(_vm.article.description) }
+                },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.article.description) +
+                      "\n                "
+                  )
+                ]
+              )
             ]
           )
         ]),
@@ -54448,7 +54481,7 @@ var render = function() {
                   _c("div", { staticClass: "d-flex" }, [
                     _c("img", {
                       staticClass: "avatar h-100",
-                      attrs: { src: "/assets/img/" + comment.user.image }
+                      attrs: { src: "/storage/" + comment.user.image }
                     }),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-dark robot-font ml-2" }, [
@@ -55877,12 +55910,17 @@ var render = function() {
         _c("div", { staticClass: "d-flex" }, [
           _c("img", {
             staticClass: "avatar",
-            attrs: { src: "/assets/img/" + discussion.authors.image }
+            attrs: { src: "/storage/" + discussion.authors.image }
           }),
           _vm._v(" "),
-          _c("p", { staticClass: "robot-font text-dark ml-2" }, [
-            _c("small", [_vm._v(_vm._s(discussion.authors.name))])
-          ]),
+          _c(
+            "p",
+            {
+              staticClass: "robot-font text-dark ml-2",
+              domProps: { innerHTML: _vm._s(discussion.authors.name) }
+            },
+            [_c("small", [_vm._v(_vm._s(discussion.authors.name))])]
+          ),
           _vm._v(" "),
           _c("p", { staticClass: "text-muted robot-font ml-4" }, [
             _c("small", [
@@ -55905,7 +55943,8 @@ var render = function() {
             "a",
             {
               staticClass: "text-muted robot-font",
-              attrs: { href: "/discussion/" + discussion.id }
+              attrs: { href: "/discussion/" + discussion.id },
+              domProps: { innerHTML: _vm._s(discussion.title) }
             },
             [
               _vm._v(
@@ -56019,7 +56058,7 @@ var render = function() {
               _c("div", { staticClass: "d-flex" }, [
                 _c("img", {
                   staticClass: "avatar h-100",
-                  attrs: { src: "assets/img/" + discussion.authors.image }
+                  attrs: { src: "/storage/" + discussion.authors.image }
                 }),
                 _vm._v(" "),
                 _c("p", { staticClass: "robot-font ml-2" }, [
@@ -56048,7 +56087,8 @@ var render = function() {
                   "a",
                   {
                     staticClass: "text-muted robot-font",
-                    attrs: { href: "/discussion/" + discussion.id }
+                    attrs: { href: "/discussion/" + discussion.id },
+                    domProps: { innerHTML: _vm._s(discussion.title) }
                   },
                   [
                     _vm._v(
@@ -56180,7 +56220,7 @@ var render = function() {
                 _c("div", { staticClass: "col-lg-7 d-flex h-100" }, [
                   _c("img", {
                     staticClass: "avatar h-100",
-                    attrs: { src: "/assets/img/" + item.authors.image }
+                    attrs: { src: "/storage/" + item.authors.image }
                   }),
                   _vm._v(" "),
                   _c("p", { staticClass: "text-dark robot-font ml-2" }, [
@@ -56213,7 +56253,10 @@ var render = function() {
                 [
                   _c(
                     "h3",
-                    { staticClass: "text-dark robot-font font-weight-bold" },
+                    {
+                      staticClass: "text-dark robot-font font-weight-bold",
+                      domProps: { innerHTML: _vm._s(item.title) }
+                    },
                     [
                       _vm._v(
                         "\n                    " +
@@ -56252,14 +56295,17 @@ var render = function() {
                           [
                             _c("img", {
                               staticClass: "w-100 rounded",
-                              attrs: { src: "/" + item.image }
+                              attrs: { src: "/storage/" + item.image }
                             })
                           ]
                         ),
                         _vm._v(" "),
                         _c(
                           "p",
-                          { staticClass: "text-dark robot-cond-font mt-4" },
+                          {
+                            staticClass: "text-dark robot-cond-font mt-4",
+                            domProps: { innerHTML: _vm._s(item.description) }
+                          },
                           [
                             _vm._v(
                               "\n                        " +
@@ -56284,7 +56330,7 @@ var render = function() {
                                   _c("div", { staticClass: "modal-body" }, [
                                     _c("img", {
                                       staticClass: "w-100 rounded",
-                                      attrs: { src: "/" + item.image }
+                                      attrs: { src: "/storage/" + item.image }
                                     })
                                   ])
                                 ])
@@ -56294,13 +56340,20 @@ var render = function() {
                         )
                       ])
                     : _c("div", { staticClass: "col-lg-12 border-top mt-4" }, [
-                        _c("p", { staticClass: "text-dark robot-font mt-2" }, [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(item.description) +
-                              "\n                    "
-                          )
-                        ])
+                        _c(
+                          "p",
+                          {
+                            staticClass: "text-dark robot-font mt-2",
+                            domProps: { innerHTML: _vm._s(item.description) }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(item.description) +
+                                "\n                    "
+                            )
+                          ]
+                        )
                       ]),
                   _vm._v(" "),
                   _c(
@@ -56329,7 +56382,7 @@ var render = function() {
                                   _c("img", {
                                     staticClass: "avatar h-100",
                                     attrs: {
-                                      src: "/assets/img/" + answer.user.image
+                                      src: "/storage/" + answer.user.image
                                     }
                                   }),
                                   _vm._v(" "),
@@ -56370,7 +56423,10 @@ var render = function() {
                             _c("div", { staticClass: "col-lg-12 p-2" }, [
                               _c(
                                 "p",
-                                { staticClass: "text-dark robot-cond-font" },
+                                {
+                                  staticClass: "text-dark robot-cond-font",
+                                  domProps: { innerHTML: _vm._s(answer.answer) }
+                                },
                                 [
                                   _vm._v(
                                     "\n                                " +
@@ -56425,9 +56481,7 @@ var render = function() {
                             ])
                           ]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("toast-component", { attrs: { message: _vm.message } })
+                      ])
                     ],
                     2
                   )
@@ -56457,7 +56511,8 @@ var render = function() {
                           "a",
                           {
                             staticClass: "robot-font text-dark",
-                            attrs: { href: "/discussion/" + discussion.id }
+                            attrs: { href: "/discussion/" + discussion.id },
+                            domProps: { innerHTML: _vm._s(discussion.title) }
                           },
                           [
                             _vm._v(
@@ -56472,8 +56527,11 @@ var render = function() {
                     0
                   )
                 ])
-              ])
-            ]
+              ]),
+              _vm._v(" "),
+              _c("toast-component", { attrs: { message: _vm.message } })
+            ],
+            1
           )
         ],
         2
@@ -56567,7 +56625,7 @@ var render = function() {
                     _c("a", { attrs: { href: "/news/" + _vm.lastNews.id } }, [
                       _c("img", {
                         staticClass: "w-100 rounded shadow preview-img",
-                        attrs: { src: "/" + _vm.lastNews.image }
+                        attrs: { src: "/storage/" + _vm.lastNews.image }
                       })
                     ])
                   ]),
@@ -56577,7 +56635,8 @@ var render = function() {
                       "a",
                       {
                         staticClass: "h6 mb-4 robot-font text-dark",
-                        attrs: { href: "/news/" + _vm.lastNews.id }
+                        attrs: { href: "/news/" + _vm.lastNews.id },
+                        domProps: { innerHTML: _vm._s(_vm.lastNews.title) }
                       },
                       [
                         _vm._v(
@@ -56588,19 +56647,30 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _c("p", { staticClass: "text-muted robot-font" }, [
-                      _c("small", [
-                        _vm._v(
-                          _vm._s(this.stringTriming(_vm.lastNews.description))
-                        )
-                      ])
-                    ]),
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-muted robot-font",
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.stringTriming(_vm.lastNews.description)
+                          )
+                        }
+                      },
+                      [
+                        _c("small", [
+                          _vm._v(
+                            _vm._s(_vm.stringTriming(_vm.lastNews.description))
+                          )
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "col-lg-12" }, [
+                    _c("div", { staticClass: "col-lg-12 p-0" }, [
                       _c("p", { staticClass: "text-muted robot-font" }, [
                         _c("small", [
                           _vm._v(
-                            _vm._s(this.dateFormating(_vm.lastNews.created_at))
+                            _vm._s(_vm.dateFormating(_vm.lastNews.created_at))
                           )
                         ])
                       ])
@@ -56626,18 +56696,25 @@ var render = function() {
                   _c("a", { attrs: { href: "/news/" + item.id } }, [
                     _c("img", {
                       staticClass: "w-100 shadow rounded preview-img",
-                      attrs: { src: "/" + item.image }
+                      attrs: { src: "/storage/" + item.image }
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "mt-4" }, [
-                    _c("p", { staticClass: "text-dark robot-font" }, [
-                      _vm._v(
-                        "\n                            # " +
-                          _vm._s(item.title) +
-                          "\n                        "
-                      )
-                    ])
+                  _c("div", { staticClass: "mt-4 text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-dark robot-font",
+                        domProps: { innerHTML: _vm._s(item.title) }
+                      },
+                      [
+                        _vm._v(
+                          "\n                            # " +
+                            _vm._s(item.title) +
+                            "\n                        "
+                        )
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
@@ -56726,7 +56803,7 @@ var render = function() {
                   [
                     _c("img", {
                       staticClass: "w-100 shadow rounded m-1",
-                      attrs: { src: "" + news.image },
+                      attrs: { src: "/storage/" + news.image },
                       on: {
                         mouseover: function($event) {
                           return _vm.hover($event)
@@ -56894,7 +56971,7 @@ var render = function() {
           _c("div", { staticClass: "col-lg-12 mt-4" }, [
             _c("img", {
               staticClass: "w-100 rounded",
-              attrs: { src: "/" + _vm.news.image }
+              attrs: { src: "/storage/" + _vm.news.image }
             }),
             _vm._v(" "),
             _c(
@@ -56943,7 +57020,7 @@ var render = function() {
                   _c("div", { staticClass: "d-flex" }, [
                     _c("img", {
                       staticClass: "avatar h-100",
-                      attrs: { src: "/assets/img/" + comment.user.image }
+                      attrs: { src: "/storage/" + comment.user.image }
                     }),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-dark robot-font ml-2" }, [
@@ -57431,7 +57508,7 @@ var render = function() {
             _c("div", { staticClass: "d-flex" }, [
               _c("img", {
                 staticClass: "avatar h-100",
-                attrs: { src: "/assets/img/" + answer.user.image }
+                attrs: { src: "/storage/" + answer.user.image }
               }),
               _vm._v(" "),
               _c("p", { staticClass: "text-dark robot-font ml-2" }, [
@@ -57501,7 +57578,7 @@ var render = function() {
               _c("div", { staticClass: "d-flex" }, [
                 _c("img", {
                   staticClass: "avatar h-100",
-                  attrs: { src: "/assets/img/" + comment.user.image }
+                  attrs: { src: "/storage/" + comment.user.image }
                 }),
                 _vm._v(" "),
                 _c("p", { staticClass: "text-dark robot-font ml-2" }, [
@@ -57632,12 +57709,12 @@ var render = function() {
                 "a",
                 {
                   staticClass: "article-img",
-                  attrs: { href: "" + (_vm.link + item.id) }
+                  attrs: { href: _vm.link + item.id }
                 },
                 [
                   _c("img", {
                     staticClass: "w-100 shadow rounded m-1",
-                    attrs: { src: "/" + item.image },
+                    attrs: { src: "/storage/" + item.image },
                     on: {
                       mouseover: function($event) {
                         return _vm.hover($event)
@@ -57661,7 +57738,8 @@ var render = function() {
                   "a",
                   {
                     staticClass: "text-dark robot-font",
-                    attrs: { href: "" + (_vm.link + item.id) }
+                    attrs: { href: _vm.link + item.id },
+                    domProps: { innerHTML: _vm._s(item.title) }
                   },
                   [
                     _vm._v(
