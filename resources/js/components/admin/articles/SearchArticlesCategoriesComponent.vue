@@ -44,12 +44,12 @@
                         {{ dateFormating(category.created_at) }}
                     </td>
                     <td>
-                        <a href="/" class="btn btn-outline-secondary btn-sm text-uppercase robot-font">
+                        <a href="#" role="button" data-toggle="modal" :data-target="'#delete-'+category.category_id" class="btn btn-outline-secondary btn-sm text-uppercase robot-font">
                             <small>Delete</small>
                         </a>
                     </td>
                     <td>
-                        <a href="/" class="btn btn-outline-dark btn-sm text-uppercase robot-font">
+                        <a :href="'/dashboard/articles/categories/'+category.category_id+'/edit'" class="btn btn-outline-dark btn-sm text-uppercase robot-font">
                             <small>Update</small>
                         </a>
                     </td>
@@ -67,6 +67,36 @@
             </tfoot>
         </table>
 
+        <div class="modal fade show" :id="'delete-'+category.category_id" v-for="category in this.categories.data">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="text-muted robot-font">
+                            Delete record with {{ category.category_id }} id
+                        </span>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="text-danger font-weight-bold robot-font">
+                            Are you sure you want delete record with {{ category.category_id }} id ???
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form :action="'/dashboard/articles/categories/'+category.category_id+'/delete'" method="post" id="delete-articles-category">
+                            <div class="form-group">
+                                <button data-dismiss="modal" class="btn btn-sm btn-dark text-uppercase robot-font">
+                                    <small>No</small>
+                                </button>
+
+                                <button @click.prevent="deleteCategory" class="btn btn-sm btn-danger text-uppercase robot-font text-uppercase">
+                                    <small>Yes</small>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row justify-content-end p-3" id="articles-categories-pagination">
             <pagination :data="this.categories" @pagination-change-page="this.getCategories"></pagination>
         </div>
@@ -80,7 +110,8 @@
         ],
         data: function() {
             return {
-                categories: {}
+                categories: {},
+                response: {}
             }
         },
         methods: {
@@ -130,6 +161,27 @@
                     '#dashboard #search-articles-categories-form #search-content'
                 ).classList
                  .remove('d-none');
+            },
+
+            sendRequest(uri) {
+                axios.post(uri).then(data => {
+                    this.response = data.data;
+
+                    if (this.response.status_code == '200') {
+                        this.message = this.response.message;
+                    }
+                })
+            },
+
+            deleteCategory() {
+                let uri = document.querySelector(
+                    '#dashboard #articles-categories #delete-articles-category'
+                ).getAttribute('action');
+
+                this.sendRequest(uri);
+
+                $('#dashboard #articles-categories .modal').modal('hide');
+                $('#toast-container #toast').toast('show');
             }
         }
     }

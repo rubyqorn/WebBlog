@@ -30,7 +30,7 @@
             return { links: [
                 {link: "/", name: "Главная", icon: "fa-home"},
                 {link: "/news", name: "Новости", icon: "fa-newspaper"},
-                {link: "/articles", name: "Статьи", icon: "fa-file"},
+                {link: "/articles", name: "Статьи", icon: "fa-book"},
                 {link: "/discussions", name: "Дискуссии", icon: "fa-comments"}
             ]}
         }

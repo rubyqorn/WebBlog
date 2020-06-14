@@ -134,8 +134,6 @@
                 axios.post(uri).then(data => {
                     this.response = data.data;
 
-                    console.log(this.response);
-
                     if (this.response.status == '200') {
                         this.message = this.response.message;
                     }
