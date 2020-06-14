@@ -1808,7 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         link: "/articles",
         name: "Статьи",
-        icon: "fa-file"
+        icon: "fa-book"
       }, {
         link: "/discussions",
         name: "Дискуссии",
@@ -2106,7 +2106,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     trimStr: function trimStr(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return str += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -2991,11 +2991,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      categories: {}
+      categories: {},
+      response: {}
     };
   },
   methods: {
@@ -3029,6 +3060,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSearchedArticles: function showSearchedArticles() {
       return document.querySelector('#dashboard #search-articles-categories-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteCategory: function deleteCategory() {
+      var uri = document.querySelector('#dashboard #articles-categories #delete-articles-category').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #articles-categories .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -3116,16 +3164,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      comments: {}
+      comments: {},
+      response: {}
     };
   },
   methods: {
     trimStr: function trimStr(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -3158,6 +3237,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSearchedResult: function showSearchedResult() {
       return document.querySelector('#dashboard #search-articles-comments-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteComment: function deleteComment() {
+      var uri = document.querySelector('#dashboard #articles-comments #delete-articles-comments').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #articles-comments .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -3245,16 +3341,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      articles: {}
+      articles: {},
+      response: {}
     };
   },
   methods: {
     trimString: function trimString(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -3287,6 +3414,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSearchedArticles: function showSearchedArticles() {
       return document.querySelector('#dashboard #search-articles-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteArticle: function deleteArticle() {
+      var uri = document.querySelector('#dashboard #articles-table #delete-articles').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #articles-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -4675,16 +4819,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      answers: {}
+      answers: {},
+      response: {}
     };
   },
   methods: {
     trimStr: function trimStr(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -4717,6 +4892,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResult: function showResult() {
       return document.querySelector('#dashboard #search-discussions-answers-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteAnswer: function deleteAnswer() {
+      var uri = document.querySelector('#dashboard #discussions-answers #delete-discussions-answers').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #discussions-answers .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -4807,11 +4999,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      categories: {}
+      categories: {},
+      response: {}
     };
   },
   methods: {
@@ -4845,6 +5069,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResult: function showResult() {
       return document.querySelector('#dashboard #search-discussions-categories-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteCategory: function deleteCategory() {
+      var uri = document.querySelector('#dashboard #discussions-categories-table #delete-discussions-category').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #discussions-categories-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -4932,11 +5173,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      discussions: {}
+      discussions: {},
+      response: {}
     };
   },
   methods: {
@@ -4958,7 +5230,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showResult();
     },
     trimString: function trimString(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -4974,6 +5246,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResult: function showResult() {
       return document.querySelector('#dashboard #search-discussions-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteDiscussion: function deleteDiscussion() {
+      var uri = document.querySelector('#dashboard #discussions-table #delete-discussions').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #discussions-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -5723,7 +6012,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post(uri).then(function (data) {
         _this2.response = data.data;
-        console.log(_this2.response);
 
         if (_this2.response.status == '200') {
           _this2.message = _this2.response.message;
@@ -6140,11 +6428,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      categories: {}
+      categories: {},
+      response: {}
     };
   },
   methods: {
@@ -6175,13 +6495,30 @@ __webpack_require__.r(__webpack_exports__);
       return document.querySelector('#dashboard #search-news-categories-form #search-content').classList.remove('d-none');
     },
     trimString: function trimString(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm, yy');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteCategory: function deleteCategory() {
+      var uri = document.querySelector('#dashboard #news-categories-table #delete-news-category').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #news-categories-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -6269,16 +6606,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      comments: {}
+      comments: {},
+      response: {}
     };
   },
   methods: {
     trimStr: function trimStr(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
@@ -6311,6 +6679,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     showSearhedNewsComments: function showSearhedNewsComments() {
       return document.querySelector('#dashboard #search-news-comments-form #search-content').classList.remove('d-none');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status_code == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteComment: function deleteComment() {
+      var uri = document.querySelector('#dashboard #news-comments #delete-news-comment').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #news-comments .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -6397,11 +6782,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['csrf'],
   data: function data() {
     return {
-      news: {}
+      news: {},
+      response: {}
     };
   },
   methods: {
@@ -6415,7 +6831,7 @@ __webpack_require__.r(__webpack_exports__);
     search: function search() {
       var data = {
         _token: document.querySelector('#dashboard #search-news-form input[name="_token"]').value,
-        title: document.querySelector('#dashboard #search-news-form input[name="searching"]').value
+        title: document.querySelector('#search-news-form input[name="searching"]').value
       };
       this.searchNews('/dashboard/news/search', data);
       this.hideMainNewsTable();
@@ -6423,22 +6839,39 @@ __webpack_require__.r(__webpack_exports__);
       this.showSearchNewsTable();
     },
     hideMainNewsTable: function hideMainNewsTable() {
-      return document.querySelector('#dashboard #news-categories-table #table').remove();
+      return document.querySelector('#dashboard #news-table #table').remove();
     },
     hideNewsPagination: function hideNewsPagination() {
-      return document.querySelector('#dashboard #news-categories-table #news-pagination').remove();
+      return document.querySelector('#dashboard #news-table #news-pagination').remove();
     },
     showSearchNewsTable: function showSearchNewsTable() {
-      return document.querySelector('#dashboard #search-news-categories-form #search-content').classList.remove('d-none');
+      return document.querySelector('#dashboard #search-news-form #search-content').classList.remove('d-none');
     },
     trimString: function trimString(str) {
-      var trimed = str.slice(0, 50);
+      var trimed = str.slice(0, 30);
       return trimed += '...';
     },
     dateFormating: function dateFormating(date) {
       var format = __webpack_require__(/*! dateformat */ "./node_modules/dateformat/lib/dateformat.js");
 
       return format(date, 'dd mmm, yy');
+    },
+    sendRequest: function sendRequest(uri) {
+      var _this2 = this;
+
+      axios.post(uri).then(function (data) {
+        _this2.response = data.data;
+
+        if (_this2.response.status == '200') {
+          _this2.message = _this2.response.message;
+        }
+      });
+    },
+    deleteNews: function deleteNews() {
+      var uri = document.querySelector('#dashboard #news-table #delete-news').getAttribute('action');
+      this.sendRequest(uri);
+      $('#dashboard #news-table .modal').modal('hide');
+      $('#toast-container #toast').toast('show');
     }
   }
 });
@@ -47486,17 +47919,128 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-secondary btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + category.category_id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-dark btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/articles/categories/" +
+                          category.category_id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Update")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.categories.data, function(category) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + category.category_id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(category.category_id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(category.category_id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/articles/categories/" +
+                            category.category_id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-articles-category"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -47512,7 +48056,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -47563,37 +48108,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-outline-secondary btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-dark btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Update")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "tfoot",
       { staticClass: "text-white bg-warning font-weight-bold robot-font" },
@@ -47612,6 +48126,19 @@ var staticRenderFns = [
           _c("th", [_vm._v("Update")])
         ])
       ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
     )
   }
 ]
@@ -47729,17 +48256,126 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(comment.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-secondary text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + comment.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-dark text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/articles/comments/" + comment.id + "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.comments.data, function(comment) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + comment.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(comment.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(comment.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/articles/comments/" +
+                            comment.id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-articles-comments"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteComment($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -47755,7 +48391,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -47804,37 +48441,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-secondary text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-outline-dark text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-secondary" }, [
       _c("tr", { staticClass: "text-white robot-font font-weight" }, [
         _c("td", [_vm._v("#")]),
@@ -47852,6 +48458,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -47965,17 +48584,123 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(article.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-info robot-font text-uppercase",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + article.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-primary robot-font text-uppercase",
+                      attrs: {
+                        href: "/dashboard/articles/" + article.id + "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.articles.data, function(article) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + article.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(article.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(article.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/articles/" + article.id + "/delete",
+                          method: "post",
+                          id: "delete-articles"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteArticle($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -47991,7 +48716,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -48040,37 +48766,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-outline-info robot-font text-uppercase",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-primary robot-font text-uppercase",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-primary" }, [
       _c("tr", { staticClass: "robot-font text-white font-weight-bold" }, [
         _c("td", [_vm._v("#")]),
@@ -48088,6 +48783,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -50399,17 +51107,128 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(answer.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-danger text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + answer.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-success text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/answers/" +
+                          answer.id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.answers.data, function(answer) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + answer.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(answer.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(answer.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/discussions/answer/" +
+                            answer.id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-discussions-answers"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteAnswer($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -50422,7 +51241,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -50471,38 +51291,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-danger text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-success text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-violet" }, [
       _c("tr", { staticClass: "robot-font font-weight-bold text-white" }, [
         _c("td", [_vm._v("#")]),
@@ -50520,6 +51308,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -50657,17 +51458,128 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-secondary btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + category.category_id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-dark btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/categories/" +
+                          category.category_id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Update")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.categories.data, function(category) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + category.category_id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(category.category_id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(category.category_id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/discussions/categories/" +
+                            category.category_id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-discussions-category"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -50680,7 +51592,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -50731,37 +51644,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-outline-secondary btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-dark btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Update")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "tfoot",
       { staticClass: "text-white bg-raspberry font-weight-bold robot-font" },
@@ -50780,6 +51662,19 @@ var staticRenderFns = [
           _c("th", [_vm._v("Update")])
         ])
       ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
     )
   }
 ]
@@ -50894,17 +51789,125 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(discussion.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-info robot-font text-uppercase",
+                      attrs: {
+                        href: "#",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + discussion.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-primary robot-font text-uppercase",
+                      attrs: {
+                        href:
+                          "/dashboard/discussions/" + discussion.id + "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.discussions.data, function(discussion) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + discussion.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(discussion.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(discussion.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/discussions/" +
+                            discussion.id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-discussions"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteDiscussion($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -50920,7 +51923,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -50969,37 +51973,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-outline-info robot-font text-uppercase",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-primary robot-font text-uppercase",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-primary" }, [
       _c("tr", { staticClass: "robot-font text-white font-weight-bold" }, [
         _c("td", [_vm._v("#")]),
@@ -51017,6 +51990,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -52912,17 +53898,128 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-secondary btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + category.category_id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-outline-dark btn-sm text-uppercase robot-font",
+                      attrs: {
+                        href:
+                          "/dashboard/news/categories/" +
+                          category.category_id +
+                          "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Update")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.categories.data, function(category) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + category.category_id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(category.category_id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(category.category_id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/news/categories/" +
+                            category.category_id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-news-category"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteCategory($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -52938,7 +54035,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -52989,37 +54087,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-outline-secondary btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-outline-dark btn-sm text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Update")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
       "tfoot",
       { staticClass: "text-white bg-warning font-weight-bold robot-font" },
@@ -53038,6 +54105,19 @@ var staticRenderFns = [
           _c("th", [_vm._v("Update")])
         ])
       ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
     )
   }
 ]
@@ -53155,17 +54235,125 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(comment.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-danger text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + comment.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-success text-uppercase robot-font",
+                      attrs: {
+                        href: "/dashboard/news/comments/" + comment.id + "/edit"
+                      }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.comments.data, function(comment) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + comment.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(comment.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(comment.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action:
+                            "/dashboard/news/comments/" +
+                            comment.id +
+                            "/delete",
+                          method: "post",
+                          id: "delete-news-comment"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteComment($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -53181,7 +54369,8 @@ var render = function() {
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -53230,38 +54419,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-danger text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-outline-success text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-dark" }, [
       _c("tr", { staticClass: "robot-font font-weight-bold text-white" }, [
         _c("td", [_vm._v("#")]),
@@ -53279,6 +54436,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true
@@ -53304,10 +54474,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "col-lg-12 mt-3",
-      attrs: { id: "search-news-categories-form" }
-    },
+    { staticClass: "col-lg-12 mt-3", attrs: { id: "search-news-form" } },
     [
       _c("div", { staticClass: "d-flex" }, [
         _vm._m(0),
@@ -53391,17 +54558,121 @@ var render = function() {
                   _vm._v(_vm._s(_vm.dateFormating(news.created_at)))
                 ]),
                 _vm._v(" "),
-                _vm._m(2, true),
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-outline-info text-uppercase robot-font",
+                      attrs: {
+                        href: "#",
+                        role: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#delete-" + news.id,
+                        id: news.id
+                      }
+                    },
+                    [_c("small", [_vm._v("Delete")])]
+                  )
+                ]),
                 _vm._v(" "),
-                _vm._m(3, true)
+                _c("td", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-sm btn-sm btn-outline-primary text-uppercase robot-font",
+                      attrs: { href: "/dashboard/news/" + news.id + "/edit" }
+                    },
+                    [_c("small", [_vm._v("Edit")])]
+                  )
+                ])
               ])
             }),
             0
           ),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]
       ),
+      _vm._v(" "),
+      _vm._l(this.news.data, function(news) {
+        return _c(
+          "div",
+          {
+            staticClass: "modal fade show",
+            attrs: { id: "delete-" + news.id }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "modal-dialog", attrs: { role: "document" } },
+              [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c("span", { staticClass: "text-muted robot-font" }, [
+                      _vm._v(
+                        "\n                        Delete record with " +
+                          _vm._s(news.id) +
+                          " id\n                    "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body text-center" }, [
+                    _c(
+                      "p",
+                      {
+                        staticClass: "text-danger font-weight-bold robot-font"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Are you sure you want delete record with " +
+                            _vm._s(news.id) +
+                            " id ???\n                    "
+                        )
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          action: "/dashboard/news/" + news.id + "/delete",
+                          method: "post",
+                          id: "delete-news"
+                        }
+                      },
+                      [
+                        _c("div", { staticClass: "form-group" }, [
+                          _vm._m(3, true),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "btn btn-sm btn-danger text-uppercase robot-font text-uppercase",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.deleteNews($event)
+                                }
+                              }
+                            },
+                            [_c("small", [_vm._v("Yes")])]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]
+            )
+          ]
+        )
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -53411,13 +54682,14 @@ var render = function() {
         },
         [
           _c("pagination", {
-            attrs: { data: this.news },
+            attrs: { data: this.data },
             on: { "pagination-change-page": this.searchNews }
           })
         ],
         1
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -53466,37 +54738,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass: "btn btn-sm btn-outline-info text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Delete")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c(
-        "a",
-        {
-          staticClass:
-            "btn btn-sm btn-sm btn-outline-primary text-uppercase robot-font",
-          attrs: { href: "/" }
-        },
-        [_c("small", [_vm._v("Edit")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("tfoot", { staticClass: "bg-dark font-weight-bold" }, [
       _c("tr", { staticClass: "robot-font text-white" }, [
         _c("td", [_vm._v("#")]),
@@ -53514,6 +54755,19 @@ var staticRenderFns = [
         _c("td", [_vm._v("Update")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-dark text-uppercase robot-font",
+        attrs: { "data-dismiss": "modal" }
+      },
+      [_c("small", [_vm._v("No")])]
+    )
   }
 ]
 render._withStripped = true

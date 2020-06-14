@@ -40,12 +40,12 @@
                     <td class="text-muted font-weight-bold">{{ article.comments_count }}</td>
                     <td class="text-muted">{{ dateFormating(article.created_at) }}</td>
                     <td>
-                        <a href="/" class="btn btn-sm btn-outline-info robot-font text-uppercase">
+                        <a href="#" role="button" data-toggle="modal" :data-target="'#delete-'+article.id" class="btn btn-sm btn-outline-info robot-font text-uppercase">
                             <small>Delete</small>
-                        </a> 
+                        </a>
                     </td>
                     <td>
-                       <a href="/" class="btn btn-sm btn-outline-primary robot-font text-uppercase">
+                       <a :href="'/dashboard/articles/'+article.id+'/edit'" class="btn btn-sm btn-outline-primary robot-font text-uppercase">
                             <small>Edit</small>
                         </a> 
                     </td>
@@ -64,6 +64,36 @@
             </tfoot>
         </table>
 
+        <div class="modal fade show" :id="'delete-'+article.id" v-for="article in this.articles.data">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="text-muted robot-font">
+                            Delete record with {{ article.id }} id
+                        </span>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p class="text-danger font-weight-bold robot-font">
+                            Are you sure you want delete record with {{ article.id }} id ???
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <form :action="'/dashboard/articles/'+article.id+'/delete'" method="post" id="delete-articles">
+                            <div class="form-group">
+                                <button data-dismiss="modal" class="btn btn-sm btn-dark text-uppercase robot-font">
+                                    <small>No</small>
+                                </button>
+
+                                <button @click.prevent="deleteArticle" class="btn btn-sm btn-danger text-uppercase robot-font text-uppercase">
+                                    <small>Yes</small>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-12 p-3 row justify-content-end" id="articles-table-pagination">
             <pagination :data="this.articles" @pagination-change-page="this.getArticles"></pagination>
         </div>
@@ -78,13 +108,14 @@
 
         data: function() {
             return {
-                articles: {}
+                articles: {},
+                response: {}
             }
         },
 
         methods: {
             trimString(str) {
-                let trimed = str.slice(0,50);
+                let trimed = str.slice(0,30);
                 return trimed += '...';
             },
 
@@ -129,6 +160,27 @@
                 return document.querySelector('#dashboard #search-articles-form #search-content')
                     .classList
                     .remove('d-none');
+            },
+
+            sendRequest(uri) {
+                axios.post(uri).then(data => {
+                    this.response = data.data;
+
+                    if (this.response.status == '200') {
+                        this.message = this.response.message;
+                    }
+                })
+            },
+
+            deleteArticle() {
+                let uri = document.querySelector(
+                    '#dashboard #articles-table #delete-articles'
+                ).getAttribute('action');
+
+                this.sendRequest(uri);
+
+                $('#dashboard #articles-table .modal').modal('hide');
+                $('#toast-container #toast').toast('show');
             }
         }
 
